@@ -1,0 +1,76 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
+@import "./variables.css";
+@import "./reset.css";
+
+@font-face {
+  font-family: "Paperlogy-7Bold";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-7Bold.woff2")
+    format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+
+html {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--primary-gray);
+  line-height: 1.75;
+}
+
+body {
+  margin: 0;
+  background-color: var(--primary-bg);
+  color: var(--primary-gray);
+}
+
+main.page-content {
+  padding-inline: var(--layout-padding-inline);
+  padding-top: calc(var(--header-height) + 2rem);
+  padding-bottom: 4rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  font-weight: var(--font-bold);
+  line-height: 1.35;
+  color: var(--primary-gray);
+  word-break: keep-all;
+}
+
+h1 {
+  font-size: var(--text-6xl);
+}
+
+h2 {
+  font-size: var(--text-5xl);
+}
+
+h3 {
+  font-size: var(--text-4xl);
+}
+
+h4 {
+  font-size: var(--text-3xl);
+}
+
+h5 {
+  font-size: var(--text-2xl);
+}
+
+h6 {
+  font-size: var(--text-xl);
+}
+
+p {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  color: var(--tertiary-gray);
+  line-height: 1.75;
+  word-break: keep-all;
+}

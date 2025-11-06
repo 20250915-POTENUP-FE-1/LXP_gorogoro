@@ -1,0 +1,123 @@
+.category-bar {
+  margin-bottom: 2.5rem;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
+}
+
+.category-bar__inner {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+}
+
+.category-bar__chip-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.category-bar__chip {
+  padding: 0.5rem 1.25rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: transparent;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--quaternary-gray);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.category-bar__chip:hover {
+  background-color: #f1f5f9;
+  color: var(--primary-gray);
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.08);
+}
+
+.category-bar__chip--active {
+  background-color: #6366f1;
+  color: #ffffff;
+  box-shadow: 0 10px 20px rgba(99, 102, 241, 0.35);
+}
+
+.category-bar__divider {
+  width: 1px;
+  height: 2.5rem;
+  background-color: #e2e8f0;
+}
+
+.category-bar__search {
+  flex: 1;
+}
+
+.category-bar__search-field {
+  position: relative;
+  display: block;
+}
+
+.category-bar__search-icon {
+  position: absolute;
+  top: 50%;
+  left: 1rem;
+  transform: translateY(-50%);
+  color: #cbd5f5;
+  pointer-events: none;
+}
+
+.category-bar__input {
+  width: 100%;
+  padding: 0.65rem 1rem 0.65rem 2.75rem;
+  border: 1px solid #cbd5f5;
+  border-radius: 0.65rem;
+  background-color: #f8fafc;
+  font-size: var(--text-sm);
+  color: var(--primary-gray);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.category-bar__input:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.category-bar__select {
+  display: flex;
+  align-items: center;
+}
+
+.category-bar__select-field {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.category-bar__dropdown {
+  appearance: none;
+  padding: 0.65rem 2.5rem 0.65rem 1rem;
+  border: 1px solid #cbd5f5;
+  border-radius: 0.65rem;
+  background-color: #f8fafc;
+  font-size: var(--text-sm);
+  color: var(--primary-gray);
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.category-bar__dropdown:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.category-bar__select-icon {
+  position: absolute;
+  right: 0.75rem;
+  font-size: 1.3rem;
+  color: #94a3b8;
+  pointer-events: none;
+}
