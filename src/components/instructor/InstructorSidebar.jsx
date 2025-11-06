@@ -17,9 +17,6 @@ function InstructorSidebar() {
         <Link className="instructor-sidebar__nav-item" to="courses">
           대시보드
         </Link>
-        <Link className="instructor-sidebar__nav-item" to="courses/:id/edit">
-          강좌 수정하기
-        </Link>
         <Link className="instructor-sidebar__nav-item" to="courses/create">
           새 강좌 만들기
         </Link>
