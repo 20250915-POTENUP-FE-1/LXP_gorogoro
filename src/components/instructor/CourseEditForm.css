@@ -1,0 +1,160 @@
+.course-edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.course-edit-form__group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.course-edit-form__group--inline {
+  flex-direction: row;
+}
+
+.course-edit-form__group--grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.course-edit-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  width: 100%;
+}
+
+.course-edit-form__label {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--secondary-gray);
+}
+
+.course-edit-form__input,
+.course-edit-form__select {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1px solid rgba(16, 24, 40, 0.12);
+  border-radius: 0.9rem;
+  background-color: rgba(242, 244, 247, 0.6);
+  font-size: var(--text-base);
+  color: var(--primary-gray);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.course-edit-form__input:focus,
+.course-edit-form__select:focus,
+.course-edit-form__textarea:focus {
+  outline: none;
+  border-color: var(--primary-400);
+  box-shadow: 0 0 0 3px rgba(39, 179, 244, 0.2);
+  background-color: #ffffff;
+}
+
+.course-edit-form__select {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--quaternary-gray) 50%),
+    linear-gradient(135deg, var(--quaternary-gray) 50%, transparent 50%);
+  background-position: right 1rem top 1.35rem, right 0.75rem top 1.35rem;
+  background-size: 0.55rem 0.55rem, 0.55rem 0.55rem;
+  background-repeat: no-repeat;
+}
+
+.course-edit-form__thumbnail {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.course-edit-form__thumbnail-preview {
+  width: 9rem;
+  height: 9rem;
+  border-radius: 1rem;
+  background-color: rgba(242, 244, 247, 0.8);
+  border: 1px dashed rgba(16, 24, 40, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-sm);
+  color: var(--quaternary-gray);
+}
+
+.course-edit-form__thumbnail-button {
+  padding: 0.85rem 1.4rem;
+  border-radius: 0.9rem;
+  border: 1px solid rgba(16, 24, 40, 0.12);
+  background-color: var(--primary-bg);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--secondary-gray);
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.course-edit-form__thumbnail-button:hover {
+  background-color: rgba(39, 179, 244, 0.08);
+  border-color: var(--primary-400);
+  box-shadow: 0 12px 20px rgba(39, 179, 244, 0.18);
+}
+
+.course-edit-form__thumbnail-hint {
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--quaternary-gray);
+}
+
+.course-edit-form__textarea {
+  width: 100%;
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(16, 24, 40, 0.12);
+  border-radius: 1rem;
+  background-color: rgba(242, 244, 247, 0.6);
+  font-size: var(--text-base);
+  color: var(--primary-gray);
+  resize: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.course-edit-form__actions {
+  display: inline-flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.course-edit-form__action-button {
+  min-width: 6.5rem;
+  padding: 0.85rem 1.5rem;
+  border-radius: 0.9rem;
+  border: 1px solid transparent;
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease,
+    box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.course-edit-form__action-button--cancel {
+  border-color: rgba(16, 24, 40, 0.15);
+  background-color: transparent;
+  color: var(--secondary-gray);
+}
+
+.course-edit-form__action-button--cancel:hover {
+  background-color: rgba(16, 24, 40, 0.05);
+}
+
+.course-edit-form__action-button--submit {
+  background-color: var(--primary-500);
+  color: #ffffff;
+}
+
+.course-edit-form__action-button--submit:hover {
+  background-color: var(--primary-400);
+  box-shadow: 0 16px 26px rgba(39, 179, 244, 0.25);
+}

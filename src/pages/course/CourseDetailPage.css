@@ -1,0 +1,8 @@
+.course-detail-page {
+  background-color: #e7edf7;
+  padding-block: 4rem;
+}
+
+.course-detail-page__container {
+  display: flex;
+}

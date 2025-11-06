@@ -1,0 +1,95 @@
+.header {
+  background-color: var(--primary-bg);
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.header__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 1.5rem;
+}
+
+.header__brand-group {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.header__brand {
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  letter-spacing: 0.08em;
+  color: var(--primary-gray);
+  text-decoration: none;
+}
+
+.header__nav {
+  display: flex;
+}
+
+.header__nav-list {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.header__nav-item {
+  display: flex;
+}
+
+.header__nav-link {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--tertiary-gray);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.header__nav-link:hover {
+  color: #6366f1;
+}
+
+.header__actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.header__dashboard-link {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--quaternary-gray);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.header__dashboard-link:hover {
+  color: #6366f1;
+}
+
+.header__action-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: none;
+  border-radius: 999px;
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.header__action-button:hover {
+  background-color: #f1f5f9;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.1);
+}
+
+.header__action-icon {
+  font-size: 1.5rem;
+  color: var(--tertiary-gray);
+}

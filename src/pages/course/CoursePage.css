@@ -1,0 +1,29 @@
+.course-page {
+  padding-block: 3rem;
+  background-color: #f8fafc;
+}
+
+.course-page__container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.course-page__intro {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.course-page__title {
+  margin: 0;
+  font-size: 2rem;
+  color: var(--primary-gray);
+}
+
+.course-page__subtitle {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--quaternary-gray);
+}
