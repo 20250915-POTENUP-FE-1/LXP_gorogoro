@@ -1,0 +1,94 @@
+@import "../../styles/variables.css";
+
+.signup-page {
+  min-height: 100vh;
+  background-color: var(--secondary-bg);
+  font-family: var(--font-body), sans-serif;
+  color: var(--primary-gray);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+}
+
+.signup-page__header {
+  position: absolute;
+  top: 2rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.signup-page__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--primary-500);
+}
+
+.signup-page__brand-icon {
+  width: 2rem;
+  height: 2rem;
+  fill: currentColor;
+}
+
+.signup-page__brand-name {
+  font-family: var(--font-heading), sans-serif;
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  color: var(--primary-gray);
+}
+
+.signup-page__main {
+  width: 100%;
+  max-width: 28rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.signup-page__card {
+  width: 100%;
+  padding: 2.5rem;
+  border-radius: 1rem;
+  background-color: var(--primary-bg);
+  box-shadow: 0 12px 30px rgba(16, 24, 40, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.signup-page__intro {
+  text-align: center;
+}
+
+.signup-page__title {
+  font-family: var(--font-heading), sans-serif;
+  font-size: var(--text-3xl);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+.signup-page__description {
+  margin-top: 0.75rem;
+  font-size: var(--text-base);
+  color: var(--tertiary-gray);
+}
+
+.signup-page__footer {
+  font-size: var(--text-sm);
+  color: var(--tertiary-gray);
+  text-align: center;
+}
+
+.signup-page__footer-link {
+  font-weight: var(--font-bold);
+  color: var(--primary-500);
+  text-decoration: underline;
+}
+
+.signup-page__footer-link:hover {
+  color: var(--primary-400);
+}

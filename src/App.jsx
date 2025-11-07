@@ -10,6 +10,9 @@ import InstructorCourseList from "./components/instructor/InstructorCourseList";
 import CourseEditContainer from "./components/instructor/CourseEditContainer";
 import CourseCreateContatiner from "./components/instructor/CourseCreateContainer";
 
+import LoginPage from "./pages/auth/LoginPage";
+import SignupPage from "./pages/auth/SignupPage";
+
 import "./styles/global.css";
 
 function App() {
@@ -18,6 +21,8 @@ function App() {
       <Header />
 
       <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
         <Route path="/" element={<CoursePage />} />
         <Route path="/courses" element={<CoursePage />} />
         <Route path="/courses/detail" element={<CourseDetailPage />} />
