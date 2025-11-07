@@ -6,7 +6,7 @@
   gap: 1.5rem;
   width: 100%;
   font-family: var(--font-body), sans-serif;
-  color: var(--primary-gray);
+  color: var(--gray-900);
 }
 
 .login-form__field {
@@ -18,24 +18,24 @@
 .login-form__label {
   font-size: var(--text-base);
   font-weight: var(--font-medium);
-  color: var(--secondary-gray);
+  color: var(--gray-700);
 }
 
 .login-form__input {
   width: 100%;
   height: 3.5rem;
-  border-radius: 0.75rem;
-  border: 1px solid #dfe3eb;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--gray-200);
   padding: 0 1rem;
   font-size: var(--text-base);
   font-family: inherit;
-  color: var(--primary-gray);
-  background-color: var(--primary-bg);
+  color: var(--gray-900);
+  background-color: var(--gray-00);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .login-form__input::placeholder {
-  color: var(--quaternary-gray);
+  color: var(--gray-500);
 }
 
 .login-form__input:focus {
@@ -44,40 +44,13 @@
   box-shadow: 0 0 0 3px rgba(39, 179, 244, 0.25);
 }
 
-.login-form__password {
-  display: flex;
-  align-items: stretch;
-}
-
-.login-form__input--password {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  border-right: none;
-  flex: 1;
-}
-
-.login-form__password-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 3.5rem;
-  border: 1px solid #dfe3eb;
-  border-left: none;
-  border-top-right-radius: 0.75rem;
-  border-bottom-right-radius: 0.75rem;
-  background-color: var(--primary-bg);
-  color: var(--quaternary-gray);
-  font-size: 1.5rem;
-  cursor: default;
-}
-
 .login-form__submit {
   width: 100%;
   height: 3.5rem;
   border: none;
-  border-radius: 0.75rem;
+  border-radius: var(--radius-md);
   background-color: var(--primary-500);
-  color: #fff;
+  color: var(--gray-00);
   font-size: var(--text-base);
   font-weight: var(--font-bold);
   letter-spacing: 0.02em;

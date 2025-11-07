@@ -4,8 +4,8 @@
   gap: 1.5rem;
   padding: 1.3rem 1.6rem;
   border-radius: 1rem;
-  background-color: rgba(242, 244, 247, 0.8);
-  border: 1px solid rgba(15, 23, 42, 0.06);
+  background-color: var(--gray-50);
+  border: 1px solid var(--gray-100);
 }
 
 .instructor-course-item__thumbnail {
@@ -40,14 +40,14 @@
 .instructor-course-item__title {
   margin: 0;
   font-family: var(--font-heading);
-  font-size: 1.1rem;
-  color: var(--primary-gray);
+  font-size: var(--text-title-xs);
+  color: var(--gray-900);
 }
 
 .instructor-course-item__instructor {
   margin: 0;
   font-size: var(--text-sm);
-  color: var(--quaternary-gray);
+  color: var(--gray-500);
 }
 
 .instructor-course-item__meta {
@@ -58,14 +58,14 @@
 }
 
 .instructor-course-item__price {
-  font-size: 1.1rem;
+  font-size: var(--text-title-xs);
   font-weight: var(--font-bold);
-  color: var(--primary-gray);
+  color: var(--gray-900);
 }
 
 .instructor-course-item__date {
   font-size: var(--text-xs);
-  color: var(--quaternary-gray);
+  color: var(--gray-500);
 }
 
 .instructor-course-item__actions {
@@ -86,19 +86,11 @@
 }
 
 .instructor-course-item__action--edit {
-  border-color: rgba(56, 189, 248, 0.4);
-  color: #38bdf8;
-}
-
-.instructor-course-item__action--edit:hover {
-  background-color: rgba(56, 189, 248, 0.12);
+  border-color: var(--highlight);
+  color: var(--gray-900);
 }
 
 .instructor-course-item__action--delete {
-  border-color: rgba(248, 113, 113, 0.45);
-  color: #ef4444;
-}
-
-.instructor-course-item__action--delete:hover {
-  background-color: rgba(248, 113, 113, 0.12);
+  border-color: var(--primary-500);
+  color: var(--primary-500);
 }

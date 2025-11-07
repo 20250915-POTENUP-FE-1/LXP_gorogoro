@@ -5,7 +5,7 @@ import "./CoursePage.css";
 function CoursePage() {
   return (
     <main className="course-page">
-      <div className="course-page__container">
+      <div className="page-wrapper course-page__container">
         <section className="course-page__intro">
           <h1 className="course-page__title">데이터 분석, 파이썬</h1>
           <span className="course-page__subtitle">총 128개의 강좌</span>

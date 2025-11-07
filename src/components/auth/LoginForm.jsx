@@ -13,16 +13,11 @@ function LoginForm() {
       </label>
       <label className="login-form__field">
         <span className="login-form__label">비밀번호</span>
-        <div className="login-form__password">
-          <input
-            className="login-form__input login-form__input--password"
-            type="password"
-            placeholder="Enter your password"
-          />
-          <span className="login-form__password-icon material-symbols-outlined">
-            visibility
-          </span>
-        </div>
+        <input
+          className="login-form__input"
+          type="password"
+          placeholder="Enter your password"
+        />
       </label>
       <button className="login-form__submit" type="button">
         로그인

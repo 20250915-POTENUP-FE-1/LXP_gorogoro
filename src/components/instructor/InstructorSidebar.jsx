@@ -7,7 +7,7 @@ function InstructorSidebar() {
       <div className="instructor-sidebar__profile">
         <div className="instructor-sidebar__avatar">JD</div>
         <div className="instructor-sidebar__info">
-          <span className="instructor-sidebar__name">Jane Doe</span>
+          <span className="instructor-sidebar__name">Christina Ahn</span>
           <span className="instructor-sidebar__email">
             jane.doe@example.com
           </span>

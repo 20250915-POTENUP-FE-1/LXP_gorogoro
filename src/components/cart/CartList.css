@@ -14,18 +14,17 @@
 .cart-list__title {
   margin: 0;
   font-family: var(--font-heading);
-  font-size: 1.75rem;
-  color: var(--primary-gray);
+  font-size: var(--text-heading);
+  color: var(--gray-900);
 }
 
 .cart-list__clear-button {
   padding: 0.4rem 0.9rem;
   border: none;
   border-radius: 999px;
-  background-color: rgba(39, 179, 244, 0.12);
+  background-color: var(--gray-200);
   font-size: var(--text-sm);
   font-weight: var(--font-medium);
-  color: var(--primary-500);
   cursor: pointer;
   transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }

@@ -20,7 +20,7 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   background-color: var(--primary-bg, #ffffff);
-  color: var(--secondary-gray, #344054);
+  color: var(--gray-700, #4d5159);
 }
 
 img,

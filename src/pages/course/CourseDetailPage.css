@@ -1,5 +1,5 @@
 .course-detail-page {
-  background-color: #e7edf7;
+  background-color: var(--gray-100);
   padding-block: 4rem;
 }
 

@@ -1,34 +1,60 @@
 :root {
   --primary-bg: #ffffff;
   --secondary-bg: #f2f4f7;
-  --primary-gray: #101828;
-  --secondary-gray: #344054;
-  --tertiary-gray: #475467;
-  --quaternary-gray: #667085;
+
+  --gray-00: #ffffff;
+  --gray-50: #f7f8fa;
+  --gray-100: #f2f3f6;
+  --gray-200: #eaebee;
+  --gray-300: #dcdee3;
+  --gray-400: #d1d3d8;
+  --gray-500: #adb1ba;
+  --gray-600: #868b94;
+  --gray-700: #4d5159;
+  --gray-800: #393a40;
+  --gray-900: #212124;
 
   --header-height: 4rem;
-  --layout-max-width: 70rem;
+  --layout-max-width: 85rem;
   --layout-padding-inline: 3rem;
 
-  --primary-200: #88d9f8;
-  --primary-300: #5dcaf5;
-  --primary-400: #27b3f4;
-  --primary-500: #1a91d1;
-  --highlight: #afd87c;
+  --primary-200: #ff385c;
+  --primary-300: #e31c5f;
+  --primary-400: #d70466;
+  --primary-500: #bd1e59;
+  --highlight: #460479;
 
-  --font-heading: "Paperlogy-7Bold";
-  --font-body: "Pretendard Variable";
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-pill: 999px;
+
+  --font-heading: "SUIT Variable", sans-serif;
+  --font-body: "SUIT Variable", sans-serif;
   --font-medium: 500;
-  --font-bold: 700;
+  --font-bold: 800;
 
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
   --text-base: 1rem;
   --text-lg: 1.125rem;
   --text-xl: 1.25rem;
-  --text-2xl: 1.3rem;
-  --text-3xl: 1.45rem;
-  --text-4xl: 2.25rem;
-  --text-5xl: 2.75rem;
-  --text-6xl: 3rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.625rem;
+  --text-4xl: 2rem;
+  --text-5xl: 2.125rem;
+  --text-6xl: 2.625rem;
+
+  --text-hero: 2rem;
+  --text-display: 2.125rem;
+  --text-display-sm: 1.625rem;
+  --text-heading: 1.5rem;
+  --text-title-xl: 1.5rem;
+  --text-title-lg: 1.25rem;
+  --text-title-md: 1.125rem;
+  --text-title-sm: 1.125rem;
+  --text-title-xs: 1.125rem;
+  --text-body-lg: 1.075rem;
+  --text-body-sm: 0.9375rem;
 }

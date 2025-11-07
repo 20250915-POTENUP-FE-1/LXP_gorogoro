@@ -22,10 +22,11 @@ function CourseDetail() {
             <img
               className="course-detail__instructor-avatar"
               src="https://via.placeholder.com/56x56.png?text=JD"
-              alt="Jane Doe"
             />
             <div className="course-detail__instructor-info">
-              <span className="course-detail__instructor-name">Jane Doe</span>
+              <span className="course-detail__instructor-name">
+                Christina Ahn
+              </span>
               <span className="course-detail__instructor-role">
                 Senior Web Developer
               </span>
@@ -36,13 +37,13 @@ function CourseDetail() {
             <h2 className="course-detail__section-title">강좌 상세 설명</h2>
             <p className="course-detail__paragraph">
               Welcome to the ultimate React course! This course is designed to
-              take you from a beginner to an advanced React developer. We&apos;ll
-              cover all the fundamental concepts, including components, props,
-              state, and the component lifecycle.
+              take you from a beginner to an advanced React developer.
+              We&apos;ll cover all the fundamental concepts, including
+              components, props, state, and the component lifecycle.
             </p>
             <p className="course-detail__paragraph">
-              As we progress, we&apos;ll dive into more advanced topics like React
-              Hooks (useState, useEffect, useContext, and more), state
+              As we progress, we&apos;ll dive into more advanced topics like
+              React Hooks (useState, useEffect, useContext, and more), state
               management with Redux and the Context API, routing with React
               Router, and fetching data from APIs. You&apos;ll also learn how to
               build beautiful, responsive user interfaces with popular libraries
@@ -69,9 +70,12 @@ function CourseDetail() {
               </div>
             </dl>
             <button className="course-detail__cta" type="button">
-              <span className="material-symbols-outlined course-detail__cta-icon">
-                shopping_cart
-              </span>
+              <img
+                className="course-detail__cta-icon"
+                src="/assets/icons/shopping-cart.svg"
+                alt=""
+                aria-hidden="true"
+              />
               장바구니 담기
             </button>
           </div>

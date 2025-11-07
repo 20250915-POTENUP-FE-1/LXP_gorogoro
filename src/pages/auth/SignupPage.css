@@ -4,7 +4,7 @@
   min-height: 100vh;
   background-color: var(--secondary-bg);
   font-family: var(--font-body), sans-serif;
-  color: var(--primary-gray);
+  color: var(--gray-900);
   position: relative;
   display: flex;
   align-items: center;
@@ -37,7 +37,7 @@
   font-family: var(--font-heading), sans-serif;
   font-size: var(--text-xl);
   font-weight: var(--font-bold);
-  color: var(--primary-gray);
+  color: var(--gray-900);
 }
 
 .signup-page__main {
@@ -74,12 +74,12 @@
 .signup-page__description {
   margin-top: 0.75rem;
   font-size: var(--text-base);
-  color: var(--tertiary-gray);
+  color: var(--gray-600);
 }
 
 .signup-page__footer {
   font-size: var(--text-sm);
-  color: var(--tertiary-gray);
+  color: var(--gray-600);
   text-align: center;
 }
 

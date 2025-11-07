@@ -1,32 +1,31 @@
-@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
+@import url("https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css");
 @import "./variables.css";
 @import "./reset.css";
-
-@font-face {
-  font-family: "Paperlogy-7Bold";
-  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-7Bold.woff2")
-    format("woff2");
-  font-weight: 700;
-  font-style: normal;
-}
 
 html {
   font-family: var(--font-body);
   font-size: var(--text-base);
-  color: var(--primary-gray);
+  color: var(--gray-900);
   line-height: 1.75;
 }
 
 body {
   margin: 0;
   background-color: var(--primary-bg);
-  color: var(--primary-gray);
+  color: var(--gray-900);
 }
 
-main.page-content {
-  padding-inline: var(--layout-padding-inline);
+main {
+  width: 100%;
   padding-top: calc(var(--header-height) + 2rem);
   padding-bottom: 4rem;
+}
+
+.page-wrapper {
+  width: 100%;
+  max-width: var(--layout-max-width);
+  margin: 0 auto;
+  padding-inline: var(--layout-padding-inline);
 }
 
 h1,
@@ -38,7 +37,7 @@ h6 {
   font-family: var(--font-heading);
   font-weight: var(--font-bold);
   line-height: 1.35;
-  color: var(--primary-gray);
+  color: var(--gray-900);
   word-break: keep-all;
 }
 
@@ -70,7 +69,7 @@ p {
   font-family: var(--font-body);
   font-size: var(--text-base);
   font-weight: var(--font-medium);
-  color: var(--tertiary-gray);
+  color: var(--gray-600);
   line-height: 1.75;
   word-break: keep-all;
 }

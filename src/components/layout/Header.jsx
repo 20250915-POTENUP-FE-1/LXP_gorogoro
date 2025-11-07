@@ -6,7 +6,7 @@ function Header() {
       <div className="header__container">
         <div className="header__brand-group">
           <a className="header__brand" href="#">
-            GOROGORO
+            GORO
           </a>
           <nav className="header__nav" aria-label="메인 메뉴">
             <ul className="header__nav-list">
@@ -35,25 +35,31 @@ function Header() {
         </div>
         <div className="header__actions">
           <a className="header__dashboard-link" href="#">
-            강사 대시보드 가기
+            강사 대시보드
           </a>
           <button
             className="header__action-button"
             type="button"
             aria-label="장바구니"
           >
-            <span className="material-symbols-outlined header__action-icon">
-              shopping_cart
-            </span>
+            <img
+              className="header__action-icon"
+              src="/assets/icons/shopping-cart.svg"
+              alt=""
+              aria-hidden="true"
+            />
           </button>
           <button
             className="header__action-button"
             type="button"
             aria-label="내 계정"
           >
-            <span className="material-symbols-outlined header__action-icon">
-              person
-            </span>
+            <img
+              className="header__action-icon"
+              src="/assets/icons/user.svg"
+              alt=""
+              aria-hidden="true"
+            />
           </button>
         </div>
       </div>

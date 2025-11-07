@@ -1,12 +1,16 @@
 .header {
   background-color: var(--primary-bg);
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid var(--gray-200);
+  padding-inline: var(--layout-padding-inline);
 }
 
 .header__container {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
+  max-width: var(--layout-max-width);
+  margin: 0 auto;
   padding-block: 1.5rem;
 }
 
@@ -18,9 +22,9 @@
 
 .header__brand {
   font-family: var(--font-heading);
-  font-size: 1.75rem;
-  letter-spacing: 0.08em;
-  color: var(--primary-gray);
+  font-size: var(--text-heading);
+  font-weight: var(--font-bold);
+  color: var(--gray-900);
   text-decoration: none;
 }
 
@@ -44,13 +48,13 @@
 .header__nav-link {
   font-size: var(--text-sm);
   font-weight: var(--font-medium);
-  color: var(--tertiary-gray);
+  color: var(--gray-600);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 .header__nav-link:hover {
-  color: #6366f1;
+  color: var(--primary-500);
 }
 
 .header__actions {
@@ -62,13 +66,13 @@
 .header__dashboard-link {
   font-size: var(--text-sm);
   font-weight: var(--font-medium);
-  color: var(--quaternary-gray);
+  color: var(--gray-500);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 .header__dashboard-link:hover {
-  color: #6366f1;
+  color: var(--primary-500);
 }
 
 .header__action-button {
@@ -85,11 +89,11 @@
 }
 
 .header__action-button:hover {
-  background-color: #f1f5f9;
+  background-color: var(--gray-100);
   box-shadow: 0 4px 12px rgba(15, 23, 42, 0.1);
 }
 
 .header__action-icon {
-  font-size: 1.5rem;
-  color: var(--tertiary-gray);
+  width: 1.35rem;
+  height: 1.35rem;
 }

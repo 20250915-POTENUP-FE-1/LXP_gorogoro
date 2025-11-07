@@ -21,13 +21,12 @@
   width: 5.8rem;
   height: 5.8rem;
   border-radius: 50%;
-  background: linear-gradient(135deg, rgba(39, 179, 244, 0.18), rgba(99, 102, 241, 0.18));
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--primary-500);
   font-family: var(--font-heading);
-  font-size: 1.8rem;
+  font-size: var(--text-display-sm);
   letter-spacing: 0.06em;
 }
 
@@ -48,13 +47,13 @@
 
 .instructor-sidebar__name {
   font-family: var(--font-heading);
-  font-size: 1.25rem;
-  color: var(--primary-gray);
+  font-size: var(--text-xl);
+  color: var(--gray-900);
 }
 
 .instructor-sidebar__email {
   font-size: var(--text-sm);
-  color: var(--quaternary-gray);
+  color: var(--gray-500);
 }
 
 .instructor-sidebar__nav {
@@ -69,7 +68,7 @@
   border: none;
   border-radius: 0.95rem;
   background-color: transparent;
-  color: var(--secondary-gray);
+  color: var(--gray-700);
   text-align: left;
   font-size: var(--text-base);
   font-weight: var(--font-medium);
