@@ -4,7 +4,7 @@ const instructorCourses = [
   {
     category: "Web Development",
     title: "실전! 웹사이트 만들기 A to Z",
-    instructor: "강사: Jane Doe",
+    instructor: "강사: Christina Ahn",
     createdAt: "생성일: 2023.10.26",
     price: "₩55,000",
     image:
@@ -13,7 +13,7 @@ const instructorCourses = [
   {
     category: "Programming",
     title: "초보자를 위한 JavaScript 기초",
-    instructor: "강사: Jane Doe",
+    instructor: "강사: Christina Ahn",
     createdAt: "생성일: 2023.09.15",
     price: "₩49,000",
     image:
@@ -22,7 +22,7 @@ const instructorCourses = [
   {
     category: "Data Science",
     title: "파이썬 데이터 분석 입문",
-    instructor: "강사: Jane Doe",
+    instructor: "강사: Christina Ahn",
     createdAt: "생성일: 2023.08.01",
     price: "₩78,000",
     image:
@@ -31,7 +31,7 @@ const instructorCourses = [
   {
     category: "Design",
     title: "Figma를 활용한 UI/UX 디자인",
-    instructor: "강사: Jane Doe",
+    instructor: "강사: Christina Ahn",
     createdAt: "생성일: 2023.07.22",
     price: "₩60,000",
     image:
@@ -61,7 +61,9 @@ function InstructorCourseItem() {
             </p>
           </div>
           <div className="instructor-course-item__meta">
-            <span className="instructor-course-item__price">{course.price}</span>
+            <span className="instructor-course-item__price">
+              {course.price}
+            </span>
             <span className="instructor-course-item__date">
               {course.createdAt}
             </span>

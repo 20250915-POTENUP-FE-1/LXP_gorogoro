@@ -19,12 +19,12 @@
 .course-create-container__title {
   margin: 0;
   font-family: var(--font-heading);
-  font-size: 1.9rem;
-  color: var(--primary-gray);
+  font-size: var(--text-display);
+  color: var(--gray-900);
 }
 
 .course-create-container__subtitle {
   margin: 0;
   font-size: var(--text-sm);
-  color: var(--quaternary-gray);
+  color: var(--gray-500);
 }

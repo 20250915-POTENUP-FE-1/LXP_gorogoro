@@ -4,7 +4,7 @@ import "./CourseDetailPage.css";
 function CourseDetailPage() {
   return (
     <main className="course-detail-page">
-      <div className="course-detail-page__container">
+      <div className="page-wrapper course-detail-page__container">
         <CourseDetail />
       </div>
     </main>

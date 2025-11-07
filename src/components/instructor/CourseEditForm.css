@@ -30,18 +30,18 @@
 .course-edit-form__label {
   font-size: var(--text-sm);
   font-weight: var(--font-medium);
-  color: var(--secondary-gray);
+  color: var(--gray-700);
 }
 
 .course-edit-form__input,
 .course-edit-form__select {
   width: 100%;
   padding: 0.85rem 1rem;
-  border: 1px solid rgba(16, 24, 40, 0.12);
+  border: 1px solid var(--gray-200);
   border-radius: 0.9rem;
-  background-color: rgba(242, 244, 247, 0.6);
+  background-color: var(--gray-50);
   font-size: var(--text-base);
-  color: var(--primary-gray);
+  color: var(--gray-900);
   transition: border-color 0.2s ease, box-shadow 0.2s ease,
     background-color 0.2s ease;
 }
@@ -52,13 +52,13 @@
   outline: none;
   border-color: var(--primary-400);
   box-shadow: 0 0 0 3px rgba(39, 179, 244, 0.2);
-  background-color: #ffffff;
+  background-color: var(--gray-00);
 }
 
 .course-edit-form__select {
   appearance: none;
-  background-image: linear-gradient(45deg, transparent 50%, var(--quaternary-gray) 50%),
-    linear-gradient(135deg, var(--quaternary-gray) 50%, transparent 50%);
+  background-image: linear-gradient(45deg, transparent 50%, var(--gray-500) 50%),
+    linear-gradient(135deg, var(--gray-500) 50%, transparent 50%);
   background-position: right 1rem top 1.35rem, right 0.75rem top 1.35rem;
   background-size: 0.55rem 0.55rem, 0.55rem 0.55rem;
   background-repeat: no-repeat;
@@ -74,30 +74,30 @@
   width: 9rem;
   height: 9rem;
   border-radius: 1rem;
-  background-color: rgba(242, 244, 247, 0.8);
-  border: 1px dashed rgba(16, 24, 40, 0.12);
+  background-color: var(--gray-50);
+  border: 1px dashed var(--gray-200);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: var(--text-sm);
-  color: var(--quaternary-gray);
+  color: var(--gray-500);
 }
 
 .course-edit-form__thumbnail-button {
   padding: 0.85rem 1.4rem;
   border-radius: 0.9rem;
-  border: 1px solid rgba(16, 24, 40, 0.12);
+  border: 1px solid var(--gray-200);
   background-color: var(--primary-bg);
   font-size: var(--text-sm);
   font-weight: var(--font-medium);
-  color: var(--secondary-gray);
+  color: var(--gray-700);
   cursor: pointer;
   transition: background-color 0.2s ease, border-color 0.2s ease,
     box-shadow 0.2s ease;
 }
 
 .course-edit-form__thumbnail-button:hover {
-  background-color: rgba(39, 179, 244, 0.08);
+  background-color: var(--primary-200);
   border-color: var(--primary-400);
   box-shadow: 0 12px 20px rgba(39, 179, 244, 0.18);
 }
@@ -105,17 +105,17 @@
 .course-edit-form__thumbnail-hint {
   margin: 0;
   font-size: var(--text-xs);
-  color: var(--quaternary-gray);
+  color: var(--gray-500);
 }
 
 .course-edit-form__textarea {
   width: 100%;
   padding: 1rem 1.1rem;
-  border: 1px solid rgba(16, 24, 40, 0.12);
+  border: 1px solid var(--gray-200);
   border-radius: 1rem;
-  background-color: rgba(242, 244, 247, 0.6);
+  background-color: var(--gray-50);
   font-size: var(--text-base);
-  color: var(--primary-gray);
+  color: var(--gray-900);
   resize: none;
   transition: border-color 0.2s ease, box-shadow 0.2s ease,
     background-color 0.2s ease;
@@ -140,18 +140,18 @@
 }
 
 .course-edit-form__action-button--cancel {
-  border-color: rgba(16, 24, 40, 0.15);
+  border-color: var(--gray-300);
   background-color: transparent;
-  color: var(--secondary-gray);
+  color: var(--gray-700);
 }
 
 .course-edit-form__action-button--cancel:hover {
-  background-color: rgba(16, 24, 40, 0.05);
+  background-color: var(--gray-100);
 }
 
 .course-edit-form__action-button--submit {
   background-color: var(--primary-500);
-  color: #ffffff;
+  color: var(--gray-00);
 }
 
 .course-edit-form__action-button--submit:hover {

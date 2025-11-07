@@ -52,19 +52,19 @@ function CartItem() {
             />
           </div>
           <div className="cart-item__content">
-            <header className="cart-item__header">
-              <span className="cart-item__category">{item.category}</span>
-              <button className="cart-item__remove" type="button">
-                삭제
-              </button>
-            </header>
+            <span className="cart-item__category">{item.category}</span>
             <h3 className="cart-item__title">{item.title}</h3>
             <p className="cart-item__instructor">{item.instructor}</p>
             <time className="cart-item__date" dateTime={item.addedAt}>
               {item.addedAt}
             </time>
           </div>
-          <div className="cart-item__price">{item.price}</div>
+          <div className="cart-item__summary">
+            <button className="cart-item__remove" type="button">
+              삭제
+            </button>
+            <p className="cart-item__price">{item.price}</p>
+          </div>
         </article>
       ))}
     </>

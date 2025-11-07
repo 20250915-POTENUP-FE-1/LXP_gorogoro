@@ -19,13 +19,13 @@
 .instructor-course-list__title {
   margin: 0;
   font-family: var(--font-heading);
-  font-size: 1.8rem;
-  color: var(--primary-gray);
+  font-size: var(--text-display-sm);
+  color: var(--gray-900);
 }
 
 .instructor-course-list__count {
   font-size: var(--text-sm);
-  color: var(--quaternary-gray);
+  color: var(--gray-500);
 }
 
 .instructor-course-list__items {

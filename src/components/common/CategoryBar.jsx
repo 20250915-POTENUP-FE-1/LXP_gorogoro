@@ -27,13 +27,17 @@ function CategoryBar() {
         <div className="category-bar__divider" aria-hidden="true" />
         <div className="category-bar__search">
           <label className="category-bar__search-field">
-            {/* <span className="material-symbols-outlined category-bar__search-icon">
-              search
-            </span> */}
+            <img
+              className="category-bar__search-icon"
+              src="/assets/icons/search.svg"
+              alt=""
+              aria-hidden="true"
+            />
             <input
               className="category-bar__input"
               type="text"
               placeholder="검색"
+              aria-label="검색어 입력"
             />
           </label>
         </div>

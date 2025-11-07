@@ -4,13 +4,13 @@ import "./CartPage.css";
 function CartPage() {
   return (
     <main className="cart-page">
-      <div className="cart-page__container">
+      <div className="page-wrapper cart-page__container">
         <CartList />
         <aside className="cart-page__summary" aria-label="주문 요약">
           <h2 className="cart-page__summary-title">주문 요약</h2>
           <dl className="cart-page__summary-meta">
             <div className="cart-page__summary-row">
-              <dt className="cart-page__summary-label">강의의 총 갯수</dt>
+              <dt className="cart-page__summary-label">강의 총 갯수</dt>
               <dd className="cart-page__summary-value">4</dd>
             </div>
             <div className="cart-page__summary-row">

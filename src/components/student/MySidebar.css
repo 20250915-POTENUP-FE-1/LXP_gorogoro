@@ -3,7 +3,7 @@
   padding: 2.5rem 2rem;
   border-radius: 1.5rem;
   background-color: var(--primary-bg);
-  border: 1px solid rgba(16, 24, 40, 0.08);
+  border: 1px solid var(--gray-100);
   box-shadow: 0 24px 40px rgba(15, 23, 42, 0.08);
   display: flex;
   flex-direction: column;
@@ -21,10 +21,10 @@
   width: 6rem;
   height: 6rem;
   border-radius: 50%;
-  background: linear-gradient(135deg, #f4c7ab, #ebb08b);
-  color: #ffffff;
+  background: linear-gradient(135deg, var(--highlight), var(--primary-400));
+  color: var(--gray-00);
   font-family: var(--font-heading);
-  font-size: 1.8rem;
+  font-size: var(--text-display-sm);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -40,13 +40,13 @@
 
 .my-sidebar__name {
   font-family: var(--font-heading);
-  font-size: 1.2rem;
-  color: var(--primary-gray);
+  font-size: var(--text-title-md);
+  color: var(--gray-900);
 }
 
 .my-sidebar__email {
   font-size: var(--text-sm);
-  color: var(--quaternary-gray);
+  color: var(--gray-500);
 }
 
 .my-sidebar__nav {
@@ -63,29 +63,27 @@
   background-color: transparent;
   font-size: var(--text-base);
   font-weight: var(--font-medium);
-  color: var(--secondary-gray);
+  color: var(--gray-700);
   text-align: left;
   cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease,
-    box-shadow 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .my-sidebar__nav-item:hover {
-  background-color: rgba(39, 179, 244, 0.12);
+  background-color: var(--primary-200);
   color: var(--primary-500);
 }
 
 .my-sidebar__nav-item--active {
-  background-color: rgba(39, 179, 244, 0.18);
-  color: var(--primary-500);
-  box-shadow: 0 12px 24px rgba(39, 179, 244, 0.18);
+  background-color: var(--primary-300);
+  color: var(--gray-00);
 }
 
 .my-sidebar__nav-item--logout {
-  color: #f87171;
+  color: var(--gray-700);
 }
 
 .my-sidebar__nav-item--logout:hover {
-  background-color: rgba(248, 113, 113, 0.12);
-  color: #ef4444;
+  background-color: var(--gray-100);
+  color: var(--gray-800);
 }

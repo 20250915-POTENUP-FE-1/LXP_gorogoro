@@ -4,9 +4,9 @@ function MySidebar() {
   return (
     <aside className="my-sidebar" aria-label="마이페이지 사이드바">
       <div className="my-sidebar__profile">
-        <div className="my-sidebar__avatar">KM</div>
+        <div className="my-sidebar__avatar">SH</div>
         <div className="my-sidebar__info">
-          <span className="my-sidebar__name">Kim Min-jun</span>
+          <span className="my-sidebar__name">조성훈</span>
           <span className="my-sidebar__email">user.email@example.com</span>
         </div>
       </div>
@@ -20,7 +20,10 @@ function MySidebar() {
         >
           수강 중인 강좌
         </button>
-        <button className="my-sidebar__nav-item my-sidebar__nav-item--logout" type="button">
+        <button
+          className="my-sidebar__nav-item my-sidebar__nav-item--logout"
+          type="button"
+        >
           로그아웃
         </button>
       </nav>

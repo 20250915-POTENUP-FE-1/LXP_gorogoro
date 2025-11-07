@@ -1,6 +1,6 @@
 .course-page {
   padding-block: 3rem;
-  background-color: #f8fafc;
+  background-color: var(--gray-50);
 }
 
 .course-page__container {
@@ -18,12 +18,12 @@
 
 .course-page__title {
   margin: 0;
-  font-size: 2rem;
-  color: var(--primary-gray);
+  font-size: var(--text-hero);
+  color: var(--gray-900);
 }
 
 .course-page__subtitle {
   font-size: var(--text-sm);
   font-weight: var(--font-medium);
-  color: var(--quaternary-gray);
+  color: var(--gray-500);
 }
