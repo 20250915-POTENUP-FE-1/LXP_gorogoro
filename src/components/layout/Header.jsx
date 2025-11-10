@@ -8,7 +8,7 @@ function Header() {
           <a className="header__brand" href="#">
             GORO
           </a>
-          <nav className="header__nav" aria-label="메인 메뉴">
+          {/* <nav className="header__nav" aria-label="메인 메뉴">
             <ul className="header__nav-list">
               <li className="header__nav-item">
                 <a className="header__nav-link" href="#">
@@ -31,7 +31,7 @@ function Header() {
                 </a>
               </li>
             </ul>
-          </nav>
+          </nav> */}
         </div>
         <div className="header__actions">
           <a className="header__dashboard-link" href="#">
