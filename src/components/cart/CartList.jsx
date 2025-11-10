@@ -1,7 +1,7 @@
 import CartItem from "./CartItem";
 import "./CartList.css";
 
-function CartList() {
+function CartList({ carts }) {
   return (
     <section className="cart-list">
       <div className="cart-list__header">
@@ -11,7 +11,9 @@ function CartList() {
         </button>
       </div>
       <div className="cart-list__items">
-        <CartItem />
+        {carts.map((cart) => (
+          <CartItem key={cart.courseId} cart={cart} />
+        ))}
       </div>
     </section>
   );
