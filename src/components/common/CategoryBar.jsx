@@ -1,28 +1,31 @@
+import { useState } from "react";
 import "./CategoryBar.css";
 
-function CategoryBar() {
+function CategoryBar({ categories }) {
+  const [selectedCategory, setSelectedCategory] = useState("all");
+
+  const handleCategoryClick = (categoryId) => {
+    setSelectedCategory(categoryId);
+  };
+
   return (
     <section className="category-bar" aria-label="카테고리 및 정렬">
       <div className="category-bar__inner">
         <div className="category-bar__chip-group" role="tablist">
-          <button
-            className="category-bar__chip category-bar__chip--active"
-            type="button"
-          >
-            전체
-          </button>
-          <button className="category-bar__chip" type="button">
-            코딩 기초
-          </button>
-          <button className="category-bar__chip" type="button">
-            데이터 분석
-          </button>
-          <button className="category-bar__chip" type="button">
-            생성형 AI
-          </button>
-          <button className="category-bar__chip" type="button">
-            웹 개발
-          </button>
+          {categories.map((category) => (
+            <button
+              key={category.id}
+              className={`category-bar__chip ${
+                selectedCategory === category.id
+                  ? "category-bar__chip--active"
+                  : ""
+              }`}
+              type="button"
+              onClick={() => handleCategoryClick(category.id)}
+            >
+              {category.name}
+            </button>
+          ))}
         </div>
         <div className="category-bar__divider" aria-hidden="true" />
         <div className="category-bar__search">
