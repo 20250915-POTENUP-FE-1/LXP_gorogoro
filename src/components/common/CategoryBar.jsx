@@ -1,11 +1,21 @@
 import { useState } from "react";
 import "./CategoryBar.css";
 
-function CategoryBar({ categories }) {
+function CategoryBar({ categories, onFilterChange }) {
+  // active 클래스를 추가하기 위한 지역 상태 변수 추가
   const [selectedCategory, setSelectedCategory] = useState("all");
 
   const handleCategoryClick = (categoryId) => {
     setSelectedCategory(categoryId);
+    onFilterChange({ category: categoryId });
+  };
+
+  const handleSearchChange = (e) => {
+    onFilterChange({ searchTerm: e.target.value });
+  };
+
+  const handleSortChange = (e) => {
+    onFilterChange({ sort: e.target.value });
   };
 
   return (
@@ -41,15 +51,19 @@ function CategoryBar({ categories }) {
               type="text"
               placeholder="검색"
               aria-label="검색어 입력"
+              onChange={handleSearchChange}
             />
           </label>
         </div>
         <div className="category-bar__select">
           <label className="category-bar__select-field">
-            <select className="category-bar__dropdown" defaultValue="최신순">
-              <option>최신순</option>
-              <option>인기순</option>
-              <option>가격순</option>
+            <select
+              className="category-bar__dropdown"
+              onChange={handleSortChange}
+            >
+              <option value="latest">최신순</option>
+              <option value="priceAsc">낮은 가격순</option>
+              <option value="priceDesc">높은 가격순</option>
             </select>
           </label>
         </div>

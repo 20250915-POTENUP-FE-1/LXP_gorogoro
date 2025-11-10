@@ -1,9 +1,16 @@
+import { useNavigate } from "react-router-dom";
 import "./CourseItem.css";
 
 function CourseItem({ course }) {
+  const navigate = useNavigate();
+
   return (
     <>
-      <article className="course-item" key={course.title}>
+      <article
+        onClick={() => navigate(`/courses/${course.id}`)}
+        className="course-item"
+        key={course.id}
+      >
         <div className="course-item__image-wrapper">
           <img
             className="course-item__image"
