@@ -2,7 +2,7 @@ import "./CartItem.css";
 import { getCourseById } from "../../services/courseService";
 import { useEffect, useState } from "react";
 
-function CartItem({ cart }) {
+function CartItem({ cart, calculateTotalPrice }) {
   const { courseId, addedAt } = cart;
   const [course, setCourse] = useState();
   useEffect(() => {
