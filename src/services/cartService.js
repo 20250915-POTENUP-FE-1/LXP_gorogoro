@@ -22,7 +22,8 @@ const CARTS_COLLECTION_NAME = "carts";
 const ENROLLMENTS_COLLECTION_NAME = "enrollments";
 const getCarts = async (uid) => {
   try {
-    const docSnapshot = await getDoc(doc(db, CARTS_COLLECTION_NAME, uid));
+    const docRef = doc(db, CARTS_COLLECTION_NAME, uid);
+    const docSnapshot = await getDoc(docRef);
     const dataSnapshotData = docSnapshot.data();
     const dataItem = dataSnapshotData.items ?? [];
     return dataItem;
@@ -33,26 +34,28 @@ const getCarts = async (uid) => {
 
 //장바구니 강의 개별 삭제 deleteCartItem()
 const deleteCartItem = async (userId, courseId) => {
-  const ref = doc(db, CARTS_COLLECTION_NAME, userId);
-  await updateDoc(ref, {
+  const docRef = doc(db, CARTS_COLLECTION_NAME, userId);
+  await updateDoc(docRef, {
     items: arrayRemove(courseId),
   });
 };
 
 //장바구니 강의 전체 삭제 deleteCartsAll()
 const deleteCartsAll = async (userId) => {
-  const ref = doc(db, CARTS_COLLECTION_NAME, userId);
-  await updateDoc(ref, {
+  const docRef = doc(db, CARTS_COLLECTION_NAME, userId);
+  await updateDoc(docRef, {
     items: [],
   });
 };
 
 //장바구니 강의 마이페이지(enrollments)에 등록 addEnrollments()
 const addEnrollments = async (enrollData) => {
-  await addDoc(collection(db, ENROLLMENTS_COLLECTION_NAME), {
+  const colRef = collection(db, ENROLLMENTS_COLLECTION_NAME);
+  await addDoc(colRef, {
     ...enrollData,
   });
 };
+
 //마이페이지 : userId가 일치하는 enrollments 컬렉션 가져오기
 const getEnrollmentsById = async (userId) => {
   const colRef = collection(db, ENROLLMENTS_COLLECTION_NAME);
@@ -65,7 +68,6 @@ const getEnrollmentsById = async (userId) => {
   const qeurySnapshotData = qeurySnapshot.docs.map((doc) => doc.data());
   return qeurySnapshotData;
 };
-// getEnrollmentsById("gNpMmunioN2JyXVqag3q");
 export {
   getCarts,
   deleteCartItem,
