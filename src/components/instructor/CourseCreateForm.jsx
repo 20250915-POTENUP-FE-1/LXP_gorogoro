@@ -5,6 +5,8 @@ import { useNavigate, useOutletContext } from "react-router-dom";
 import { serverTimestamp } from "firebase/firestore";
 import { createCourse } from "../../services/courseService";
 
+const MAX_THUMBNAIL_SIZE = 1 * 1024 * 1024; // 1MB
+
 function CourseCreateForm() {
   const { categories } = useOutletContext();
   const navigate = useNavigate();
@@ -24,16 +26,21 @@ function CourseCreateForm() {
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
   });
+  const validateCourseForm = (currentFormData) => {
+    if (!currentFormData.title.trim()) return "강좌명을 입력하세요.";
+    if (!currentFormData.category) return "카테고리를 선택하세요.";
+    if (!currentFormData.level) return "난이도를 선택하세요.";
 
-  const validateCourseForm = (formData) => {
-    if (!formData.title.trim()) return "강좌명을 입력하세요.";
-    if (!formData.category) return "카테고리를 선택하세요.";
-    if (!formData.level) return "난이도를 선택하세요.";
     if (formData.price <= 0) {
       return "가격은 0원보다 크게 입력하세요.";
     }
-    if (!formData.summary.trim()) return "강좌 요약을 입력하세요.";
-    if (!formData.content.trim()) return "강좌 내용을 입력하세요.";
+
+    if (formData.price >= 1000000) {
+      return "가격은 100만원 이상 설정할 수 없습니다.";
+    }
+
+    if (!currentFormData.summary.trim()) return "강좌 요약을 입력하세요.";
+    if (!currentFormData.content.trim()) return "강좌 내용을 입력하세요.";
     return "";
   };
 
@@ -41,14 +48,24 @@ function CourseCreateForm() {
     const { name } = e.target;
 
     if (name === "thumbnailUrl") {
+      const file = e.target.files?.[0];
+      if (!file) return;
+
+      if (file.size > MAX_THUMBNAIL_SIZE) {
+        setError("썸네일 이미지는 1MB 이하만 업로드할 수 있습니다.");
+        e.target.value = "";
+        return;
+      }
+
+      setError("");
+
       // base64 문자열 변환
-      const file = e.target.files[0];
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onloadend = () => {
         setFormData({
           ...formData,
-          //base64 변환 결과 값
+          //base64 변환 함수
           [name]: reader.result,
         });
       };
@@ -146,6 +163,8 @@ function CourseCreateForm() {
             value={formData.price}
             className="course-create-form__input"
             type="number"
+            step={1000}
+            min={0}
             placeholder="예: 55000"
             onChange={handleOnChange}
           />
@@ -181,7 +200,7 @@ function CourseCreateForm() {
             파일 업로드
           </label>
           <p className="course-create-form__thumbnail-hint">
-            PNG, JPG, GIF up to 10MB.
+            PNG, JPG 최대 1MB.
           </p>
         </div>
       </div>
