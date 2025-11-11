@@ -5,6 +5,7 @@ import {
   where,
   orderBy,
   getDocs,
+  getDoc,
 } from "firebase/firestore";
 import { db } from "../firebase/config.js";
 

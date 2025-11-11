@@ -3,7 +3,9 @@ import CoursePage from "./pages/course/CoursePage";
 import CourseDetailPage from "./pages/course/CourseDetailPage";
 import CartPage from "./pages/cart/CartPage";
 import Header from "./components/layout/Header";
+
 import MyPage from "./pages/student/MyPage";
+import EnrollmentList from "./components/student/EnrollmentList";
 
 import InstructorPage from "./pages/instructor/InstructorPage";
 import InstructorCourseList from "./components/instructor/InstructorCourseList";
@@ -27,7 +29,10 @@ function App() {
         <Route path="/courses" element={<CoursePage />} />
         <Route path="/courses/:id" element={<CourseDetailPage />} />
         <Route path="/cart" element={<CartPage />} />
-        <Route path="/mypage" element={<MyPage />} />
+        <Route path="/mypage" element={<MyPage />}>
+          <Route index element={<EnrollmentList />} />
+          <Route path="enrollments" element={<EnrollmentList />} />
+        </Route>
         <Route path="/instructor" element={<InstructorPage />}>
           <Route index element={<InstructorCourseList />} />
           <Route path="courses" element={<InstructorCourseList />} />
