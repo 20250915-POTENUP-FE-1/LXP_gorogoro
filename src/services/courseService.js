@@ -6,6 +6,7 @@ import {
   orderBy,
   getDocs,
   getDoc,
+  addDoc,
 } from "firebase/firestore";
 import { db } from "../firebase/config.js";
 
@@ -90,7 +91,22 @@ const getCourseById = async (courseId) => {
 };
 
 //강의 등록 createCourse()
+/**
+ * @param {Object} formData - 등록할 게시물 객체
+ */
+const createCourse = async (formData) => {
+  try {
+    const docRef = await addDoc(
+      collection(db, COURSES_COLLECTION_NAME),
+      formData
+    );
+    return docRef.id;
+  } catch (error) {
+    throw error;
+  }
+};
+
 //강의 수정 updateCourse()
 //강의 삭제 deleteCourse()
 
-export { getCategories, getFilteredCourses, getCourseById };
+export { getCategories, getFilteredCourses, getCourseById, createCourse };

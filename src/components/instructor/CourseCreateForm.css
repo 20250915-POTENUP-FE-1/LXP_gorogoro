@@ -1,30 +1,172 @@
-.course-create-container {
-  flex: 1;
-  padding: 2.5rem;
-  border-radius: 1.5rem;
-  background-color: var(--primary-bg);
-  border: 1px solid rgba(16, 24, 40, 0.08);
-  box-shadow: 0 24px 40px rgba(15, 23, 42, 0.08);
+﻿.course-create-form {
   display: flex;
   flex-direction: column;
-  gap: 2.25rem;
+  gap: 1.75rem;
 }
 
-.course-create-container__header {
+.course-create-form__group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.course-create-form__error-message {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  margin-top: -0.5rem;
+  border-radius: var(--radius-sm);
+  background-color: rgba(215, 4, 102, 0.08);
+  color: var(--primary-400);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  text-align: center;
+}
+
+.course-create-form__group--inline {
+  flex-direction: row;
+}
+
+.course-create-form__group--grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.course-create-form__field {
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
+  width: 100%;
 }
 
-.course-create-container__title {
-  margin: 0;
-  font-family: var(--font-heading);
-  font-size: var(--text-display);
+.course-create-form__label {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--gray-700);
+}
+
+.course-create-form__input,
+.course-create-form__select {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--gray-200);
+  border-radius: 0.9rem;
+  background-color: var(--gray-50);
+  font-size: var(--text-base);
   color: var(--gray-900);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease,
+    background-color 0.2s ease;
 }
 
-.course-create-container__subtitle {
-  margin: 0;
+.course-create-form__input:focus,
+.course-create-form__select:focus,
+.course-create-form__textarea:focus {
+  outline: none;
+  border-color: var(--primary-400);
+  box-shadow: 0 0 0 3px rgba(39, 179, 244, 0.2);
+  background-color: var(--gray-00);
+}
+
+.course-create-form__select {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--gray-500) 50%),
+    linear-gradient(135deg, var(--gray-500) 50%, transparent 50%);
+  background-position: right 1rem top 1.35rem, right 0.75rem top 1.35rem;
+  background-size: 0.55rem 0.55rem, 0.55rem 0.55rem;
+  background-repeat: no-repeat;
+}
+
+.course-create-form__thumbnail {
+  display: flex;
+  align-items: end;
+  gap: 1.25rem;
+}
+
+.course-create-form__thumbnail-preview {
+  width: 16rem;
+  height: 9rem;
+  border-radius: 1rem;
+  background-color: var(--gray-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: var(--text-sm);
   color: var(--gray-500);
+}
+
+.course-create-form__thumbnail-button {
+  padding: 0.85rem 1.4rem;
+  border-radius: 0.9rem;
+  border: 1px solid var(--gray-200);
+  background-color: var(--primary-bg);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--gray-700);
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.course-create-form__thumbnail-button:hover {
+  background-color: var(--primary-200);
+  border-color: var(--primary-400);
+  color: var(--gray-00);
+  box-shadow: 0 12px 20px rgba(39, 179, 244, 0.18);
+}
+
+.course-create-form__thumbnail-hint {
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--gray-500);
+}
+
+.course-create-form__textarea {
+  width: 100%;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--gray-200);
+  border-radius: 1rem;
+  background-color: var(--gray-50);
+  font-size: var(--text-base);
+  color: var(--gray-900);
+  resize: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.course-create-form__actions {
+  display: inline-flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.course-create-form__action-button {
+  min-width: 6.5rem;
+  padding: 0.85rem 1.5rem;
+  border-radius: 0.9rem;
+  border: 1px solid transparent;
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.course-create-form__action-button--cancel {
+  border-color: var(--gray-300);
+  background-color: transparent;
+  color: var(--gray-700);
+}
+
+.course-create-form__action-button--cancel:hover {
+  background-color: var(--gray-100);
+}
+
+.course-create-form__action-button--submit {
+  background-color: var(--primary-500);
+  color: var(--gray-00);
+}
+
+.course-create-form__action-button--submit:hover {
+  background-color: var(--primary-400);
+  box-shadow: 0 16px 26px rgba(39, 179, 244, 0.25);
 }

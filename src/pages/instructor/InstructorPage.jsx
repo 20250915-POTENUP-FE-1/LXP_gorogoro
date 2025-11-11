@@ -5,13 +5,22 @@ import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 
 import { getIntstructorCourses } from "../../services/instructorService";
+import { getCategories } from "../../services/courseService";
 
 function InstructorPage() {
+  const [categories, setCategories] = useState([]);
   const [courses, setCourses] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
+    // 카테고리 초기 렌더링
+    const fetchCategories = async () => {
+      const result = await getCategories();
+      setCategories(result);
+    };
+    fetchCategories();
+
     const fetchInstructorCouses = async () => {
       setLoading(true);
       const result = await getIntstructorCourses("UID_INSTRUCTOR_2");
@@ -28,7 +37,7 @@ function InstructorPage() {
     fetchInstructorCouses();
   }, []);
 
-  const outletContext = { courses, loading, error };
+  const outletContext = { categories, courses, loading, error };
 
   return (
     <main className="instructor-page">
