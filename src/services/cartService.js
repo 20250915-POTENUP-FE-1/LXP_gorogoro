@@ -13,8 +13,8 @@ const CARTS_COLLECTION_NAME = "carts";
 export const getCarts = async (uid) => {
   try {
     const docSnapshot = await getDoc(doc(db, CARTS_COLLECTION_NAME, uid));
-    const data = docSnapshot.data();
-    const dataItem = data.items;
+    const dataSnapshotData = docSnapshot.data();
+    const dataItem = dataSnapshotData.items;
     return dataItem;
   } catch (error) {
     throw error;
