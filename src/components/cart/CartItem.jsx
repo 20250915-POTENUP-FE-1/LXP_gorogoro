@@ -1,7 +1,8 @@
 import "./CartItem.css";
 
-function CartItem({ course }) {
+function CartItem({ course, handleDelete }) {
   if (!course) return null;
+
   return (
     <>
       {course && (
@@ -16,7 +17,11 @@ function CartItem({ course }) {
             <time className="cart-item__date">{course.createdAt}</time>
           </div>
           <div className="cart-item__summary">
-            <button className="cart-item__remove" type="button">
+            <button
+              className="cart-item__remove"
+              type="button"
+              onClick={() => handleDelete(course.id)}
+            >
               삭제
             </button>
             <p className="cart-item__price">{course.price}</p>

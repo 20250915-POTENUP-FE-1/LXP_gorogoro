@@ -1,6 +1,6 @@
 import "./CartSummary.css";
 
-function CartSummary({ totalCount, totalPrice }) {
+function CartSummary({ totalCount, totalPrice, handlePurchase }) {
   return (
     <aside className="cart-page__summary" aria-label="주문 요약">
       <h2 className="cart-page__summary-title">주문 요약</h2>
@@ -22,8 +22,12 @@ function CartSummary({ totalCount, totalPrice }) {
           ₩{totalPrice.toLocaleString()}
         </span>
       </div>
-      <button className="cart-page__summary-button" type="button">
-        수강 신청하기 (결제하기)
+      <button
+        className="cart-page__summary-button"
+        type="button"
+        onClick={handlePurchase}
+      >
+        결제하기
       </button>
     </aside>
   );
