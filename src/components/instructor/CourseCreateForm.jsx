@@ -1,97 +1,248 @@
-import "./CourseCreateForm.css";
+﻿import "./CourseCreateForm.css";
+
+import { useState } from "react";
+import { useNavigate, useOutletContext } from "react-router-dom";
+import { serverTimestamp } from "firebase/firestore";
+import { createCourse } from "../../services/courseService";
+
+const MAX_THUMBNAIL_SIZE = 1 * 1024 * 1024; // 1MB
 
 function CourseCreateForm() {
+  const { categories } = useOutletContext();
+  const navigate = useNavigate();
+
+  const [error, setError] = useState("");
+  const [formData, setFormData] = useState({
+    title: "",
+    // 추후 currentUser 값으로 강사 필드 변경
+    instructorId: "UID_INSTRUCTOR_1",
+    instructorName: "조성훈",
+    category: "",
+    level: "",
+    price: 30000,
+    thumbnailUrl: "",
+    summary: "",
+    content: "",
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
+  });
+  const validateCourseForm = (currentFormData) => {
+    if (!currentFormData.title.trim()) return "강좌명을 입력하세요.";
+    if (!currentFormData.category) return "카테고리를 선택하세요.";
+    if (!currentFormData.level) return "난이도를 선택하세요.";
+
+    if (formData.price <= 0) {
+      return "가격은 0원보다 크게 입력하세요.";
+    }
+
+    if (formData.price >= 1000000) {
+      return "가격은 100만원 이상 설정할 수 없습니다.";
+    }
+
+    if (!currentFormData.summary.trim()) return "강좌 요약을 입력하세요.";
+    if (!currentFormData.content.trim()) return "강좌 내용을 입력하세요.";
+    return "";
+  };
+
+  const handleOnChange = (e) => {
+    const { name } = e.target;
+
+    if (name === "thumbnailUrl") {
+      const file = e.target.files?.[0];
+      if (!file) return;
+
+      if (file.size > MAX_THUMBNAIL_SIZE) {
+        setError("썸네일 이미지는 1MB 이하만 업로드할 수 있습니다.");
+        e.target.value = "";
+        return;
+      }
+
+      setError("");
+
+      // base64 문자열 변환
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        setFormData({
+          ...formData,
+          //base64 변환 함수
+          [name]: reader.result,
+        });
+      };
+    } else {
+      setFormData({
+        ...formData,
+        [name]: e.target.value,
+      });
+    }
+  };
+
+  console.log(formData);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const errorMsg = validateCourseForm(formData);
+    if (errorMsg) {
+      setError(errorMsg);
+      return;
+    }
+
+    try {
+      const courseId = await createCourse(formData);
+      console.log("게시글 등록 완료");
+      navigate(`/courses/${courseId}`);
+      setError("");
+    } catch (error) {
+      setError("게시글 등록 실패");
+      throw error;
+    }
+  };
+
   return (
-    <form className="course-edit-form">
-      <div className="course-edit-form__group course-edit-form__group--inline">
-        <label className="course-edit-form__field">
-          <span className="course-edit-form__label">강좌명</span>
+    <form onSubmit={handleSubmit} className="course-create-form">
+      {error && (
+        <span className="course-create-form__error-message">{error}</span>
+      )}
+
+      <div className="course-create-form__group course-create-form__group--inline">
+        <label className="course-create-form__field">
+          <span className="course-create-form__label">강좌명</span>
           <input
-            className="course-edit-form__input"
+            name="title"
+            value={formData.title}
+            className="course-create-form__input"
             type="text"
             placeholder="강좌 제목을 입력해주세요."
+            onChange={handleOnChange}
           />
         </label>
       </div>
 
-      <div className="course-edit-form__group course-edit-form__group--grid">
-        <label className="course-edit-form__field">
-          <span className="course-edit-form__label">카테고리</span>
+      <div className="course-create-form__group course-create-form__group--grid">
+        <label className="course-create-form__field">
+          <span className="course-create-form__label">카테고리</span>
           <select
-            className="course-edit-form__select"
-            defaultValue="프로그래밍"
+            name="category"
+            value={formData.category}
+            className="course-create-form__select"
+            onChange={handleOnChange}
           >
-            <option>프로그래밍</option>
-            <option>데이터 사이언스</option>
-            <option>디자인</option>
+            <option value="" disabled>
+              카테고리 선택
+            </option>
+            {categories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))}
           </select>
         </label>
 
-        <label className="course-edit-form__field">
-          <span className="course-edit-form__label">레벨</span>
-          <select className="course-edit-form__select" defaultValue="초급">
-            <option>입문</option>
-            <option>초급</option>
-            <option>중급</option>
-            <option>고급</option>
+        <label className="course-create-form__field">
+          <span className="course-create-form__label">난이도</span>
+          <select
+            name="level"
+            value={formData.level}
+            className="course-create-form__select"
+            onChange={handleOnChange}
+          >
+            <option value="" disabled>
+              난이도 선택
+            </option>
+            <option value="beginner">초급</option>
+            <option value="intermediate">중급</option>
+            <option value="advanced">고급</option>
           </select>
         </label>
 
-        <label className="course-edit-form__field">
-          <span className="course-edit-form__label">가격 (원)</span>
+        <label className="course-create-form__field">
+          <span className="course-create-form__label">가격 (원)</span>
           <input
-            className="course-edit-form__input"
-            type="text"
+            name="price"
+            value={formData.price}
+            className="course-create-form__input"
+            type="number"
+            step={1000}
+            min={0}
             placeholder="예: 55000"
+            onChange={handleOnChange}
           />
         </label>
       </div>
 
-      <div className="course-edit-form__group">
-        <span className="course-edit-form__label">썸네일 이미지</span>
-        <div className="course-edit-form__thumbnail">
-          <div className="course-edit-form__thumbnail-preview">미리보기</div>
-          <button className="course-edit-form__thumbnail-button" type="button">
+      <div className="course-create-form__group">
+        <span className="course-create-form__label">썸네일 이미지</span>
+        <div className="course-create-form__thumbnail">
+          {formData.thumbnailUrl ? (
+            <img
+              src={formData.thumbnailUrl}
+              className="course-create-form__thumbnail-preview"
+            />
+          ) : (
+            <div className="course-create-form__thumbnail-preview">
+              미리보기
+            </div>
+          )}
+
+          <input
+            name="thumbnailUrl"
+            id="thumbnail-upload"
+            type="file"
+            accept="image/png, image/jpeg, image/gif"
+            style={{ display: "none" }}
+            onChange={handleOnChange}
+          />
+          <label
+            htmlFor="thumbnail-upload"
+            className="course-create-form__thumbnail-button"
+          >
             파일 업로드
-          </button>
-          <p className="course-edit-form__thumbnail-hint">
-            PNG, JPG, GIF up to 10MB.
+          </label>
+          <p className="course-create-form__thumbnail-hint">
+            PNG, JPG 최대 1MB.
           </p>
         </div>
       </div>
 
-      <div className="course-edit-form__group">
-        <label className="course-edit-form__field">
-          <span className="course-edit-form__label">강좌 요약</span>
+      <div className="course-create-form__group">
+        <label className="course-create-form__field">
+          <span className="course-create-form__label">강좌 요약</span>
           <textarea
-            className="course-edit-form__textarea"
+            name="summary"
+            value={formData.summary}
+            className="course-create-form__textarea"
             placeholder="강좌에 대한 짧은 요약을 입력하세요."
             rows={4}
+            onChange={handleOnChange}
           />
         </label>
       </div>
 
-      <div className="course-edit-form__group">
-        <label className="course-edit-form__field">
-          <span className="course-edit-form__label">강좌 내용</span>
+      <div className="course-create-form__group">
+        <label className="course-create-form__field">
+          <span className="course-create-form__label">강좌 내용</span>
           <textarea
-            className="course-edit-form__textarea"
+            name="content"
+            value={formData.content}
+            className="course-create-form__textarea"
             placeholder="강좌의 전체 내용을 상세하게 작성해주세요."
             rows={6}
+            onChange={handleOnChange}
           />
         </label>
       </div>
 
-      <div className="course-edit-form__actions">
+      <div className="course-create-form__actions">
         <button
-          className="course-edit-form__action-button course-edit-form__action-button--cancel"
-          type="button"
+          className="course-create-form__action-button course-create-form__action-button--cancel"
+          type="reset"
         >
-          취소
+          초기화
         </button>
         <button
-          className="course-edit-form__action-button course-edit-form__action-button--submit"
-          type="button"
+          className="course-create-form__action-button course-create-form__action-button--submit"
+          type="submit"
         >
           저장하기
         </button>
