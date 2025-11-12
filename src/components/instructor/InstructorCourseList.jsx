@@ -4,7 +4,7 @@ import "./InstructorCourseList.css";
 import { Link, useOutletContext } from "react-router-dom";
 
 function InstructorCourseList() {
-  const { courses, loading, error } = useOutletContext();
+  const { courses, setCourses, loading, error } = useOutletContext();
 
   const renderState = (message, showCta = false) => (
     <section className="instructor-course-list instructor-course-list--state">
@@ -39,7 +39,11 @@ function InstructorCourseList() {
       </header>
       <div className="instructor-course-list__items">
         {courses.map((course) => (
-          <InstructorCourseItem key={course.id} course={course} />
+          <InstructorCourseItem
+            key={course.id}
+            course={course}
+            setCourses={setCourses}
+          />
         ))}
       </div>
     </section>

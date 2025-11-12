@@ -7,6 +7,9 @@ import {
   getDocs,
   getDoc,
   addDoc,
+  updateDoc,
+  deleteDoc,
+  serverTimestamp,
 } from "firebase/firestore";
 import { db } from "../firebase/config.js";
 
@@ -107,7 +110,74 @@ const createCourse = async (formData) => {
   }
 };
 
-//강의 수정 updateCourse()
-//강의 삭제 deleteCourse()
+/**
+ * @description 수강 신청 또는 장바구니에 담긴 내역을 확인하여 안전하게 강좌를 삭제(소프트/하드)합니다.
+ * @param {string} courseId - 삭제할 강좌의 고유 ID
+ */
+const deleteCourseSafely = async (courseId) => {
+  try {
+    // 1. 수강 신청(enrollments) 확인
+    const enrollColRef = collection(db, "enrollments");
+    const qEnroll = query(enrollColRef, where("courseId", "==", courseId));
+    const qEnrollSnapshot = await getDocs(qEnroll);
 
-export { getCategories, getFilteredCourses, getCourseById, createCourse };
+    // 2. 장바구니(carts) 확인
+    const cartsColRef = collection(db, "carts");
+    const qCarts = query(
+      cartsColRef,
+      where("items", "array-contains", courseId)
+    );
+    const qCartsSnapshot = await getDocs(qCarts);
+
+    // 수정 혹은 삭제할 강좌 doc 참조 위치
+    const courseDocRef = doc(db, COURSES_COLLECTION_NAME, courseId);
+
+    // 3. 수강 신청 내역이나 장바구니 내역이 하나라도 있으면 소프트 삭제
+    if (!qEnrollSnapshot.empty || !qCartsSnapshot.empty) {
+      console.log("소프트 삭제 진행");
+      await updateDoc(courseDocRef, {
+        status: "archived",
+      });
+      return "강좌를 결제하거나, 장바구니에 담은 사용자가 있어 보관 처리되었습니다.";
+    } else {
+      // 4. 아무도 구매하거나 장바구니에 담지 않았으면 하드 삭제
+      console.log("하드 삭제 진행");
+      await deleteDoc(courseDocRef);
+      return "강좌가 완전히 삭제되었습니다!";
+    }
+  } catch (error) {
+    console.error("강좌 삭제 중 오류가 발생했습니다.", error);
+    throw error;
+  }
+};
+
+/**
+ * @description Firestore의 강좌 문서를 업데이트합니다.
+ * @param {string} courseId - 수정할 강좌의 고유 ID
+ * @param {object} formData - 수정할 필드와 값이 담긴 객체
+ */
+const updateCourse = async (courseId, formData) => {
+  try {
+    const courseDocRef = doc(db, COURSES_COLLECTION_NAME, courseId);
+
+    // 구조 분해를 통해 id 필드를 제외한 나머지 formData
+    const { id, ...rest } = formData;
+    const editedCourse = {
+      ...rest,
+      updatedAt: serverTimestamp(),
+    };
+    await updateDoc(courseDocRef, editedCourse);
+  } catch (error) {
+    console.log("업데이트 중 오류가 발생했습니다.", error);
+    throw error;
+  }
+};
+
+export {
+  getCategories,
+  getFilteredCourses,
+  getCourseById,
+  createCourse,
+  deleteCourseSafely,
+  updateCourse,
+};

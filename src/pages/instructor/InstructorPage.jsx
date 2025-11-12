@@ -37,7 +37,7 @@ function InstructorPage() {
     fetchInstructorCouses();
   }, []);
 
-  const outletContext = { categories, courses, loading, error };
+  const outletContext = { categories, courses, setCourses, loading, error };
 
   return (
     <main className="instructor-page">

@@ -1,7 +1,11 @@
-import CourseEditForm from "./CourseEditForm";
 import "./CourseEditContainer.css";
+import CourseEditForm from "./CourseEditForm";
+
+import { useParams } from "react-router-dom";
 
 function CourseEditContainer() {
+  const { id: courseId } = useParams();
+
   return (
     <section className="course-edit-container">
       <header className="course-edit-container__header">
@@ -10,7 +14,7 @@ function CourseEditContainer() {
           강좌 정보를 업데이트하고 최신 상태로 유지하세요.
         </p>
       </header>
-      <CourseEditForm />
+      <CourseEditForm courseId={courseId} />
     </section>
   );
 }

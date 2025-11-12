@@ -10,6 +10,18 @@
   gap: 0.75rem;
 }
 
+.course-edit-form__error-message {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  margin-top: -0.5rem;
+  border-radius: var(--radius-sm);
+  background-color: rgba(215, 4, 102, 0.08);
+  color: var(--primary-400);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  text-align: center;
+}
+
 .course-edit-form__group--inline {
   flex-direction: row;
 }
@@ -66,12 +78,12 @@
 
 .course-edit-form__thumbnail {
   display: flex;
-  align-items: center;
+  align-items: end;
   gap: 1.25rem;
 }
 
 .course-edit-form__thumbnail-preview {
-  width: 9rem;
+  width: 16rem;
   height: 9rem;
   border-radius: 1rem;
   background-color: var(--gray-50);
@@ -81,6 +93,7 @@
   justify-content: center;
   font-size: var(--text-sm);
   color: var(--gray-500);
+  object-fit: cover;
 }
 
 .course-edit-form__thumbnail-button {
@@ -135,8 +148,8 @@
   font-size: var(--text-sm);
   font-weight: var(--font-bold);
   cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease,
-    box-shadow 0.2s ease, border-color 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .course-edit-form__action-button--cancel {
