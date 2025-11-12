@@ -1,6 +1,8 @@
 import "./EnrollmentItem.css";
+import { useOutletContext } from "react-router";
 
 function EnrollmentItem({ course }) {
+  const { handleCancel } = useOutletContext();
   return (
     <>
       <article className="enrollment-item" key={course.title}>
@@ -24,7 +26,11 @@ function EnrollmentItem({ course }) {
             {item.enrolledAt}
           </time> */}
           <span className="enrollment-item__price">{course.price}</span>
-          <button className="enrollment-item__action" type="button">
+          <button
+            className="enrollment-item__action"
+            type="button"
+            onClick={() => handleCancel(course.id)}
+          >
             수강 취소하기
           </button>
         </div>
