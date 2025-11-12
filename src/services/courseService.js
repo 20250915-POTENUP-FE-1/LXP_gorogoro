@@ -15,8 +15,10 @@ const CATEGORIES_COLLECTION_NAME = "categories";
 
 //카테고리 목록 조회 getCategories()
 const getCategories = async () => {
-  const snapshot = await getDocs(collection(db, CATEGORIES_COLLECTION_NAME));
-  return snapshot.docs.map((doc) => doc.data());
+  const colRef = collection(db, CATEGORIES_COLLECTION_NAME);
+  const snapshot = await getDocs(colRef);
+  const snapshotData = snapshot.docs.map((doc) => doc.data());
+  return snapshotData;
 };
 
 //필터링 강의 조회 getFilteredCourses()
@@ -74,9 +76,8 @@ const getFilteredCourses = async (filters) => {
  */
 const getCourseById = async (courseId) => {
   try {
-    const docSnapshot = await getDoc(
-      doc(db, COURSES_COLLECTION_NAME, courseId)
-    );
+    const docRef = doc(db, COURSES_COLLECTION_NAME, courseId);
+    const docSnapshot = await getDoc(docRef);
     if (!docSnapshot.exists()) {
       return null;
     }

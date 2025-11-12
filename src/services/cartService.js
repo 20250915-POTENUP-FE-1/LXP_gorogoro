@@ -3,22 +3,75 @@ import {
   doc,
   getDoc,
   getDocs,
+  deleteDoc,
+  where,
   orderBy,
   query,
+  updateDoc,
+  arrayRemove,
+  addDoc,
+  setDoc,
 } from "firebase/firestore";
 import { db } from "../firebase/config.js";
-
 //전체 장바구니 목록 조회 getCarts()
+/**
+ * @param {string} uid -조회할 users의 uid
+ * @return {Promise<CartItem[]>} 장바구니 아이템 배열(없으면 [])
+ */
 const CARTS_COLLECTION_NAME = "carts";
-export const getCarts = async (uid) => {
+const ENROLLMENTS_COLLECTION_NAME = "enrollments";
+const getCarts = async (uid) => {
   try {
-    const docSnapshot = await getDoc(doc(db, CARTS_COLLECTION_NAME, uid));
+    const docRef = doc(db, CARTS_COLLECTION_NAME, uid);
+    const docSnapshot = await getDoc(docRef);
     const dataSnapshotData = docSnapshot.data();
-    const dataItem = dataSnapshotData.items;
+    const dataItem = dataSnapshotData.items ?? [];
     return dataItem;
   } catch (error) {
     throw error;
   }
 };
-//장바구니 강의 전체 삭제 deleteCarts()
-//장바구니 강의 개별 삭제 deleteCart()
+
+//장바구니 강의 개별 삭제 deleteCartItem()
+const deleteCartItem = async (userId, courseId) => {
+  const docRef = doc(db, CARTS_COLLECTION_NAME, userId);
+  await updateDoc(docRef, {
+    items: arrayRemove(courseId),
+  });
+};
+
+//장바구니 강의 전체 삭제 deleteCartsAll()
+const deleteCartsAll = async (userId) => {
+  const docRef = doc(db, CARTS_COLLECTION_NAME, userId);
+  await updateDoc(docRef, {
+    items: [],
+  });
+};
+
+//장바구니 강의 마이페이지(enrollments)에 등록 addEnrollments()
+const addEnrollments = async (enrollData) => {
+  const colRef = collection(db, ENROLLMENTS_COLLECTION_NAME);
+  await addDoc(colRef, {
+    ...enrollData,
+  });
+};
+
+//마이페이지 : userId가 일치하는 enrollments 컬렉션 가져오기
+const getEnrollmentsById = async (userId) => {
+  const colRef = collection(db, ENROLLMENTS_COLLECTION_NAME);
+  const q = query(
+    colRef,
+    where("userId", "==", userId),
+    orderBy("enrolledAt", "desc")
+  );
+  const qeurySnapshot = await getDocs(q);
+  const qeurySnapshotData = qeurySnapshot.docs.map((doc) => doc.data());
+  return qeurySnapshotData;
+};
+export {
+  getCarts,
+  deleteCartItem,
+  deleteCartsAll,
+  addEnrollments,
+  getEnrollmentsById,
+};
