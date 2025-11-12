@@ -10,7 +10,7 @@ function MySidebar() {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedin] = useState(true);
 
-  console.log(auth.currentUser.uid);
+  // console.log(auth.currentUser.uid);
 
   const checkAuthState = () => {
     // 리스너 함수: 인증 상태가 변경될 때마다 자동으로 되는 함수

@@ -53,23 +53,25 @@ function SignupForm() {
     }
 
     try {
+      // Authentication에 새로운 유저 추가 (EMAIL, UID)
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         formData.email,
         formData.password
       );
 
-      const userId = userCredential.user.uid;
-      console.log("회원가입 성공", userId);
+      // Authentication에 추가된 UID
+      const uid = userCredential.user.uid;
 
-      const NEW_USER = {
+      // Firestore에 추가할 user 객체 선언
+      const newUser = {
         displayName: formData.displayName,
         email: formData.email,
         role: formData.role,
       };
 
       // Firestore users collection에 추가
-      await setDoc(doc(db, USERS_COLLECTION_NAME, userId), NEW_USER);
+      await addUserProfile(uid, newUser);
 
       navigate("/login");
     } catch (error) {

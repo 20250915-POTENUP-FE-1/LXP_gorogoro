@@ -1,23 +1,41 @@
-import { Routes, Route } from "react-router-dom";
+import "./styles/global.css";
+import Header from "./components/layout/Header";
+import LoginPage from "./pages/auth/LoginPage";
+import SignupPage from "./pages/auth/SignupPage";
 import CoursePage from "./pages/course/CoursePage";
 import CourseDetailPage from "./pages/course/CourseDetailPage";
 import CartPage from "./pages/cart/CartPage";
-import Header from "./components/layout/Header";
-
 import MyPage from "./pages/student/MyPage";
 import EnrollmentList from "./components/student/EnrollmentList";
-
 import InstructorPage from "./pages/instructor/InstructorPage";
 import InstructorCourseList from "./components/instructor/InstructorCourseList";
 import CourseEditContainer from "./components/instructor/CourseEditContainer";
 import CourseCreateContatiner from "./components/instructor/CourseCreateContainer";
 
-import LoginPage from "./pages/auth/LoginPage";
-import SignupPage from "./pages/auth/SignupPage";
+import { useEffect, useState } from "react";
+import { Routes, Route } from "react-router-dom";
 
-import "./styles/global.css";
+import { auth } from "./firebase/config";
+import { onAuthStateChanged } from "firebase/auth";
+import { getUserProfile } from "./services/userService";
 
 function App() {
+  const [currentUserProfile, setCurrentUserProfile] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      if (currentUser) {
+        const userProfile = await getUserProfile(currentUser.uid);
+        setCurrentUserProfile(userProfile);
+      } else {
+        setCurrentUserProfile(null);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
+  console.log(currentUserProfile);
+
   return (
     <>
       <Header />
