@@ -1,6 +1,6 @@
 import "./CourseDetail.css";
 
-function CourseDetail({ course }) {
+function CourseDetail({ course, handleAddToCart }) {
   return (
     <>
       {course && (
@@ -49,7 +49,11 @@ function CourseDetail({ course }) {
                     </dd>
                   </div>
                 </dl>
-                <button className="course-detail__cta" type="button">
+                <button
+                  className="course-detail__cta"
+                  type="button"
+                  onClick={() => handleAddToCart(course.id)}
+                >
                   <img
                     className="course-detail__cta-icon"
                     src="/assets/icons/shopping-cart.svg"

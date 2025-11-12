@@ -5,7 +5,7 @@ import {
   signOut,
 } from "firebase/auth";
 import { auth, db } from "../firebase/config.js";
-import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 
 //회원가입(사용자 정보 등록:authentication엔 uid,email 만 등록 가능)
 export const signUp = async ({ email, password, displayName, role }) => {
@@ -22,7 +22,6 @@ export const signUp = async ({ email, password, displayName, role }) => {
       displayName,
       email,
       role,
-      createdAt: serverTimestamp(),
     });
     return user;
   } catch (error) {

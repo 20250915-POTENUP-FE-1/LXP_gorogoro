@@ -3,7 +3,10 @@ import MySidebar from "../../components/student/MySidebar";
 import "./MyPage.css";
 
 import { Outlet } from "react-router-dom";
-import { getEnrollmentsById } from "../../services/cartService";
+import {
+  getEnrollmentsById,
+  deleteEnrollmentsById,
+} from "../../services/cartService";
 import { getCourseById } from "../../services/courseService";
 
 const USER_ID = "gNpMmunioN2JyXVqag3q";
@@ -17,7 +20,7 @@ function MyPage() {
     };
     fetchData();
   }, []);
-  console.log(enrolls);
+
   useEffect(() => {
     if (!enrolls.length) return;
     try {
@@ -34,7 +37,24 @@ function MyPage() {
     }
   }, [enrolls]);
 
-  const outletContext = { enrolls, courses };
+  console.log(enrolls);
+  console.log(courses);
+
+  const handleCancel = async (courseId) => {
+    //파라미터 (2개필요):currenUser, courseId
+    if (window.confirm("정말로 수강을 취소하시겠습니까?")) {
+      try {
+        await deleteEnrollmentsById(USER_ID, courseId);
+        setEnrolls((prev) =>
+          prev.filter((prevItem) => prevItem.courseId !== courseId)
+        );
+      } catch (error) {
+        console.log("수강 취소 중 오류가 발생했습니다.", error);
+        alert("수강 취소에 실패했습니다. 다시 시도해주세요.");
+      }
+    }
+  };
+  const outletContext = { enrolls, courses, handleCancel };
   return (
     <main className="my-page">
       <div className="page-wrapper my-page__container">

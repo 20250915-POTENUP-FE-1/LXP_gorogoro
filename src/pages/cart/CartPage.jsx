@@ -13,11 +13,12 @@ import { getCourseById } from "../../services/courseService";
 import { serverTimestamp } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
-const USER_ID = "gNpMmunioN2JyXVqag3q";
+const USER_ID = "bbbbbbbbbqag3b";
 function CartPage() {
   const [carts, setCarts] = useState([]); //장바구니 목록 원본 데이터
   const [courses, setCourses] = useState([]); //강좌 목록
   const navigate = useNavigate();
+
   const handleDelete = async (courseId) => {
     setCarts((prev) => prev.filter((prevItem) => prevItem !== courseId));
     setCourses((prev) => prev.filter((prevItem) => prevItem.id !== courseId));
