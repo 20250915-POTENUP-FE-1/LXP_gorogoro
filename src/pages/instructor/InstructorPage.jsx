@@ -9,6 +9,7 @@ import { getCategories } from "../../services/courseService";
 
 function InstructorPage() {
   const [categories, setCategories] = useState([]);
+
   const [courses, setCourses] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -22,17 +23,23 @@ function InstructorPage() {
     fetchCategories();
 
     const fetchInstructorCouses = async () => {
+      // 함수 실행 : pending
       setLoading(true);
+      setError("");
+
       const result = await getIntstructorCourses("UID_INSTRUCTOR_2");
 
+      // 함수 성공 시 : fulfilled
       if (typeof result === "object") {
         setCourses(result);
         setError("");
-      } else {
-        setCourses(null);
+      }
+      // 함수 실패 시 : rejected
+      else if (typeof result === "string") {
+        setLoading(false);
         setError(result || "강좌 정보를 불러오지 못했습니다.");
       }
-      setLoading(false);
+      // 함수 종료
     };
     fetchInstructorCouses();
   }, []);

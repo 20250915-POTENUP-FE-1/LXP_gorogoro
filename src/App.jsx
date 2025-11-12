@@ -12,29 +12,33 @@ import InstructorCourseList from "./components/instructor/InstructorCourseList";
 import CourseEditContainer from "./components/instructor/CourseEditContainer";
 import CourseCreateContatiner from "./components/instructor/CourseCreateContainer";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import { auth } from "./firebase/config";
 import { onAuthStateChanged } from "firebase/auth";
+
+import { setUserProfile } from "./store/authSlice";
 import { getUserProfile } from "./services/userService";
 
 function App() {
-  const [currentUserProfile, setCurrentUserProfile] = useState(null);
+  const dispatch = useDispatch();
+
+  const userProfile = useSelector((state) => state.auth.userProfile);
+  console.log(userProfile);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
-        const userProfile = await getUserProfile(currentUser.uid);
-        setCurrentUserProfile(userProfile);
+        const result = await getUserProfile(currentUser.uid);
+        dispatch(setUserProfile(result));
       } else {
-        setCurrentUserProfile(null);
+        dispatch(setUserProfile(null));
       }
     });
     return () => unsubscribe();
   }, []);
-
-  console.log(currentUserProfile);
 
   return (
     <>
