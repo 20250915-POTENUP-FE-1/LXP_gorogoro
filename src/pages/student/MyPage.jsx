@@ -12,10 +12,9 @@ import { useSelector } from "react-redux";
 
 function MyPage() {
   const userProfile = useSelector((state) => state.auth.userProfile);
-  const USER_ID = userProfile.id;
-
   const [enrolls, setEnrolls] = useState([]);
   const [courses, setCourses] = useState([]);
+
   useEffect(() => {
     const fetchData = async () => {
       const result = await getEnrollmentsById(USER_ID);
@@ -23,7 +22,7 @@ function MyPage() {
       console.log(result);
     };
     fetchData();
-  }, []);
+  }, [userProfile?.id]);
 
   useEffect(() => {
     try {
@@ -40,6 +39,12 @@ function MyPage() {
       console.log(error);
     }
   }, [enrolls]);
+
+  if (!userProfile) {
+    return null;
+  }
+
+  const USER_ID = userProfile.id;
 
   const handleCancel = async (courseId) => {
     if (window.confirm("정말로 수강을 취소하시겠습니까?")) {

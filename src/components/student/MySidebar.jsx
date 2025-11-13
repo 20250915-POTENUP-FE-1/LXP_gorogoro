@@ -9,11 +9,12 @@ import { logout } from "../../store/logout";
 function MySidebar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const userProfile = useSelector((state) => state.auth.userProfile);
 
   const handleLogoutClick = async () => {
     const result = await dispatch(logout());
     if (result.meta.requestStatus === "fulfilled") {
-      navigate("/login");
+      navigate("/login", { replace: true });
     }
     if (result.meta.requestStatus === "rejected") {
       alert("실패함 ㅠ");
@@ -25,8 +26,8 @@ function MySidebar() {
       <div className="my-sidebar__profile">
         <div className="my-sidebar__avatar"></div>
         <div className="my-sidebar__info">
-          <span className="my-sidebar__name">사용자 이름</span>
-          <span className="my-sidebar__email">사용자 이메일</span>
+          <span className="my-sidebar__name">{userProfile.displayName}</span>
+          <span className="my-sidebar__email">{userProfile.email}</span>
         </div>
       </div>
       <nav className="my-sidebar__nav" aria-label="마이페이지 메뉴">
