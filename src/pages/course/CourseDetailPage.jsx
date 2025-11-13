@@ -4,9 +4,12 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getCourseById } from "../../services/courseService.js";
 import { addCartItem } from "../../services/cartService.js";
+import { useSelector } from "react-redux";
 
-const USER_ID = "bbbbbbbbbqag3b";
 function CourseDetailPage() {
+  const userProfile = useSelector((state) => state.auth.userProfile);
+  const USER_ID = userProfile.id;
+
   const [course, setCourse] = useState(null);
   const { id } = useParams();
   useEffect(() => {
@@ -20,7 +23,6 @@ function CourseDetailPage() {
     };
     fetchData();
   }, []);
-  console.log(id);
 
   const handleAddToCart = async (courseId) => {
     try {

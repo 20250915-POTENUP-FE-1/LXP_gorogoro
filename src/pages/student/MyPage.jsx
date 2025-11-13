@@ -8,23 +8,27 @@ import {
   deleteEnrollmentsById,
 } from "../../services/cartService";
 import { getCourseById } from "../../services/courseService";
+import { useSelector } from "react-redux";
 
-const USER_ID = "gNpMmunioN2JyXVqag3q";
 function MyPage() {
+  const userProfile = useSelector((state) => state.auth.userProfile);
+  const USER_ID = userProfile.id;
+
   const [enrolls, setEnrolls] = useState([]);
   const [courses, setCourses] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       const result = await getEnrollmentsById(USER_ID);
       setEnrolls(result);
+      console.log(result);
     };
     fetchData();
   }, []);
 
   useEffect(() => {
-    if (!enrolls.length) return;
     try {
       const fetchData = async () => {
+        console.log(enrolls);
         // map()배열반환: 각 id에 대한 비동기 요청들을 배열로 만들고
         const tasks = enrolls.map((enroll) => getCourseById(enroll.courseId));
         // Promise.all로 병렬 처리 → 모든 상세가 완료되면 결과 배열을 받음
@@ -38,10 +42,9 @@ function MyPage() {
   }, [enrolls]);
 
   const handleCancel = async (courseId) => {
-    //파라미터 (2개필요):currenUser, courseId
     if (window.confirm("정말로 수강을 취소하시겠습니까?")) {
       try {
-        await deleteEnrollmentsById(USER_ID, courseId);
+        await deleteEnrollmentsById(USER_ID, courseId); //파라미터 (2개필요):currenUser, courseId
         setEnrolls((prev) =>
           prev.filter((prevItem) => prevItem.courseId !== courseId)
         );

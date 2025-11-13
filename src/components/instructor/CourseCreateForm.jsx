@@ -2,29 +2,26 @@
 
 import { useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
-import { serverTimestamp } from "firebase/firestore";
 import { createCourse } from "../../services/courseService";
 
 const MAX_THUMBNAIL_SIZE = 1 * 1024 * 1024; // 1MB
 
 function CourseCreateForm() {
-  const { categories } = useOutletContext();
+  const { categories, userProfile } = useOutletContext();
   const navigate = useNavigate();
 
   const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     title: "",
     // 추후 currentUser 값으로 강사 필드 변경
-    instructorId: "UID_INSTRUCTOR_1",
-    instructorName: "조성훈",
+    instructorId: userProfile.id,
+    instructorName: userProfile.displayName,
     category: "",
     level: "",
     price: 30000,
     thumbnailUrl: "",
     summary: "",
     content: "",
-    createdAt: serverTimestamp(),
-    updatedAt: serverTimestamp(),
   });
   const validateCourseForm = (currentFormData) => {
     if (!currentFormData.title.trim()) return "강좌명을 입력하세요.";
@@ -76,8 +73,6 @@ function CourseCreateForm() {
       });
     }
   };
-
-  console.log(formData);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

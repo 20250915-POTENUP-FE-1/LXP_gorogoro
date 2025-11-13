@@ -1,16 +1,19 @@
 import { NavLink } from "react-router-dom";
 import "./InstructorSidebar.css";
+import { useSelector } from "react-redux";
 
 function InstructorSidebar() {
+  const userProfile = useSelector((state) => state.auth.userProfile);
+
   return (
     <aside className="instructor-sidebar" aria-label="강사 사이드바">
       <div className="instructor-sidebar__profile">
-        <div className="instructor-sidebar__avatar">JD</div>
+        <div className="instructor-sidebar__avatar"></div>
         <div className="instructor-sidebar__info">
-          <span className="instructor-sidebar__name">Christina Ahn</span>
-          <span className="instructor-sidebar__email">
-            jane.doe@example.com
+          <span className="instructor-sidebar__name">
+            {userProfile.displayName}
           </span>
+          <span className="instructor-sidebar__email">{userProfile.email}</span>
         </div>
       </div>
       <nav className="instructor-sidebar__nav" aria-label="강사 메뉴">

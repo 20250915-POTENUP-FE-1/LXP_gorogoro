@@ -48,9 +48,9 @@ function InstructorCourseItem({ course, setCourses }) {
         </div>
         <div className="instructor-course-item__meta">
           <span className="instructor-course-item__price">{course.price}</span>
-          <span className="instructor-course-item__date">
-            {course.createdAt}
-          </span>
+          {/* <span className="instructor-course-item__date">
+            {course.createdAt.toDate().toLocaleDateString()}
+          </span> */}
           <div className="instructor-course-item__actions">
             <button
               className="instructor-course-item__action instructor-course-item__action--edit"
