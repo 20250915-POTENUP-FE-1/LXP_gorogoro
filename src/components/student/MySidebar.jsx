@@ -9,7 +9,6 @@ import { logout } from "../../store/logout";
 function MySidebar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const userProfile = useSelector((state) => state.auth.userProfile);
 
   const handleLogoutClick = async () => {
     const result = await dispatch(logout());
