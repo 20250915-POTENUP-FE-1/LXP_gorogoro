@@ -30,7 +30,7 @@ export const signup = createAsyncThunk(
       console.log("users 컬렉션에 새 문서 추가 완료");
 
       // 전역 상태 userProfile에 등록하기 위해 문서 조회 요청
-      const userProfile = await getUserProfile(user.uid);
+      const userProfile = await getUserProfile(uid);
       // - userProfile 객체를 상태로 저장시키기 위해 반환 (fulfilled 상태일때 사용될 데이터)
       return { userProfile };
     } catch (error) {

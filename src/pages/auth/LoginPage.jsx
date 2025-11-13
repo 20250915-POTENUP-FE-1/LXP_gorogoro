@@ -1,5 +1,6 @@
 import "./LoginPage.css";
 import LoginForm from "../../components/auth/LoginForm";
+import { Link } from "react-router-dom";
 
 function LoginPage() {
   return (
@@ -28,9 +29,9 @@ function LoginPage() {
           <LoginForm />
           <p className="login-page__caption">
             계정이 없으신가요?{" "}
-            <a className="login-page__link" href="#">
+            <Link to="/signup" className="login-page__link">
               회원가입하기
-            </a>
+            </Link>
           </p>
         </div>
       </div>

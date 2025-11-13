@@ -53,6 +53,7 @@ function App() {
         <Route path="/cart" element={<CartPage />} />
         <Route path="/mypage" element={<MyPage />}>
           <Route index element={<EnrollmentList />} />
+          <Route path="profile" element={<div>프로필 페이지</div>} />
           <Route path="enrollments" element={<EnrollmentList />} />
         </Route>
         <Route path="/instructor" element={<InstructorPage />}>

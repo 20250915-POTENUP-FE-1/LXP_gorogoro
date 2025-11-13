@@ -1,5 +1,6 @@
 import "./SignupPage.css";
 import SignupForm from "../../components/auth/SignupForm";
+import { Link } from "react-router-dom";
 
 function SignupPage() {
   return (
@@ -16,9 +17,9 @@ function SignupPage() {
         </div>
         <p className="signup-page__footer">
           이미 계정이 있으신가요?{" "}
-          <a className="signup-page__footer-link" href="#">
+          <Link to="/login" className="signup-page__footer-link">
             로그인
-          </a>
+          </Link>
         </p>
       </div>
     </section>

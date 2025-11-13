@@ -1,13 +1,17 @@
+import { NavLink } from "react-router-dom";
 import "./Header.css";
+
+import cartIconUrl from "/assets/icons/shopping-cart.svg";
+import userIconUrl from "/assets/icons/user.svg";
 
 function Header() {
   return (
     <header className="header">
       <div className="header__container">
         <div className="header__brand-group">
-          <a className="header__brand" href="#">
+          <NavLink to="/" className="header__brand">
             GORO
-          </a>
+          </NavLink>
           {/* <nav className="header__nav" aria-label="메인 메뉴">
             <ul className="header__nav-list">
               <li className="header__nav-item">
@@ -34,33 +38,28 @@ function Header() {
           </nav> */}
         </div>
         <div className="header__actions">
-          <a className="header__dashboard-link" href="#">
+          <NavLink to="/instructor" className="header__dashboard-link">
             강사 대시보드
-          </a>
-          <button
+          </NavLink>
+          <NavLink
+            to="/cart"
             className="header__action-button"
-            type="button"
             aria-label="장바구니"
           >
             <img
-              className="header__action-icon"
-              src="/assets/icons/shopping-cart.svg"
+              src={cartIconUrl}
               alt=""
+              className="header__action-icon"
               aria-hidden="true"
             />
-          </button>
-          <button
+          </NavLink>
+          <NavLink
+            to="/mypage"
             className="header__action-button"
-            type="button"
-            aria-label="내 계정"
+            aria-label="마이페이지"
           >
-            <img
-              className="header__action-icon"
-              src="/assets/icons/user.svg"
-              alt=""
-              aria-hidden="true"
-            />
-          </button>
+            <img src={userIconUrl} alt="" className="header__action-icon" />
+          </NavLink>
         </div>
       </div>
     </header>

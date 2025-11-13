@@ -66,13 +66,16 @@
 .header__dashboard-link {
   font-size: var(--text-sm);
   font-weight: var(--font-medium);
-  color: var(--gray-500);
+  color: var(--gray-800);
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color 0.2s ease, background-color 0.2s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
 }
 
 .header__dashboard-link:hover {
-  color: var(--primary-500);
+  color: var(--gray-800);
+  background-color: var(--gray-100);
 }
 
 .header__action-button {
@@ -96,4 +99,14 @@
 .header__action-icon {
   width: 1.35rem;
   height: 1.35rem;
+  transition: color 0.2s ease;
+}
+
+.header__dashboard-link.active {
+  background-color: var(--gray-100);
+  color: var(--gray-800);
+}
+
+.header__action-button.active {
+  background-color: var(--gray-200);
 }

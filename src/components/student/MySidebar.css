@@ -1,5 +1,5 @@
 .my-sidebar {
-  width: 19rem;
+  width: 15rem;
   padding: 2.5rem 2rem;
   border-radius: 1.5rem;
   background-color: var(--primary-bg);
@@ -70,13 +70,8 @@
 }
 
 .my-sidebar__nav-item:hover {
-  background-color: var(--primary-200);
-  color: var(--gray-00);
-}
-
-.my-sidebar__nav-item--active {
-  background-color: var(--primary-300);
-  color: var(--gray-00);
+  background-color: var(--gray-100);
+  color: var(--gray-800);
 }
 
 .my-sidebar__nav-item--logout {
@@ -86,4 +81,9 @@
 .my-sidebar__nav-item--logout:hover {
   background-color: var(--gray-100);
   color: var(--gray-800);
+}
+
+.my-sidebar__nav-item.active {
+  background-color: var(--primary-200);
+  color: var(--gray-00);
 }

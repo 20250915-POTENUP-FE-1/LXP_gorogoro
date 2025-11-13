@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./InstructorSidebar.css";
 
 function InstructorSidebar() {
@@ -14,12 +14,12 @@ function InstructorSidebar() {
         </div>
       </div>
       <nav className="instructor-sidebar__nav" aria-label="강사 메뉴">
-        <Link className="instructor-sidebar__nav-item" to="courses">
+        <NavLink className="instructor-sidebar__nav-item" to="courses" end>
           대시보드
-        </Link>
-        <Link className="instructor-sidebar__nav-item" to="courses/create">
+        </NavLink>
+        <NavLink className="instructor-sidebar__nav-item" to="courses/create">
           새 강좌 만들기
-        </Link>
+        </NavLink>
       </nav>
     </aside>
   );

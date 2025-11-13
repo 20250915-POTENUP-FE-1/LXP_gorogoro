@@ -58,53 +58,13 @@ function SignupForm() {
     }
 
     // authentication에 user 추가 후 firestore users컬렉션에 새 문서 추가
-    // const result = await dispatch(signup(formData));
-
     const result = await dispatch(signup(formData));
 
     // signup 결과 표시
     console.log(result);
-    // if (result.meta.requestStatus === "fulfilled") {
-    //   navigate("/");
-    // }
-
-    // try {
-    //   // Authentication에 새로운 유저 추가 (EMAIL, UID)
-    //   const userCredential = await createUserWithEmailAndPassword(
-    //     auth,
-    //     formData.email,
-    //     formData.password
-    //   );
-
-    //   // Authentication에 추가된 UID
-    //   const uid = userCredential.user.uid;
-
-    //   // Firestore에 추가할 user 객체 선언
-    //   const newUser = {
-    //     displayName: formData.displayName,
-    //     email: formData.email,
-    //     role: formData.role,
-    //   };
-
-    //   // Firestore users collection에 추가
-    //   await addUserProfile(uid, newUser);
-
-    //   navigate("/login");
-    // } catch (error) {
-    //   switch (error.code) {
-    //     case "auth/email-already-in-use":
-    //       setError("이미 사용 중인 이메일입니다.");
-    //       break;
-    //     case "auth/invalid-email":
-    //       setError("유효하지 않은 이메일 형식입니다.");
-    //       break;
-    //     case "auth/weak-password":
-    //       setError("비밀번호가 너무 약합니다.");
-    //       break;
-    //     default:
-    //       setError("회원가입에 실패했습니다.");
-    //   }
-    // }
+    if (result.meta.requestStatus === "fulfilled") {
+      navigate("/");
+    }
   };
 
   return (
