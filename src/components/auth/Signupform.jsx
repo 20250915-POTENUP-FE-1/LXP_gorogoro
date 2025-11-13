@@ -1,9 +1,5 @@
 import "./SignupForm.css";
 
-import { db, auth } from "../../firebase/config";
-import { doc, setDoc } from "firebase/firestore";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";

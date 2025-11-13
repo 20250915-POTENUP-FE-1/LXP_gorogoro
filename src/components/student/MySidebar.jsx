@@ -1,10 +1,25 @@
 import "./MySidebar.css";
 
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { logout } from "../../store/logout";
 
 function MySidebar() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   // const userProfile = useSelector((state) => state.auth.userProfile);
+
+  const handleLogoutClick = async () => {
+    const result = await dispatch(logout());
+    if (result.meta.requestStatus === "fulfilled") {
+      navigate("/login");
+    }
+    if (result.meta.requestStatus === "rejected") {
+      alert("실패함 ㅠ");
+    }
+  };
 
   return (
     <aside className="my-sidebar" aria-label="마이페이지 사이드바">
@@ -25,6 +40,7 @@ function MySidebar() {
         <button
           className="my-sidebar__nav-item my-sidebar__nav-item--logout"
           type="button"
+          onClick={handleLogoutClick}
         >
           로그아웃
         </button>

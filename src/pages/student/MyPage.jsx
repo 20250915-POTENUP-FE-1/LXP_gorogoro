@@ -37,9 +37,6 @@ function MyPage() {
     }
   }, [enrolls]);
 
-  console.log(enrolls);
-  console.log(courses);
-
   const handleCancel = async (courseId) => {
     //파라미터 (2개필요):currenUser, courseId
     if (window.confirm("정말로 수강을 취소하시겠습니까?")) {
