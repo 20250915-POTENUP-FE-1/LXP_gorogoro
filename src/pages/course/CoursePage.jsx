@@ -38,13 +38,21 @@ function CoursePage() {
     fetchFilteredCourses();
   }, [filters]);
 
+  const currentCategoryName = categories.find(
+    (c) => c.id === filters.category
+  )?.name;
+
+  const pageTitle = filters.searchTerm
+    ? `"${filters.searchTerm}" 검색 결과`
+    : `${currentCategoryName} 강좌`;
+
   return (
     <>
       {courses && (
         <main className="course-page">
           <div className="page-wrapper course-page__container">
             <section className="course-page__intro">
-              <h1 className="course-page__title">데이터 분석, 파이썬</h1>
+              <h1 className="course-page__title">{pageTitle}</h1>
               <span className="course-page__subtitle">
                 총 {courses.length}개의 강좌
               </span>

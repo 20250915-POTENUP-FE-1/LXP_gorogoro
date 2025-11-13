@@ -8,6 +8,11 @@
   border: 1px solid var(--gray-100);
 }
 
+.instructor-course-item--archived {
+  opacity: 0.6;
+  filter: grayscale(100%);
+}
+
 .instructor-course-item__thumbnail {
   width: 6.5rem;
   height: 4.75rem;

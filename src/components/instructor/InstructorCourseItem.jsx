@@ -29,7 +29,11 @@ function InstructorCourseItem({ course, setCourses }) {
 
   return (
     <>
-      <article className="instructor-course-item">
+      <article
+        className={`instructor-course-item ${
+          course.status === "archived" ? "instructor-course-item--archived" : ""
+        }`}
+      >
         <div className="instructor-course-item__thumbnail">
           <img
             className="instructor-course-item__image"

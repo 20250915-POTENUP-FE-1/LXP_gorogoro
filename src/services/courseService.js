@@ -31,7 +31,8 @@ const getFilteredCourses = async (filters) => {
   try {
     //컬렉션 지정
     const colRef = collection(db, COURSES_COLLECTION_NAME);
-    let q = query(colRef);
+    // status가 "active"인 강좌만 필터링
+    let q = query(colRef, where("status", "==", "published"));
 
     // query() 함수에 기존 쿼리 객체(q)와 새로운 제약 조건(where(...))을
     // 함께 전달하면, 기존 쿼리와 새 제약 조건이 모두 적용된

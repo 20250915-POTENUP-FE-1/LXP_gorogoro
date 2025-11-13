@@ -12,11 +12,7 @@ function CourseItem({ course }) {
         key={course.id}
       >
         <div className="course-item__image-wrapper">
-          <img
-            className="course-item__image"
-            src={course.imageSrc}
-            alt={course.imageAlt}
-          />
+          <img className="course-item__image" src={course.thumbnailUrl} />
         </div>
         <div className="course-item__body">
           <p className="course-item__category">{course.category}</p>
