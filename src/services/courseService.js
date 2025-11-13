@@ -100,10 +100,11 @@ const getCourseById = async (courseId) => {
  */
 const createCourse = async (formData) => {
   try {
-    const docRef = await addDoc(
-      collection(db, COURSES_COLLECTION_NAME),
-      formData
-    );
+    const docRef = await addDoc(collection(db, COURSES_COLLECTION_NAME), {
+      ...formData,
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp(),
+    });
     return docRef.id;
   } catch (error) {
     throw error;

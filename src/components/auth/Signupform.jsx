@@ -57,7 +57,6 @@ function SignupForm() {
     const result = await dispatch(signup(formData));
 
     // signup 결과 표시
-    console.log(result);
     if (result.meta.requestStatus === "fulfilled") {
       navigate("/");
     }

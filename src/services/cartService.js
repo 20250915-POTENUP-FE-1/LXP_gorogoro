@@ -31,7 +31,7 @@ const getCarts = async (uid) => {
     const dataItem = dataSnapshotData.items ?? [];
     return dataItem;
   } catch (error) {
-    throw error;
+    return "장바구니에 담은 강좌가 없습니다.";
   }
 };
 

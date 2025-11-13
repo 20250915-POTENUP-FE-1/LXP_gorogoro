@@ -12,9 +12,12 @@ import {
 import { getCourseById } from "../../services/courseService";
 import { serverTimestamp } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-const USER_ID = "bbbbbbbbbqag3b";
 function CartPage() {
+  const userProfile = useSelector((state) => state.auth.userProfile);
+  const USER_ID = userProfile.id;
+
   const [carts, setCarts] = useState([]); //장바구니 목록 원본 데이터
   const [courses, setCourses] = useState([]); //강좌 목록
   const navigate = useNavigate();
@@ -32,7 +35,6 @@ function CartPage() {
   };
 
   const handlePurchase = () => {
-    // const userId = currentUser.uid;
     const userId = USER_ID;
     const fetchData = async () => {
       const tasks = courses.map((course) => {
@@ -59,7 +61,12 @@ function CartPage() {
   useEffect(() => {
     const fetchData = async () => {
       const result = await getCarts(USER_ID);
-      setCarts(result);
+      if (typeof result === "object") {
+        setCarts(result);
+      } else {
+        alert(result);
+        navigate("/");
+      }
     };
     fetchData();
   }, []);
@@ -88,7 +95,9 @@ function CartPage() {
   const totalPrice = courses.reduce((acc, cur) => {
     return acc + cur.price;
   }, 0);
-
+  if (!userProfile) {
+    return null;
+  }
   return (
     <>
       {courses && (

@@ -6,12 +6,16 @@ import { Outlet } from "react-router-dom";
 
 import { getIntstructorCourses } from "../../services/instructorService";
 import { getCategories } from "../../services/courseService";
+import { useSelector } from "react-redux";
 
 function InstructorPage() {
+  const userProfile = useSelector((state) => state.auth.userProfile);
+  const USER_ID = userProfile.id;
+
   const [categories, setCategories] = useState([]);
 
   const [courses, setCourses] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -27,12 +31,13 @@ function InstructorPage() {
       setLoading(true);
       setError("");
 
-      const result = await getIntstructorCourses("UID_INSTRUCTOR_2");
+      const result = await getIntstructorCourses(USER_ID);
 
       // 함수 성공 시 : fulfilled
       if (typeof result === "object") {
         setCourses(result);
         setError("");
+        setLoading(false);
       }
       // 함수 실패 시 : rejected
       else if (typeof result === "string") {
@@ -44,7 +49,14 @@ function InstructorPage() {
     fetchInstructorCouses();
   }, []);
 
-  const outletContext = { categories, courses, setCourses, loading, error };
+  const outletContext = {
+    categories,
+    courses,
+    setCourses,
+    loading,
+    error,
+    userProfile,
+  };
 
   return (
     <main className="instructor-page">
