@@ -17,7 +17,6 @@ const USERS_COLLECTION_NAME = "users";
 const addUserProfile = async (uid, newUser) => {
   const docRef = doc(db, USERS_COLLECTION_NAME, uid);
   await setDoc(docRef, newUser);
-  console.log("회원가입 후 users 컬렉션에 문서 추가 완료!");
 };
 
 /**
