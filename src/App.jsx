@@ -13,7 +13,7 @@ import CourseEditContainer from "./components/instructor/CourseEditContainer";
 import CourseCreateContatiner from "./components/instructor/CourseCreateContainer";
 
 import { useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { auth } from "./firebase/config";
@@ -52,12 +52,12 @@ function App() {
         <Route path="/courses/:id" element={<CourseDetailPage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/mypage" element={<MyPage />}>
-          <Route index element={<EnrollmentList />} />
+          <Route index element={<Navigate to="enrollments" replace />} />
           <Route path="profile" element={<div>프로필 페이지</div>} />
           <Route path="enrollments" element={<EnrollmentList />} />
         </Route>
         <Route path="/instructor" element={<InstructorPage />}>
-          <Route index element={<InstructorCourseList />} />
+          <Route index element={<Navigate to="courses" replace />} />
           <Route path="courses" element={<InstructorCourseList />} />
           <Route path="courses/:id/edit" element={<CourseEditContainer />} />
           <Route path="courses/create" element={<CourseCreateContatiner />} />
