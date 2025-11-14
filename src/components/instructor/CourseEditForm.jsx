@@ -7,7 +7,7 @@ import { getCourseById, updateCourse } from "../../services/courseService";
 const MAX_THUMBNAIL_SIZE = 1 * 1024 * 1024; // 1MB
 
 function CourseEditForm({ courseId }) {
-  const { categories } = useOutletContext();
+  const { categories, triggerRefreshCourses } = useOutletContext();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState(null);
@@ -65,9 +65,10 @@ function CourseEditForm({ courseId }) {
         });
       };
     } else {
+      const { value } = e.target;
       setFormData({
         ...formData,
-        [name]: e.target.value,
+        [name]: name === "price" ? +value : value,
       });
     }
   };
@@ -83,8 +84,9 @@ function CourseEditForm({ courseId }) {
 
     try {
       await updateCourse(courseId, formData);
-      console.log("게시글 수정 완료");
-      navigate("/instructor/courses");
+      console.log("강좌 수정 완료");
+      triggerRefreshCourses();
+      navigate("/instructor/courses"); // 수정 완료 후 강좌 목록으로 이동
       setError("");
     } catch (error) {
       setError("게시글 등록 실패");

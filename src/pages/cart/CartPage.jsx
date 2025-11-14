@@ -28,8 +28,7 @@ function CartPage() {
     await deleteCartItem(USER_ID, courseId);
   };
 
-  const hadleDeleteAll = async (USER_ID) => {
-    console.log(USER_ID);
+  const hadleDeleteAll = async () => {
     await deleteCartsAll(USER_ID);
     //초기화
     setCarts([]);

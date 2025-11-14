@@ -9,7 +9,7 @@ function CartList({ courses, totalCount, handleDelete, hadleDeleteAll }) {
         <button
           className="cart-list__clear-button"
           type="button"
-          onClick={() => hadleDeleteAll(USER_ID)}
+          onClick={() => hadleDeleteAll()}
         >
           전체 삭제
         </button>

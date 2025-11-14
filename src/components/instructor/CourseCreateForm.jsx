@@ -1,4 +1,4 @@
-﻿import "./CourseCreateForm.css";
+﻿﻿import "./CourseCreateForm.css";
 
 import { useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
@@ -7,7 +7,7 @@ import { createCourse } from "../../services/courseService";
 const MAX_THUMBNAIL_SIZE = 1 * 1024 * 1024; // 1MB
 
 function CourseCreateForm() {
-  const { categories, userProfile } = useOutletContext();
+  const { categories, userProfile, triggerRefreshCourses } = useOutletContext(); // triggerRefreshCourses 추가
   const navigate = useNavigate();
 
   const [error, setError] = useState("");
@@ -87,8 +87,9 @@ function CourseCreateForm() {
 
     try {
       const courseId = await createCourse(formData);
-      console.log("게시글 등록 완료");
-      navigate(`/courses/${courseId}`);
+      console.log("강좌 등록 완료");
+      triggerRefreshCourses(); // 강좌 목록 갱신 트리거
+      navigate(`/instructor/courses`); // 생성 후 강좌 목록 페이지로 이동
       setError("");
     } catch (error) {
       setError("게시글 등록 실패");
