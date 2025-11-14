@@ -1,7 +1,6 @@
 import CartItem from "./CartItem";
 import "./CartList.css";
 
-const USER_ID = "gNpMmunioN2JyXVqag3q";
 function CartList({ courses, totalCount, handleDelete, hadleDeleteAll }) {
   return (
     <section className="cart-list">

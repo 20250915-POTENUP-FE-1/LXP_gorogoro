@@ -27,11 +27,13 @@ function CartPage() {
     setCourses((prev) => prev.filter((prevItem) => prevItem.id !== courseId));
     await deleteCartItem(USER_ID, courseId);
   };
+
   const hadleDeleteAll = async (USER_ID) => {
+    console.log(USER_ID);
+    await deleteCartsAll(USER_ID);
     //초기화
     setCarts([]);
     setCourses([]);
-    await deleteCartsAll(USER_ID);
   };
 
   const handlePurchase = () => {
