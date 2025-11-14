@@ -71,7 +71,7 @@ function App() {
             </PrivateRoute>
           }
         >
-          <Route index element={<Navigate to="enrollments" replace />} />
+          <Route index element={<EnrollmentList />} />
           <Route path="profile" element={<div>프로필 페이지</div>} />
           <Route path="enrollments" element={<EnrollmentList />} />
         </Route>
@@ -84,7 +84,7 @@ function App() {
             </PrivateRoute>
           }
         >
-          <Route index element={<Navigate to="courses" replace />} />
+          <Route index element={<InstructorCourseList />} />
           <Route path="courses" element={<InstructorCourseList />} />
           <Route path="courses/:id/edit" element={<CourseEditContainer />} />
           <Route path="courses/create" element={<CourseCreateContatiner />} />

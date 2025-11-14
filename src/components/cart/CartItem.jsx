@@ -14,7 +14,10 @@ function CartItem({ course, handleDelete }) {
             <span className="cart-item__category">{course.category}</span>
             <h3 className="cart-item__title">{course.title}</h3>
             <p className="cart-item__instructor">{course.instructor}</p>
-            <time className="cart-item__date">{course.createdAt}</time>
+            {/* toLocaleDateString()을 사용해 Date 객체를 문자열로 변환 */}
+            <time dateTime={course.createdAt?.toISOString()}>
+              {course.createdAt?.toLocaleDateString("ko-KR")}
+            </time>{" "}
           </div>
           <div className="cart-item__summary">
             <button

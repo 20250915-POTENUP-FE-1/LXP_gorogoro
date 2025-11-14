@@ -54,10 +54,12 @@ const getFilteredCourses = async (filters) => {
 
     // 쿼리 실행(비동기:데이터 가져오기)
     const querySnapshot = await getDocs(q);
-    // 데이터 가공
+    // 데이터 가공 (타임스탬프 변환 포함)
     let courses = querySnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
+      createdAt: doc.data().createdAt?.toDate(),
+      updatedAt: doc.data().updatedAt?.toDate(),
     }));
 
     // 검색어 필터링
@@ -85,10 +87,17 @@ const getCourseById = async (courseId) => {
     if (!docSnapshot.exists()) {
       return null;
     }
-    const docSnapshotData = docSnapshot.data();
+    const courseData = docSnapshot.data();
+    // Firestore Timestamp를 JavaScript Date 객체로 변환
+    if (courseData.createdAt && courseData.createdAt.toDate) {
+      courseData.createdAt = courseData.createdAt.toDate();
+    }
+    if (courseData.updatedAt && courseData.updatedAt.toDate) {
+      courseData.updatedAt = courseData.updatedAt.toDate();
+    }
     return {
       id: docSnapshot.id,
-      ...docSnapshotData,
+      ...courseData,
     };
   } catch (error) {
     throw error;
@@ -103,6 +112,7 @@ const createCourse = async (formData) => {
   try {
     const docRef = await addDoc(collection(db, COURSES_COLLECTION_NAME), {
       ...formData,
+      status: "published",
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
     });

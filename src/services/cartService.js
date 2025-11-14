@@ -68,7 +68,11 @@ const getEnrollmentsById = async (userId) => {
     orderBy("enrolledAt", "desc")
   );
   const querySnapshot = await getDocs(q);
-  const querySnapshotData = querySnapshot.docs.map((doc) => doc.data());
+  const querySnapshotData = querySnapshot.docs.map((doc) => {
+    const data = doc.data();
+    // Firestore Timestamp를 JavaScript Date 객체로 변환
+    return { ...data, enrolledAt: data.enrolledAt?.toDate() };
+  });
   return querySnapshotData;
 };
 

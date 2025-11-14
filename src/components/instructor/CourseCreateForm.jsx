@@ -67,9 +67,11 @@ function CourseCreateForm() {
         });
       };
     } else {
+      const { value } = e.target;
       setFormData({
         ...formData,
-        [name]: e.target.value,
+        // name이 'price'인 경우 숫자 타입으로 변환
+        [name]: name === "price" ? +value : value,
       });
     }
   };

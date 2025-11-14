@@ -17,6 +17,8 @@ const getIntstructorCourses = async (instructorId) => {
     const courses = querySnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
+      createdAt: doc.data().createdAt?.toDate(),
+      updatedAt: doc.data().updatedAt?.toDate(),
     }));
 
     return courses;
