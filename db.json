@@ -1,0 +1,47 @@
+{
+  "courses": [
+    {
+      "id": "course-1",
+      "title": "React 완벽 정복",
+      "instructorId": "user-2",
+      "price": 30000
+    },
+    {
+      "id": "8fd1",
+      "title": "course-3-제목",
+      "instructorId": "user-3",
+      "price": 30000
+    }
+  ],
+  "users": [
+    {
+      "id": "user-1",
+      "uid": "firebase-uid-1",
+      "email": "student@example.com",
+      "displayName": "김수강",
+      "role": "student"
+    },
+    {
+      "id": "user-2",
+      "uid": "firebase-uid-2",
+      "email": "instructor@example.com",
+      "displayName": "박강사",
+      "role": "instructor"
+    }
+  ],
+  "enrollments": [
+    {
+      "id": "enroll-1",
+      "userId": "user-1",
+      "courseId": "course-1",
+      "enrolledAt": "2025-11-26T05:11:37.000Z"
+    }
+  ],
+  "carts": [
+    {
+      "userId": "user-1",
+      "courseId": "course-2",
+      "id": "6d91"
+    }
+  ]
+}
