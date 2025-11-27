@@ -2,40 +2,6 @@ import { apiClient } from "./apiClient.js";
 
 const COURSES_RESOURCE_PATH = "courses";
 
-// const courseAPI = {
-//   // 필터링 강좌 목록 조회
-//   // 특정 강좌 조회
-//   getCourseById: async (courseId) => {
-//     const response = await fetch(
-//       `${BASE_URL}/${COURSES_RESOURCE_PATH}/${courseId}`
-//     );
-//     const data = await response.json();
-//     console.log(data);
-//     return data;
-//   },
-//   // 강좌 추가하기
-//   addCourse: async (courseData) => {
-//     const response = await fetch(`${BASE_URL}/${COURSES_RESOURCE_PATH}`, {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(courseData),
-//     });
-//     const data = await response.json();
-//     console.log(data);
-//     return data;
-//   },
-//   // 강좌 삭제하기 (하드.소프트 구분)
-// };
-
-// courseAPI.getCourseById("course-1");
-// courseAPI.addCourse({
-//   title: "course-3-제목",
-//   instructorId: "user-3",
-//   price: 30000,
-// });
-
 //필터링 강의 조회 getFilteredCourses()
 const getFilteredCourses = async (filters) => {
   const { category, searchTerm, sort } = filters;
@@ -67,25 +33,7 @@ const getFilteredCourses = async (filters) => {
   }
 
   // GET /courses?status=published&category=...&q=...&_sort=...&_order=...
-  return apiClient.get(`/courses?${params.toString()}`);
-};
-
-//강의 상세 조회 getCourseById()
-const getCourseById = async (courseId) => {
-  // GET /courses/{courseId}
-  return apiClient.get(`/courses/${courseId}`);
-};
-
-//강의 등록 createCourse()
-const createCourse = async (formData) => {
-  const newCourse = {
-    ...formData,
-    status: "published",
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-  };
-  // POST /courses
-  return apiClient.post("/courses", newCourse);
+  return apiClient.get(`/${COURSES_RESOURCE_PATH}?${params.toString()}`);
 };
 
 const deleteCourseSafely = async (courseId) => {
@@ -119,13 +67,34 @@ const deleteCourseSafely = async (courseId) => {
   }
 };
 
-const updateCourse = async (courseId, formData) => {
-  // 구조 분해를 통해 id 필드를 제외한 나머지 formData
-  const { id, ...rest } = formData;
-  const editedCourse = {
-    ...rest,
-    updatedAt: new Date().toISOString(),
-  };
-  // PUT /courses/{courseId}
-  return apiClient.put(`/courses/${courseId}`, editedCourse);
+// 네임스페이스를 통해 courseAPI라는 이름 아래에 관련된 함수들 그룹화하기!
+const courseAPI = {
+  // 필터링된 강좌 목록 조회
+  getFilteredCourses,
+  // 특정 강좌 조회
+  getCourseById: (courseId) =>
+    apiClient.get(`/${COURSES_RESOURCE_PATH}/${courseId}`),
+  // 강좌 추가
+  addCourse: (formData) => {
+    const newCourse = {
+      ...formData,
+      status: "published",
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    return apiClient.post(`/${COURSES_RESOURCE_PATH}`, newCourse);
+  },
+  deleteCourseSafely,
+  updateCourse: (courseId, formData) => {
+    // 구조 분해를 통해 id 필드를 제외한 나머지 formData
+    const { id, ...rest } = formData;
+    const editedCourse = {
+      ...rest,
+      updatedAt: new Date().toISOString(),
+    };
+    // PUT /courses/{courseId}
+    return apiClient.put(`/${COURSES_RESOURCE_PATH}/${courseId}`, editedCourse);
+  },
 };
+
+export default courseAPI;

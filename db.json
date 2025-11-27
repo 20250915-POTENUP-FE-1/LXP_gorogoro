@@ -43,5 +43,27 @@
       "courseId": "course-2",
       "id": "6d91"
     }
+  ],
+  "categories": [
+    {
+      "id": "data-analysis",
+      "name": "데이터 분석"
+    },
+    {
+      "id": "game-development",
+      "name": "게임 개발"
+    },
+    {
+      "id": "machine-learning",
+      "name": "머신 러닝"
+    },
+    {
+      "id": "python",
+      "name": "파이썬"
+    },
+    {
+      "id": "web-development",
+      "name": "웹 개발"
+    }
   ]
 }

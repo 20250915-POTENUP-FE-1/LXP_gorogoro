@@ -2,11 +2,9 @@ import CategoryBar from "../../components/common/CategoryBar";
 import CourseList from "../../components/course/CourseList";
 import "./CoursePage.css";
 
-import {
-  getCategories,
-  getFilteredCourses,
-} from "../../services/courseService";
 import { useEffect, useState } from "react";
+import categoryAPI from "../../api/categoryAPI";
+import courseAPI from "../../api/courseAPI";
 
 function CoursePage() {
   const [categories, setCategories] = useState([{ id: "all", name: "전체" }]);
@@ -24,7 +22,9 @@ function CoursePage() {
   useEffect(() => {
     // 카테고리 초기 렌더링
     const fetchCategories = async () => {
-      const result = await getCategories();
+      const result = await categoryAPI.getAllCategories();
+      // 기존 firestore 함수
+      // const result = await getCategories();
       setCategories([{ id: "all", name: "전체" }, ...result]);
     };
     fetchCategories();
@@ -32,7 +32,7 @@ function CoursePage() {
 
   useEffect(() => {
     const fetchFilteredCourses = async () => {
-      const result = await getFilteredCourses(filters);
+      const result = await courseAPI.getFilteredCourses(filters);
       setCourses(result);
     };
     fetchFilteredCourses();
