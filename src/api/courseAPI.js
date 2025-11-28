@@ -2,50 +2,14 @@ import { apiClient } from "./apiClient.js";
 
 const COURSES_RESOURCE_PATH = "courses";
 
-//필터링 강의 조회 getFilteredCourses()
-const getFilteredCourses = async (filters) => {
-  const { category, searchTerm, sort } = filters;
-  const params = new URLSearchParams();
-
-  // status가 "published"인 강좌만 필터링
-  params.append("status", "published");
-
-  // category 카테고리 필터링
-  if (category && category !== "all") {
-    params.append("category", category);
-  }
-
-  // searchTerm 검색어 필터링 (json-server의 q를 사용)
-  if (searchTerm) {
-    params.append("q", searchTerm);
-  }
-
-  // sort 정렬 옵션
-  if (sort === "latest") {
-    params.append("_sort", "createdAt");
-    params.append("_order", "desc");
-  } else if (sort === "priceAsc") {
-    params.append("_sort", "price");
-    params.append("_order", "asc");
-  } else if (sort === "priceDesc") {
-    params.append("_sort", "price");
-    params.append("_order", "desc");
-  }
-
-  // GET /courses?status=published&category=...&q=...&_sort=...&_order=...
-  return apiClient.get(`/${COURSES_RESOURCE_PATH}?${params.toString()}`);
-};
-
 const deleteCourseSafely = async (courseId) => {
   try {
     // 1. 수강 신청(enrollments) 확인
     const enrollments = await apiClient.get(
       `/enrollments?courseId=${courseId}`
     );
-
     // 2. 장바구니(carts) 확인
     const carts = await apiClient.get(`/carts?courseId=${courseId}`);
-
     // 3. 수강 신청 내역이나 장바구니 내역이 하나라도 있으면 소프트 삭제
     if (enrollments.length > 0 || carts.length > 0) {
       console.log("소프트 삭제 진행");
@@ -69,8 +33,27 @@ const deleteCourseSafely = async (courseId) => {
 
 // 네임스페이스를 통해 courseAPI라는 이름 아래에 관련된 함수들 그룹화하기!
 const courseAPI = {
-  // 필터링된 강좌 목록 조회
-  getFilteredCourses,
+  getCourses: (searchParams) => {
+    // searchParams를 복사하여 수정합니다. 원본을 직접 수정하지 않는 것이 좋습니다.
+    const params = new URLSearchParams(searchParams);
+
+    // 정렬 파라미터 변환: "createdAt:desc" -> _sort=createdAt&_order=desc
+    if (params.has("sort")) {
+      const sortValue = params.get("sort");
+      const [sortBy, order] = sortValue.split(":");
+      params.set("_sort", sortBy);
+      params.set("_order", order);
+      params.delete("sort"); // 기존 sort 파라미터는 제거
+    }
+
+    // 검색어 파라미터 변환: searchTerm -> q
+    if (params.has("searchTerm")) {
+      params.set("q", params.get("searchTerm"));
+      params.delete("searchTerm");
+    }
+
+    return apiClient.get(`/${COURSES_RESOURCE_PATH}?${params.toString()}`);
+  },
   // 특정 강좌 조회
   getCourseById: (courseId) =>
     apiClient.get(`/${COURSES_RESOURCE_PATH}/${courseId}`),
@@ -84,7 +67,9 @@ const courseAPI = {
     };
     return apiClient.post(`/${COURSES_RESOURCE_PATH}`, newCourse);
   },
+  // 강좌 하드, 소프트 삭제
   deleteCourseSafely,
+  // 강좌 업데이트
   updateCourse: (courseId, formData) => {
     // 구조 분해를 통해 id 필드를 제외한 나머지 formData
     const { id, ...rest } = formData;
