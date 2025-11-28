@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## 📚 LXP_gorogoro: 3차 프로젝트
 
-## Getting Started
+### 🎯 주요 목표 및 마이그레이션 중점 사항
 
-First, run the development server:
+- **Next.js App Router 도입:**
+  - Vite + React + Firebase 환경에서 **Next.js App Router** 기반으로 마이그레이션.
+- **RESTful API 기반 전환:**
+  - 기존 Firebase Firestore 의존성을 **RESTful API** 통신으로 전면 전환.
+  - Next.js **Server Components** 내에서 데이터 패칭 및 초기 렌더링을 수행.
+- **컴포넌트 역할 명확화:**
+  - **데이터 패칭/정적 UI**는 **Server Components**로 구성.
+  - **사용자 인터랙션 (폼, 이벤트 처리)** 부분만 **Client Components** (`"use client"`)로 분리.
+- **중앙 집중식 상태 관리:**
+  - Redux Toolkit을 사용하여 **인증 상태 및 유저 정보**를 전역 상태로 관리.
+  - Firebase Auth 로직을 분리하고 API 통신 기반으로 상태 관리 로직 변경.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 📂 디렉토리 구조 및 모듈화 전략
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| 영역         | 폴더           | 역할 및 특징                                                                                                  |
+| :----------- | :------------- | :------------------------------------------------------------------------------------------------------------ |
+| **라우팅**   | `src/app`      | 페이지 라우팅 및 레이아웃 정의. **App Router 기반**의 동적 경로 (`[courseId]`) 활용.                          |
+| **비즈니스** | `src/features` | 기능별 (Auth, Cart, Courses 등) 로직 캡슐화. **Components, API, Hooks**를 모듈화하여 관리.                    |
+| **공통**     | `src/shared`   | 앱 전체에서 공유되는 **유틸리티 (`apiClient.ts`), 공통 훅, 전역 타입, 헤더/푸터** 등 재사용 가능한 요소 집합. |
+| **상태**     | `src/store`    | **Redux Toolkit**을 사용한 전역 상태 관리 (인증, 장바구니 등).                                                |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+### 🆕 프로젝트 추가 기능 목록
 
-To learn more about Next.js, take a look at the following resources:
+제시된 요구사항을 반영하여 프로젝트에 추가될 핵심 기능 목록은 다음과 같습니다.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+#### 1. 강좌 관리 기능 확장 (강사 영역)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **커리큘럼 수정 필드 추가:** 강좌 생성/수정 시, **세부 강의(Lecture)** 목록 및 **커리큘럼(Section)** 구조를 추가, 수정, 삭제할 수 있는 UI 및 API 연동 로직 구현.
 
-## Deploy on Vercel
+#### 2. 리소스 파일 업로드 및 관리
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **파일 업로드 로직 통합:** 강의 자료 및 미디어를 서버에 업로드하고 관리할 수 있도록 API 연동 로직 (`features/instructor/api`) 구현.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+#### 3. 수강 페이지(Lecture Player) 개발
+
+- **수강 페이지 추가:** 수강생이 강좌 내용을 시청하고 학습할 수 있는 전용 페이지 추가.
+  - **라우팅 경로:** `/student/[userId]/enrollment/[courseId]/lecture/[lectureId]` 형태의 중첩된 동적 라우팅 예상.
+- **진도 관리 로직:** 수강생의 **강의별 진도 상태**를 체크하고 API로 업데이트하는 로직(`features/student/hooks`) 구현. (예: 시청 완료 시 진도율 반영)
