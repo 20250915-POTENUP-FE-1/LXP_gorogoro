@@ -1,4 +1,4 @@
-import EnrollmentItem from "@/features/student/components/EnrollmentItem";
+import EnrollmentItem from "@/features/mypage/components/EnrollmentItem";
 import "./EnrollmentList.css";
 
 export default async function EnrollmentPage({

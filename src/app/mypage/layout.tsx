@@ -1,4 +1,4 @@
-import MySidebar from "@/features/student/components/MySidebar";
+import MySidebar from "@/features/mypage/components/MySidebar";
 import "./MyPage.css";
 
 export default async function MyPageLayout({
