@@ -1,4 +1,5 @@
-import InstructorCoursePage from "./courses/page";
+import { redirect } from "next/navigation";
+
 export default function InstructorPage() {
-  return <InstructorCoursePage />;
+  redirect("/instructor/courses");
 }

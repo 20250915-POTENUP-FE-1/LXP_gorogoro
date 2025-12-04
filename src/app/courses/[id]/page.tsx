@@ -6,10 +6,10 @@ import "./CourseDetailPage.css";
 export default async function CourseDetailPage({
   params,
 }: {
-  params: Promise<{ courseId: string }>;
+  params: Promise<{ id: string }>;
 }) {
-  const { courseId } = await params;
-  const course = await courseAPI.getCourseById(courseId);
+  const { id } = await params;
+  const course = await courseAPI.getCourseById(id);
 
   return (
     <main className="course-detail-page">

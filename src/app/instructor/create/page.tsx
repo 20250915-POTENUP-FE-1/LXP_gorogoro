@@ -1,5 +1,5 @@
+import CourseForm from "@/features/intructor/components/CourseForm";
 import "./CourseCreatePage.css";
-import CourseCreateForm from "@/features/intructor/components/CourseCreateForm";
 
 export default function CourseCreatePage() {
   return (
@@ -10,7 +10,7 @@ export default function CourseCreatePage() {
           새 강좌를 만들고 지식을 공유해주세요!
         </p>
       </header>
-      <CourseCreateForm />
+      <CourseForm />
     </section>
   );
 }

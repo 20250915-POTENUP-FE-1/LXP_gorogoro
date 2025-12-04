@@ -1,5 +1,5 @@
 import InstructorSidebar from "@/features/intructor/components/InstructorSidebar";
-import "./InstructorPage.css";
+import "./InstructorLayout.css";
 
 export default function InstructorLayout({
   children,
@@ -7,8 +7,8 @@ export default function InstructorLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className="instructor-page">
-      <div className="page-wrapper instructor-page__container">
+    <main className="instructor-layout">
+      <div className="instructor-layout__content">
         <InstructorSidebar />
         {children}
       </div>
