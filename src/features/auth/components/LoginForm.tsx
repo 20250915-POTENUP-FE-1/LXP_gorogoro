@@ -1,6 +1,6 @@
 "use client";
 
-import "./LoginForm.css";
+import styles from "./LoginForm.module.css";
 
 const formData = {
   email: "",
@@ -20,31 +20,31 @@ const handleSubmit = async () => {
 
 export default function LoginForm() {
   return (
-    <form onSubmit={handleSubmit} className="login-form">
-      <label className="login-form__field">
-        <span className="login-form__label">이메일</span>
+    <form onSubmit={handleSubmit} className={styles.form}>
+      <label className={styles.field}>
+        <span className={styles.label}>이메일</span>
         <input
           name="email"
           value={formData.email}
-          className="login-form__input"
+          className={styles.input}
           type="email"
           placeholder="Enter your email"
           onChange={handleOnChange}
         />
       </label>
-      <label className="login-form__field">
-        <span className="login-form__label">비밀번호</span>
+      <label className={styles.field}>
+        <span className={styles.label}>비밀번호</span>
         <input
           name="password"
           value={formData.password}
-          className="login-form__input"
+          className={styles.input}
           type="password"
           placeholder="Enter your password"
           onChange={handleOnChange}
         />
       </label>
-      {error && <span className="login-form__error-message">{error}</span>}
-      <button className="login-form__submit" type="submit">
+      {error && <span className={styles.errorMessage}>{error}</span>}
+      <button className={styles.submit} type="submit">
         로그인
       </button>
     </form>

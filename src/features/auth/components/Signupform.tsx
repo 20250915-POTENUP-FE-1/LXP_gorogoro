@@ -1,6 +1,6 @@
 "use client";
 
-import "./SignupForm.css";
+import styles from "./SignupForm.module.css";
 
 const formData = {
   displayName: "",
@@ -23,80 +23,80 @@ const handleSubmit = () => {
 
 export default function SignupForm() {
   return (
-    <form className="signup-form" onSubmit={handleSubmit}>
-      <label className="signup-form__field">
-        <span className="signup-form__label">이름</span>
+    <form className={styles.form} onSubmit={handleSubmit}>
+      <label className={styles.field}>
+        <span className={styles.label}>이름</span>
         <input
           name="displayName"
           value={formData.displayName}
-          className="signup-form__input"
+          className={styles.input}
           type="text"
           placeholder="이름을 입력하세요"
           onChange={handleOnChange}
         />
       </label>
-      <label className="signup-form__field">
-        <span className="signup-form__label">이메일</span>
+      <label className={styles.field}>
+        <span className={styles.label}>이메일</span>
         <input
           name="email"
           value={formData.email}
-          className="signup-form__input"
+          className={styles.input}
           type="email"
           placeholder="hello@example.com"
           onChange={handleOnChange}
         />
       </label>
-      <label className="signup-form__field">
-        <span className="signup-form__label">비밀번호</span>
+      <label className={styles.field}>
+        <span className={styles.label}>비밀번호</span>
         <input
           name="password"
           value={formData.password}
-          className="signup-form__input"
+          className={styles.input}
           type="password"
           placeholder="8자 이상 입력"
           onChange={handleOnChange}
         />
       </label>
-      <label className="signup-form__field">
-        <span className="signup-form__label">비밀번호 확인</span>
+      <label className={styles.field}>
+        <span className={styles.label}>비밀번호 확인</span>
         <input
           name="confirmPassword"
           value={formData.confirmPassword}
-          className="signup-form__input"
+          className={styles.input}
           type="password"
           placeholder="비밀번호를 다시 입력하세요"
           onChange={handleOnChange}
         />
       </label>
-      <fieldset className="signup-form__fieldset">
-        <legend className="signup-form__legend">회원 유형 선택</legend>
-        <div className="signup-form__user-types">
-          <label className="signup-form__user-type">
+      <fieldset className={styles.fieldset}>
+        <legend className={styles.legend}>회원 유형 선택</legend>
+        <div className={styles.userTypes}>
+          <label className={styles.userType}>
             <input
-              className="signup-form__radio"
+              className={styles.radio}
               type="radio"
               name="role"
               value="student"
               checked={formData.role === "student"}
               onChange={handleOnChange}
             />
-            <span className="signup-form__user-type-label">학생</span>
+            <span className={styles.userTypeLabel}>학생</span>
           </label>
-          <label className="signup-form__user-type">
+          <label className={styles.userType}>
             <input
-              className="signup-form__radio"
+              className={styles.radio}
               type="radio"
               name="role"
               value="instructor"
               checked={formData.role === "instructor"}
               onChange={handleOnChange}
             />
-            <span className="signup-form__user-type-label">강사</span>
+            <span className={styles.userTypeLabel}>강사</span>
           </label>
         </div>
       </fieldset>
-      {error && <span className="signup-form__error-message">{error}</span>}
-      <button className="signup-form__submit" type="submit">
+      {error && <span className={styles.errorMessage}>{error}</span>}
+      <button className={styles.submit} type="submit">
         회원가입
       </button>
     </form>

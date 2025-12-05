@@ -1,13 +1,13 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import "./CategoryBar.css";
+import styles from "./CategoryBar.module.css";
 
 export default function CategoryBar({ categories }: any) {
   const searchParams = useSearchParams();
   const router = useRouter();
   // 현재 쿼리 파라미터를 복사하여 새로운 객체 생성
-  const params = new URLSearchParams(searchParams.toString());
+  const params = new URLSearchParams(searchParams?.toString());
 
   const currentCategory = params.get("category") || "";
 
@@ -27,16 +27,14 @@ export default function CategoryBar({ categories }: any) {
   };
 
   return (
-    <section className="category-bar" aria-label="카테고리 및 정렬">
-      <div className="category-bar__inner">
-        <div className="category-bar__chip-group" role="tablist">
+    <section className={styles.bar} aria-label="카테고리 및 정렬">
+      <div className={styles.inner}>
+        <div className={styles.chipGroup} role="tablist">
           {categories.map((category: { id: string; name: string }) => (
             <button
               key={category.id}
-              className={`category-bar__chip ${
-                currentCategory === category.id
-                  ? "category-bar__chip--active"
-                  : ""
+              className={`${styles.chip} ${
+                currentCategory === category.id ? styles.chipActive : ""
               }`}
               type="button"
               onClick={() => handleCategoryClick(category.id)}
@@ -45,17 +43,17 @@ export default function CategoryBar({ categories }: any) {
             </button>
           ))}
         </div>
-        <div className="category-bar__divider" aria-hidden="true" />
-        <div className="category-bar__search">
-          <label className="category-bar__search-field">
+        <div className={styles.divider} aria-hidden="true" />
+        <div className={styles.search}>
+          <label className={styles.searchField}>
             <img
-              className="category-bar__search-icon"
+              className={styles.searchIcon}
               src="/assets/search.svg"
               alt=""
               aria-hidden="true"
             />
             <input
-              className="category-bar__input"
+              className={styles.input}
               type="text"
               placeholder="검색"
               aria-label="검색어 입력"
@@ -63,12 +61,9 @@ export default function CategoryBar({ categories }: any) {
             />
           </label>
         </div>
-        <div className="category-bar__select">
-          <label className="category-bar__select-field">
-            <select
-              className="category-bar__dropdown"
-              onChange={handleSortChange}
-            >
+        <div className={styles.select}>
+          <label className={styles.selectField}>
+            <select className={styles.dropdown} onChange={handleSortChange}>
               <option value="latest">최신순</option>
               <option value="priceAsc">낮은 가격순</option>
               <option value="priceDesc">높은 가격순</option>

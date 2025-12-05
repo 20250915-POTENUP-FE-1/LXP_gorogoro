@@ -1,5 +1,5 @@
 import MySidebar from "@/features/mypage/components/MySidebar";
-import "./MyPage.css";
+import styles from "./layout.module.css";
 
 export default async function MyPageLayout({
   children,
@@ -7,8 +7,8 @@ export default async function MyPageLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className="my-page">
-      <div className="page-wrapper my-page__container">
+    <main className={styles.page}>
+      <div className={`page-wrapper ${styles.container}`}>
         <MySidebar />
         {children}
       </div>

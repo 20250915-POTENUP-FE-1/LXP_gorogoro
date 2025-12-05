@@ -1,4 +1,4 @@
-.course-create-container {
+.container {
   flex: 1;
   padding: 2.5rem;
   border-radius: 1.5rem;
@@ -10,20 +10,20 @@
   gap: 2.25rem;
 }
 
-.course-create-container__header {
+.header {
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
 }
 
-.course-create-container__title {
+.title {
   margin: 0;
   font-family: var(--font-heading);
   font-size: var(--text-display);
   color: var(--gray-900);
 }
 
-.course-create-container__subtitle {
+.subtitle {
   margin: 0;
   font-size: var(--text-sm);
   color: var(--gray-500);

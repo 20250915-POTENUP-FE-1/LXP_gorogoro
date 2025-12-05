@@ -1,10 +1,10 @@
 import CourseItem from "./CourseItem";
-import "./CourseList.css";
+import styles from "./CourseList.module.css";
 
 export default function CourseList({ courses }: any) {
   return (
-    <section className="course-list" aria-label="강좌 목록">
-      <div className="course-list__grid">
+    <section className={styles.list} aria-label="강좌 목록">
+      <div className={styles.grid}>
         {courses.map((course: any) => (
           <CourseItem key={course.id} course={course} />
         ))}

@@ -1,5 +1,4 @@
-import EnrollmentItem from "@/features/mypage/components/EnrollmentItem";
-import "./EnrollmentList.css";
+import EnrollmentList from "@/features/mypage/components/EnrollmentList";
 
 export default async function EnrollmentPage({
   params,
@@ -22,19 +21,5 @@ export default async function EnrollmentPage({
   const courses = [{ id: 1, title: "hi" }, { id: 2 }];
   const coursesCount = courses.length;
 
-  return (
-    <section className="enrollment-list" aria-label="수강 중인 강좌">
-      <header className="enrollment-list__header">
-        <h1 className="enrollment-list__title">내가 수강 중인 강좌</h1>
-        <span className="enrollment-list__count">
-          총 {coursesCount} 개의 강좌
-        </span>
-      </header>
-      <div className="enrollment-list__items">
-        {/* {courses.map((course: any) => (
-          <EnrollmentItem key={course.id} course={course} />
-        ))} */}
-      </div>
-    </section>
-  );
+  return <EnrollmentList courses={courses} coursesCount={coursesCount} />;
 }

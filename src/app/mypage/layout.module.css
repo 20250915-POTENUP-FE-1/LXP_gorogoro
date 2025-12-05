@@ -1,9 +1,9 @@
-.my-page {
+.page {
   background-color: var(--secondary-bg);
   padding-block: 3.5rem;
 }
 
-.my-page__container {
+.container {
   display: flex;
   gap: 2.5rem;
   align-items: flex-start;

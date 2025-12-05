@@ -1,4 +1,4 @@
-.signup-form {
+.form {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -6,19 +6,19 @@
   color: var(--gray-900);
 }
 
-.signup-form__field {
+.field {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
-.signup-form__label {
+.label {
   font-size: var(--text-sm);
   font-weight: var(--font-medium);
   color: var(--gray-600);
 }
 
-.signup-form__input {
+.input {
   width: 100%;
   height: 3rem;
   border-radius: var(--radius-md);
@@ -31,17 +31,17 @@
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.signup-form__input::placeholder {
+.input::placeholder {
   color: var(--gray-500);
 }
 
-.signup-form__input:focus {
+.input:focus {
   outline: none;
   border-color: var(--primary-400);
   box-shadow: 0 0 0 3px rgba(39, 179, 244, 0.2);
 }
 
-.signup-form__fieldset {
+.fieldset {
   border: none;
   padding: 0;
   margin: 0;
@@ -50,19 +50,19 @@
   gap: 1rem;
 }
 
-.signup-form__legend {
+.legend {
   font-size: var(--text-sm);
   font-weight: var(--font-medium);
   color: var(--gray-600);
 }
 
-.signup-form__user-types {
+.userTypes {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
 }
 
-.signup-form__user-type {
+.userType {
   border: 2px solid var(--gray-200);
   border-radius: var(--radius-md);
   padding: 1.25rem;
@@ -76,22 +76,22 @@
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.signup-form__radio {
+.radio {
   appearance: none;
   position: absolute;
 }
 
-.signup-form__user-type-label {
+.userTypeLabel {
   font-size: var(--text-base);
   font-weight: var(--font-medium);
   color: var(--gray-900);
 }
 
-.signup-form__user-type:has(.signup-form__radio:checked) {
+.userType:has(.radio:checked) {
   border-color: var(--primary-400);
 }
 
-.signup-form__submit {
+.submit {
   width: 100%;
   height: 3rem;
   border: none;
@@ -104,15 +104,15 @@
   transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
-.signup-form__submit:hover {
+.submit:hover {
   background-color: var(--primary-400);
 }
 
-.signup-form__submit:active {
+.submit:active {
   transform: translateY(1px);
 }
 
-.signup-form__error-message {
+.errorMessage {
   display: block;
   padding: 0.5rem 0.75rem;
   margin-top: -0.5rem;

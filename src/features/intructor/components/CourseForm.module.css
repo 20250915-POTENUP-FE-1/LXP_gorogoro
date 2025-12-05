@@ -1,16 +1,16 @@
-.course-form {
+.form {
   display: flex;
   flex-direction: column;
   gap: 1.75rem;
 }
 
-.course-form__group {
+.group {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
 }
 
-.course-form__error-message {
+.errorMessage {
   display: block;
   padding: 0.5rem 0.75rem;
   margin-top: -0.5rem;
@@ -22,31 +22,31 @@
   text-align: center;
 }
 
-.course-form__group--inline {
+.groupInline {
   flex-direction: row;
 }
 
-.course-form__group--grid {
+.groupGrid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1.25rem;
 }
 
-.course-form__field {
+.field {
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
   width: 100%;
 }
 
-.course-form__label {
+.label {
   font-size: var(--text-sm);
   font-weight: var(--font-medium);
   color: var(--gray-700);
 }
 
-.course-form__input,
-.course-form__select {
+.input,
+.select {
   width: 100%;
   padding: 0.85rem 1rem;
   border: 1px solid var(--gray-200);
@@ -58,16 +58,16 @@
     background-color 0.2s ease;
 }
 
-.course-form__input:focus,
-.course-form__select:focus,
-.course-form__textarea:focus {
+.input:focus,
+.select:focus,
+.textarea:focus {
   outline: none;
   border-color: var(--primary-400);
   box-shadow: 0 0 0 3px rgba(39, 179, 244, 0.2);
   background-color: var(--gray-00);
 }
 
-.course-form__select {
+.select {
   appearance: none;
   background-image: linear-gradient(45deg, transparent 50%, var(--gray-500) 50%),
     linear-gradient(135deg, var(--gray-500) 50%, transparent 50%);
@@ -76,13 +76,13 @@
   background-repeat: no-repeat;
 }
 
-.course-form__thumbnail {
+.thumbnail {
   display: flex;
   align-items: end;
   gap: 1.25rem;
 }
 
-.course-form__thumbnail-preview {
+.thumbnailPreview {
   width: 16rem;
   height: 9rem;
   border-radius: 1rem;
@@ -96,7 +96,7 @@
   object-fit: cover;
 }
 
-.course-form__thumbnail-button {
+.thumbnailButton {
   padding: 0.85rem 1.4rem;
   border-radius: 0.9rem;
   border: 1px solid var(--gray-200);
@@ -109,19 +109,19 @@
     box-shadow 0.2s ease;
 }
 
-.course-form__thumbnail-button:hover {
+.thumbnailButton:hover {
   background-color: var(--primary-200);
   border-color: var(--primary-400);
   box-shadow: 0 12px 20px rgba(39, 179, 244, 0.18);
 }
 
-.course-form__thumbnail-hint {
+.thumbnailHint {
   margin: 0;
   font-size: var(--text-xs);
   color: var(--gray-500);
 }
 
-.course-form__textarea {
+.textarea {
   width: 100%;
   padding: 1rem 1.1rem;
   border: 1px solid var(--gray-200);
@@ -134,13 +134,13 @@
     background-color 0.2s ease;
 }
 
-.course-form__actions {
+.actions {
   display: inline-flex;
   justify-content: flex-end;
   gap: 0.75rem;
 }
 
-.course-form__action-button {
+.actionButton {
   min-width: 6.5rem;
   padding: 0.85rem 1.5rem;
   border-radius: 0.9rem;
@@ -152,22 +152,22 @@
     border-color 0.2s ease;
 }
 
-.course-form__action-button--cancel {
+.actionButtonCancel {
   border-color: var(--gray-300);
   background-color: transparent;
   color: var(--gray-700);
 }
 
-.course-form__action-button--cancel:hover {
+.actionButtonCancel:hover {
   background-color: var(--gray-100);
 }
 
-.course-form__action-button--submit {
+.actionButtonSubmit {
   background-color: var(--primary-500);
   color: var(--gray-00);
 }
 
-.course-form__action-button--submit:hover {
+.actionButtonSubmit:hover {
   background-color: var(--primary-400);
   box-shadow: 0 16px 26px rgba(39, 179, 244, 0.25);
 }

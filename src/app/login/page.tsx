@@ -1,35 +1,35 @@
-import "./LoginPage.css";
+import styles from "./page.module.css";
 import LoginForm from "@/features/auth/components/LoginForm";
 import Link from "next/link";
 
 export default function LoginPage() {
   return (
-    <section className="login-page">
-      <div className="login-page__card">
-        <div className="login-page__illustration">
-          <div className="login-page__illustration-content">
+    <section className={styles.page}>
+      <div className={styles.card}>
+        <div className={styles.illustration}>
+          <div className={styles.illustrationContent}>
             <img
-              className="login-page__illustration-image"
+              className={styles.illustrationImage}
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuCt3Z9MrMi0I99SK_HYjJb0WlT6pzfG3F96hwg4EFBWs4dSaNVaZ8iYnUSt8sDRI3pERhF5Obro2NY3EJT_96K3Ox1J7hB9s-WIVO2yDUsX9teGrCJ8RcW_mpOWAP-yLsQ7xeEU7mRSYBks0ZqkGO4FzJS7BSv9kbXO_pvBM5Eq5lCBM91loCeNFHcrcMLu3bR1Oaq1vmRj-TCvS082VAMOiQ6OTrVI8t0DWkpym0JsG6xRKt0GgOcv2ZBwrTsx8J0HlJ7iYcVtlEY"
               alt="People collaborating around a laptop, representing online learning."
             />
-            <h2 className="login-page__illustration-title">
+            <h2 className={styles.illustrationTitle}>
               지식의 세계를 열어보세요
             </h2>
-            <p className="login-page__illustration-description">
+            <p className={styles.illustrationDescription}>
               GOROGORO와 함께 성장의 여정을 시작하세요.
             </p>
           </div>
         </div>
-        <div className="login-page__content">
-          <div className="login-page__brand">
-            <p className="login-page__logo">GOROGORO</p>
-            <p className="login-page__subtitle">로그인</p>
+        <div className={styles.content}>
+          <div className={styles.brand}>
+            <p className={styles.logo}>GOROGORO</p>
+            <p className={styles.subtitle}>로그인</p>
           </div>
           <LoginForm />
-          <p className="login-page__caption">
+          <p className={styles.caption}>
             계정이 없으신가요?{" "}
-            <Link href="/signup" className="login-page__link">
+            <Link href="/signup" className={styles.link}>
               회원가입하기
             </Link>
           </p>
