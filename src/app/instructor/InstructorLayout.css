@@ -1,0 +1,10 @@
+.instructor-layout {
+  background-color: var(--secondary-bg);
+  padding-block: 3.5rem;
+}
+
+.instructor-layout__content {
+  display: flex;
+  align-items: flex-start;
+  gap: 2.5rem;
+}
