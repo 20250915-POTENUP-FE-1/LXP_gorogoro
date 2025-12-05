@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-const BASE_URL = "http://localhost:3001";
-
-async function request(endpoint, options = {}) {
-  const url = `${BASE_URL}${endpoint}`;
-  const response = await fetch(url, {
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
-  });
-=======
 const BASE_URL = "http://localhost:3002";
 
 async function request(endpoint, options = {}) {
@@ -30,7 +17,6 @@ async function request(endpoint, options = {}) {
     },
   });
 
->>>>>>> 236355f8ca18f228c4c54f82f0fecff32ea9c23a
   if (!response.ok) {
     throw new Error("API 요청에 실패했습니다.");
   }
@@ -38,11 +24,7 @@ async function request(endpoint, options = {}) {
 }
 
 export const apiClient = {
-<<<<<<< HEAD
-  get: (endpoint) => request(endpoint),
-=======
   get: (endpoint, apiParams = {}) => request(endpoint, { apiParams }),
->>>>>>> 236355f8ca18f228c4c54f82f0fecff32ea9c23a
   post: (endpoint, body) =>
     request(endpoint, { method: "POST", body: JSON.stringify(body) }),
   put: (endpoint, body) =>

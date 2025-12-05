@@ -33,31 +33,8 @@ const deleteCourseSafely = async (courseId) => {
 
 // 네임스페이스를 통해 courseAPI라는 이름 아래에 관련된 함수들 그룹화하기!
 const courseAPI = {
-<<<<<<< HEAD
-  getCourses: (searchParams) => {
-    // searchParams를 복사하여 수정합니다. 원본을 직접 수정하지 않는 것이 좋습니다.
-    const params = new URLSearchParams(searchParams);
-
-    // 정렬 파라미터 변환: "createdAt:desc" -> _sort=createdAt&_order=desc
-    if (params.has("sort")) {
-      const sortValue = params.get("sort");
-      const [sortBy, order] = sortValue.split(":");
-      params.set("_sort", sortBy);
-      params.set("_order", order);
-      params.delete("sort"); // 기존 sort 파라미터는 제거
-    }
-
-    // 검색어 파라미터 변환: searchTerm -> q
-    if (params.has("searchTerm")) {
-      params.set("q", params.get("searchTerm"));
-      params.delete("searchTerm");
-    }
-
-    return apiClient.get(`/${COURSES_RESOURCE_PATH}?${params.toString()}`);
-=======
   getCourses: (apiParams) => {
     return apiClient.get(`/${COURSES_RESOURCE_PATH}`, apiParams);
->>>>>>> 236355f8ca18f228c4c54f82f0fecff32ea9c23a
   },
   // 특정 강좌 조회
   getCourseById: (courseId) =>
