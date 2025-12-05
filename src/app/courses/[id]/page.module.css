@@ -1,8 +1,8 @@
-.course-detail-page {
+.page {
   background-color: var(--gray-100);
   padding-block: 4rem;
 }
 
-.course-detail-page__container {
+.container {
   display: flex;
 }

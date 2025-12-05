@@ -1,4 +1,4 @@
-.login-page {
+.page {
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -9,7 +9,7 @@
   color: var(--gray-900);
 }
 
-.login-page__card {
+.card {
   display: grid;
   grid-template-columns: 1fr 1fr;
   width: 100%;
@@ -20,7 +20,7 @@
   overflow: hidden;
 }
 
-.login-page__illustration {
+.illustration {
   background-color: var(--gray-50);
   display: flex;
   align-items: center;
@@ -28,19 +28,19 @@
   padding: 3.5rem;
 }
 
-.login-page__illustration-content {
+.illustrationContent {
   text-align: center;
   max-width: 24rem;
 }
 
-.login-page__illustration-image {
+.illustrationImage {
   width: 100%;
   border-radius: 1rem;
   box-shadow: 0 15px 30px rgba(16, 24, 40, 0.12);
   margin-bottom: 2rem;
 }
 
-.login-page__illustration-title {
+.illustrationTitle {
   font-family: var(--font-heading), sans-serif;
   font-size: var(--text-3xl);
   font-weight: var(--font-bold);
@@ -48,12 +48,12 @@
   color: var(--gray-900);
 }
 
-.login-page__illustration-description {
+.illustrationDescription {
   font-size: var(--text-base);
   color: var(--gray-600);
 }
 
-.login-page__content {
+.content {
   padding: 4.5rem 5rem;
   display: flex;
   flex-direction: column;
@@ -62,11 +62,11 @@
   background-color: var(--primary-bg);
 }
 
-.login-page__brand {
+.brand {
   text-align: center;
 }
 
-.login-page__logo {
+.logo {
   font-family: var(--font-heading), sans-serif;
   font-size: var(--text-5xl);
   letter-spacing: -0.03em;
@@ -75,23 +75,23 @@
   color: var(--gray-900);
 }
 
-.login-page__subtitle {
+.subtitle {
   font-size: var(--text-lg);
   color: var(--gray-600);
 }
 
-.login-page__caption {
+.caption {
   font-size: var(--text-sm);
   color: var(--gray-500);
   text-align: center;
 }
 
-.login-page__link {
+.link {
   color: var(--primary-500);
   font-weight: var(--font-medium);
   text-decoration: underline;
 }
 
-.login-page__link:hover {
+.link:hover {
   color: var(--primary-400);
 }

@@ -1,4 +1,6 @@
-import "./EnrollmentItem.css";
+"use client";
+
+import styles from "./EnrollmentItem.module.css";
 
 export default function EnrollmentItem({ course }: any) {
   const handleCancel = async (courseId: string) => {
@@ -16,29 +18,29 @@ export default function EnrollmentItem({ course }: any) {
   };
 
   return (
-    <article className="enrollment-item" key={course.title}>
-      <div className="enrollment-item__thumbnail">
+    <article className={styles.item} key={course.title}>
+      <div className={styles.thumbnail}>
         <img
-          className="enrollment-item__image"
+          className={styles.image}
           src={course.thumbnailUrl}
           alt={course.title}
         />
       </div>
-      <div className="enrollment-item__body">
-        <div className="enrollment-item__category">{course.category}</div>
-        <h3 className="enrollment-item__title">{course.title}</h3>
-        <p className="enrollment-item__instructor">{course.instructorName}</p>
+      <div className={styles.body}>
+        <div className={styles.category}>{course.category}</div>
+        <h3 className={styles.title}>{course.title}</h3>
+        <p className={styles.instructor}>{course.instructorName}</p>
       </div>
-      <div className="enrollment-item__meta">
+      <div className={styles.meta}>
         {/* <time
-            className="enrollment-item__date"
+            className={styles.date}
             dateTime={item.enrolledAt.replace(/\./g, "-")}
           >
             {item.enrolledAt}
           </time> */}
-        <span className="enrollment-item__price">{course.price}</span>
+        <span className={styles.price}>{course.price}</span>
         <button
-          className="enrollment-item__action"
+          className={styles.action}
           type="button"
           onClick={() => handleCancel(course.id)}
         >

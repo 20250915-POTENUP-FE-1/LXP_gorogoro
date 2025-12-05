@@ -1,7 +1,7 @@
 import courseAPI from "@/services/courseAPI";
 import CourseDetail from "@/features/courses/components/CourseDetail";
 
-import "./CourseDetailPage.css";
+import styles from "./page.module.css";
 
 export default async function CourseDetailPage({
   params,
@@ -12,8 +12,8 @@ export default async function CourseDetailPage({
   const course = await courseAPI.getCourseById(id);
 
   return (
-    <main className="course-detail-page">
-      <div className="page-wrapper course-detail-page__container">
+    <main className={styles.page}>
+      <div className={`page-wrapper ${styles.container}`}>
         <CourseDetail course={course} />
       </div>
     </main>

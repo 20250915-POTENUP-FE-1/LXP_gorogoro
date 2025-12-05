@@ -1,9 +1,10 @@
-.instructor-layout {
+.layout {
   background-color: var(--secondary-bg);
   padding-block: 3.5rem;
+  padding-inline: var(--layout-padding-inline);
 }
 
-.instructor-layout__content {
+.content {
   display: flex;
   align-items: flex-start;
   gap: 2.5rem;

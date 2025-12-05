@@ -1,4 +1,4 @@
-.category-bar {
+.bar {
   margin-bottom: 2.5rem;
   background-color: var(--gray-00);
   border: 1px solid var(--gray-200);
@@ -6,20 +6,20 @@
   box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
 }
 
-.category-bar__inner {
+.inner {
   display: flex;
   align-items: center;
   gap: 1.5rem;
   padding: 1.5rem;
 }
 
-.category-bar__chip-group {
+.chipGroup {
   display: flex;
   align-items: center;
   gap: 0.75rem;
 }
 
-.category-bar__chip {
+.chip {
   padding: 0.5rem 1.25rem;
   border: none;
   border-radius: 0.5rem;
@@ -31,27 +31,27 @@
   transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.category-bar__chip--active {
+.chipActive {
   background-color: var(--primary-500);
   color: var(--gray-00);
 }
 
-.category-bar__divider {
+.divider {
   width: 1px;
   height: 2.5rem;
   background-color: var(--gray-200);
 }
 
-.category-bar__search {
+.search {
   flex: 1;
 }
 
-.category-bar__search-field {
+.searchField {
   position: relative;
   display: block;
 }
 
-.category-bar__search-icon {
+.searchIcon {
   position: absolute;
   top: 50%;
   left: 1rem;
@@ -61,7 +61,7 @@
   pointer-events: none;
 }
 
-.category-bar__input {
+.input {
   width: 100%;
   padding: 0.65rem 1rem 0.65rem 2.75rem;
   border: 1px solid var(--gray-300);
@@ -72,24 +72,24 @@
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.category-bar__input:focus {
+.input:focus {
   outline: none;
   border-color: var(--primary-500);
   box-shadow: 0 0 0 3px rgba(26, 145, 209, 0.15);
 }
 
-.category-bar__select {
+.select {
   display: flex;
   align-items: center;
 }
 
-.category-bar__select-field {
+.selectField {
   position: relative;
   display: inline-flex;
   align-items: center;
 }
 
-.category-bar__dropdown {
+.dropdown {
   appearance: none;
   padding: 0.65rem 2.5rem 0.65rem 1rem;
   border: 1px solid var(--gray-300);
@@ -101,13 +101,13 @@
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.category-bar__dropdown:focus {
+.dropdown:focus {
   outline: none;
   border-color: var(--primary-500);
   box-shadow: 0 0 0 3px rgba(26, 145, 209, 0.15);
 }
 
-.category-bar__select-icon {
+.selectIcon {
   position: absolute;
   right: 0.75rem;
   font-size: var(--text-2xl);

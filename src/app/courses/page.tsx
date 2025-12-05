@@ -3,7 +3,7 @@ import courseAPI from "@/services/courseAPI";
 
 import CategoryBar from "@/features/common/components/CategoryBar";
 import CourseList from "@/features/courses/components/CourseList";
-import "./CoursePage.css";
+import styles from "./page.module.css";
 
 export default async function CoursePage({
   searchParams,
@@ -30,13 +30,11 @@ export default async function CoursePage({
     : `${categoryQuery} 강좌`;
 
   return (
-    <main className="course-page">
-      <div className="page-wrapper course-page__container">
-        <section className="course-page__intro">
-          <h1 className="course-page__title">{pageTitle}</h1>
-          <span className="course-page__subtitle">
-            총 {courses.length}개의 강좌
-          </span>
+    <main className={styles.page}>
+      <div className={`page-wrapper ${styles.container}`}>
+        <section className={styles.intro}>
+          <h1 className={styles.title}>{pageTitle}</h1>
+          <span className={styles.subtitle}>총 {courses.length}개의 강좌</span>
         </section>
         <CategoryBar categories={categories} />
         <CourseList courses={courses} />

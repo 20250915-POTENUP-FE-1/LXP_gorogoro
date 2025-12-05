@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import "@/shared/components/layout/Header.css";
+import styles from "@/shared/components/layout/Header.module.css";
 
 const userProfile = {
   displayName: "윤선",
@@ -9,10 +9,10 @@ const userProfile = {
 
 export default function Header() {
   return (
-    <header className="header">
-      <div className="header__container">
-        <div className="header__brand-group">
-          <Link href="/" className="header__brand">
+    <header className={styles.header}>
+      <div className={styles.container}>
+        <div className={styles.brandGroup}>
+          <Link href="/" className={styles.brand}>
             GORO
           </Link>
           {userProfile ? (
@@ -22,39 +22,39 @@ export default function Header() {
           )}
         </div>
         {userProfile ? (
-          <div className="header__actions">
+          <div className={styles.actions}>
             {userProfile.role === "instructor" && (
-              <Link href="/instructor" className="header__dashboard-link">
+              <Link href="/instructor" className={styles.dashboardLink}>
                 강사 대시보드
               </Link>
             )}
 
             <Link
               href="/cart"
-              className="header__action-button"
+              className={styles.actionButton}
               aria-label="장바구니"
             >
               <img
                 src="/assets/shopping-cart.svg"
                 alt=""
-                className="header__action-icon"
+                className={styles.actionIcon}
                 aria-hidden="true"
               />
             </Link>
             <Link
               href="/mypage"
-              className="header__action-button"
+              className={styles.actionButton}
               aria-label="마이페이지"
             >
               <img
                 src="/assets/user.svg"
                 alt=""
-                className="header__action-icon"
+                className={styles.actionIcon}
               />
             </Link>
           </div>
         ) : (
-          <Link href="/login" className="header__dashboard-link">
+          <Link href="/login" className={styles.dashboardLink}>
             로그인 하기
           </Link>
         )}

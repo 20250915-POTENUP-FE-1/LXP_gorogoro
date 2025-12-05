@@ -1,8 +1,8 @@
-.course-list {
+.list {
   margin-bottom: 4rem;
 }
 
-.course-list__grid {
+.grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1.5rem;

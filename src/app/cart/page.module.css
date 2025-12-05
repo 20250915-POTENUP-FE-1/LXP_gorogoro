@@ -1,9 +1,9 @@
-.cart-page {
+.page {
   background-color: var(--secondary-bg);
   padding-block: 3.5rem;
 }
 
-.cart-page__container {
+.container {
   display: flex;
   align-items: flex-start;
   gap: 2.5rem;

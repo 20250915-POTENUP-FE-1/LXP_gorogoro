@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import "./MySidebar.css";
+import styles from "./MySidebar.module.css";
 
 const userProfile = {
   displayName: "윤선",
@@ -21,23 +21,23 @@ export default function MySidebar() {
   };
 
   return (
-    <aside className="my-sidebar" aria-label="마이페이지 사이드바">
-      <div className="my-sidebar__profile">
-        <div className="my-sidebar__avatar"></div>
-        <div className="my-sidebar__info">
-          <span className="my-sidebar__name">{userProfile.displayName}</span>
-          <span className="my-sidebar__email">{userProfile.email}</span>
+    <aside className={styles.sidebar} aria-label="마이페이지 사이드바">
+      <div className={styles.profile}>
+        <div className={styles.avatar}></div>
+        <div className={styles.info}>
+          <span className={styles.name}>{userProfile.displayName}</span>
+          <span className={styles.email}>{userProfile.email}</span>
         </div>
       </div>
-      <nav className="my-sidebar__nav" aria-label="마이페이지 메뉴">
-        <Link href="/mypage/profile" className="my-sidebar__nav-item">
+      <nav className={styles.nav} aria-label="마이페이지 메뉴">
+        <Link href="/mypage/profile" className={styles.navItem}>
           프로필
         </Link>
-        <Link href="/mypage/enrollments" className="my-sidebar__nav-item">
+        <Link href="/mypage/enrollments" className={styles.navItem}>
           수강 중인 강좌
         </Link>
         <button
-          className="my-sidebar__nav-item my-sidebar__nav-item--logout"
+          className={`${styles.navItem} ${styles.navItemLogout}`}
           type="button"
           onClick={handleLogoutClick}
         >
