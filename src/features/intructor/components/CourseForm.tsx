@@ -1,5 +1,8 @@
+"use client";
+
 import { CourseFormData } from "../types";
 import styles from "./CourseForm.module.css";
+import { useState } from "react";
 
 type CourseFormMode = "create" | "edit";
 interface CourseFormProps {
@@ -18,9 +21,42 @@ export default function CourseForm({
     price: 0,
     thumbnailUrl: "",
     summary: "",
-    content: "",
+    content: [],
   },
 }: CourseFormProps) {
+  const [formData, setFormData] = useState(initialFormData);
+
+  const addChapter = () => {
+    setFormData((prev) => ({
+      ...prev,
+      content: [
+        ...prev.content,
+        { chapterTitle: "", seq: prev.content.length + 1, lessons: [] },
+      ],
+    }));
+  };
+
+  const addLesson = (chapterIndex: number) => {
+    setFormData((prev) => {
+      const newContent = [...prev.content];
+      const chapter = newContent[chapterIndex];
+
+      newContent[chapterIndex] = {
+        ...chapter,
+        lessons: [
+          ...chapter.lessons,
+          {
+            title: "",
+            seq: chapter.lessons.length + 1,
+            resourceUrl: null,
+          },
+        ],
+      };
+
+      return { ...prev, content: newContent };
+    });
+  };
+
   return (
     <form className={styles.form}>
       <div className={`${styles.group} ${styles.groupInline}`}>
@@ -125,16 +161,90 @@ export default function CourseForm({
       </div>
 
       <div className={styles.group}>
-        <label className={styles.field}>
-          <span className={styles.label}>강좌 내용</span>
-          <textarea
-            name="content"
-            value={initialFormData.content}
-            className={styles.textarea}
-            placeholder="강좌의 전체 내용을 상세하게 작성해주세요."
-            rows={6}
-          />
-        </label>
+        <div className={styles.sectionHeader}>
+          <span className={styles.label}>커리큘럼</span>
+          <button
+            type="button"
+            className={styles.addButton}
+            onClick={addChapter}
+          >
+            + 챕터 추가
+          </button>
+        </div>
+
+        <div className={styles.chapterList}>
+          {formData.content.map((chapter, chapterIdx) => (
+            <div key={chapterIdx} className={styles.chapterItem}>
+              <div className={styles.chapterHeader}>
+                <span className={styles.chapterSeq}>Chapter {chapter.seq}</span>
+                <input
+                  className={styles.input}
+                  placeholder="챕터 제목을 입력하세요"
+                  value={chapter.chapterTitle}
+                  onChange={(e) => {
+                    const newContent = [...formData.content];
+                    newContent[chapterIdx] = {
+                      ...newContent[chapterIdx],
+                      chapterTitle: e.target.value,
+                    };
+                    setFormData({ ...formData, content: newContent });
+                  }}
+                />
+              </div>
+
+              <div className={styles.lessonList}>
+                {chapter.lessons.map((lesson, lessonIdx) => (
+                  <div key={lessonIdx} className={styles.lessonItem}>
+                    <span className={styles.lessonSeq}>{lesson.seq}.</span>
+                    <input
+                      className={styles.input}
+                      placeholder="강의 제목"
+                      value={lesson.title}
+                      onChange={(e) => {
+                        const newContent = [...formData.content];
+                        const newLessons = [...newContent[chapterIdx].lessons];
+                        newLessons[lessonIdx] = {
+                          ...newLessons[lessonIdx],
+                          title: e.target.value,
+                        };
+                        newContent[chapterIdx] = {
+                          ...newContent[chapterIdx],
+                          lessons: newLessons,
+                        };
+                        setFormData({ ...formData, content: newContent });
+                      }}
+                    />
+                    <input
+                      className={styles.input}
+                      placeholder="영상/자료 URL"
+                      value={lesson.resourceUrl || ""}
+                      onChange={(e) => {
+                        const newContent = [...formData.content];
+                        const newLessons = [...newContent[chapterIdx].lessons];
+                        newLessons[lessonIdx] = {
+                          ...newLessons[lessonIdx],
+                          resourceUrl: e.target.value,
+                        };
+                        newContent[chapterIdx] = {
+                          ...newContent[chapterIdx],
+                          lessons: newLessons,
+                        };
+                        setFormData({ ...formData, content: newContent });
+                      }}
+                    />
+                  </div>
+                ))}
+                <button
+                  type="button"
+                  className={styles.addLessonButton}
+                  onClick={() => addLesson(chapterIdx)}
+                >
+                  + 강의 추가
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className={styles.actions}>
