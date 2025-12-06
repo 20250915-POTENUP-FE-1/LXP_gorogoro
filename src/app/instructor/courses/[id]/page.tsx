@@ -3,7 +3,5 @@ export default async function CourseDetailPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const { id } = await params;
-
-  return <div>코스 상세 페이지: {id}</div>;
+  return <div>미래를 위해 남겨둔 페이지</div>;
 }

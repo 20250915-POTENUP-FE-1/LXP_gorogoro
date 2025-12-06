@@ -1,8 +1,19 @@
+"use client";
 import styles from "./InstructorCourseItem.module.css";
+import { deleteCourseAction } from "../action";
+import { useRouter } from "next/navigation";
 
 export default function InstructorCourseItem({ course }: any) {
-  const handleClickEdit = async () => {};
-  const handleClickDelete = async () => {};
+  const router = useRouter();
+  const courseId = course.id;
+  const handleClickEdit = () => {
+    router.push(`/instructor/courses/${courseId}/edit`);
+  };
+  const handleClickDelete = async () => {
+    if (confirm("삭제 하시겠습니까?")) {
+      await deleteCourseAction(courseId);
+    }
+  };
   return (
     <article
       className={`${styles.item} ${

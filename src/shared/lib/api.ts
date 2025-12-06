@@ -1,7 +1,13 @@
 const BASE_URL = "http://localhost:3002";
 
-export const get = async (endpoint: string) => {
-  const res = await fetch(`${BASE_URL}/${endpoint}`);
+export const get = async (endpoint: string, apiParams?: any) => {
+  let url = `${BASE_URL}/${endpoint}`;
+  if (apiParams && Object.keys(apiParams).length > 0) {
+    const queryString = new URLSearchParams(apiParams).toString();
+    url = `${url}?/${queryString}`;
+  }
+
+  const res = await fetch(url);
   if (!res.ok) throw new Error(`GET FAILED: ${res.status}`);
   return res.json();
 };

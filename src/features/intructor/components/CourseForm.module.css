@@ -171,3 +171,20 @@
   background-color: var(--primary-400);
   box-shadow: 0 16px 26px rgba(39, 179, 244, 0.25);
 }
+
+.actionButtonAdd {
+  margin-top: 1rem;
+  border: 1px solid black;
+  min-width: 6.5rem;
+  padding: 0.5rem 0.5rem;
+  border-radius: 0.5rem;
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.actionButtonAdd:hover {
+  background-color: var(--gray-300);
+}

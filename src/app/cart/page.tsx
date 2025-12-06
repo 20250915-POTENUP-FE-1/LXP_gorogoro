@@ -1,12 +1,15 @@
 import CartList from "@/features/cart/components/CartList";
 import CartSummary from "@/features/cart/components/CartSummary";
 import styles from "./page.module.css";
+import { getCourses } from "@/services/course.service";
 
 const courses: any = [];
 const totalCount: any = "";
 const totalPrice: any = "";
 
-export default function CartPage() {
+export default async function CartPage() {
+  const courses = await getCourses();
+
   return (
     <main className={styles.page}>
       <div className={`page-wrapper ${styles.container}`}>

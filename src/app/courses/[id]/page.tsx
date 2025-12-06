@@ -1,7 +1,6 @@
-import courseAPI from "@/services/courseAPI";
 import CourseDetail from "@/features/courses/components/CourseDetail";
-
 import styles from "./page.module.css";
+import { getCourseById } from "@/services/course.service";
 
 export default async function CourseDetailPage({
   params,
@@ -9,7 +8,7 @@ export default async function CourseDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const course = await courseAPI.getCourseById(id);
+  const course = getCourseById(id);
 
   return (
     <main className={styles.page}>

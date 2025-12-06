@@ -1,7 +1,6 @@
-import courseAPI from "@/services/courseAPI";
 import CourseForm from "@/features/intructor/components/CourseForm";
-
 import styles from "./page.module.css";
+import { getCourseById } from "@/services/course.service";
 
 export default async function CourseEditPage({
   params,
@@ -9,8 +8,7 @@ export default async function CourseEditPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-
-  const course = await courseAPI.getCourseById(id);
+  const course = await getCourseById(id);
 
   return (
     <section className={styles.container}>
