@@ -33,7 +33,7 @@ export default function MySidebar() {
         <Link href="/mypage/profile" className={styles.navItem}>
           프로필
         </Link>
-        <Link href="/mypage/enrollments" className={styles.navItem}>
+        <Link href="/mypage/enrollment" className={styles.navItem}>
           수강 중인 강좌
         </Link>
         <button

@@ -1,6 +1,3 @@
-import categoryAPI from "@/services/categoryAPI";
-import courseAPI from "@/services/courseAPI";
-
 import CategoryBar from "@/features/common/components/CategoryBar";
 import CourseList from "@/features/courses/components/CourseList";
 import styles from "./page.module.css";
@@ -22,8 +19,8 @@ export default async function CoursePage({
     limit: "10",
   };
 
-  const categories = await categoryAPI.getAllCategories();
-  const courses = await courseAPI.getCourses(apiParams);
+  // const categories = await categoryAPI.getAllCategories();
+  // const courses = await courseAPI.getCourses(apiParams);
 
   const pageTitle = searchQuery
     ? `"${searchQuery}" 검색 결과`

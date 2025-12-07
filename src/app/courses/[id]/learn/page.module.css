@@ -1,0 +1,46 @@
+.videoContainer {
+  width: 100%;
+  max-width: 1000px;
+  aspect-ratio: 16 / 9;
+  background-color: #000;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.placeholder {
+  color: var(--gray-00);
+  text-align: center;
+}
+
+.playButton {
+  width: 80px;
+  height: 80px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-pill);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.playButton:hover {
+  transform: scale(1.1);
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.lectureTitle {
+  font-size: var(--text-2xl);
+  font-weight: var(--font-bold);
+  margin-bottom: 20px;
+  color: var(--gray-00);
+  align-self: flex-start;
+  max-width: 1000px;
+  width: 100%;
+}
