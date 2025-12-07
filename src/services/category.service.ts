@@ -4,19 +4,19 @@ import { del, get, post } from "@/shared/lib/api";
 const CATEGORIES_ENDPOINT = "categories";
 
 //모든 카테고리
-const getAllCategories = async (): Promise<Category[]> => {
+export const getAllCategories = async (): Promise<Category[]> => {
   const data = await get(CATEGORIES_ENDPOINT);
   return data as Category[];
 };
 
 //카테고리 추가
-const createCategory = async (body: unknown): Promise<Category> => {
+export const createCategory = async (body: unknown): Promise<Category> => {
   const data = await post(CATEGORIES_ENDPOINT, body);
   return data as Category;
 };
 
 //카테고리 삭제
-const deleteCategory = async (id: string) => {
+export const deleteCategory = async (id: string) => {
   const data = await del(`${CATEGORIES_ENDPOINT}/${id}`);
   return data;
 };

@@ -1,9 +1,8 @@
-import categoryAPI from "@/services/categoryAPI";
-import courseAPI from "@/services/courseAPI";
-
 import CategoryBar from "@/features/common/components/CategoryBar";
 import CourseList from "@/features/courses/components/CourseList";
 import styles from "./page.module.css";
+import { getAllCategories } from "@/services/category.service";
+import { getCourses } from "@/services/course.service";
 
 export default async function CoursePage({
   searchParams,
@@ -22,8 +21,8 @@ export default async function CoursePage({
     limit: "10",
   };
 
-  const categories = await categoryAPI.getAllCategories();
-  const courses = await courseAPI.getCourses(apiParams);
+  const categories = await getAllCategories();
+  const courses = await getCourses();
 
   const pageTitle = searchQuery
     ? `"${searchQuery}" 검색 결과`
@@ -37,7 +36,7 @@ export default async function CoursePage({
           <span className={styles.subtitle}>총 {courses.length}개의 강좌</span>
         </section>
         <CategoryBar categories={categories} />
-        <CourseList courses={courses} />
+        <CourseList courses={courses} categories={categories} />
       </div>
     </main>
   );

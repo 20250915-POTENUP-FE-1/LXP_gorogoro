@@ -5,13 +5,47 @@
       "title": "업무 자동화를 위한 파이썬",
       "instructorId": "user-2",
       "instructorName": "박강사",
-      "category": "python",
-      "level": "beginner",
+      "categoryId": "4",
+      "description": "강의 상세 설명",
+      "level": "BEGINNER",
       "price": 53000,
       "status": "published",
       "summary": "반복적인 엑셀 작업, 파일 정리, 웹 크롤링을 파이썬으로 자동화하는 방법을 배웁니다.",
-      "content": "os, openpyxl, selenium 등 업무 자동화에 유용한 라이브러리를 사용하여 실제 업무 효율을 높이는 스크립트를 작성합니다.",
-      "thumbnailUrl": "/assets/images/courses/course-python-automation.jpg",
+      "coverImageUrl": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
+      "contents": [
+        {
+          "chapterTitle": "1. 파이썬 환경 설정과 기본 문법",
+          "seq": 1,
+          "lessons": [
+            {
+              "title": "강의 소개",
+              "seq": 1,
+              "resourceUrl": "https://example.com/python/introduction"
+            },
+            {
+              "title": "개발 환경 세팅",
+              "seq": 2,
+              "resourceUrl": "https://example.com/python/setup"
+            }
+          ]
+        },
+        {
+          "chapterTitle": "2. 엑셀/파일 자동화",
+          "seq": 2,
+          "lessons": [
+            {
+              "title": "엑셀 자동화 개념",
+              "seq": 1,
+              "resourceUrl": "https://example.com/python/excel-automation"
+            },
+            {
+              "title": "파일 정리 스크립트 작성",
+              "seq": 2,
+              "resourceUrl": "https://example.com/python/file-organize"
+            }
+          ]
+        }
+      ],
       "createdAt": "2025-08-10T12:00:00.000Z",
       "updatedAt": "2025-08-10T12:00:00.000Z"
     },
@@ -20,13 +54,47 @@
       "title": "Vue.js 3 시작하기",
       "instructorId": "user-2",
       "instructorName": "박강사",
-      "category": "web-development",
-      "level": "beginner",
+      "categoryId": "5",
+      "description": "강의 상세 설명",
+      "level": "BEGINNER",
       "price": 68000,
       "status": "published",
       "summary": "Vue.js의 핵심인 Composition API를 중심으로 모던 웹 애플리케이션을 개발합니다.",
-      "content": "컴포넌트 기반 개발, 상태 관리(Pinia), 라우팅 등 Vue.js 생태계를 활용한 SPA 개발 방법을 학습합니다.",
-      "thumbnailUrl": "/assets/images/courses/course-vue-js.jpg",
+      "coverImageUrl": "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1200&q=80",
+      "contents": [
+        {
+          "chapterTitle": "1. Vue 3 소개와 개발 환경",
+          "seq": 1,
+          "lessons": [
+            {
+              "title": "강의 소개",
+              "seq": 1,
+              "resourceUrl": "https://example.com/vue/introduction"
+            },
+            {
+              "title": "Vue 3 개발 환경 세팅",
+              "seq": 2,
+              "resourceUrl": "https://example.com/vue/setup"
+            }
+          ]
+        },
+        {
+          "chapterTitle": "2. 컴포넌트와 Composition API",
+          "seq": 2,
+          "lessons": [
+            {
+              "title": "컴포넌트 기본 개념",
+              "seq": 1,
+              "resourceUrl": "https://example.com/vue/components"
+            },
+            {
+              "title": "Composition API로 상태 관리하기",
+              "seq": 2,
+              "resourceUrl": "https://example.com/vue/composition-api"
+            }
+          ]
+        }
+      ],
       "createdAt": "2025-11-26T15:00:00.000Z",
       "updatedAt": "2025-11-26T15:00:00.000Z"
     },
@@ -35,15 +103,147 @@
       "title": "실무에 바로 쓰는 SQL",
       "instructorId": "user-2",
       "instructorName": "박강사",
-      "category": "data-analysis",
-      "level": "beginner",
+      "categoryId": "1",
+      "description": "강의 상세 설명",
+      "level": "BEGINNER",
       "price": 49000,
       "status": "published",
       "summary": "SELECT, JOIN, GROUP BY 등 데이터 추출 및 분석에 필수적인 SQL 쿼리문을 학습합니다.",
-      "content": "다양한 실무 예제를 통해 데이터를 원하는 형태로 가공하고, 복잡한 비즈니스 질문에 답하는 쿼리 작성 능력을 기릅니다.",
-      "thumbnailUrl": "/assets/images/courses/course-sql-basic.jpg",
+      "coverImageUrl": "https://images.unsplash.com/photo-1517433456452-f9633a875f6f?auto=format&fit=crop&w=1200&q=80",
+      "contents": [
+        {
+          "chapterTitle": "1. SQL 기본 문법",
+          "seq": 1,
+          "lessons": [
+            {
+              "title": "강의 소개",
+              "seq": 1,
+              "resourceUrl": "https://example.com/sql/introduction"
+            },
+            {
+              "title": "SELECT와 WHERE 절",
+              "seq": 2,
+              "resourceUrl": "https://example.com/sql/select-where"
+            }
+          ]
+        },
+        {
+          "chapterTitle": "2. JOIN과 그룹 분석",
+          "seq": 2,
+          "lessons": [
+            {
+              "title": "JOIN 이해하기",
+              "seq": 1,
+              "resourceUrl": "https://example.com/sql/join"
+            },
+            {
+              "title": "GROUP BY와 집계 함수",
+              "seq": 2,
+              "resourceUrl": "https://example.com/sql/group-by"
+            }
+          ]
+        }
+      ],
       "createdAt": "2025-07-22T11:00:00.000Z",
       "updatedAt": "2025-07-22T11:00:00.000Z"
+    },
+    {
+      "id": "course-react-ts",
+      "title": "React & TypeScript로 웹 앱 만들기",
+      "instructorId": "user-2",
+      "instructorName": "박강사",
+      "categoryId": "5",
+      "description": "타입 안정성을 갖춘 React 애플리케이션을 만드는 방법을 학습합니다.",
+      "level": "INTERMEDIATE",
+      "price": 79000,
+      "status": "published",
+      "summary": "컴포넌트 구조 설계, 상태 관리, 커스텀 훅, 타입 정의까지 한 번에 정리하는 실전 React & TypeScript 강의.",
+      "coverImageUrl": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80",
+      "contents": [
+        {
+          "chapterTitle": "1. 프로젝트 세팅과 타입스크립트 기초",
+          "seq": 1,
+          "lessons": [
+            {
+              "title": "강의 소개 및 환경 세팅",
+              "seq": 1,
+              "resourceUrl": "https://example.com/react-ts/introduction"
+            },
+            {
+              "title": "타입스크립트 기본 타입 정리",
+              "seq": 2,
+              "resourceUrl": "https://example.com/react-ts/basic-types"
+            }
+          ]
+        },
+        {
+          "chapterTitle": "2. 컴포넌트 설계와 상태 관리",
+          "seq": 2,
+          "lessons": [
+            {
+              "title": "props & state에 타입 입히기",
+              "seq": 1,
+              "resourceUrl": "https://example.com/react-ts/props-state"
+            },
+            {
+              "title": "커스텀 훅으로 로직 분리하기",
+              "seq": 2,
+              "resourceUrl": "https://example.com/react-ts/custom-hooks"
+            }
+          ]
+        }
+      ],
+      "createdAt": "2025-09-01T10:00:00.000Z",
+      "updatedAt": "2025-09-01T10:00:00.000Z"
+    },
+    {
+      "id": "course-data-analytics",
+      "title": "입문자를 위한 데이터 분석",
+      "instructorId": "user-2",
+      "instructorName": "박강사",
+      "categoryId": "1",
+      "description": "데이터 분석의 전체 흐름을 실습 중심으로 익히는 강의입니다.",
+      "level": "BEGINNER",
+      "price": 72000,
+      "status": "published",
+      "summary": "엑셀, SQL, 파이썬을 활용해 데이터를 수집·가공·시각화하는 데이터 분석 입문 과정.",
+      "coverImageUrl": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+      "contents": [
+        {
+          "chapterTitle": "1. 데이터 분석 개념 잡기",
+          "seq": 1,
+          "lessons": [
+            {
+              "title": "데이터 분석 프로세스 이해",
+              "seq": 1,
+              "resourceUrl": "https://example.com/data-analytics/process"
+            },
+            {
+              "title": "분석 도구 소개",
+              "seq": 2,
+              "resourceUrl": "https://example.com/data-analytics/tools"
+            }
+          ]
+        },
+        {
+          "chapterTitle": "2. 실무 예제로 분석 연습",
+          "seq": 2,
+          "lessons": [
+            {
+              "title": "매출 데이터 분석하기",
+              "seq": 1,
+              "resourceUrl": "https://example.com/data-analytics/sales"
+            },
+            {
+              "title": "대시보드로 인사이트 공유",
+              "seq": 2,
+              "resourceUrl": "https://example.com/data-analytics/dashboard"
+            }
+          ]
+        }
+      ],
+      "createdAt": "2025-10-05T09:30:00.000Z",
+      "updatedAt": "2025-10-05T09:30:00.000Z"
     }
   ],
   "users": [
@@ -64,23 +264,23 @@
   ],
   "categories": [
     {
-      "id": "data-analysis",
+      "id": "1",
       "name": "데이터 분석"
     },
     {
-      "id": "game-development",
+      "id": "2",
       "name": "게임 개발"
     },
     {
-      "id": "machine-learning",
+      "id": "3",
       "name": "머신 러닝"
     },
     {
-      "id": "python",
+      "id": "4",
       "name": "파이썬"
     },
     {
-      "id": "web-development",
+      "id": "5",
       "name": "웹 개발"
     }
   ]

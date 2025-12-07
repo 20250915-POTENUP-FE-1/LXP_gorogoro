@@ -1,0 +1,101 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.courseHeader {
+  padding: 20px;
+  border-bottom: 1px solid var(--gray-700);
+}
+
+.courseTitle {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.progressContainer {
+  margin-bottom: 8px;
+}
+
+.progressBarBackground {
+  height: 6px;
+  background-color: var(--gray-700);
+  border-radius: var(--radius-xs);
+  overflow: hidden;
+}
+
+.progressBarFill {
+  height: 100%;
+  background-color: var(--primary-500);
+  border-radius: var(--radius-xs);
+}
+
+.progressText {
+  font-size: var(--text-xs);
+  color: var(--gray-500);
+}
+
+.chapterList {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.chapterItem {
+  border-bottom: 1px solid var(--gray-700);
+}
+
+.chapterHeader {
+  padding: 15px 20px;
+  background-color: var(--gray-800);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--gray-300);
+  text-transform: uppercase;
+}
+
+.lectureList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lectureItem {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: var(--text-body-sm);
+  color: var(--gray-400);
+}
+
+.lectureItem:hover {
+  background-color: var(--gray-700);
+}
+
+.lectureItemActive {
+  background-color: var(--gray-700);
+  color: var(--gray-00);
+  border-left: 4px solid var(--primary-500);
+}
+
+.checkbox {
+  margin-right: 12px;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--gray-600);
+  border-radius: var(--radius-xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.completed .checkbox {
+  background-color: var(--primary-500);
+  border-color: var(--primary-500);
+}

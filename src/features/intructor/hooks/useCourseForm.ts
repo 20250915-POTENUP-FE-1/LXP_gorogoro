@@ -14,7 +14,6 @@ export function useCourseForm(initialFormData: CourseFormData) {
     }));
   };
 
-  //챕터 제목 체인지
   const handleChapterTitleChange =
     (chapterIdx: number) => (e: ChangeEvent<HTMLInputElement>) => {
       const value = e.target.value;
@@ -25,7 +24,7 @@ export function useCourseForm(initialFormData: CourseFormData) {
         ),
       }));
     };
-  //레슨 제목 체인지
+
   const handleLessonTitleChange =
     (chapterIdx: number, lessonIdx: number) =>
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -43,17 +42,36 @@ export function useCourseForm(initialFormData: CourseFormData) {
         }),
       }));
     };
-  //챕터 추가
-  // - 기존 contents 배열을 기반으로 마지막에 새 챕터를 하나 더 붙인다
-  // - 새 챕터는 빈 제목 + 레슨 1개(빈 레슨)으로 시작
+
+  const handleLessonResourceUrlChange =
+    (chapterIdx: number, lessonIdx: number) =>
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value;
+      setFormData((prev) => ({
+        ...prev,
+        contents: prev.contents.map((chapter, cIdx) => {
+          if (cIdx !== chapterIdx) return chapter;
+          return {
+            ...chapter,
+            lessons: chapter.lessons.map((lesson, lIdx) =>
+              lIdx === lessonIdx ? { ...lesson, resourceUrl: value } : lesson
+            ),
+          };
+        }),
+      }));
+    };
+
   const addChapter = () => {
+    console.log("click Add Chapter");
     setFormData((prev) => {
       const _oldContent = prev.contents;
       const _newContent = {
         chapterTitle: "",
+        seq: prev.contents.length + 1,
         lessons: [
           {
             title: "",
+            seq: 1,
             resourceUrl: "",
           },
         ],
@@ -61,8 +79,7 @@ export function useCourseForm(initialFormData: CourseFormData) {
       return { ...prev, contents: [..._oldContent, _newContent] };
     });
   };
-  //레슨 추가
-  // - 특정 chapterIdx를 받아서, 그 챕터의 lessons 배열에 새 레슨을 뒤에 추가
+
   const addLesson = (chapterIdx: number) => {
     setFormData((prev) => {
       const newContent = prev.contents.map((chapter, idx) => {
@@ -70,6 +87,7 @@ export function useCourseForm(initialFormData: CourseFormData) {
         const _oldLesson = chapter.lessons;
         const _newLesson = {
           title: "",
+          seq: chapter.lessons.length + 1,
           resourceUrl: "",
         };
         return {
@@ -88,7 +106,7 @@ export function useCourseForm(initialFormData: CourseFormData) {
     const file = e.target.files?.[0];
     if (!file) return;
     const fakeUrl = URL.createObjectURL(file);
-    setFormData((prev) => ({ ...prev, thumbnailUrl: fakeUrl }));
+    setFormData((prev) => ({ ...prev, coverImageUrl: fakeUrl }));
   };
 
   const resetForm = () => {
@@ -100,6 +118,7 @@ export function useCourseForm(initialFormData: CourseFormData) {
     handleFieldChange,
     handleChapterTitleChange,
     handleLessonTitleChange,
+    handleLessonResourceUrlChange,
     addChapter,
     addLesson,
     handleThumbnailChange,

@@ -1,0 +1,122 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+}
+
+.avatarSection {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding-bottom: 2rem;
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  background-color: var(--gray-100);
+  border-radius: 50%;
+  border: 1px solid var(--gray-200);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.avatarPlaceholder {
+  color: var(--gray-400);
+  font-size: 3rem;
+}
+
+.avatarButton {
+  padding: 0.75rem 1.25rem;
+  background-color: var(--primary-bg);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--gray-700);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.avatarButton:hover {
+  background-color: var(--gray-50);
+  border-color: var(--gray-400);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem 2rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--gray-700);
+}
+
+.input {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-base);
+  color: var(--gray-900);
+  background-color: var(--primary-bg);
+  transition: all 0.2s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 3px var(--primary-200);
+}
+
+.input[readonly] {
+  background-color: var(--gray-50);
+  color: var(--gray-500);
+  cursor: default;
+  border-color: transparent;
+}
+
+.submitButton {
+  grid-column: span 2;
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: var(--gray-900);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-base);
+  font-weight: var(--font-bold);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  justify-self: end;
+  min-width: 120px;
+}
+
+.submitButton:hover {
+  background-color: var(--gray-700);
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .submitButton {
+    grid-column: span 1;
+    width: 100%;
+  }
+}

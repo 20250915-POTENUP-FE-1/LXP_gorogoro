@@ -1,18 +1,28 @@
+export type Level = "BEGINNER" | "INTERMEDIATE" | "ADVANCED";
+export interface Lesson {
+  title: string;
+  seq: number;
+  resourceUrl: string | null;
+}
+export interface Chapter {
+  chapterTitle: string;
+  seq: number;
+  lessons: Lesson[];
+}
 export interface Course {
   id: string;
   title: string;
   instructorId: string;
   instructorName: string;
-  category: string;
-  level: string;
+  categoryId: string;
+  description: string;
+  level: Level;
   price: number;
-  status: string;
   summary: string;
-  content: string;
-  thumbnailUrl: string;
-  createdAt: string;
-  updatedAt?: string;
+  coverImageUrl: string;
+  contents: Chapter[];
 }
+
 export interface Category {
   id: string;
   name: string;
