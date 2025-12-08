@@ -4,8 +4,8 @@ import styles from "./page.module.css";
 import { getCourses } from "@/services/course.service";
 
 const courses: any = [];
-const totalCount: any = "";
-const totalPrice: any = "";
+const totalCount: any = "2";
+const totalPrice: any = "20000";
 
 export default async function CartPage() {
   const courses = await getCourses();

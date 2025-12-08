@@ -1,55 +1,6 @@
 {
   "courses": [
     {
-      "id": "course-python-automation",
-      "title": "업무 자동화를 위한 파이썬",
-      "instructorId": "user-2",
-      "instructorName": "박강사",
-      "categoryId": "4",
-      "description": "강의 상세 설명",
-      "level": "BEGINNER",
-      "price": 53000,
-      "status": "published",
-      "summary": "반복적인 엑셀 작업, 파일 정리, 웹 크롤링을 파이썬으로 자동화하는 방법을 배웁니다.",
-      "coverImageUrl": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
-      "contents": [
-        {
-          "chapterTitle": "1. 파이썬 환경 설정과 기본 문법",
-          "seq": 1,
-          "lessons": [
-            {
-              "title": "강의 소개",
-              "seq": 1,
-              "resourceUrl": "https://example.com/python/introduction"
-            },
-            {
-              "title": "개발 환경 세팅",
-              "seq": 2,
-              "resourceUrl": "https://example.com/python/setup"
-            }
-          ]
-        },
-        {
-          "chapterTitle": "2. 엑셀/파일 자동화",
-          "seq": 2,
-          "lessons": [
-            {
-              "title": "엑셀 자동화 개념",
-              "seq": 1,
-              "resourceUrl": "https://example.com/python/excel-automation"
-            },
-            {
-              "title": "파일 정리 스크립트 작성",
-              "seq": 2,
-              "resourceUrl": "https://example.com/python/file-organize"
-            }
-          ]
-        }
-      ],
-      "createdAt": "2025-08-10T12:00:00.000Z",
-      "updatedAt": "2025-08-10T12:00:00.000Z"
-    },
-    {
       "id": "course-vue-js",
       "title": "Vue.js 3 시작하기",
       "instructorId": "user-2",
@@ -61,6 +12,10 @@
       "status": "published",
       "summary": "Vue.js의 핵심인 Composition API를 중심으로 모던 웹 애플리케이션을 개발합니다.",
       "coverImageUrl": "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1200&q=80",
+      "rating": 4.8,
+      "reviewCount": 124,
+      "studentCount": 1450,
+      "likeCount": 356,
       "contents": [
         {
           "chapterTitle": "1. Vue 3 소개와 개발 환경",
@@ -95,6 +50,7 @@
           ]
         }
       ],
+      "progress": 35,
       "createdAt": "2025-11-26T15:00:00.000Z",
       "updatedAt": "2025-11-26T15:00:00.000Z"
     },
@@ -110,6 +66,10 @@
       "status": "published",
       "summary": "SELECT, JOIN, GROUP BY 등 데이터 추출 및 분석에 필수적인 SQL 쿼리문을 학습합니다.",
       "coverImageUrl": "https://images.unsplash.com/photo-1517433456452-f9633a875f6f?auto=format&fit=crop&w=1200&q=80",
+      "rating": 4.5,
+      "reviewCount": 89,
+      "studentCount": 530,
+      "likeCount": 120,
       "contents": [
         {
           "chapterTitle": "1. SQL 기본 문법",
@@ -144,6 +104,7 @@
           ]
         }
       ],
+      "progress": 82,
       "createdAt": "2025-07-22T11:00:00.000Z",
       "updatedAt": "2025-07-22T11:00:00.000Z"
     },
@@ -159,6 +120,10 @@
       "status": "published",
       "summary": "컴포넌트 구조 설계, 상태 관리, 커스텀 훅, 타입 정의까지 한 번에 정리하는 실전 React & TypeScript 강의.",
       "coverImageUrl": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80",
+      "rating": 4.9,
+      "reviewCount": 210,
+      "studentCount": 880,
+      "likeCount": 450,
       "contents": [
         {
           "chapterTitle": "1. 프로젝트 세팅과 타입스크립트 기초",
@@ -193,6 +158,7 @@
           ]
         }
       ],
+      "progress": 15,
       "createdAt": "2025-09-01T10:00:00.000Z",
       "updatedAt": "2025-09-01T10:00:00.000Z"
     },
@@ -208,6 +174,10 @@
       "status": "published",
       "summary": "엑셀, SQL, 파이썬을 활용해 데이터를 수집·가공·시각화하는 데이터 분석 입문 과정.",
       "coverImageUrl": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+      "rating": 4.7,
+      "reviewCount": 65,
+      "studentCount": 230,
+      "likeCount": 58,
       "contents": [
         {
           "chapterTitle": "1. 데이터 분석 개념 잡기",
@@ -242,6 +212,7 @@
           ]
         }
       ],
+      "progress": 0,
       "createdAt": "2025-10-05T09:30:00.000Z",
       "updatedAt": "2025-10-05T09:30:00.000Z"
     }

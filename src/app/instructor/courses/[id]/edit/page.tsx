@@ -12,7 +12,6 @@ export default async function CourseEditPage({
 
   return (
     <section className={styles.container}>
-      <p>{id}</p>
       <header className={styles.header}>
         <h1 className={styles.title}>내 강좌 수정하기</h1>
         <p className={styles.subtitle}>
