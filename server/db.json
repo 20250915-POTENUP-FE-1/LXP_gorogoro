@@ -1,0 +1,131 @@
+{
+  "users": [
+    {
+      "id": "user-1",
+      "uid": "firebase-uid-student",
+      "email": "student@mock.com",
+      "password": "password123",
+      "displayName": "김수강 (테스트 학생)",
+      "role": "student",
+      "createdAt": "2024-10-20T10:00:00Z"
+    },
+    {
+      "id": "user-2",
+      "uid": "firebase-uid-instructor",
+      "email": "instructor@mock.com",
+      "password": "password123",
+      "displayName": "박강사 (테스트 강사)",
+      "role": "instructor",
+      "createdAt": "2024-10-20T10:05:00Z"
+    }
+  ],
+
+  "categories": [
+    {
+      "id": 1,
+      "name": "디지털 드로잉",
+      "parentId": null,
+      "slug": "digital-drawing"
+    },
+    {
+      "id": 5,
+      "name": "IT/프로그래밍",
+      "parentId": null,
+      "slug": "it-programming"
+    },
+    { "id": 101, "name": "일러스트", "parentId": 1, "slug": "illustration" },
+    { "id": 501, "name": "프론트엔드", "parentId": 5, "slug": "frontend" }
+  ],
+
+  "courses": [
+    {
+      "id": 2001,
+      "title": "Vue.js 3 시작하기",
+      "instructorId": "user-2",
+      "instructorName": "박강사",
+      "categoryId": 501,
+      "description": "Vue.js Composition API 핵심 강의",
+      "level": "BEGINNER",
+      "price": 68000,
+      "status": "published",
+      "summary": "Vue.js의 핵심인 Composition API를 중심으로 모던 웹 애플리케이션을 개발합니다.",
+      "coverImageUrl": "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1200&q=80",
+      "rating": 4.8,
+      "reviewCount": 124,
+      "studentCount": 1450,
+      "likeCount": 356,
+      "availableDays": 9999,
+      "contents": [
+        {
+          "chapterTitle": "1. Vue 3 소개와 개발 환경",
+          "seq": 1,
+          "lessons": [
+            {
+              "id": 20011,
+              "title": "강의 소개",
+              "seq": 1,
+              "resourceUrl": "https://example.com/vue/introduction"
+            },
+            {
+              "id": 20012,
+              "title": "Vue 3 개발 환경 세팅",
+              "seq": 2,
+              "resourceUrl": "https://example.com/vue/setup"
+            }
+          ]
+        }
+      ],
+      "progress": 35,
+      "createdAt": "2025-11-26T15:00:00.000Z",
+      "updatedAt": "2025-11-26T15:00:00.000Z"
+    }
+  ],
+
+  "carts": [
+    {
+      "id": "cart-123",
+      "userId": "user-1",
+      "courseId": 2001,
+      "createdAt": "2024-11-01T15:30:00Z"
+    }
+  ],
+
+  "reviews": [
+    {
+      "id": "review-1",
+      "userId": "user-1",
+      "courseId": 2001,
+      "title": "강추합니다!",
+      "comment": "설명이 명확하고 실습 위주라 좋았어요.",
+      "stars": 5,
+      "createdAt": "2024-11-05T11:00:00Z",
+      "updatedAt": "2024-11-05T11:00:00Z"
+    }
+  ],
+
+  "questions": [
+    {
+      "id": "qna-1",
+      "userId": "user-1",
+      "lessonId": 20012,
+      "title": "질문: 버전 관련 문의",
+      "comment": "현재 최신 버전으로 진행해도 문제 없을까요?",
+      "parentId": null,
+      "threadId": null,
+      "createdAt": "2024-11-10T14:20:00Z",
+      "updatedAt": "2024-11-10T14:20:00Z"
+    }
+  ],
+
+  "supports": [
+    {
+      "id": "support-1",
+      "userId": "user-1",
+      "title": "환불 문의",
+      "content": "강의가 제 수준에 맞지 않아 환불 요청합니다.",
+      "type": "REFUND",
+      "status": "OPEN",
+      "createdAt": "2024-11-15T09:00:00Z"
+    }
+  ]
+}
