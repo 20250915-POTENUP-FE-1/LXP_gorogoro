@@ -49,7 +49,7 @@ export default function CourseDetail({ course }: any) {
               <div className={styles.metaRow}>
                 <dt className={styles.metaLabel}>가격</dt>
                 <dd className={styles.metaPrice}>
-                  ₩{course.price.toLocaleString()}
+                  {/* ₩{course.price.toLocaleString()} */}
                 </dd>
               </div>
             </dl>

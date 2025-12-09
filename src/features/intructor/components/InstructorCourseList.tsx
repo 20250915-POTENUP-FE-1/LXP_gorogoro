@@ -1,5 +1,5 @@
 import styles from "./InstructorCourseList.module.css";
-
+import InstructorCourseItem from "./InstructorCourseItem";
 interface InstructorCourseListProps {
   courses: any[];
 }
@@ -14,13 +14,9 @@ export default function InstructorCourseList({
         <span className={styles.count}>총 {courses.length}개의 강좌</span>
       </header>
       <div className={styles.items}>
-        {/* {courses.map((course) => (
-          <InstructorCourseItem
-            key={course.id}
-            course={course}
-            setCourses={setCourses}
-          />
-        ))} */}
+        {courses.map((course) => (
+          <InstructorCourseItem key={course.id} course={course} />
+        ))}
       </div>
     </section>
   );

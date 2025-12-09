@@ -12,13 +12,13 @@ export default function InstructorSidebar() {
         </div>
       </div>
       <nav className={styles.nav} aria-label="강사 메뉴">
-        <Link className={styles.navItem} href="">
+        <Link className={styles.navItem} href="/instructor/dashboard">
           대시보드
         </Link>
         <Link className={styles.navItem} href="/instructor/courses">
           내가 생성한 강좌 목록
         </Link>
-        <Link className={styles.navItem} href="/instructor/courses/create">
+        <Link className={styles.navItem} href="/instructor/create">
           새 강좌 만들기
         </Link>
       </nav>
