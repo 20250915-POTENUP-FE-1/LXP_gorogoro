@@ -1,6 +1,7 @@
 import CourseForm from "@/features/intructor/components/CourseForm";
 import styles from "./page.module.css";
 import { getCourseById } from "@/services/course.service";
+import { getAllCategories } from "@/services/category.service";
 
 export default async function CourseEditPage({
   params,
@@ -8,6 +9,8 @@ export default async function CourseEditPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
+
+  const categories = await getAllCategories();
   const course = await getCourseById(id);
 
   return (
@@ -18,7 +21,12 @@ export default async function CourseEditPage({
           강좌 정보를 업데이트하고 최신 상태로 유지하세요.
         </p>
       </header>
-      <CourseForm mode="edit" initialFormData={course} />
+      <CourseForm
+        categories={categories}
+        id={id}
+        mode="edit"
+        initialFormData={course}
+      />
     </section>
   );
 }

@@ -1,8 +1,8 @@
 import { useState, ChangeEvent } from "react";
-import { CourseFormData } from "../types";
+import { CourseFormRequest } from "../types";
 
-export function useCourseForm(initialFormData: CourseFormData) {
-  const [formData, setFormData] = useState<CourseFormData>(initialFormData);
+export function useCourseForm(initialFormData: CourseFormRequest) {
+  const [formData, setFormData] = useState<CourseFormRequest>(initialFormData);
 
   const handleFieldChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>

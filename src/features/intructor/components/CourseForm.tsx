@@ -1,23 +1,25 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { useActionState, useState } from "react";
 import styles from "./CourseForm.module.css";
-import { CourseFormData } from "../types";
+import { CourseFormRequest } from "../types";
 import { useCourseForm } from "../hooks/useCourseForm";
 import CourseBasicInfoForm from "./CourseBasicInfoForm";
 import CourseCurriculumForm from "./CourseCurriculumForm";
 import { Category } from "@/features/courses/types";
+import { CreateCourseAction, UpdateCourseAction } from "../action";
 
 export type CourseFormMode = "create" | "edit";
 
 interface CourseFormProps {
   categories: Category[];
+  id?: string;
   mode?: CourseFormMode;
-  initialFormData?: CourseFormData;
+  initialFormData?: CourseFormRequest;
 }
 
 // Default data matching types.ts (contents array)
-const defaultFormData: CourseFormData = {
+const defaultFormData: CourseFormRequest = {
   title: "",
   categoryId: "",
   difficulty: "BEGINNER",
@@ -43,6 +45,7 @@ const defaultFormData: CourseFormData = {
 
 export default function CourseForm({
   categories,
+  id,
   mode = "create",
   initialFormData = defaultFormData,
 }: CourseFormProps) {
@@ -60,14 +63,24 @@ export default function CourseForm({
     resetForm,
   } = useCourseForm(initialFormData);
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    console.log("제출 데이터:", formData);
+  const getAction = () => {
+    if (mode === "create") {
+      return CreateCourseAction;
+    }
+    return UpdateCourseAction.bind(null, id ?? "");
   };
 
+  const [state, formAction, isPending] = useActionState(getAction(), {
+    success: false,
+    message: "",
+    errors: {},
+  });
+
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
+    <form action={formAction} className={styles.form}>
       {/* Tab Navigation */}
+      {isPending && <p>로딩중...</p>}
+      {state.errors && <p>{state.message}</p>}
       <div className={styles.tabContainer}>
         <button
           type="button"
@@ -90,16 +103,16 @@ export default function CourseForm({
       </div>
 
       {/* Step Content */}
-      {activeTab === "basic" && (
+      <div style={{ display: activeTab === "basic" ? "block" : "none" }}>
         <CourseBasicInfoForm
           categories={categories}
           formData={formData}
           handleFieldChange={handleFieldChange}
           handleThumbnailChange={handleThumbnailChange}
         />
-      )}
+      </div>
 
-      {activeTab === "curriculum" && (
+      <div style={{ display: activeTab === "curriculum" ? "block" : "none" }}>
         <CourseCurriculumForm
           formData={formData}
           addChapter={addChapter}
@@ -108,7 +121,7 @@ export default function CourseForm({
           handleLessonTitleChange={handleLessonTitleChange}
           handleLessonResourceUrlChange={handleLessonResourceUrlChange}
         />
-      )}
+      </div>
 
       <div className={styles.actions}>
         <button

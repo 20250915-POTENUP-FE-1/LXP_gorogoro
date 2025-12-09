@@ -1,6 +1,6 @@
 import { Course } from "../courses/types";
 
-export type CourseFormData = Omit<
+export type CourseFormRequest = Omit<
   Course,
   | "id"
   | "instructorId"
@@ -11,3 +11,9 @@ export type CourseFormData = Omit<
   | "studentCount"
   | "likeCount"
 >;
+
+export type CourseFormResponse = {
+  success: boolean;
+  message?: string;
+  errors?: Record<string, string>;
+};
