@@ -29,9 +29,6 @@ export default function CartSummary({
       <button className={styles.button} type="button" onClick={handlePurchase}>
         결제하기
       </button>
-      <button className={styles.button} type="button" onClick={handlePurchase}>
-        장바구니로 이동
-      </button>
     </aside>
   );
 }

@@ -57,19 +57,28 @@ export default function CourseDetail({ categories, course }: any) {
                 </dd>
               </div>
             </dl>
-            <button
-              className={styles.cta}
-              type="button"
-              onClick={() => handleAddToCart(course.id)}
-            >
-              <img
-                className={styles.ctaIcon}
-                src="/assets/shopping-cart.svg"
-                alt=""
-                aria-hidden="true"
-              />
-              장바구니 담기
-            </button>
+            <div className={styles.ctaGroup}>
+              <button
+                className={styles.ctaPrimary}
+                type="button"
+                onClick={() => handleAddToCart(course.id)}
+              >
+                <img
+                  className={styles.ctaIcon}
+                  src="/assets/shopping-cart.svg"
+                  alt=""
+                  aria-hidden="true"
+                />
+                장바구니 담기
+              </button>
+              <button
+                className={styles.ctaSecondary}
+                type="button"
+                onClick={() => alert("바로 결제하기 기능은 준비중입니다.")}
+              >
+                바로 결제하기
+              </button>
+            </div>
           </div>
         </aside>
       </div>
