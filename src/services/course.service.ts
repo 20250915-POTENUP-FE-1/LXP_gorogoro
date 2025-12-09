@@ -1,7 +1,8 @@
 import { Course } from "@/features/courses/types";
+import { CourseFormData } from "@/features/intructor/types";
 import { get, post, put, del } from "@/shared/lib/api";
 
-const COURSES_ENDPOINT = "courses";
+const COURSES_ENDPOINT = "/api/v1/courses";
 
 export const getCourses = async (): Promise<Course[]> => {
   const data = await get(COURSES_ENDPOINT);
@@ -13,7 +14,7 @@ export const getCourseById = async (id: string): Promise<Course> => {
   return data as Course;
 };
 
-export const createCourse = async (body: unknown): Promise<Course> => {
+export const createCourse = async (body: CourseFormData): Promise<Course> => {
   const data = await post(COURSES_ENDPOINT, body);
   return data as Course;
 };

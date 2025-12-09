@@ -6,10 +6,12 @@ import { CourseFormData } from "../types";
 import { useCourseForm } from "../hooks/useCourseForm";
 import CourseBasicInfoForm from "./CourseBasicInfoForm";
 import CourseCurriculumForm from "./CourseCurriculumForm";
+import { Category } from "@/features/courses/types";
 
 export type CourseFormMode = "create" | "edit";
 
 interface CourseFormProps {
+  categories: Category[];
   mode?: CourseFormMode;
   initialFormData?: CourseFormData;
 }
@@ -17,10 +19,8 @@ interface CourseFormProps {
 // Default data matching types.ts (contents array)
 const defaultFormData: CourseFormData = {
   title: "",
-  instructorId: "",
-  instructorName: "",
   categoryId: "",
-  level: "BEGINNER",
+  difficulty: "BEGINNER",
   price: 0,
   coverImageUrl: "",
   summary: "",
@@ -38,9 +38,11 @@ const defaultFormData: CourseFormData = {
       ],
     },
   ],
+  availableDays: 9999,
 };
 
 export default function CourseForm({
+  categories,
   mode = "create",
   initialFormData = defaultFormData,
 }: CourseFormProps) {
@@ -90,6 +92,7 @@ export default function CourseForm({
       {/* Step Content */}
       {activeTab === "basic" && (
         <CourseBasicInfoForm
+          categories={categories}
           formData={formData}
           handleFieldChange={handleFieldChange}
           handleThumbnailChange={handleThumbnailChange}

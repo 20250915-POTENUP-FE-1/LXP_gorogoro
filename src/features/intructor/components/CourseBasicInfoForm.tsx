@@ -1,8 +1,10 @@
 import { ChangeEvent } from "react";
 import styles from "./CourseForm.module.css";
 import { CourseFormData } from "../types";
+import { Category } from "@/features/courses/types";
 
 interface CourseBasicInfoFormProps {
+  categories: Category[];
   formData: CourseFormData;
   handleFieldChange: (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -11,6 +13,7 @@ interface CourseBasicInfoFormProps {
 }
 
 export default function CourseBasicInfoForm({
+  categories,
   formData,
   handleFieldChange,
   handleThumbnailChange,
@@ -43,11 +46,11 @@ export default function CourseBasicInfoForm({
             <option value="" disabled>
               카테고리 선택
             </option>
-            <option value="1">데이터 분석</option>
-            <option value="2">게임 개발</option>
-            <option value="3">머신 러닝</option>
-            <option value="4">파이썬</option>
-            <option value="5">웹 개발</option>
+            {categories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))}
           </select>
         </label>
 
@@ -55,7 +58,7 @@ export default function CourseBasicInfoForm({
           <span className={styles.label}>난이도</span>
           <select
             name="level"
-            value={formData.level}
+            value={formData.difficulty}
             className={styles.select}
             onChange={handleFieldChange}
           >

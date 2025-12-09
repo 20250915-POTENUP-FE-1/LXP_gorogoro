@@ -45,7 +45,7 @@
       "instructorName": "박강사",
       "categoryId": 501,
       "description": "Vue.js Composition API 핵심 강의",
-      "level": "BEGINNER",
+      "difficulty": "BEGINNER",
       "price": 68000,
       "status": "published",
       "summary": "Vue.js의 핵심인 Composition API를 중심으로 모던 웹 애플리케이션을 개발합니다.",
