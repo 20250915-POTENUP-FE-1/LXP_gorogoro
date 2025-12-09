@@ -168,7 +168,14 @@
   color: var(--primary-500);
 }
 
-.cta {
+.ctaGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.ctaPrimary,
+.ctaSecondary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -176,17 +183,31 @@
   padding: 0.85rem 1.2rem;
   border: none;
   border-radius: var(--radius-md);
-  background-color: var(--primary-500);
-  color: var(--gray-00);
   font-size: var(--text-base);
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.2s ease;
+  width: 100%;
 }
 
-.cta:hover {
+.ctaPrimary {
+  background-color: var(--primary-500);
+  color: var(--gray-00);
+}
+
+.ctaPrimary:hover {
   background-color: var(--primary-400);
   box-shadow: 0 12px 24px rgba(76, 81, 191, 0.35);
+}
+
+.ctaSecondary {
+  background-color: var(--gray-100);
+  color: var(--gray-700);
+}
+
+.ctaSecondary:hover {
+  background-color: var(--gray-200);
+  color: var(--gray-900);
 }
 
 .ctaIcon {

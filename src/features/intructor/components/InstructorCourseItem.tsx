@@ -3,6 +3,19 @@ import styles from "./InstructorCourseItem.module.css";
 import { deleteCourseAction } from "../action";
 import { useRouter } from "next/navigation";
 
+const getLevelLabel = (level: string) => {
+  switch (level) {
+    case "BEGINNER":
+      return "초급";
+    case "INTERMEDIATE":
+      return "중급";
+    case "ADVANCED":
+      return "고급";
+    default:
+      return level;
+  }
+};
+
 export default function InstructorCourseItem({ course }: any) {
   const router = useRouter();
   const courseId = course.id;
@@ -23,7 +36,7 @@ export default function InstructorCourseItem({ course }: any) {
       <div className={styles.thumbnail}>
         <img
           className={styles.image}
-          src={course.thumbnailUrl}
+          src={course.coverImageUrl}
           alt={course.title}
         />
       </div>
@@ -31,6 +44,27 @@ export default function InstructorCourseItem({ course }: any) {
         <span className={styles.category}>{course.category}</span>
         <h3 className={styles.title}>{course.title}</h3>
         <p className={styles.instructor}>{course.instructor}</p>
+        <div className={styles.stats}>
+          <span className={styles.levelBadge}>
+            {getLevelLabel(course.level)}
+          </span>
+          <div className={styles.statItem}>
+            <span className={styles.statLabel}>평점(4.5)</span>
+            {course.rating}
+          </div>
+          <div className={styles.statItem}>
+            <span className={styles.statLabel}>리뷰(11)</span>
+            {course.reviewCount}
+          </div>
+          <div className={styles.statItem}>
+            <span className={styles.statLabel}>수강생(23)</span>
+            {course.studentCount}
+          </div>
+          <div className={styles.statItem}>
+            <span className={styles.statLabel}>♥️좋아요(78)</span>
+            {course.likeCount}
+          </div>
+        </div>
       </div>
       <div className={styles.meta}>
         <span className={styles.price}>{course.price}</span>

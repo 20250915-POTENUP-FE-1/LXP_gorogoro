@@ -2,8 +2,12 @@
 "use client";
 
 import styles from "./CourseDetail.module.css";
+import { Category } from "../types";
 
-export default function CourseDetail({ course }: any) {
+export default function CourseDetail({ categories, course }: any) {
+  const category = categories.find((c: Category) => c.id === course.categoryId);
+  const categoryName = category?.name;
+
   const handleAddToCart = async (courseId: string) => {
     try {
       // await addCartItem(USER_ID, courseId);
@@ -35,7 +39,7 @@ export default function CourseDetail({ course }: any) {
         </div>
 
         <aside className={styles.sidebar}>
-          <img className={styles.thumbnail} src={course.thumbnailUrl}></img>
+          <img className={styles.thumbnail} src={course.coverImageUrl}></img>
           <div className={styles.summaryCard}>
             <dl className={styles.meta}>
               <div className={styles.metaRow}>
@@ -44,7 +48,7 @@ export default function CourseDetail({ course }: any) {
               </div>
               <div className={styles.metaRow}>
                 <dt className={styles.metaLabel}>카테고리</dt>
-                <dd className={styles.metaValue}>{course.category}</dd>
+                <dd className={styles.metaValue}>{categoryName}</dd>
               </div>
               <div className={styles.metaRow}>
                 <dt className={styles.metaLabel}>가격</dt>
@@ -53,19 +57,28 @@ export default function CourseDetail({ course }: any) {
                 </dd>
               </div>
             </dl>
-            <button
-              className={styles.cta}
-              type="button"
-              onClick={() => handleAddToCart(course.id)}
-            >
-              <img
-                className={styles.ctaIcon}
-                src="/assets/shopping-cart.svg"
-                alt=""
-                aria-hidden="true"
-              />
-              장바구니 담기
-            </button>
+            <div className={styles.ctaGroup}>
+              <button
+                className={styles.ctaPrimary}
+                type="button"
+                onClick={() => handleAddToCart(course.id)}
+              >
+                <img
+                  className={styles.ctaIcon}
+                  src="/assets/shopping-cart.svg"
+                  alt=""
+                  aria-hidden="true"
+                />
+                장바구니 담기
+              </button>
+              <button
+                className={styles.ctaSecondary}
+                type="button"
+                onClick={() => alert("바로 결제하기 기능은 준비중입니다.")}
+              >
+                바로 결제하기
+              </button>
+            </div>
           </div>
         </aside>
       </div>

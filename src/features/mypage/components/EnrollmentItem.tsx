@@ -1,28 +1,23 @@
 "use client";
 
+import Link from "next/link";
 import styles from "./EnrollmentItem.module.css";
 
 export default function EnrollmentItem({ course }: any) {
   const handleCancel = async (courseId: string) => {
-    // if (window.confirm("정말로 수강을 취소하시겠습니까?")) {
-    //   try {
-    //     await deleteEnrollmentsById(USER_ID, courseId); //파라미터 (2개필요):currenUser, courseId
-    //     setEnrolls((prev) =>
-    //       prev.filter((prevItem) => prevItem.courseId !== courseId)
-    //     );
-    //   } catch (error) {
-    //     console.log("수강 취소 중 오류가 발생했습니다.", error);
-    //     alert("수강 취소에 실패했습니다. 다시 시도해주세요.");
-    //   }
-    // }
+    if (confirm("정말로 수강을 취소하시겠습니까?")) {
+      alert("수강 취소 기능은 준비중입니다.");
+    }
   };
+
+  const progress = course.progress || 0;
 
   return (
     <article className={styles.item} key={course.title}>
       <div className={styles.thumbnail}>
         <img
           className={styles.image}
-          src={course.thumbnailUrl}
+          src={course.coverImageUrl}
           alt={course.title}
         />
       </div>
@@ -30,21 +25,29 @@ export default function EnrollmentItem({ course }: any) {
         <div className={styles.category}>{course.category}</div>
         <h3 className={styles.title}>{course.title}</h3>
         <p className={styles.instructor}>{course.instructorName}</p>
+        <div className={styles.progressContainer}>
+          <div className={styles.progressLabel}>
+            <span>진도율</span>
+            <span>{progress}%</span>
+          </div>
+          <div className={styles.progressTrack}>
+            <div
+              className={styles.progressBar}
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+        </div>
       </div>
       <div className={styles.meta}>
-        {/* <time
-            className={styles.date}
-            dateTime={item.enrolledAt.replace(/\./g, "-")}
-          >
-            {item.enrolledAt}
-          </time> */}
-        <span className={styles.price}>{course.price}</span>
+        <Link href={`/courses/${course.id}/learn`} className={styles.action}>
+          이어 학습하기
+        </Link>
         <button
-          className={styles.action}
+          className={`${styles.action} ${styles.actionSecondary}`}
           type="button"
           onClick={() => handleCancel(course.id)}
         >
-          수강 취소하기
+          수강 취소
         </button>
       </div>
     </article>

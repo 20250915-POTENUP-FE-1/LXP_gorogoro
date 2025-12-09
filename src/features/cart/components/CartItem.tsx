@@ -5,7 +5,7 @@ export default function CartItem({ course, handleDelete }: any) {
   return (
     <article className={styles.item}>
       <div className={styles.thumbnail}>
-        <img className={styles.image} src={course.thumbnailUrl} />
+        <img className={styles.image} src={course.coverImageUrl} />
       </div>
       <div className={styles.content}>
         <span className={styles.category}>{course.category}</span>
