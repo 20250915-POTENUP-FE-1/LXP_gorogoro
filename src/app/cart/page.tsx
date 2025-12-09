@@ -3,7 +3,6 @@ import CartSummary from "@/features/cart/components/CartSummary";
 import styles from "./page.module.css";
 import { getCourses } from "@/services/course.service";
 
-const courses: any = [];
 const totalCount: any = "";
 const totalPrice: any = "";
 
