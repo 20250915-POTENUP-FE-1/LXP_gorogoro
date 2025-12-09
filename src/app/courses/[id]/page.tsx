@@ -8,7 +8,7 @@ export default async function CourseDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const course = getCourseById(id);
+  const course = await getCourseById(id);
 
   return (
     <main className={styles.page}>
