@@ -8,7 +8,6 @@ import {
 import { getCourses } from "@/services/course.service";
 import { Category } from "@/features/courses/types";
 import Link from "next/link";
-import { getCategoryNameById } from "@/shared/lib/utils";
 
 export default async function CoursePage({
   searchParams,
@@ -49,7 +48,7 @@ export default async function CoursePage({
     } else {
       // 2차 카테고리 → 부모 카테고리의 subCategories 가져오기
       const parentCategory = await getCategoriesById(
-        currentCategory.parentId || ""
+        String(currentCategory.parentId)
       );
       categoryName = currentCategory.name;
       subCategories = parentCategory.subCategories ?? [];

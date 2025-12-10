@@ -34,6 +34,6 @@ export interface Category {
   id: string;
   name: string;
   slug: string;
-  parentId?: string | null;
+  parentId?: number | null;
   subCategories?: Category[];
 }
