@@ -17,9 +17,26 @@
       "displayName": "박강사 (테스트 강사)",
       "role": "instructor",
       "createdAt": "2024-10-20T10:05:00Z"
+    },
+    {
+      "id": "user-1765266726681",
+      "uid": "firebase-uid-1765266726681",
+      "email": "yoonsun0401@naver.com",
+      "password": "christina7777@",
+      "name": "안윤선",
+      "role": "STUDENT",
+      "createdAt": "2025-12-09T07:52:06.681Z"
+    },
+    {
+      "id": "user-1765267450325",
+      "uid": "firebase-uid-1765267450325",
+      "email": "tofu@naver.com",
+      "password": "tofu123456@",
+      "name": "안두부",
+      "role": "STUDENT",
+      "createdAt": "2025-12-09T08:04:10.325Z"
     }
   ],
-
   "categories": [
     {
       "id": 1,
@@ -33,10 +50,19 @@
       "parentId": null,
       "slug": "it-programming"
     },
-    { "id": 101, "name": "일러스트", "parentId": 1, "slug": "illustration" },
-    { "id": 501, "name": "프론트엔드", "parentId": 5, "slug": "frontend" }
+    {
+      "id": 101,
+      "name": "일러스트",
+      "parentId": 1,
+      "slug": "illustration"
+    },
+    {
+      "id": 501,
+      "name": "프론트엔드",
+      "parentId": 5,
+      "slug": "frontend"
+    }
   ],
-
   "courses": [
     {
       "id": 2001,
@@ -80,7 +106,6 @@
       "updatedAt": "2025-11-26T15:00:00.000Z"
     }
   ],
-
   "carts": [
     {
       "id": "cart-123",
@@ -89,7 +114,6 @@
       "createdAt": "2024-11-01T15:30:00Z"
     }
   ],
-
   "reviews": [
     {
       "id": "review-1",
@@ -102,7 +126,6 @@
       "updatedAt": "2024-11-05T11:00:00Z"
     }
   ],
-
   "questions": [
     {
       "id": "qna-1",
@@ -116,7 +139,6 @@
       "updatedAt": "2024-11-10T14:20:00Z"
     }
   ],
-
   "supports": [
     {
       "id": "support-1",

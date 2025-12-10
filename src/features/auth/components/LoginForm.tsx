@@ -1,49 +1,43 @@
 "use client";
 
+import { useActionState } from "react";
+import { loginAction } from "../actions";
 import styles from "./LoginForm.module.css";
+import { error } from "console";
 
-const formData = {
-  email: "",
-  password: "",
+const initialState = {
+  success: false,
+  message: "",
+  errors: {},
 };
-
-const loading = false;
-const error = false;
-
-const handleOnChange = () => {
-  // 처리 함수
-};
-
-const handleSubmit = async () => {
-  // 처리 함수
-};
-
 export default function LoginForm() {
+  const [state, formAction, isPending] = useActionState(
+    loginAction,
+    initialState
+  );
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
+    <form action={formAction} className={styles.form}>
       <label className={styles.field}>
         <span className={styles.label}>이메일</span>
         <input
           name="email"
-          value={formData.email}
           className={styles.input}
           type="email"
           placeholder="Enter your email"
-          onChange={handleOnChange}
         />
       </label>
       <label className={styles.field}>
         <span className={styles.label}>비밀번호</span>
         <input
           name="password"
-          value={formData.password}
           className={styles.input}
           type="password"
           placeholder="Enter your password"
-          onChange={handleOnChange}
         />
       </label>
-      {error && <span className={styles.errorMessage}>{error}</span>}
+      {!state.success && state.message && (
+        <span className={styles.errorMessage}>{state.message}</span>
+      )}
       <button className={styles.submit} type="submit">
         로그인
       </button>
