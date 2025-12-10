@@ -39,7 +39,6 @@ export default async function CoursePage({
 
   if (categoryQuery) {
     const currentCategory = await getCategoriesById(categoryQuery);
-    console.log(currentCategory);
 
     // categoryQuery가 1차 카테고리면 그대로 subCategories 사용
     // categoryQuery가 2차 카테고리면 부모의 subCategories 가져오기
@@ -52,7 +51,6 @@ export default async function CoursePage({
       const parentCategory = await getCategoriesById(
         currentCategory.parentId || ""
       );
-      console.log(parentCategory);
       categoryName = currentCategory.name;
       subCategories = parentCategory.subCategories ?? [];
     }
