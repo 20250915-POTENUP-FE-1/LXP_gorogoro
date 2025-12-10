@@ -32,10 +32,7 @@ export default function CourseCurriculumForm({
 }: CourseCurriculumFormProps) {
   return (
     <div className={styles.group}>
-      <div className={styles.sectionHeader}>
-        <span className={styles.label}>커리큘럼</span>
-      </div>
-
+      {/* useFieldArray 사용하기 */}
       <CourseCurriculum
         contents={formData.contents || []}
         mode="edit"

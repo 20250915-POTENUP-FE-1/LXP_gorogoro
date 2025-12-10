@@ -8,6 +8,8 @@ interface CourseCurriculumProps {
   contents: Chapter[];
   mode?: "view" | "edit";
   // 편집 모드용 props
+
+  // useFieldArray 사용하면 props로 함수 전달 받지 않아도 됨
   addChapter?: () => void;
   addLesson?: (chapterIdx: number) => void;
   handleChapterTitleChange?: (

@@ -16,7 +16,6 @@
   color: var(--gray-600);
   font-size: var(--text-sm);
   cursor: pointer;
-  transition: all 0.2s ease;
 }
 
 .addButton:hover {

@@ -172,14 +172,6 @@
   box-shadow: 0 16px 26px rgba(39, 179, 244, 0.25);
 }
 
-/* Curriculum Section */
-.sectionHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.5rem;
-}
-
 /* Tab Styles */
 .tabContainer {
   display: flex;
