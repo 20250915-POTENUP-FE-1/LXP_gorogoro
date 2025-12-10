@@ -8,7 +8,6 @@ import {
 import { getCourses } from "@/services/course.service";
 import { Category } from "@/features/courses/types";
 import Link from "next/link";
-import { getCategoryNameById } from "@/shared/lib/utils";
 
 export default async function CoursePage({
   searchParams,
