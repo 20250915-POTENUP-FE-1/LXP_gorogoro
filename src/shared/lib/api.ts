@@ -24,9 +24,9 @@ export const post = async (endpoint: string, body: unknown) => {
   return res.json();
 };
 
-export const put = async (endpoint: string, body: unknown) => {
+export const patch = async (endpoint: string, body: unknown) => {
   const res = await fetch(`${BASE_URL}/${endpoint}`, {
-    method: "PUT",
+    method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
   });

@@ -2,17 +2,17 @@ const registerCourseRoutes = (server, router) => {
   const db = router.db;
 
   // ==========================================
-  // Helper: 인증 체크 (강사/관리자 권한 체크용으로 확장 가능)
+  // Helper: 인증 체크 (개발 편의를 위해 임시 비활성화)
   // ==========================================
   const checkAuth = (req, res) => {
-    const authHeader = req.headers.authorization;
-    if (!authHeader) {
-      res.status(401).json({ message: "로그인이 필요합니다." });
-      return null;
-    }
+    // const authHeader = req.headers.authorization;
+    // if (!authHeader) {
+    //   res.status(401).json({ message: "로그인이 필요합니다." });
+    //   return null;
+    // }
     // 코스 생성/수정은 강사(instructor) 권한이 필요할 수 있으나,
     // Mock에서는 일단 유저가 존재하면 통과시킵니다.
-    return "user-1";
+    return "user-1"; // 항상 고정된 사용자 ID를 반환
   };
 
   // ==========================================
@@ -92,7 +92,7 @@ const registerCourseRoutes = (server, router) => {
 
     const course = db
       .get("courses")
-      .find({ id: Number(courseId) })
+      .find({ id: isNaN(Number(courseId)) ? courseId : Number(courseId) })
       .value();
 
     if (!course) {
@@ -114,7 +114,7 @@ const registerCourseRoutes = (server, router) => {
 
     const course = db
       .get("courses")
-      .find({ id: Number(courseId) })
+      .find({ id: isNaN(Number(courseId)) ? courseId : Number(courseId) })
       .value();
 
     if (!course) {
@@ -128,7 +128,7 @@ const registerCourseRoutes = (server, router) => {
 
     // 업데이트 수행
     db.get("courses")
-      .find({ id: Number(courseId) })
+      .find({ id: isNaN(Number(courseId)) ? courseId : Number(courseId) })
       .assign({
         ...updates,
         updatedAt: new Date().toISOString(), // 수정 시간 갱신
@@ -137,7 +137,7 @@ const registerCourseRoutes = (server, router) => {
 
     const updatedCourse = db
       .get("courses")
-      .find({ id: Number(courseId) })
+      .find({ id: isNaN(Number(courseId)) ? courseId : Number(courseId) })
       .value();
 
     return res.status(200).json({
@@ -157,7 +157,7 @@ const registerCourseRoutes = (server, router) => {
 
     const course = db
       .get("courses")
-      .find({ id: Number(courseId) })
+      .find({ id: isNaN(Number(courseId)) ? courseId : Number(courseId) })
       .value();
 
     if (!course) {
@@ -167,7 +167,7 @@ const registerCourseRoutes = (server, router) => {
     }
 
     db.get("courses")
-      .remove({ id: Number(courseId) })
+      .remove({ id: isNaN(Number(courseId)) ? courseId : Number(courseId) })
       .write();
 
     return res.status(200).json({ message: "강의가 삭제되었습니다." });

@@ -65,35 +65,24 @@
   ],
   "courses": [
     {
-      "id": 2001,
-      "title": "Vue.js 3 시작하기",
-      "instructorId": "user-2",
-      "instructorName": "박강사",
-      "categoryId": 501,
-      "description": "Vue.js Composition API 핵심 강의",
-      "level": "BEGINNER",
-      "price": 68000,
-      "status": "published",
+      "title": "Vue.js 3 시작하기갱갱갱",
       "summary": "Vue.js의 핵심인 Composition API를 중심으로 모던 웹 애플리케이션을 개발합니다.",
-      "coverImageUrl": "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1200&q=80",
-      "rating": 4.8,
-      "reviewCount": 124,
-      "studentCount": 1450,
-      "likeCount": 356,
-      "availableDays": 9999,
+      "categoryId": "5",
+      "price": "68000",
+      "coverImageUrl": {},
+      "description": "Vue.js Composition API 핵심 강의",
+      "difficulty": "BEGINNER",
       "contents": [
         {
-          "chapterTitle": "1. Vue 3 소개와 개발 환경",
+          "chapterTitle": "1. Vue 3 소개와 개발 환경경경 수정정정정",
           "seq": 1,
           "lessons": [
             {
-              "id": 20011,
               "title": "강의 소개",
               "seq": 1,
               "resourceUrl": "https://example.com/vue/introduction"
             },
             {
-              "id": 20012,
               "title": "Vue 3 개발 환경 세팅",
               "seq": 2,
               "resourceUrl": "https://example.com/vue/setup"
@@ -101,9 +90,34 @@
           ]
         }
       ],
-      "progress": 35,
-      "createdAt": "2025-11-26T15:00:00.000Z",
-      "updatedAt": "2025-11-26T15:00:00.000Z"
+      "availableDays": null,
+      "id": 2001,
+      "updatedAt": "2025-12-09T08:47:55.835Z"
+    },
+    {
+      "title": "제목 1",
+      "summary": "요약 1",
+      "categoryId": "5",
+      "price": "55000",
+      "coverImageUrl": {},
+      "description": "내용 1",
+      "difficulty": "INTERMEDIATE",
+      "contents": [
+        {
+          "chapterTitle": "챕터 1",
+          "seq": 1,
+          "lessons": [
+            {
+              "title": "제목 1",
+              "seq": 1,
+              "resourceUrl": "자료 1"
+            }
+          ]
+        }
+      ],
+      "availableDays": null,
+      "apiId": "v1",
+      "id": 2003
     }
   ],
   "carts": [

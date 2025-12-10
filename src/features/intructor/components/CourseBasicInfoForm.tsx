@@ -1,9 +1,13 @@
+"use client";
+
 import { ChangeEvent } from "react";
 import styles from "./CourseForm.module.css";
-import { CourseFormData } from "../types";
+import { CourseFormRequest } from "../types";
+import { Category } from "@/features/courses/types";
 
 interface CourseBasicInfoFormProps {
-  formData: CourseFormData;
+  categories: Category[];
+  formData: CourseFormRequest;
   handleFieldChange: (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => void;
@@ -11,6 +15,7 @@ interface CourseBasicInfoFormProps {
 }
 
 export default function CourseBasicInfoForm({
+  categories,
   formData,
   handleFieldChange,
   handleThumbnailChange,
@@ -22,10 +27,11 @@ export default function CourseBasicInfoForm({
           <span className={styles.label}>강좌명</span>
           <input
             name="title"
-            value={formData.title}
+            id="title"
             className={styles.input}
             type="text"
             placeholder="강좌 제목을 입력해주세요."
+            value={formData.title ?? ""}
             onChange={handleFieldChange}
           />
         </label>
@@ -36,35 +42,37 @@ export default function CourseBasicInfoForm({
           <span className={styles.label}>카테고리</span>
           <select
             name="categoryId"
-            value={formData.categoryId}
+            id="categoryId"
             className={styles.select}
+            value={formData.categoryId ?? ""}
             onChange={handleFieldChange}
           >
             <option value="" disabled>
               카테고리 선택
             </option>
-            <option value="1">데이터 분석</option>
-            <option value="2">게임 개발</option>
-            <option value="3">머신 러닝</option>
-            <option value="4">파이썬</option>
-            <option value="5">웹 개발</option>
+            {categories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))}
           </select>
         </label>
 
         <label className={styles.field}>
           <span className={styles.label}>난이도</span>
           <select
-            name="level"
-            value={formData.level}
+            name="difficulty"
+            id="difficulty"
             className={styles.select}
+            value={formData.difficulty ?? ""}
             onChange={handleFieldChange}
           >
             <option value="" disabled>
               난이도 선택
             </option>
-            <option value="beginner">초급</option>
-            <option value="intermediate">중급</option>
-            <option value="advanced">고급</option>
+            <option value="BEGINNER">초급</option>
+            <option value="INTERMEDIATE">중급</option>
+            <option value="ADVANCED">고급</option>
           </select>
         </label>
 
@@ -72,12 +80,13 @@ export default function CourseBasicInfoForm({
           <span className={styles.label}>가격 (원)</span>
           <input
             name="price"
-            value={formData.price}
+            id="price"
             className={styles.input}
             type="number"
             step={1000}
             min={0}
             placeholder="예: 55000"
+            value={formData.price ?? 0}
             onChange={handleFieldChange}
           />
         </label>
@@ -97,14 +106,14 @@ export default function CourseBasicInfoForm({
           )}
 
           <input
-            name="thumbnailUrl"
-            id="thumbnail-upload"
+            name="coverImageUrl"
+            id="coverImageUrl"
             type="file"
             accept="image/png, image/jpeg, image/gif"
             style={{ display: "none" }}
             onChange={handleThumbnailChange}
           />
-          <label htmlFor="thumbnail-upload" className={styles.thumbnailButton}>
+          <label htmlFor="coverImageUrl" className={styles.thumbnailButton}>
             파일 업로드
           </label>
           <p className={styles.thumbnailHint}>PNG, JPG 최대 1MB.</p>
@@ -116,10 +125,11 @@ export default function CourseBasicInfoForm({
           <span className={styles.label}>강좌 요약</span>
           <textarea
             name="summary"
-            value={formData.summary}
+            id="summary"
             className={styles.textarea}
             placeholder="강좌에 대한 짧은 요약을 입력하세요."
             rows={4}
+            value={formData.summary ?? ""}
             onChange={handleFieldChange}
           />
         </label>
@@ -130,10 +140,11 @@ export default function CourseBasicInfoForm({
           <span className={styles.label}>강좌 내용</span>
           <textarea
             name="description"
-            value={formData.description}
+            id="description"
             className={styles.textarea}
             placeholder="강좌의 전체 내용을 상세하게 작성해주세요."
             rows={6}
+            value={formData.description ?? ""}
             onChange={handleFieldChange}
           />
         </label>

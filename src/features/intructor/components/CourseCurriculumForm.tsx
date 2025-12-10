@@ -1,9 +1,11 @@
+"use client";
+
 import { ChangeEvent } from "react";
 import styles from "./CourseForm.module.css";
-import { CourseFormData } from "../types";
+import { CourseFormRequest } from "../types";
 
 interface CourseCurriculumFormProps {
-  formData: CourseFormData;
+  formData: CourseFormRequest;
   addChapter: () => void;
   addLesson: (chapterIdx: number) => void;
   handleChapterTitleChange: (
@@ -44,7 +46,7 @@ export default function CourseCurriculumForm({
                 Chapter {chapterIdx + 1}
               </span>
               <input
-                name="chapterTitle"
+                name={`contents[${chapterIdx}][chapterTitle]`}
                 value={chapter.chapterTitle ?? ""}
                 className={styles.input}
                 type="text"
@@ -58,7 +60,7 @@ export default function CourseCurriculumForm({
                 <div key={lessonIdx} className={styles.lessonItem}>
                   <span className={styles.lessonSeq}>{lessonIdx + 1}.</span>
                   <input
-                    name="lessonTitle"
+                    name={`contents[${chapterIdx}][lessons][${lessonIdx}][title]`}
                     value={lesson.title}
                     className={styles.input}
                     type="text"
@@ -66,7 +68,7 @@ export default function CourseCurriculumForm({
                     onChange={handleLessonTitleChange(chapterIdx, lessonIdx)}
                   />
                   <input
-                    name="resourceUrl"
+                    name={`contents[${chapterIdx}][lessons][${lessonIdx}][resourceUrl]`}
                     value={lesson.resourceUrl ?? ""}
                     className={styles.input}
                     type="text"
