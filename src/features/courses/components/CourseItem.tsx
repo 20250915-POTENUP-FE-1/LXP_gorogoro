@@ -1,14 +1,15 @@
 import Link from "next/link";
 import styles from "./CourseItem.module.css";
 import { Category, Course } from "../types";
+import { getCategoryNameById } from "@/shared/lib/utils";
 
 interface CourseItemProps {
   categories: Category[];
   course: Course;
 }
+
 export default function CourseItem({ categories, course }: CourseItemProps) {
-  const category = categories.find((c) => c.id === course.categoryId);
-  const categoryName = category?.name;
+  const categoryName = getCategoryNameById(categories, course.categoryId);
   return (
     <Link href={`/courses/${course.id}`}>
       <article className={styles.item} key={course.id}>

@@ -3,16 +3,16 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import styles from "./CategoryBar.module.css";
 
-export default function CategoryBar({ categories }: any) {
+export default function CategoryBar({ subCategories }: any) {
   const searchParams = useSearchParams();
   const router = useRouter();
   // 현재 쿼리 파라미터를 복사하여 새로운 객체 생성
   const params = new URLSearchParams(searchParams?.toString());
 
-  const currentCategory = params.get("category") || "";
+  const currentCategory = params.get("categoryId") || "";
 
   const handleCategoryClick = (categoryId: string) => {
-    params.set("category", categoryId);
+    params.set("categoryId", categoryId);
     router.push(`?${params.toString()}`);
   };
 
@@ -30,11 +30,22 @@ export default function CategoryBar({ categories }: any) {
     <section className={styles.bar} aria-label="카테고리 및 정렬">
       <div className={styles.inner}>
         <div className={styles.chipGroup} role="tablist">
-          {categories.map((category: { id: string; name: string }) => (
+          <button
+            className={`${styles.chip} ${
+              currentCategory == subCategories[0].parentId
+                ? styles.chipActive
+                : ""
+            }`}
+            type="button"
+            onClick={() => handleCategoryClick(subCategories[0].parentId)}
+          >
+            전체
+          </button>
+          {subCategories.map((category: { id: string; name: string }) => (
             <button
               key={category.id}
               className={`${styles.chip} ${
-                currentCategory === category.id ? styles.chipActive : ""
+                currentCategory == category.id ? styles.chipActive : ""
               }`}
               type="button"
               onClick={() => handleCategoryClick(category.id)}

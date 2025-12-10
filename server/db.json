@@ -41,48 +41,55 @@
     {
       "id": 1,
       "name": "디지털 드로잉",
-      "parentId": null,
-      "slug": "digital-drawing"
+      "parentId": null
     },
     {
       "id": 5,
       "name": "IT/프로그래밍",
-      "parentId": null,
-      "slug": "it-programming"
+      "parentId": null
     },
     {
       "id": 101,
       "name": "일러스트",
-      "parentId": 1,
-      "slug": "illustration"
+      "parentId": 1
     },
     {
       "id": 501,
       "name": "프론트엔드",
-      "parentId": 5,
-      "slug": "frontend"
+      "parentId": 5
     }
   ],
   "courses": [
     {
-      "title": "Vue.js 3 시작하기갱갱갱",
-      "summary": "Vue.js의 핵심인 Composition API를 중심으로 모던 웹 애플리케이션을 개발합니다.",
-      "categoryId": "5",
-      "price": "68000",
-      "coverImageUrl": {},
+      "id": 2001,
+      "title": "Vue.js 3 시작하기",
+      "instructorId": "user-2",
+      "instructorName": "박강사",
+      "categoryId": 501,
       "description": "Vue.js Composition API 핵심 강의",
-      "difficulty": "BEGINNER",
+      "level": "BEGINNER",
+      "price": 68000,
+      "status": "published",
+      "summary": "Vue.js의 핵심인 Composition API를 중심으로 모던 웹 애플리케이션을 개발합니다.",
+      "coverImageUrl": "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1200&q=80",
+      "rating": 4.8,
+      "reviewCount": 124,
+      "studentCount": 1450,
+      "likeCount": 356,
+      "availableDays": 9999,
       "contents": [
         {
-          "chapterTitle": "1. Vue 3 소개와 개발 환경경경 수정정정정",
+          "chapterTitle": "1. Vue 3 소개와 개발 환경",
           "seq": 1,
           "lessons": [
             {
+              "id": 20011,
               "title": "강의 소개",
               "seq": 1,
               "resourceUrl": "https://example.com/vue/introduction"
             },
             {
+              "id": 20012,
               "title": "Vue 3 개발 환경 세팅",
               "seq": 2,
               "resourceUrl": "https://example.com/vue/setup"
@@ -90,34 +97,266 @@
           ]
         }
       ],
-      "availableDays": null,
-      "id": 2001,
-      "updatedAt": "2025-12-09T08:47:55.835Z"
+      "progress": 35,
+      "createdAt": "2025-11-26T15:00:00.000Z",
+      "updatedAt": "2025-11-26T15:00:00.000Z"
     },
     {
-      "title": "제목 1",
-      "summary": "요약 1",
-      "categoryId": "5",
-      "price": "55000",
-      "coverImageUrl": {},
-      "description": "내용 1",
-      "difficulty": "INTERMEDIATE",
+      "id": 2002,
+      "title": "React 완벽 가이드",
+      "instructorId": "user-2",
+      "instructorName": "박강사",
+      "categoryId": 501,
+      "description": "React 기초부터 고급 패턴까지 완벽하게 학습합니다.",
+      "level": "INTERMEDIATE",
+      "price": 89000,
+      "status": "published",
+      "summary": "React Hooks, Context API, 성능 최적화까지 실무에 필요한 모든 것을 다룹니다.",
+      "coverImageUrl": "https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&w=1200&q=80",
+      "rating": 4.9,
+      "reviewCount": 256,
+      "studentCount": 2340,
+      "likeCount": 587,
+      "availableDays": 9999,
       "contents": [
         {
-          "chapterTitle": "챕터 1",
+          "chapterTitle": "1. React 기초",
           "seq": 1,
           "lessons": [
             {
-              "title": "제목 1",
+              "id": 20021,
+              "title": "React 소개",
               "seq": 1,
-              "resourceUrl": "자료 1"
+              "resourceUrl": "https://example.com/react/intro"
+            },
+            {
+              "id": 20022,
+              "title": "JSX 이해하기",
+              "seq": 2,
+              "resourceUrl": "https://example.com/react/jsx"
             }
           ]
         }
       ],
-      "availableDays": null,
-      "apiId": "v1",
-      "id": 2003
+      "progress": 0,
+      "createdAt": "2025-11-20T10:00:00.000Z",
+      "updatedAt": "2025-11-20T10:00:00.000Z"
+    },
+    {
+      "id": 2003,
+      "title": "TypeScript 마스터클래스",
+      "instructorId": "user-2",
+      "instructorName": "박강사",
+      "categoryId": 501,
+      "description": "TypeScript의 모든 것을 학습하는 완벽한 강의",
+      "level": "ADVANCED",
+      "price": 75000,
+      "status": "published",
+      "summary": "타입 시스템의 깊이 있는 이해와 실전 활용 방법을 배웁니다.",
+      "coverImageUrl": "https://images.unsplash.com/photo-1516116216624-53e697fedbea?auto=format&fit=crop&w=1200&q=80",
+      "rating": 4.7,
+      "reviewCount": 189,
+      "studentCount": 1820,
+      "likeCount": 423,
+      "availableDays": 9999,
+      "contents": [
+        {
+          "chapterTitle": "1. TypeScript 기초",
+          "seq": 1,
+          "lessons": [
+            {
+              "id": 20031,
+              "title": "TypeScript란?",
+              "seq": 1,
+              "resourceUrl": "https://example.com/ts/intro"
+            }
+          ]
+        }
+      ],
+      "progress": 0,
+      "createdAt": "2025-11-18T14:00:00.000Z",
+      "updatedAt": "2025-11-18T14:00:00.000Z"
+    },
+    {
+      "id": 2004,
+      "title": "디지털 일러스트 입문",
+      "instructorId": "user-2",
+      "instructorName": "박강사",
+      "categoryId": 101,
+      "description": "프로크리에이트로 시작하는 디지털 드로잉",
+      "level": "BEGINNER",
+      "price": 45000,
+      "status": "published",
+      "summary": "iPad와 프로크리에이트로 나만의 일러스트를 그려봅시다.",
+      "coverImageUrl": "https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?auto=format&fit=crop&w=1200&q=80",
+      "rating": 4.6,
+      "reviewCount": 98,
+      "studentCount": 890,
+      "likeCount": 234,
+      "availableDays": 9999,
+      "contents": [
+        {
+          "chapterTitle": "1. 프로크리에이트 시작하기",
+          "seq": 1,
+          "lessons": [
+            {
+              "id": 20041,
+              "title": "프로크리에이트 설치 및 설정",
+              "seq": 1,
+              "resourceUrl": "https://example.com/procreate/setup"
+            }
+          ]
+        }
+      ],
+      "progress": 0,
+      "createdAt": "2025-11-15T09:00:00.000Z",
+      "updatedAt": "2025-11-15T09:00:00.000Z"
+    },
+    {
+      "id": 2005,
+      "title": "캐릭터 드로잉 마스터",
+      "instructorId": "user-2",
+      "instructorName": "박강사",
+      "categoryId": 101,
+      "description": "매력적인 캐릭터를 그리는 모든 노하우",
+      "level": "INTERMEDIATE",
+      "price": 59000,
+      "status": "published",
+      "summary": "인체 비율부터 표정 연출까지, 캐릭터 드로잉의 모든 것을 배웁니다.",
+      "coverImageUrl": "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&w=1200&q=80",
+      "rating": 4.9,
+      "reviewCount": 167,
+      "studentCount": 1234,
+      "likeCount": 445,
+      "availableDays": 9999,
+      "contents": [
+        {
+          "chapterTitle": "1. 인체 비율 이해하기",
+          "seq": 1,
+          "lessons": [
+            {
+              "id": 20051,
+              "title": "기본 인체 비율",
+              "seq": 1,
+              "resourceUrl": "https://example.com/character/proportions"
+            }
+          ]
+        }
+      ],
+      "progress": 0,
+      "createdAt": "2025-11-10T11:00:00.000Z",
+      "updatedAt": "2025-11-10T11:00:00.000Z"
+    },
+    {
+      "id": 2006,
+      "title": "Node.js 백엔드 개발",
+      "instructorId": "user-2",
+      "instructorName": "박강사",
+      "categoryId": 501,
+      "description": "Express와 MongoDB를 활용한 실전 백엔드 개발",
+      "level": "INTERMEDIATE",
+      "price": 95000,
+      "status": "published",
+      "summary": "RESTful API 설계부터 배포까지, 실무 백엔드 개발을 완성합니다.",
+      "coverImageUrl": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80",
+      "rating": 4.8,
+      "reviewCount": 203,
+      "studentCount": 1678,
+      "likeCount": 512,
+      "availableDays": 9999,
+      "contents": [
+        {
+          "chapterTitle": "1. Node.js 기초",
+          "seq": 1,
+          "lessons": [
+            {
+              "id": 20061,
+              "title": "Node.js 소개",
+              "seq": 1,
+              "resourceUrl": "https://example.com/node/intro"
+            }
+          ]
+        }
+      ],
+      "progress": 0,
+      "createdAt": "2025-11-05T13:00:00.000Z",
+      "updatedAt": "2025-11-05T13:00:00.000Z"
+    },
+    {
+      "id": 2007,
+      "title": "배경 일러스트 테크닉",
+      "instructorId": "user-2",
+      "instructorName": "박강사",
+      "categoryId": 101,
+      "description": "공간감 있는 배경을 그리는 방법",
+      "level": "ADVANCED",
+      "price": 69000,
+      "status": "published",
+      "summary": "원근법, 색감, 분위기 연출까지 배경 일러스트의 모든 것을 배웁니다.",
+      "coverImageUrl": "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=1200&q=80",
+      "rating": 4.7,
+      "reviewCount": 134,
+      "studentCount": 956,
+      "likeCount": 312,
+      "availableDays": 9999,
+      "contents": [
+        {
+          "chapterTitle": "1. 원근법 기초",
+          "seq": 1,
+          "lessons": [
+            {
+              "id": 20071,
+              "title": "1점 투시 이해하기",
+              "seq": 1,
+              "resourceUrl": "https://example.com/background/perspective"
+            }
+          ]
+        }
+      ],
+      "progress": 0,
+      "createdAt": "2025-11-01T08:00:00.000Z",
+      "updatedAt": "2025-11-01T08:00:00.000Z"
+    },
+    {
+      "id": 2008,
+      "title": "Next.js 풀스택 개발",
+      "instructorId": "user-2",
+      "instructorName": "박강사",
+      "categoryId": 501,
+      "description": "Next.js 14로 만드는 현대적인 웹 애플리케이션",
+      "level": "ADVANCED",
+      "price": 110000,
+      "status": "published",
+      "summary": "App Router, Server Components, Server Actions까지 최신 Next.js를 완벽하게 학습합니다.",
+      "coverImageUrl": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80",
+      "rating": 5.0,
+      "reviewCount": 312,
+      "studentCount": 2890,
+      "likeCount": 734,
+      "availableDays": 9999,
+      "contents": [
+        {
+          "chapterTitle": "1. Next.js 14 시작하기",
+          "seq": 1,
+          "lessons": [
+            {
+              "id": 20081,
+              "title": "Next.js 14 소개",
+              "seq": 1,
+              "resourceUrl": "https://example.com/nextjs/intro"
+            },
+            {
+              "id": 20082,
+              "title": "App Router 이해하기",
+              "seq": 2,
+              "resourceUrl": "https://example.com/nextjs/app-router"
+            }
+          ]
+        }
+      ],
+      "progress": 0,
+      "createdAt": "2025-10-28T16:00:00.000Z",
+      "updatedAt": "2025-10-28T16:00:00.000Z"
     }
   ],
   "carts": [

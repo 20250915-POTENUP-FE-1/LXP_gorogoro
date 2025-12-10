@@ -4,10 +4,7 @@
 import styles from "./CourseDetail.module.css";
 import { Category } from "../types";
 
-export default function CourseDetail({ categories, course }: any) {
-  const category = categories.find((c: Category) => c.id === course.categoryId);
-  const categoryName = category?.name;
-
+export default function CourseDetail({ categoryName, course }: any) {
   const handleAddToCart = async (courseId: string) => {
     try {
       // await addCartItem(USER_ID, courseId);
@@ -53,7 +50,7 @@ export default function CourseDetail({ categories, course }: any) {
               <div className={styles.metaRow}>
                 <dt className={styles.metaLabel}>가격</dt>
                 <dd className={styles.metaPrice}>
-                  {/* ₩{course.price.toLocaleString()} */}
+                  ₩{course.price.toLocaleString()}
                 </dd>
               </div>
             </dl>

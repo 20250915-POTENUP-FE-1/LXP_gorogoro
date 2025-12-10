@@ -1,6 +1,6 @@
 "use client";
 import styles from "./InstructorCourseItem.module.css";
-import { deleteCourseAction } from "../action";
+import { DeleteCourseAction } from "../action";
 import { useRouter } from "next/navigation";
 
 const getLevelLabel = (level: string) => {
@@ -24,7 +24,7 @@ export default function InstructorCourseItem({ course }: any) {
   };
   const handleClickDelete = async () => {
     if (confirm("삭제 하시겠습니까?")) {
-      await deleteCourseAction(courseId);
+      await DeleteCourseAction(courseId);
     }
   };
   return (
