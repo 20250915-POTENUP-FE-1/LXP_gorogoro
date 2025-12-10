@@ -17,6 +17,24 @@
       "displayName": "박강사 (테스트 강사)",
       "role": "instructor",
       "createdAt": "2024-10-20T10:05:00Z"
+    },
+    {
+      "id": "user-1765266726681",
+      "uid": "firebase-uid-1765266726681",
+      "email": "yoonsun0401@naver.com",
+      "password": "christina7777@",
+      "name": "안윤선",
+      "role": "STUDENT",
+      "createdAt": "2025-12-09T07:52:06.681Z"
+    },
+    {
+      "id": "user-1765267450325",
+      "uid": "firebase-uid-1765267450325",
+      "email": "tofu@naver.com",
+      "password": "tofu123456@",
+      "name": "안두부",
+      "role": "STUDENT",
+      "createdAt": "2025-12-09T08:04:10.325Z"
     }
   ],
   "categories": [
