@@ -4,22 +4,33 @@ import styles from "./CourseDetail.module.css";
 import { Category } from "../types";
 import { addToCart } from "@/services/cart.service";
 import { useRouter } from "next/navigation";
+import { useModal } from "@/shared/components/ui/ModalContext";
 
 export default function CourseDetail({ categories, course }: any) {
   const category = categories.find((c: Category) => c.id === course.categoryId);
   const categoryName = category?.name;
   const router = useRouter();
+  const { openModal } = useModal();
   const handleAddToCart = async () => {
     try {
       await addToCart(course.id);
-      alert("장바구니에 잘 담겼습니다.");
+      openModal({
+        title: "장바구니",
+        message: "장바구니에 잘 담겼습니다.",
+      });
     } catch (error: unknown) {
       if (error instanceof Error) {
         if (error.message.includes("409"))
-          alert("이미 장바구니에 담겨있습니다.");
+          openModal({
+            title: "장바구니",
+            message: "이미 장바구니에 담겨있습니다.",
+          });
       } else {
         console.log("Unknown error:", error);
-        alert("장바구니 추가에 실패했습니다. 다시 시도해주세요");
+        openModal({
+          title: "장바구니",
+          message: "장바구니 추가에 실패했습니다. 다시 시도해주세요",
+        });
       }
     }
   };
@@ -30,14 +41,20 @@ export default function CourseDetail({ categories, course }: any) {
     } catch (error: unknown) {
       if (error instanceof Error) {
         if (error.message.includes("409")) {
-          alert("이미 장바구니에 담겨있습니다. 장바구니로 이동합니다.");
+          openModal({
+            title: "장바구니",
+            message: "이미 장바구니에 담겨있습니다. 장바구니로 이동합니다.",
+          });
           router.push("/cart");
           return;
         }
         alert(error.message);
       } else {
         console.log("Unknown error:", error);
-        alert("장바구니 추가에 실패했습니다. 다시 시도해주세요");
+        openModal({
+          title: "장바구니",
+          message: "장바구니 추가에 실패했습니다. 다시 시도해주세요",
+        });
       }
     }
   };

@@ -365,12 +365,6 @@
   ],
   "carts": [
     {
-      "id": "cart-1765355878836",
-      "userId": "user-1",
-      "courseId": 2001,
-      "createdAt": "2025-12-10T08:37:58.836Z"
-    },
-    {
       "id": "cart-1765355883410",
       "userId": "user-1",
       "courseId": 2002,
