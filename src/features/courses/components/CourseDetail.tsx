@@ -1,23 +1,46 @@
-// 장바구니 담기 버튼
 "use client";
 
 import styles from "./CourseDetail.module.css";
 import { Category } from "../types";
+import { addToCart } from "@/services/cart.service";
+import { useRouter } from "next/navigation";
 
 export default function CourseDetail({ categories, course }: any) {
   const category = categories.find((c: Category) => c.id === course.categoryId);
   const categoryName = category?.name;
-
-  const handleAddToCart = async (courseId: string) => {
+  const router = useRouter();
+  const handleAddToCart = async () => {
     try {
-      // await addCartItem(USER_ID, courseId);
+      await addToCart(course.id);
       alert("장바구니에 잘 담겼습니다.");
-    } catch (error) {
-      console.error("장바구니 추가 중 오류 발생:", error);
-      alert("장바구니 추가에 실패했습니다. 다시 시도해주세요.");
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        if (error.message.includes("409"))
+          alert("이미 장바구니에 담겨있습니다.");
+      } else {
+        console.log("Unknown error:", error);
+        alert("장바구니 추가에 실패했습니다. 다시 시도해주세요");
+      }
     }
   };
-
+  const handleCheckoutNow = async () => {
+    try {
+      await addToCart(course.id);
+      router.push("/cart");
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        if (error.message.includes("409")) {
+          alert("이미 장바구니에 담겨있습니다. 장바구니로 이동합니다.");
+          router.push("/cart");
+          return;
+        }
+        alert(error.message);
+      } else {
+        console.log("Unknown error:", error);
+        alert("장바구니 추가에 실패했습니다. 다시 시도해주세요");
+      }
+    }
+  };
   return (
     <section className={styles.detail}>
       <div className={styles.layout}>
@@ -53,7 +76,7 @@ export default function CourseDetail({ categories, course }: any) {
               <div className={styles.metaRow}>
                 <dt className={styles.metaLabel}>가격</dt>
                 <dd className={styles.metaPrice}>
-                  {/* ₩{course.price.toLocaleString()} */}
+                  ₩{course.price.toLocaleString()}
                 </dd>
               </div>
             </dl>
@@ -61,7 +84,7 @@ export default function CourseDetail({ categories, course }: any) {
               <button
                 className={styles.ctaPrimary}
                 type="button"
-                onClick={() => handleAddToCart(course.id)}
+                onClick={handleAddToCart}
               >
                 <img
                   className={styles.ctaIcon}
@@ -74,7 +97,7 @@ export default function CourseDetail({ categories, course }: any) {
               <button
                 className={styles.ctaSecondary}
                 type="button"
-                onClick={() => alert("바로 결제하기 기능은 준비중입니다.")}
+                onClick={handleCheckoutNow}
               >
                 바로 결제하기
               </button>

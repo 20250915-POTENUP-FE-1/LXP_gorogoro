@@ -1,7 +1,14 @@
 "use client";
 import styles from "./CartItem.module.css";
 
-export default function CartItem({ course, handleDelete }: any) {
+export default function CartItem({ course, deleteCartItemAction }: any) {
+  const handleDeleteItem = async () => {
+    try {
+      await deleteCartItemAction(course.id);
+    } catch (error) {
+      alert(error);
+    }
+  };
   return (
     <article className={styles.item}>
       <div className={styles.thumbnail}>
@@ -10,15 +17,13 @@ export default function CartItem({ course, handleDelete }: any) {
       <div className={styles.content}>
         <span className={styles.category}>{course.category}</span>
         <h3 className={styles.title}>{course.title}</h3>
-        <p className={styles.instructor}>{course.instructor}</p>
-        {/* toLocaleDateString()을 사용해 Date 객체를 문자열로 변환 */}
-        <time dateTime={course.createdAt}>{course.createdAt}</time>
+        <p className={styles.instructor}>{course.instructorName}</p>
       </div>
       <div className={styles.summary}>
         <button
           className={styles.remove}
           type="button"
-          onClick={() => handleDelete(course.id)}
+          onClick={handleDeleteItem}
         >
           삭제
         </button>

@@ -1,8 +1,8 @@
-// 로그아웃
 "use client";
 
 import Link from "next/link";
 import styles from "./MySidebar.module.css";
+import { logoutAction } from "@/features/auth/actions";
 
 const userProfile = {
   displayName: "윤선",
@@ -10,14 +10,8 @@ const userProfile = {
 };
 
 export default function MySidebar() {
-  const handleLogoutClick = async () => {
-    // const result = await dispatch(logout());
-    // if (result.meta.requestStatus === "fulfilled") {
-    //   navigate("/login", { replace: true });
-    // }
-    // if (result.meta.requestStatus === "rejected") {
-    //   alert("실패함 ㅠ");
-    // }
+  const handleLogout = async () => {
+    logoutAction();
   };
 
   return (
@@ -39,7 +33,7 @@ export default function MySidebar() {
         <button
           className={`${styles.navItem} ${styles.navItemLogout}`}
           type="button"
-          onClick={handleLogoutClick}
+          onClick={handleLogout}
         >
           로그아웃
         </button>

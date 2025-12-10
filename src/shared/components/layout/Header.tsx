@@ -1,6 +1,6 @@
 import Link from "next/link";
-
 import styles from "@/shared/components/layout/Header.module.css";
+import { getMe } from "@/services/user.service";
 
 const userProfile = {
   displayName: "윤선",
@@ -8,6 +8,8 @@ const userProfile = {
 };
 
 export default function Header() {
+  const user = getMe();
+  console.log(user);
   return (
     <header className={styles.header}>
       <div className={styles.container}>
