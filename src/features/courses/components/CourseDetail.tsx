@@ -123,7 +123,7 @@ export default function CourseDetail({ categoryName, course }: any) {
           </div>
 
           <aside className={styles.sidebar}>
-            <img className={styles.thumbnail} src={course.coverImageUrl}></img>
+            <img className={styles.thumbnail} src={course.coverImageUrl} alt={course.title} />
             <div className={styles.summaryCard}>
               <dl className={styles.meta}>
                 <div className={styles.metaRow}>
