@@ -9,10 +9,10 @@ export default function CategoryBar({ subCategories }: any) {
   // 현재 쿼리 파라미터를 복사하여 새로운 객체 생성
   const params = new URLSearchParams(searchParams?.toString());
 
-  const currentCategory = params.get("categoryId") || "";
+  const currentCategory = Number(params.get("categoryId")) || null;
 
-  const handleCategoryClick = (categoryId: string) => {
-    params.set("categoryId", categoryId);
+  const handleCategoryClick = (categoryId: number) => {
+    params.set("categoryId", String(categoryId));
     router.push(`?${params.toString()}`);
   };
 
@@ -32,7 +32,7 @@ export default function CategoryBar({ subCategories }: any) {
         <div className={styles.chipGroup} role="tablist">
           <button
             className={`${styles.chip} ${
-              currentCategory == subCategories[0].parentId
+              currentCategory === subCategories[0].parentId
                 ? styles.chipActive
                 : ""
             }`}
@@ -41,11 +41,11 @@ export default function CategoryBar({ subCategories }: any) {
           >
             전체
           </button>
-          {subCategories.map((category: { id: string; name: string }) => (
+          {subCategories.map((category: { id: number; name: string }) => (
             <button
               key={category.id}
               className={`${styles.chip} ${
-                currentCategory == category.id ? styles.chipActive : ""
+                currentCategory === category.id ? styles.chipActive : ""
               }`}
               type="button"
               onClick={() => handleCategoryClick(category.id)}
