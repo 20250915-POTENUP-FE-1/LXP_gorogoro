@@ -19,7 +19,6 @@ export default async function Header() {
           <Link href="/" className={styles.brand}>
             GORO
           </Link>
-          <Link href="/">클래스</Link>
           <CategoryDropdown categories={categories} />
           {userProfile ? (
             <div>{userProfile.displayName}님, 안녕하세요!</div>

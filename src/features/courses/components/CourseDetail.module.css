@@ -53,10 +53,11 @@
   max-width: 32rem;
 }
 
-.instructor {
+.metaInfo {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.5rem;
+  flex-wrap: wrap;
 }
 
 .instructorAvatar {
@@ -84,9 +85,40 @@
   color: var(--gray-500);
 }
 
+.statsInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.statItem {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.statIcon {
+  font-size: var(--text-sm);
+}
+
+.statValue {
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  color: var(--gray-900);
+}
+
+.statLabel {
+  font-size: var(--text-sm);
+  color: var(--gray-500);
+}
+
+.statDivider {
+  color: var(--gray-300);
+  font-size: var(--text-sm);
+}
+
 .section {
   padding-top: 1.25rem;
-  border-top: 1px solid var(--gray-200);
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
@@ -213,4 +245,35 @@
 .ctaIcon {
   width: 1.3rem;
   height: 1.3rem;
+}
+
+/* Tab Styles */
+.tabContainer {
+  display: flex;
+  gap: 1rem;
+  border-bottom: 2px solid var(--gray-200);
+  margin-bottom: 1.5rem;
+}
+
+.tabButton {
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  border: none;
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  color: var(--gray-500);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px; /* Pull down to overlap container border */
+  transition: all 0.2s ease;
+}
+
+.tabButton:hover {
+  color: var(--gray-700);
+}
+
+.activeTab {
+  color: var(--primary-500);
+  border-bottom-color: var(--primary-500);
+  font-weight: var(--font-bold);
 }

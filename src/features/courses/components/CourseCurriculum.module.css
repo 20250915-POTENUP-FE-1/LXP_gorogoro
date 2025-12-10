@@ -1,0 +1,174 @@
+.container {
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.5rem;
+}
+
+.addButton {
+  padding: 0.5rem 1rem;
+  border-radius: 0.6rem;
+  border: 1px dashed var(--gray-300);
+  background-color: transparent;
+  color: var(--gray-600);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.addButton:hover {
+  background-color: var(--gray-100);
+  border-color: var(--primary-400);
+  color: var(--primary-600);
+}
+
+.chapterList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.chapterItem {
+  background-color: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: 1rem;
+  padding: 1.25rem;
+}
+
+.chapterHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.chapterSeq {
+  font-weight: var(--font-bold);
+  color: var(--primary-500);
+  white-space: nowrap;
+}
+
+.chapterTitle {
+  font-size: var(--text-lg);
+  font-weight: var(--font-medium);
+  color: var(--gray-900);
+  margin: 0;
+}
+
+.input {
+  flex: 1;
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--gray-200);
+  border-radius: 0.9rem;
+  background-color: var(--gray-00);
+  font-size: var(--text-base);
+  color: var(--gray-900);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--primary-400);
+  box-shadow: 0 0 0 3px rgba(39, 179, 244, 0.2);
+  background-color: var(--gray-00);
+}
+
+.chapterItem .chapterHeader .input {
+  background-color: var(--gray-00);
+  font-weight: var(--font-medium);
+}
+
+.lessonList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-left: 1.5rem;
+  border-left: 2px solid var(--gray-200);
+}
+
+.lessonItem {
+  display: grid;
+  grid-template-columns: auto 1fr 1fr;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* View mode에서는 다른 레이아웃 */
+.container:has(.lessonInfo) .lessonItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background-color: var(--gray-00);
+  border-radius: 0.7rem;
+}
+
+.lessonSeq {
+  font-size: var(--text-sm);
+  color: var(--gray-500);
+  min-width: 1.5rem;
+  font-weight: var(--font-medium);
+}
+
+.lessonItem .input {
+  padding: 0.65rem 0.85rem;
+  font-size: var(--text-sm);
+  border-radius: 0.7rem;
+  background-color: var(--gray-00);
+}
+
+.lessonInfo {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.lessonTitle {
+  color: var(--gray-900);
+  font-size: var(--text-base);
+  font-weight: var(--font-regular);
+}
+
+.lessonLink {
+  color: var(--primary-500);
+  text-decoration: none;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  padding: 0.4rem 0.9rem;
+  border: 1px solid var(--primary-400);
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.lessonLink:hover {
+  background-color: var(--primary-500);
+  color: var(--gray-00);
+  box-shadow: 0 4px 12px rgba(39, 179, 244, 0.3);
+}
+
+.addLessonButton {
+  align-self: flex-start;
+  margin-top: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.5rem;
+  border: 1px dashed var(--gray-300);
+  background-color: transparent;
+  color: var(--gray-500);
+  font-size: var(--text-xs);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.addLessonButton:hover {
+  background-color: var(--gray-100);
+  border-color: var(--primary-300);
+  color: var(--primary-500);
+}

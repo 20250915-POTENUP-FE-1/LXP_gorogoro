@@ -1,0 +1,152 @@
+"use client";
+
+import { ChangeEvent } from "react";
+import styles from "./CourseCurriculum.module.css";
+import { Chapter } from "../types";
+
+interface CourseCurriculumProps {
+  contents: Chapter[];
+  mode?: "view" | "edit";
+  // 편집 모드용 props
+  addChapter?: () => void;
+  addLesson?: (chapterIdx: number) => void;
+  handleChapterTitleChange?: (
+    chapterIdx: number
+  ) => (e: ChangeEvent<HTMLInputElement>) => void;
+  handleLessonTitleChange?: (
+    chapterIdx: number,
+    lessonIdx: number
+  ) => (e: ChangeEvent<HTMLInputElement>) => void;
+  handleLessonResourceUrlChange?: (
+    chapterIdx: number,
+    lessonIdx: number
+  ) => (e: ChangeEvent<HTMLInputElement>) => void;
+}
+
+export default function CourseCurriculum({
+  contents,
+  mode = "view",
+  addChapter,
+  addLesson,
+  handleChapterTitleChange,
+  handleLessonTitleChange,
+  handleLessonResourceUrlChange,
+}: CourseCurriculumProps) {
+  // 편집 모드
+  if (mode === "edit") {
+    return (
+      <div className={styles.container}>
+        {addChapter && (
+          <div className={styles.header}>
+            <button
+              type="button"
+              onClick={addChapter}
+              className={styles.addButton}
+            >
+              + 챕터 추가
+            </button>
+          </div>
+        )}
+
+        <div className={styles.chapterList}>
+          {contents?.map((chapter, chapterIdx) => (
+            <div key={chapterIdx} className={styles.chapterItem}>
+              <div className={styles.chapterHeader}>
+                <span className={styles.chapterSeq}>
+                  Chapter {chapterIdx + 1}
+                </span>
+                <input
+                  name={`contents[${chapterIdx}][chapterTitle]`}
+                  value={chapter.chapterTitle ?? ""}
+                  className={styles.input}
+                  type="text"
+                  placeholder="챕터 제목을 입력하세요"
+                  onChange={handleChapterTitleChange?.(chapterIdx)}
+                />
+              </div>
+
+              <div className={styles.lessonList}>
+                {chapter.lessons.map((lesson, lessonIdx) => (
+                  <div key={lessonIdx} className={styles.lessonItem}>
+                    <span className={styles.lessonSeq}>{lessonIdx + 1}.</span>
+                    <input
+                      name={`contents[${chapterIdx}][lessons][${lessonIdx}][title]`}
+                      value={lesson.title}
+                      className={styles.input}
+                      type="text"
+                      placeholder="레슨 제목 (예: 코딩이란?)"
+                      onChange={handleLessonTitleChange?.(
+                        chapterIdx,
+                        lessonIdx
+                      )}
+                    />
+                    <input
+                      name={`contents[${chapterIdx}][lessons][${lessonIdx}][resourceUrl]`}
+                      value={lesson.resourceUrl ?? ""}
+                      className={styles.input}
+                      type="text"
+                      placeholder="영상/자료 URL"
+                      onChange={handleLessonResourceUrlChange?.(
+                        chapterIdx,
+                        lessonIdx
+                      )}
+                    />
+                  </div>
+                ))}
+
+                {addLesson && (
+                  <button
+                    type="button"
+                    onClick={() => addLesson(chapterIdx)}
+                    className={styles.addLessonButton}
+                  >
+                    + 강의 추가
+                  </button>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  // 보기 모드
+  return (
+    <div className={styles.container}>
+      <div className={styles.chapterList}>
+        {contents?.map((chapter, chapterIdx) => (
+          <div key={chapterIdx} className={styles.chapterItem}>
+            <div className={styles.chapterHeader}>
+              <span className={styles.chapterSeq}>
+                Chapter {chapterIdx + 1}
+              </span>
+              <h3 className={styles.chapterTitle}>{chapter.chapterTitle}</h3>
+            </div>
+
+            <div className={styles.lessonList}>
+              {chapter.lessons.map((lesson, lessonIdx) => (
+                <div key={lessonIdx} className={styles.lessonItem}>
+                  <span className={styles.lessonSeq}>{lessonIdx + 1}.</span>
+                  <div className={styles.lessonInfo}>
+                    <span className={styles.lessonTitle}>{lesson.title}</span>
+                    {/* {lesson.resourceUrl && (
+                      <a
+                        href={lesson.resourceUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.lessonLink}
+                      >
+                        강의 보기
+                      </a>
+                    )} */}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
