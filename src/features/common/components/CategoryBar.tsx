@@ -30,17 +30,19 @@ export default function CategoryBar({ subCategories }: any) {
     <section className={styles.bar} aria-label="카테고리 및 정렬">
       <div className={styles.inner}>
         <div className={styles.chipGroup} role="tablist">
-          <button
-            className={`${styles.chip} ${
-              currentCategory == subCategories[0].parentId
-                ? styles.chipActive
-                : ""
-            }`}
-            type="button"
-            onClick={() => handleCategoryClick(subCategories[0].parentId)}
-          >
-            전체
-          </button>
+          {subCategories.length > 0 && (
+            <button
+              className={`${styles.chip} ${
+                currentCategory == subCategories[0].parentId
+                  ? styles.chipActive
+                  : ""
+              }`}
+              type="button"
+              onClick={() => handleCategoryClick(subCategories[0].parentId)}
+            >
+              전체
+            </button>
+          )}
           {subCategories.map((category: { id: string; name: string }) => (
             <button
               key={category.id}
