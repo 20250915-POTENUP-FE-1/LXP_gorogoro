@@ -7,6 +7,8 @@ type ModalOptions = {
   title: string;
   message: string;
   onConfirm?: () => void;
+  onCancel?: () => void;
+  showCancel?: boolean;
 };
 type ModalContextValue = {
   openModal: (options: ModalOptions) => void;
@@ -23,6 +25,8 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
     title: "",
     message: "",
     onConfirm: undefined,
+    onCancel: undefined,
+    showCancel: false,
   });
 
   const openModal = (options: ModalOptions) => {
@@ -31,6 +35,8 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
       title: options.title,
       message: options.message,
       onConfirm: options.onConfirm,
+      onCancel: options.onCancel,
+      showCancel: options.showCancel ?? false,
     });
   };
   const closeModal = () => setModal((prev) => ({ ...prev, isOpen: false }));
@@ -44,6 +50,8 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
           message={modal.message}
           closeModal={closeModal}
           onConfirm={modal.onConfirm}
+          onCancel={modal.onCancel}
+          showCancel={modal.showCancel}
         ></Modal>
       )}
     </ModalContext.Provider>

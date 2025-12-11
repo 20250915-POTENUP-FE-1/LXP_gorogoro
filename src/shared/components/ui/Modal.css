@@ -32,6 +32,7 @@
 .modal-container {
   width: 100%;
   max-width: 560px;
+  min-height: 150px;
   background: linear-gradient(
     180deg,
     rgba(255, 255, 255, 0.98),
@@ -98,7 +99,7 @@
 
 /* 내용 */
 .modal-content {
-  font-size: 0.98rem;
+  font-size: 1rem;
   line-height: 1.6;
   margin-bottom: 18px;
   color: var(--text-color);

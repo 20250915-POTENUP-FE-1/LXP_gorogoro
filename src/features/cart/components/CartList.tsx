@@ -1,4 +1,5 @@
 "use client";
+import { useModal } from "@/shared/components/ui/ModalContext";
 import CartItem from "./CartItem";
 import styles from "./CartList.module.css";
 
@@ -8,9 +9,20 @@ export default function CartList({
   deleteCartItemAction,
   deleteCartAllAction,
 }: any) {
+  const { openModal } = useModal();
   const handleDeleteAll = async () => {
     try {
-      await deleteCartAllAction();
+      openModal({
+        title: "장바구니 삭제",
+        message: "장바구니에 담은 모든 강좌를 삭제하시겠습니까?",
+        onConfirm: async () => {
+          try {
+            await deleteCartAllAction();
+          } catch (error) {
+            console.log(error);
+          }
+        },
+      });
     } catch (error) {
       console.log(error);
     }

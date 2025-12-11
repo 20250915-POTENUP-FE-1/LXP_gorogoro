@@ -1,12 +1,26 @@
 "use client";
+import { useModal } from "@/shared/components/ui/ModalContext";
 import styles from "./CartItem.module.css";
 
 export default function CartItem({ course, deleteCartItemAction }: any) {
+  const { openModal } = useModal();
   const handleDeleteItem = async () => {
     try {
-      await deleteCartItemAction(course.id);
+      openModal({
+        title: "장바구니 삭제",
+        message: "선택한 강좌를 삭제하시겠습니까?",
+        onConfirm: async () => {
+          try {
+            await deleteCartItemAction(course.id);
+          } catch (error) {
+            console.log(error);
+          }
+        },
+        showCancel: true,
+        onCancel: () => {},
+      });
     } catch (error) {
-      alert(error);
+      console.log(error);
     }
   };
   return (

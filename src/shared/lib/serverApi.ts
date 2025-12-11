@@ -1,10 +1,10 @@
 "use server";
 
 import { cookies } from "next/headers";
-const BASE_URL = "http://localhost:3002/api/v1";
+const BASE_URL = process.env.API_BASE_URL || "http://localhost:3002/api/v1";
 
 export const fetchWithAuth = async (
-  edpoint: string,
+  endpoint: string,
   options: RequestInit = {}
 ): Promise<Response> => {
   const cookieStore = await cookies();
@@ -16,7 +16,7 @@ export const fetchWithAuth = async (
     ...((accessToken && { Authorization: `Bearer ${accessToken}` }) || {}), //토큰 있으면 Authorization 추가
   };
 
-  const res = await fetch(`${BASE_URL}/${edpoint}`, {
+  const res = await fetch(`${BASE_URL}/${endpoint}`, {
     ...options,
     headers,
   });

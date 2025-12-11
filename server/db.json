@@ -365,16 +365,10 @@
   ],
   "carts": [
     {
-      "id": "cart-1765355883410",
+      "id": "cart-1765427550604",
       "userId": "user-1",
-      "courseId": 2002,
-      "createdAt": "2025-12-10T08:38:03.410Z"
-    },
-    {
-      "id": "cart-1765355886668",
-      "userId": "user-1",
-      "courseId": 2003,
-      "createdAt": "2025-12-10T08:38:06.668Z"
+      "courseId": 2004,
+      "createdAt": "2025-12-11T04:32:30.605Z"
     }
   ],
   "reviews": [

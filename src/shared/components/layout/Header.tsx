@@ -9,7 +9,6 @@ const userProfile = {
 
 export default function Header() {
   const user = getMe();
-  console.log(user);
   return (
     <header className={styles.header}>
       <div className={styles.container}>

@@ -11,6 +11,21 @@ export default function CourseDetail({ categories, course }: any) {
   const categoryName = category?.name;
   const router = useRouter();
   const { openModal } = useModal();
+  const handleCartError = (error: unknown, pageRoute?: unknown) => {
+    if (error instanceof Error) {
+      if (error.message.includes("409"))
+        openModal({
+          title: "장바구니",
+          message: "이미 장바구니에 담겨있습니다.",
+        });
+      pageRoute;
+    } else {
+      openModal({
+        title: "장바구니",
+        message: "장바구니 추가에 실패했습니다. 다시 시도해주세요",
+      });
+    }
+  };
   const handleAddToCart = async () => {
     try {
       await addToCart(course.id);
@@ -19,19 +34,7 @@ export default function CourseDetail({ categories, course }: any) {
         message: "장바구니에 잘 담겼습니다.",
       });
     } catch (error: unknown) {
-      if (error instanceof Error) {
-        if (error.message.includes("409"))
-          openModal({
-            title: "장바구니",
-            message: "이미 장바구니에 담겨있습니다.",
-          });
-      } else {
-        console.log("Unknown error:", error);
-        openModal({
-          title: "장바구니",
-          message: "장바구니 추가에 실패했습니다. 다시 시도해주세요",
-        });
-      }
+      handleCartError(error);
     }
   };
   const handleCheckoutNow = async () => {
@@ -39,23 +42,8 @@ export default function CourseDetail({ categories, course }: any) {
       await addToCart(course.id);
       router.push("/cart");
     } catch (error: unknown) {
-      if (error instanceof Error) {
-        if (error.message.includes("409")) {
-          openModal({
-            title: "장바구니",
-            message: "이미 장바구니에 담겨있습니다. 장바구니로 이동합니다.",
-          });
-          router.push("/cart");
-          return;
-        }
-        alert(error.message);
-      } else {
-        console.log("Unknown error:", error);
-        openModal({
-          title: "장바구니",
-          message: "장바구니 추가에 실패했습니다. 다시 시도해주세요",
-        });
-      }
+      const pageRoute = router.push("/cart");
+      handleCartError(error, pageRoute);
     }
   };
   return (
