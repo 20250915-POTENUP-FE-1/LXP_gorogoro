@@ -4,6 +4,7 @@ import { useEffect, useActionState } from "react";
 import { loginAction } from "../actions";
 import styles from "./LoginForm.module.css";
 import useAuthStore from "@/stores/useAuthStore";
+import { redirect } from "next/navigation";
 
 const initialState = {
   success: false,
@@ -24,6 +25,7 @@ export default function LoginForm() {
         nickName: state.data.nickName,
         role: state.data.role,
       });
+      redirect("/courses");
     }
   }, [state, setUser]);
 

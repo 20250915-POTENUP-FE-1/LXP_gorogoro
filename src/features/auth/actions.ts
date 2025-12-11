@@ -125,7 +125,6 @@ export const loginAction = async (
     path: "/",
   });
 
-  // ✅ 토큰은 제외하고 사용자 정보만 반환
   return {
     success: true,
     data: {
@@ -133,11 +132,10 @@ export const loginAction = async (
       role: data.role,
     },
   };
-
-  // redirect("/courses");
 };
+
 export const logoutAction = async () => {
   const cookieStore = await cookies();
   cookieStore.delete("accessToken");
-  redirect("/courses");
+  redirect("/login");
 };

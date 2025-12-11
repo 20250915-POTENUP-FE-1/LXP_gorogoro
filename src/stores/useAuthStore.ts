@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
 import { ROLE } from "@/features/auth/types";
 
 interface UserProfile {
@@ -12,17 +13,32 @@ interface AuthStore {
   logout: () => void;
 }
 
-const useAuthStore = create<AuthStore>((set) => ({
-  userProfile: {
-    nickName: "",
-    role: "STUDENT",
-  },
-  setUser: (data: UserProfile) => {
-    set({
-      userProfile: data,
-    });
-  },
-  logout: () => set({ userProfile: { nickName: "", role: "STUDENT" } }),
-}));
+const useAuthStore = create<AuthStore>()(
+  persist(
+    (set) => ({
+      userProfile: {
+        nickName: "",
+        role: "STUDENT",
+      },
+      setUser: (data: UserProfile) => {
+        set({
+          userProfile: data,
+        });
+      },
+      logout: () => {
+        set({
+          userProfile: {
+            nickName: "",
+            role: "STUDENT",
+          },
+        });
+      },
+    }),
+    {
+      name: "auth-storage", // localStorage key
+      storage: createJSONStorage(() => localStorage),
+    }
+  )
+);
 
 export default useAuthStore;
