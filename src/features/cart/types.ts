@@ -10,7 +10,7 @@ export interface CartCourse {
 }
 export interface Summary {
   totalCount: number;
-  totalAmout: number;
+  totalAmount: number;
 }
 export interface Cart {
   cart_id: number;
