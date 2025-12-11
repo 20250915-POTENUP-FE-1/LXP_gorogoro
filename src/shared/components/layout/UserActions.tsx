@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import useAuthStore from "@/stores/useAuthStore";
+import { useAuthStore } from "@/stores/useAuthStore";
 import styles from "@/shared/components/layout/Header.module.css";
 
 export default function UserActions() {
