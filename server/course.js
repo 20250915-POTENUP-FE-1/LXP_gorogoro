@@ -70,13 +70,63 @@ const registerCourseRoutes = (server, router) => {
   // Course: 강의 목록 조회 (GET /api/v1/courses)
   // ==========================================
   server.get("/api/v1/courses", (req, res) => {
-    // 필터링 기능 지원 (예: ?categoryId=1)
-    const { categoryId } = req.query;
+    // 필터링 기능 지원 (예: ?categoryId=1&search=React&sort=priceAsc)
+    const { categoryId, search, sort } = req.query;
 
     let courses = db.get("courses").value();
 
+    // 1. 카테고리 필터링
     if (categoryId) {
-      courses = courses.filter((c) => c.categoryId == categoryId);
+      // categoryId가 1차인지 2차인지 판별
+      const category = db
+        .get("categories")
+        .find({ id: Number(categoryId) })
+        .value();
+
+      if (category) {
+        if (category.parentId === null) {
+          // 1차 카테고리 → 하위 2차 카테고리 ID들 찾기
+          const subCategoryIds = db
+            .get("categories")
+            .filter((c) => c.parentId === category.id)
+            .map((c) => c.id)
+            .value();
+          courses = courses.filter((c) =>
+            subCategoryIds.includes(c.categoryId)
+          );
+        } else {
+          // 2차 카테고리 → 직접 필터링
+          courses = courses.filter((c) => c.categoryId == categoryId);
+        }
+      }
+    }
+
+    // 2. 검색 필터링 (제목, 요약, 설명에서 검색)
+    if (search) {
+      const searchLower = search.toLowerCase();
+      courses = courses.filter((course) => {
+        return (
+          course.title?.toLowerCase().includes(searchLower) ||
+          course.summary?.toLowerCase().includes(searchLower) ||
+          course.description?.toLowerCase().includes(searchLower)
+        );
+      });
+    }
+
+    // 3. 정렬
+    if (sort === "latest") {
+      // 최신순 (createdAt 기준 내림차순)
+      courses = courses.sort((a, b) => {
+        const dateA = new Date(a.createdAt || 0);
+        const dateB = new Date(b.createdAt || 0);
+        return dateB - dateA;
+      });
+    } else if (sort === "priceAsc") {
+      // 낮은 가격순
+      courses = courses.sort((a, b) => (a.price || 0) - (b.price || 0));
+    } else if (sort === "priceDesc") {
+      // 높은 가격순
+      courses = courses.sort((a, b) => (b.price || 0) - (a.price || 0));
     }
 
     // 리스트 조회 시에는 contents 같은 무거운 데이터는 제외하고 내려주는 것이 성능상 좋습니다.

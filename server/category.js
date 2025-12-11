@@ -26,6 +26,7 @@ const registerCategoryRoutes = (server, router) => {
           id: child.id,
           name: child.name,
           slug: child.slug, // URL 라우팅용 slug를 포함 (옵션)
+          parentId: child.parentId, // 부모 ID 포함
           // 3차 이상의 깊이가 필요하면 여기에 재귀 호출을 넣을 수 있습니다.
         }));
 
@@ -39,6 +40,39 @@ const registerCategoryRoutes = (server, router) => {
     });
 
     return res.status(200).json(hierarchicalCategories);
+  });
+
+  // ==========================================
+  // Category: 특정 카테고리 조회 (GET /api/v1/categories/:id)
+  // ==========================================
+  server.get(`${API_PREFIX}/categories/:id`, (req, res) => {
+    const { id } = req.params;
+    const allCategories = db.get("categories").value();
+
+    // ID로 카테고리 찾기
+    const category = allCategories.find((c) => c.id == id);
+
+    if (!category) {
+      return res.status(404).json({ message: "카테고리를 찾을 수 없습니다." });
+    }
+
+    // 서브 카테고리 찾기
+    const subCategories = allCategories
+      .filter((c) => c.parentId == id)
+      .map((child) => ({
+        id: child.id,
+        name: child.name,
+        slug: child.slug,
+        parentId: child.parentId,
+      }));
+
+    return res.status(200).json({
+      id: category.id,
+      name: category.name,
+      slug: category.slug,
+      parentId: category.parentId,
+      subCategories: subCategories,
+    });
   });
 };
 

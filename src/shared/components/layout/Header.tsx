@@ -1,13 +1,17 @@
 import Link from "next/link";
 
 import styles from "@/shared/components/layout/Header.module.css";
+import CategoryDropdown from "./CategoryDropdown";
+import { getAllCategories } from "@/services/category.service";
 
 const userProfile = {
   displayName: "윤선",
-  role: "intructor",
+  role: "instructor",
 };
 
-export default function Header() {
+export default async function Header() {
+  const categories = await getAllCategories();
+
   return (
     <header className={styles.header}>
       <div className={styles.container}>
@@ -15,6 +19,7 @@ export default function Header() {
           <Link href="/" className={styles.brand}>
             GORO
           </Link>
+          <CategoryDropdown categories={categories} />
           {userProfile ? (
             <div>{userProfile.displayName}님, 안녕하세요!</div>
           ) : (

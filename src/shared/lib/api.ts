@@ -4,9 +4,10 @@ const BASE_URL = "http://localhost:3002/api/v1";
 
 export const get = async (endpoint: string, apiParams?: any) => {
   let url = `${BASE_URL}/${endpoint}`;
+
   if (apiParams && Object.keys(apiParams).length > 0) {
     const queryString = new URLSearchParams(apiParams).toString();
-    url = `${url}?/${queryString}`;
+    url = `${url}?${queryString}`;
   }
 
   const res = await fetch(url);
@@ -31,16 +32,6 @@ export const patch = async (endpoint: string, body: unknown) => {
     body: JSON.stringify(body),
   });
   if (!res.ok) throw new Error(`PUT FAILED: ${res.status}`);
-  return res.json();
-};
-
-export const patch = async (endpoint: string, body: unknown) => {
-  const res = await fetch(`${BASE_URL}/${endpoint}`, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
-  });
-  if (!res.ok) throw new Error(`PATCH FAILED: ${res.status}`);
   return res.json();
 };
 
