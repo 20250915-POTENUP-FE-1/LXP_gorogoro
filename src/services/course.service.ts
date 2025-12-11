@@ -4,8 +4,8 @@ import { get, post, patch, del } from "@/shared/lib/api";
 
 const COURSES_ENDPOINT = "courses";
 
-export const getCourses = async (): Promise<Course[]> => {
-  const data = await get(COURSES_ENDPOINT);
+export const getCourses = async (apiParams: any): Promise<Course[]> => {
+  const data = await get(COURSES_ENDPOINT, apiParams);
   return data as Course[];
 };
 

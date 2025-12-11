@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "json-server": "node ./server/mock-server.js"
+    "json-server": "cd ./server && node mock-server.js"
   },
   "dependencies": {
     "next": "16.0.5",

@@ -33,6 +33,7 @@ export interface Course {
 export interface Category {
   id: string;
   name: string;
-  parentId: number | null;
   slug: string;
+  parentId?: number | null;
+  subCategories?: Category[];
 }

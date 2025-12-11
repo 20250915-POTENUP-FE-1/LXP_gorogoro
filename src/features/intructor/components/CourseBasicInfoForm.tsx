@@ -21,7 +21,7 @@ export default function CourseBasicInfoForm({
   handleThumbnailChange,
 }: CourseBasicInfoFormProps) {
   return (
-    <>
+    <div className={styles.form}>
       <div className={`${styles.group} ${styles.groupInline}`}>
         <label className={styles.field}>
           <span className={styles.label}>강좌명</span>
@@ -149,6 +149,6 @@ export default function CourseBasicInfoForm({
           />
         </label>
       </div>
-    </>
+    </div>
   );
 }
