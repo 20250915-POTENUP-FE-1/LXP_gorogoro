@@ -411,6 +411,7 @@
   ],
   "carts": [
     {
+<<<<<<< HEAD
       "id": "cart-1765355883410",
       "userId": "user-1",
       "courseId": 2002,
@@ -421,6 +422,12 @@
       "userId": "user-1",
       "courseId": 2003,
       "createdAt": "2025-12-10T08:38:06.668Z"
+=======
+      "id": "cart-1765427550604",
+      "userId": "user-1",
+      "courseId": 2004,
+      "createdAt": "2025-12-11T04:32:30.605Z"
+>>>>>>> 4984941d51e149764aa2406afc65231dd4ce2435
     }
   ],
   "reviews": [

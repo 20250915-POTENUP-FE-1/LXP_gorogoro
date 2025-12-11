@@ -42,6 +42,11 @@ export interface RefreshRequest {
 export interface RefreshResponse {
   accessToken: string;
 }
+export interface GetMeResponse {
+  accessToken: string;
+  name: string;
+  role: string;
+}
 export interface ModifyMeRequest {
   email?: string;
   password?: string;

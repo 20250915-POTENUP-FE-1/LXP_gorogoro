@@ -5,11 +5,11 @@ const registerCartRoutes = (server, router) => {
   // Helper: 간단한 인증 체크 및 현재 유저 ID 반환
   // ==========================================
   const checkAuth = (req, res) => {
-    const authHeader = req.headers.authorization;
-    if (!authHeader) {
-      res.status(401).json({ message: "로그인이 필요합니다." });
-      return null;
-    }
+    // const authHeader = req.headers.authorization;
+    // if (!authHeader) {
+    //   res.status(401).json({ message: "로그인이 필요합니다." });
+    //   return null;
+    // }
     // user.js와 동일하게 테스트를 위해 'user-1'로 하드코딩
     return "user-1";
   };
@@ -73,14 +73,13 @@ const registerCartRoutes = (server, router) => {
     // *Senior Tip*: 실제 서비스에선 여기서 courseId를 이용해 Courses 테이블과 Join하여
     // 강의 제목, 썸네일, 가격 등을 함께 내려줍니다.
     // Mock Server에 'courses' 컬렉션이 있다면 아래처럼 매핑해서 내려주면 더 리얼합니다.
-    /*
-    const detailedItems = myCartItems.map(item => {
-      const course = db.get('courses').find({ id: item.courseId }).value();
-      return { ...item, courseInfo: course || null };
-    });
-    */
 
-    return res.status(200).json(myCartItems);
+    const detailedItems = myCartItems.map((item) => {
+      const course = db.get("courses").find({ id: item.courseId }).value();
+      return { ...course };
+    });
+
+    return res.status(200).json(detailedItems);
   });
 
   // ==========================================
@@ -92,7 +91,7 @@ const registerCartRoutes = (server, router) => {
     if (!currentUserId) return;
 
     // Query String에서 courseId 추출
-    const { courseId } = req.query;
+    const { courseId } = req.body;
 
     if (!courseId) {
       return res

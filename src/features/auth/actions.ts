@@ -1,4 +1,5 @@
 "use server";
+
 import { loginUser, regitsterUser } from "@/services/auth.service";
 import { LoginRequest, LoginUserInfo, RegitstRequest, ROLE } from "./types";
 import { cookies } from "next/headers";
@@ -56,7 +57,7 @@ export const registAction = async (
       errors,
     };
   }
-  const newUser: RegitstRequest = {
+  const payload: RegitstRequest = {
     name,
     email,
     password,
@@ -64,7 +65,7 @@ export const registAction = async (
   };
   let data;
   try {
-    data = await regitsterUser(newUser);
+    data = await regitsterUser(payload);
   } catch (error) {
     return {
       success: false,
@@ -98,13 +99,13 @@ export const loginAction = async (
       errors,
     };
   }
-  const loginBody: LoginRequest = {
+  const payload: LoginRequest = {
     email,
     password,
   };
   let data;
   try {
-    data = await loginUser(loginBody);
+    data = await loginUser(payload);
   } catch (error) {
     return {
       success: false,
@@ -134,4 +135,9 @@ export const loginAction = async (
   };
 
   // redirect("/courses");
+};
+export const logoutAction = async () => {
+  const cookieStore = await cookies();
+  cookieStore.delete("accessToken");
+  redirect("/courses");
 };

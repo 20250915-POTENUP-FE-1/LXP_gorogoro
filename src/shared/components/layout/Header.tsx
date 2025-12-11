@@ -1,5 +1,4 @@
 import Link from "next/link";
-
 import styles from "@/shared/components/layout/Header.module.css";
 import CategoryDropdown from "./CategoryDropdown";
 import { getAllCategories } from "@/services/category.service";

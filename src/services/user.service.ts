@@ -1,10 +1,14 @@
-import { ModifyMeRequest, ModifyMeResponse } from "@/features/auth/types";
-import { fetchWithAuth } from "@/shared/lib/api";
+import {
+  GetMeResponse,
+  ModifyMeRequest,
+  ModifyMeResponse,
+} from "@/features/auth/types";
+import { fetchWithAuth } from "@/shared/lib/serverApi";
 
-const GET_ME_ENDPOINT = "auth/users/get";
+const GET_ME_ENDPOINT = "auth/v1/users/me";
 const MODIFY_ME_ENDPOINT = "auth/users/modify";
 
-export const getMe = async () => {
+export const getMe = async (): Promise<GetMeResponse> => {
   const res = await fetchWithAuth(`${GET_ME_ENDPOINT}`, {
     method: "GET",
   });
