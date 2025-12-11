@@ -1,21 +1,24 @@
+"use client";
+
 import "./Modal.css";
 
 type ModalProps = {
   title: string;
   message: string;
-  closeModal: () => void;
   onConfirm?: () => void;
-  showCancel?: boolean;
   onCancel?: () => void;
+  showCancel?: boolean;
+  closeModal: () => void;
 };
-const Modal = ({
+
+export default function Modal({
   title,
   message,
-  closeModal,
   onConfirm,
-  showCancel = false,
   onCancel,
-}: ModalProps) => {
+  showCancel,
+  closeModal,
+}: ModalProps) {
   const handleClick = () => {
     closeModal();
     if (onConfirm) {
@@ -23,6 +26,7 @@ const Modal = ({
     }
   };
   const handleCancel = () => {
+    closeModal();
     if (onCancel) {
       onCancel();
     }
@@ -46,5 +50,4 @@ const Modal = ({
       </div>
     </div>
   );
-};
-export default Modal;
+}

@@ -2,12 +2,12 @@
 import { useState } from "react";
 import styles from "./CourseDetail.module.css";
 import { addToCart } from "@/services/cart.service";
+import { useModalStore } from "@/stores/useModalStore";
 import { useRouter } from "next/navigation";
-import { useModal } from "@/shared/components/ui/ModalContext";
 import CourseCurriculum from "./CourseCurriculum";
 export default function CourseDetail({ categoryName, course }: any) {
   const router = useRouter();
-  const { openModal } = useModal();
+  const { openModal } = useModalStore();
   const handleCartError = (error: unknown, pageRoute?: unknown) => {
     if (error instanceof Error) {
       if (error.message.includes("409"))

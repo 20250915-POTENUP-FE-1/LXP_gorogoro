@@ -13,26 +13,24 @@ interface AuthStore {
   logout: () => void;
 }
 
-const useAuthStore = create<AuthStore>()(
+export const useAuthStore = create<AuthStore>()(
   persist(
     (set) => ({
       userProfile: {
         nickName: "",
         role: "STUDENT",
       },
-      setUser: (data: UserProfile) => {
+      setUser: (data: UserProfile) =>
         set({
           userProfile: data,
-        });
-      },
-      logout: () => {
+        }),
+      logout: () =>
         set({
           userProfile: {
             nickName: "",
             role: "STUDENT",
           },
-        });
-      },
+        }),
     }),
     {
       name: "auth-storage", // localStorage key
@@ -40,5 +38,3 @@ const useAuthStore = create<AuthStore>()(
     }
   )
 );
-
-export default useAuthStore;

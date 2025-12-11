@@ -1,5 +1,6 @@
 "use client";
-import { useModal } from "@/shared/components/ui/ModalContext";
+
+import { useModalStore } from "@/stores/useModalStore";
 import CartItem from "./CartItem";
 import styles from "./CartList.module.css";
 
@@ -9,7 +10,7 @@ export default function CartList({
   deleteCartItemAction,
   deleteCartAllAction,
 }: any) {
-  const { openModal } = useModal();
+  const { openModal } = useModalStore();
   const handleDeleteAll = async () => {
     try {
       openModal({
