@@ -3,7 +3,7 @@
 import Link from "next/link";
 import styles from "./MySidebar.module.css";
 import { logoutAction } from "@/features/auth/actions";
-import useAuthStore from "@/stores/useAuthStore";
+import { useAuthStore } from "@/stores/useAuthStore";
 
 export default function MySidebar() {
   const { userProfile, logout } = useAuthStore();

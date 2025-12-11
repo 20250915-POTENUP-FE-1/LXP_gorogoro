@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import styles from "./InstructorSidebar.module.css";
 import { useAuthStore } from "@/stores/useAuthStore";
