@@ -9,23 +9,21 @@ import {
 
 export default async function CartPage() {
   const courses = await getCart();
-  const totalCount = courses.length;
-  const totalPrice = courses.reduce(
-    (accumulator: number, currentValue: any): number =>
-      accumulator + currentValue.price,
-    0
-  );
-
+  console.log(courses);
+  const { cart_id: cartId, items, summary } = courses;
+  const cartItems = items;
+  const cartSummary = summary;
+  console.log(cartItems);
+  console.log(cartSummary);
   return (
     <main className={styles.page}>
       <div className={`page-wrapper ${styles.container}`}>
         <CartList
-          courses={courses}
-          totalCount={totalCount}
+          cartItems={cartItems}
           deleteCartItemAction={deleteCartItemAction}
           deleteCartAllAction={deleteCartAllAction}
         />
-        <CartSummary totalCount={totalCount} totalPrice={totalPrice} />
+        <CartSummary cartSummary={cartSummary} />
       </div>
     </main>
   );

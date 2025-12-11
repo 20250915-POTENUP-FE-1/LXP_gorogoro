@@ -10,6 +10,10 @@ export const fetchWithAuth = async (
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken")?.value;
 
+  console.log("=== fetchWithAuth ===");
+  console.log("Endpoint:", endpoint);
+  console.log("AccessToken:", accessToken ? "존재" : "없음");
+
   const headers = {
     "Content-Type": "application/json", //기본 헤더
     ...(options.headers || {}), //호출하는 쪽에서 넣어준 헤더
@@ -20,5 +24,6 @@ export const fetchWithAuth = async (
     ...options,
     headers,
   });
+  console.log("Response status:", res.status);
   return res;
 };

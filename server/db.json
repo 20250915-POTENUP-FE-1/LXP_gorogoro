@@ -409,27 +409,25 @@
       "updatedAt": "2025-10-28T16:00:00.000Z"
     }
   ],
-  "carts": [
-    {
-<<<<<<< HEAD
-      "id": "cart-1765355883410",
-      "userId": "user-1",
-      "courseId": 2002,
-      "createdAt": "2025-12-10T08:38:03.410Z"
-    },
-    {
-      "id": "cart-1765355886668",
-      "userId": "user-1",
-      "courseId": 2003,
-      "createdAt": "2025-12-10T08:38:06.668Z"
-=======
-      "id": "cart-1765427550604",
-      "userId": "user-1",
-      "courseId": 2004,
-      "createdAt": "2025-12-11T04:32:30.605Z"
->>>>>>> 4984941d51e149764aa2406afc65231dd4ce2435
+  "carts": {
+    "cart_id": 1,
+    "items": [
+      {
+        "categoryName": "IT/프로그래밍",
+        "subCategoryName": "프론트엔드",
+        "courseId": 2003,
+        "courseTitle": "TypeScript 마스터클래스",
+        "instructorName": "박강사",
+        "price": 75000,
+        "coverImgUrl": "https://images.unsplash.com/photo-1516116216624-53e697fedbea?auto=format&fit=crop&w=1200&q=80",
+        "addedAt": "2025-12-11T05:55:46.755Z"
+      }
+    ],
+    "summary": {
+      "totalCount": 1,
+      "totalAmount": 75000
     }
-  ],
+  },
   "reviews": [
     {
       "id": "review-1",

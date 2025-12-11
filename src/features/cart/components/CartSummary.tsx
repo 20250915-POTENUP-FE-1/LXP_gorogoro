@@ -1,7 +1,12 @@
+import { Summary } from "../types";
 import styles from "./CartSummary.module.css";
 import Link from "next/link";
 
-export default function CartSummary({ totalCount, totalPrice }: any) {
+interface CartSummaryProps {
+  cartSummary: Summary;
+}
+export default function CartSummary({ cartSummary }: CartSummaryProps) {
+  const { totalCount, totalAmout } = cartSummary;
   return (
     <aside className={styles.summary} aria-label="주문 요약">
       <h2 className={styles.title}>주문 요약</h2>
@@ -13,15 +18,13 @@ export default function CartSummary({ totalCount, totalPrice }: any) {
         <div className={styles.row}>
           <dt className={styles.label}>가격</dt>
           <dd className={`${styles.value} ${styles.valuePrice}`}>
-            ₩{totalPrice.toLocaleString()}
+            ₩{totalAmout}
           </dd>
         </div>
       </dl>
       <div className={styles.total}>
         <span className={styles.totalLabel}>총 결제금액</span>
-        <span className={styles.totalValue}>
-          ₩{totalPrice.toLocaleString()}
-        </span>
+        <span className={styles.totalValue}>₩{totalAmout}</span>
       </div>
       <Link href="/mypage">
         <button className={styles.button}>결제하기</button>

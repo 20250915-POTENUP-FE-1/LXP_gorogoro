@@ -2,14 +2,12 @@
 
 import { useState } from "react";
 import styles from "./CourseDetail.module.css";
-import { Category } from "../types";
 import { addToCart } from "@/services/cart.service";
 import { useRouter } from "next/navigation";
 import { useModal } from "@/shared/components/ui/ModalContext";
+import CourseCurriculum from "./CourseCurriculum";
 
-export default function CourseDetail({ categories, course }: any) {
-  const category = categories.find((c: Category) => c.id === course.categoryId);
-  const categoryName = category?.name;
+export default function CourseDetail({ categoryName, course }: any) {
   const router = useRouter();
   const { openModal } = useModal();
   const handleCartError = (error: unknown, pageRoute?: unknown) => {
@@ -27,15 +25,11 @@ export default function CourseDetail({ categories, course }: any) {
       });
     }
   };
-  const handleAddToCart = async () => {
-import CourseCurriculum from "./CourseCurriculum";
-
-export default function CourseDetail({ categoryName, course }: any) {
   const [activeTab, setActiveTab] = useState<
     "description" | "curriculum" | "review" | "request"
   >("description");
 
-  const handleAddToCart = async (courseId: string) => {
+  const handleAddToCart = async () => {
     try {
       await addToCart(course.id);
       openModal({
@@ -72,18 +66,24 @@ export default function CourseDetail({ categoryName, course }: any) {
                 <div className={styles.statItem}>
                   <span className={styles.statIcon}>⭐</span>
                   <span className={styles.statValue}>{course.rating}</span>
-                  <span className={styles.statLabel}>({course.reviewCount.toLocaleString()})</span>
+                  <span className={styles.statLabel}>
+                    ({course.reviewCount.toLocaleString()})
+                  </span>
                 </div>
                 <span className={styles.statDivider}>|</span>
                 <div className={styles.statItem}>
                   <span className={styles.statIcon}>👥</span>
-                  <span className={styles.statValue}>{course.studentCount.toLocaleString()}</span>
+                  <span className={styles.statValue}>
+                    {course.studentCount.toLocaleString()}
+                  </span>
                   <span className={styles.statLabel}>수강생</span>
                 </div>
                 <span className={styles.statDivider}>|</span>
                 <div className={styles.statItem}>
                   <span className={styles.statIcon}>❤️</span>
-                  <span className={styles.statValue}>{course.likeCount.toLocaleString()}</span>
+                  <span className={styles.statValue}>
+                    {course.likeCount.toLocaleString()}
+                  </span>
                   <span className={styles.statLabel}>좋아요</span>
                 </div>
               </div>
@@ -158,7 +158,11 @@ export default function CourseDetail({ categoryName, course }: any) {
           </div>
 
           <aside className={styles.sidebar}>
-            <img className={styles.thumbnail} src={course.coverImageUrl} alt={course.title} />
+            <img
+              className={styles.thumbnail}
+              src={course.coverImageUrl}
+              alt={course.title}
+            />
             <div className={styles.summaryCard}>
               <dl className={styles.meta}>
                 <div className={styles.metaRow}>
@@ -180,7 +184,7 @@ export default function CourseDetail({ categoryName, course }: any) {
                 <button
                   className={styles.ctaPrimary}
                   type="button"
-                  onClick={() => handleAddToCart(course.id)}
+                  onClick={handleAddToCart}
                 >
                   <img
                     className={styles.ctaIcon}
@@ -193,7 +197,7 @@ export default function CourseDetail({ categoryName, course }: any) {
                 <button
                   className={styles.ctaSecondary}
                   type="button"
-                  onClick={() => alert("바로 결제하기 기능은 준비중입니다.")}
+                  onClick={handleCheckoutNow}
                 >
                   바로 결제하기
                 </button>
