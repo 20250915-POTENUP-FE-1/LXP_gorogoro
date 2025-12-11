@@ -600,10 +600,10 @@
   ],
   "carts": [
     {
-      "id": "cart-123",
+      "id": "cart-1765427550604",
       "userId": "user-1",
-      "courseId": 2001,
-      "createdAt": "2024-11-01T15:30:00Z"
+      "courseId": 2004,
+      "createdAt": "2025-12-11T04:32:30.605Z"
     }
   ],
   "reviews": [

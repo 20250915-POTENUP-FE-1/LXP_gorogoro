@@ -1,8 +1,33 @@
-// 장바구니 담기 버튼
 "use client";
 
 import { useState } from "react";
 import styles from "./CourseDetail.module.css";
+import { Category } from "../types";
+import { addToCart } from "@/services/cart.service";
+import { useRouter } from "next/navigation";
+import { useModal } from "@/shared/components/ui/ModalContext";
+
+export default function CourseDetail({ categories, course }: any) {
+  const category = categories.find((c: Category) => c.id === course.categoryId);
+  const categoryName = category?.name;
+  const router = useRouter();
+  const { openModal } = useModal();
+  const handleCartError = (error: unknown, pageRoute?: unknown) => {
+    if (error instanceof Error) {
+      if (error.message.includes("409"))
+        openModal({
+          title: "장바구니",
+          message: "이미 장바구니에 담겨있습니다.",
+        });
+      pageRoute;
+    } else {
+      openModal({
+        title: "장바구니",
+        message: "장바구니 추가에 실패했습니다. 다시 시도해주세요",
+      });
+    }
+  };
+  const handleAddToCart = async () => {
 import CourseCurriculum from "./CourseCurriculum";
 
 export default function CourseDetail({ categoryName, course }: any) {
@@ -12,14 +37,24 @@ export default function CourseDetail({ categoryName, course }: any) {
 
   const handleAddToCart = async (courseId: string) => {
     try {
-      // await addCartItem(USER_ID, courseId);
-      alert("장바구니에 잘 담겼습니다.");
-    } catch (error) {
-      console.error("장바구니 추가 중 오류 발생:", error);
-      alert("장바구니 추가에 실패했습니다. 다시 시도해주세요.");
+      await addToCart(course.id);
+      openModal({
+        title: "장바구니",
+        message: "장바구니에 잘 담겼습니다.",
+      });
+    } catch (error: unknown) {
+      handleCartError(error);
     }
   };
-
+  const handleCheckoutNow = async () => {
+    try {
+      await addToCart(course.id);
+      router.push("/cart");
+    } catch (error: unknown) {
+      const pageRoute = router.push("/cart");
+      handleCartError(error, pageRoute);
+    }
+  };
   return (
     <>
       <section className={styles.detail}>
