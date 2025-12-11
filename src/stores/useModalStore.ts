@@ -32,5 +32,10 @@ export const useModalStore = create<ModalState & ModalActions>((set) => ({
       showCancel: options.showCancel ?? false,
     }),
 
-  closeModal: () => set((state) => ({ ...state, isOpen: false })),
+  closeModal: () => set((state) => ({
+    ...state,
+    isOpen: false,
+    onConfirm: undefined,
+    onCancel: undefined,
+  })),
 }));
