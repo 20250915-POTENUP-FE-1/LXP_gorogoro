@@ -43,16 +43,14 @@ const registerUserRoutes = (server, router) => {
     const user = db.get("users").find({ email, password }).value();
 
     if (user) {
-      // 비밀번호 제외
-      const { password: _, ...userInfo } = user;
-
       const accessToken = "fake_access_token_" + Date.now();
       const refreshToken = "fake_refresh_token_" + Date.now();
 
       return res.status(200).json({
         accessToken,
         refreshToken,
-        user: userInfo,
+        nickName: user.nickName || user.name,
+        role: user.role,
       });
     } else {
       return res

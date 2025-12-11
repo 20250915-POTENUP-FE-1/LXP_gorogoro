@@ -1,33 +1,28 @@
 import { create } from "zustand";
-
-import { loginAction } from "@/features/auth/actions";
+import { ROLE } from "@/features/auth/types";
 
 interface UserProfile {
   nickName: string;
-  role: "student" | "instructor" | "admin";
+  role: ROLE;
 }
 
 interface AuthStore {
   userProfile: UserProfile;
-  login: () => void;
+  setUser: (data: UserProfile) => void;
   logout: () => void;
 }
 
 const useAuthStore = create<AuthStore>((set) => ({
   userProfile: {
     nickName: "",
-    role: "student",
+    role: "STUDENT",
   },
-  login: async () => {
-    const loginResponse = await loginAction();
+  setUser: (data: UserProfile) => {
     set({
-      userProfile: {
-        nickName: loginResponse.user.nickName,
-        role: loginResponse.user.role,
-      },
+      userProfile: data,
     });
   },
-  logout: () => set({ userProfile: { nickName: "", role: "student" } }),
+  logout: () => set({ userProfile: { nickName: "", role: "STUDENT" } }),
 }));
 
 export default useAuthStore;

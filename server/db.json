@@ -5,7 +5,7 @@
       "uid": "firebase-uid-student",
       "email": "student@mock.com",
       "password": "password123",
-      "displayName": "김수강 (테스트 학생)",
+      "nickName": "김수강 (테스트 학생)",
       "role": "student",
       "createdAt": "2024-10-20T10:00:00Z"
     },
@@ -14,7 +14,7 @@
       "uid": "firebase-uid-instructor",
       "email": "instructor@mock.com",
       "password": "password123",
-      "displayName": "박강사 (테스트 강사)",
+      "nickName": "박강사 (테스트 강사)",
       "role": "instructor",
       "createdAt": "2024-10-20T10:05:00Z"
     },
@@ -23,7 +23,7 @@
       "uid": "firebase-uid-1765266726681",
       "email": "yoonsun0401@naver.com",
       "password": "christina7777@",
-      "name": "안윤선",
+      "nickName": "안윤선",
       "role": "STUDENT",
       "createdAt": "2025-12-09T07:52:06.681Z"
     },
@@ -32,7 +32,7 @@
       "uid": "firebase-uid-1765267450325",
       "email": "tofu@naver.com",
       "password": "tofu123456@",
-      "name": "안두부",
+      "nickName": "안두부",
       "role": "STUDENT",
       "createdAt": "2025-12-09T08:04:10.325Z"
     }
@@ -41,86 +41,72 @@
     {
       "id": 1,
       "name": "디지털 드로잉",
-      "parentId": null,
-      "slug": "digital-drawing"
+      "parentId": null
     },
     {
       "id": 5,
       "name": "IT/프로그래밍",
-      "parentId": null,
-      "slug": "it-programming"
+      "parentId": null
     },
     {
       "id": 9,
       "name": "디자인",
-      "parentId": null,
-      "slug": "design"
+      "parentId": null
     },
     {
       "id": 13,
       "name": "음악/영상",
-      "parentId": null,
-      "slug": "music-video"
+      "parentId": null
     },
     {
       "id": 101,
       "name": "일러스트",
-      "parentId": 1,
-      "slug": "illustration"
+      "parentId": 1
     },
     {
       "id": 102,
       "name": "캐릭터 디자인",
-      "parentId": 1,
-      "slug": "character-design"
+      "parentId": 1
     },
     {
       "id": 103,
       "name": "배경 아트",
-      "parentId": 1,
-      "slug": "background-art"
+      "parentId": 1
     },
     {
       "id": 501,
       "name": "프론트엔드",
-      "parentId": 5,
-      "slug": "frontend"
+      "parentId": 5
     },
     {
       "id": 502,
       "name": "백엔드",
-      "parentId": 5,
-      "slug": "backend"
+      "parentId": 5
     },
     {
       "id": 503,
       "name": "데이터 사이언스",
-      "parentId": 5,
-      "slug": "data-science"
+      "parentId": 5
     },
     {
       "id": 901,
       "name": "UI/UX",
-      "parentId": 9,
-      "slug": "ui-ux"
+      "parentId": 9
     },
     {
       "id": 902,
       "name": "그래픽 디자인",
-      "parentId": 9,
-      "slug": "graphic-design"
+      "parentId": 9
     },
     {
       "id": 1301,
       "name": "작곡/편곡",
-      "parentId": 13,
-      "slug": "composition"
+      "parentId": 13
     },
     {
       "id": 1302,
       "name": "영상 편집",
-      "parentId": 13,
-      "slug": "video-editing"
+      "parentId": 13
     }
   ],
   "courses": [
