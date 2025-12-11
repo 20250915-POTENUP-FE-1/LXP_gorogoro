@@ -1,6 +1,6 @@
 import Link from "next/link";
 import styles from "./InstructorSidebar.module.css";
-import useAuthStore from "@/stores/useAuthStore";
+import { useAuthStore } from "@/stores/useAuthStore";
 
 export default function InstructorSidebar() {
   const { userProfile } = useAuthStore();
