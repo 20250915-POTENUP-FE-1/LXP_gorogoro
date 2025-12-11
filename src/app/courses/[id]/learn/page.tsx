@@ -1,11 +1,31 @@
 import styles from "./page.module.css";
-import { MOCK_COURSE } from "./components/mockData";
+import { getCourseById } from "@/services/course.service";
 
-export default function LearnPage() {
-  const currentChapter = MOCK_COURSE.chapters.find((ch) =>
-    ch.lectures.some((l) => l.current)
+export default async function LearnPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ chapter?: string; lesson?: string }>;
+}) {
+  const { id } = await params;
+  const { chapter, lesson } = await searchParams;
+  const course = await getCourseById(id);
+
+  // searchParams에서 현재 챕터와 레슨 가져오기, 없으면 첫 번째 레슨
+  const currentChapterSeq = chapter
+    ? parseInt(chapter)
+    : course.contents[0]?.seq;
+  const currentLessonSeq = lesson
+    ? parseInt(lesson)
+    : course.contents[0]?.lessons[0]?.seq;
+
+  const currentChapter = course.contents.find(
+    (ch) => ch.seq === currentChapterSeq
   );
-  const currentLecture = currentChapter?.lectures.find((l) => l.current);
+  const currentLecture = currentChapter?.lessons.find(
+    (l) => l.seq === currentLessonSeq
+  );
 
   return (
     <div
