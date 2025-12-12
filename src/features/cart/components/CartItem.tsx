@@ -64,7 +64,7 @@ export default function CartItem({
         >
           삭제
         </button>
-        <p className={styles.price}>{course.price.toLocaleString()}</p>
+        <p className={styles.price}>{`₩${course.price.toLocaleString()}`}</p>
       </div>
     </article>
   );
