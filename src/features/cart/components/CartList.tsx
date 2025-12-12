@@ -3,14 +3,18 @@
 import { useModalStore } from "@/stores/useModalStore";
 import CartItem from "./CartItem";
 import styles from "./CartList.module.css";
-
+import { CartCourse } from "../types";
+interface CartListProps {
+  cartItems: CartCourse[];
+  deleteCartItemAction: (courseId: number) => Promise<void>;
+  deleteCartAllAction: () => Promise<void>;
+}
 export default function CartList({
-  courses,
-  totalCount,
+  cartItems,
   deleteCartItemAction,
   deleteCartAllAction,
-}: any) {
-  const { openModal } = useModalStore();
+}: CartListProps) {
+  const { openModal } = useModal();
   const handleDeleteAll = async () => {
     try {
       openModal({
@@ -31,7 +35,7 @@ export default function CartList({
   return (
     <section className={styles.list}>
       <div className={styles.header}>
-        <h1 className={styles.title}>총 {totalCount}개의 강좌</h1>
+        <h1 className={styles.title}>총 {cartItems.length}개의 강좌</h1>
         <button
           className={styles.clearButton}
           type="button"
@@ -41,9 +45,9 @@ export default function CartList({
         </button>
       </div>
       <div className={styles.items}>
-        {courses.map((course: any) => (
+        {cartItems.map((course: CartCourse) => (
           <CartItem
-            key={course.id ?? course.courseId}
+            key={course.courseId}
             course={course}
             deleteCartItemAction={deleteCartItemAction}
           />

@@ -5,7 +5,15 @@ import { addToCart } from "@/services/cart.service";
 import { useModalStore } from "@/stores/useModalStore";
 import { useRouter } from "next/navigation";
 import CourseCurriculum from "./CourseCurriculum";
-export default function CourseDetail({ categoryName, course }: any) {
+import { Course } from "../types";
+interface CourseDetailProps {
+  categoryName: string;
+  course: Course;
+}
+export default function CourseDetail({
+  categoryName,
+  course,
+}: CourseDetailProps) {
   const router = useRouter();
   const { openModal } = useModalStore();
   const handleCartError = (error: unknown, pageRoute?: unknown) => {
@@ -69,7 +77,7 @@ export default function CourseDetail({ categoryName, course }: any) {
                 </div>
                 <span className={styles.statDivider}>|</span>
                 <div className={styles.statItem}>
-                  <span className={styles.statIcon}>:busts_in_silhouette:</span>
+                  <span className={styles.statIcon}>👥</span>
                   <span className={styles.statValue}>
                     {course.studentCount.toLocaleString()}
                   </span>
@@ -77,7 +85,7 @@ export default function CourseDetail({ categoryName, course }: any) {
                 </div>
                 <span className={styles.statDivider}>|</span>
                 <div className={styles.statItem}>
-                  <span className={styles.statIcon}>:heart:</span>
+                  <span className={styles.statIcon}>❤️</span>
                   <span className={styles.statValue}>
                     {course.likeCount.toLocaleString()}
                   </span>
@@ -158,7 +166,7 @@ export default function CourseDetail({ categoryName, course }: any) {
               <dl className={styles.meta}>
                 <div className={styles.metaRow}>
                   <dt className={styles.metaLabel}>난이도</dt>
-                  <dd className={styles.metaValue}>{course.level}</dd>
+                  <dd className={styles.metaValue}>{course.difficulty}</dd>
                 </div>
                 <div className={styles.metaRow}>
                   <dt className={styles.metaLabel}>카테고리</dt>
