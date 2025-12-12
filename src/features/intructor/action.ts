@@ -2,7 +2,6 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-
 import {
   createCourse,
   deleteCourse,
@@ -10,6 +9,7 @@ import {
 } from "@/services/course.service";
 import { CourseFormRequest, CourseFormResponse } from "./types";
 import { Chapter, Difficulty } from "../courses/types";
+import { BackendError } from "@/shared/types/types";
 
 type ActionState = {
   success: boolean;
@@ -115,13 +115,17 @@ export const CreateCourseAction = async (
   try {
     await createCourse(newCourse);
   } catch (error) {
+    const err = error as BackendError;
+    switch (err.code) {
+      case "":
+        break;
+
+      default:
+        break;
+    }
     return {
       success: false,
-      message:
-        error instanceof Error
-          ? error.message
-          : "게시글 등록에 실패하였습니다.",
-      errors: {},
+      message: err.message,
     };
   }
 
