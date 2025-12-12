@@ -58,6 +58,7 @@ export interface ModifyMeResponse {
 }
 export type BackendError = {
   status: number;
-  code?: string;
+  error?: string;
+  errorCode?: string;
   message?: string;
 };

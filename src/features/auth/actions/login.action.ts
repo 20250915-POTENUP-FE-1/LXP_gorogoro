@@ -37,7 +37,7 @@ export const loginAction = async (
   } catch (error) {
     //백엔드 에러 코드 기반으로 매핑 필요
     const err = error as BackendError;
-    switch (err.code) {
+    switch (err.errorCode) {
       case "CRS-001":
         return {
           success: false,
