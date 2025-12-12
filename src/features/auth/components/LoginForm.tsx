@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useActionState } from "react";
-import { loginAction } from "../actions";
+import { loginAction } from "../Action/login.action";
 import styles from "./LoginForm.module.css";
 import useAuthStore from "@/stores/useAuthStore";
 
@@ -46,6 +46,12 @@ export default function LoginForm() {
           type="password"
           placeholder="Enter your password"
         />
+        {state.errors?.password && (
+          <span className={styles.errorMessage}>{state.errors.password}</span>
+        )}
+        {state.errors?.email && (
+          <span className={styles.errorMessage}>{state.errors.email}</span>
+        )}
       </label>
       {!state.success && state.message && (
         <span className={styles.errorMessage}>{state.message}</span>

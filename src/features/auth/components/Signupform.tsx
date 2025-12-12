@@ -2,7 +2,7 @@
 
 import { useActionState, useEffect } from "react";
 import styles from "./SignupForm.module.css";
-import { registAction } from "../actions";
+import { registAction } from "../Action/regist.action";
 import { useRouter } from "next/navigation";
 
 const initialState = {
