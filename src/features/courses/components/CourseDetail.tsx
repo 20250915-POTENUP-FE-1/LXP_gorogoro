@@ -5,7 +5,15 @@ import { addToCart } from "@/services/cart.service";
 import { useRouter } from "next/navigation";
 import { useModal } from "@/shared/components/ui/ModalContext";
 import CourseCurriculum from "./CourseCurriculum";
-export default function CourseDetail({ categoryName, course }: any) {
+import { Course } from "../types";
+interface CourseDetailProps {
+  categoryName: string;
+  course: Course;
+}
+export default function CourseDetail({
+  categoryName,
+  course,
+}: CourseDetailProps) {
   const router = useRouter();
   const { openModal } = useModal();
   const handleCartError = (error: unknown, pageRoute?: unknown) => {
@@ -158,7 +166,7 @@ export default function CourseDetail({ categoryName, course }: any) {
               <dl className={styles.meta}>
                 <div className={styles.metaRow}>
                   <dt className={styles.metaLabel}>난이도</dt>
-                  <dd className={styles.metaValue}>{course.level}</dd>
+                  <dd className={styles.metaValue}>{course.difficulty}</dd>
                 </div>
                 <div className={styles.metaRow}>
                   <dt className={styles.metaLabel}>카테고리</dt>

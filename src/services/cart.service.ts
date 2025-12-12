@@ -7,7 +7,7 @@ export const getCart = async () => {
   return data;
 };
 //장바구니 등록
-export const addToCart = async (courseId: number) => {
+export const addToCart = async (courseId: string) => {
   const data = await post(`${CARTS_ENDPOINT}`, { courseId });
   return data;
 };
