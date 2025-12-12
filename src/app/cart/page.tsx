@@ -9,7 +9,7 @@ import {
 
 export default async function CartPage() {
   const courses = await getCart();
-  const { cart_id: cartId, items, summary } = courses;
+  const { items, summary } = courses;
   const cartItems = items;
   const cartSummary = summary;
   return (
