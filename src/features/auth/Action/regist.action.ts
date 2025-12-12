@@ -40,9 +40,9 @@ export const registAction = async (
     password,
     role,
   };
-  let data;
+
   try {
-    data = await regitsterUser(payload);
+    await regitsterUser(payload);
   } catch (error) {
     return {
       success: false,

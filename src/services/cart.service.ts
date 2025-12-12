@@ -1,4 +1,3 @@
-import { Cart } from "@/features/cart/types";
 import { fetchWithAuth } from "@/shared/lib/serverApi";
 
 const CARTS_ENDPOINT = "carts";

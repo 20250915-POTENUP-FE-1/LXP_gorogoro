@@ -24,6 +24,5 @@ export const fetchWithAuth = async (
     ...options,
     headers,
   });
-  console.log("Response status:", res.status);
   return res;
 };

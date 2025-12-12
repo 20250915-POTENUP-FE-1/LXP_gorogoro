@@ -13,8 +13,6 @@ export default async function CartPage() {
   const { cart_id: cartId, items, summary } = courses;
   const cartItems = items;
   const cartSummary = summary;
-  console.log(cartItems);
-  console.log(cartSummary);
   return (
     <main className={styles.page}>
       <div className={`page-wrapper ${styles.container}`}>

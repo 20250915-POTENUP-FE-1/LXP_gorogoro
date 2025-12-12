@@ -1,9 +1,16 @@
 "use client";
 import { useModal } from "@/shared/components/ui/ModalContext";
 import styles from "./CartItem.module.css";
+import { CartCourse } from "../types";
 
-export default function CartItem({ course, deleteCartItemAction }: any) {
-  console.log(course);
+interface CartItemProps {
+  course: CartCourse;
+  deleteCartItemAction: (courseId: number) => Promise<void>;
+}
+export default function CartItem({
+  course,
+  deleteCartItemAction,
+}: CartItemProps) {
   const { openModal } = useModal();
   const handleDeleteItem = async () => {
     try {
