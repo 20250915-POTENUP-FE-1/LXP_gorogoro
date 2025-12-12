@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import styles from "./CourseForm.module.css";
 import { CourseFormRequest } from "../types";
 import { useCourseForm } from "../hooks/useCourseForm";
@@ -8,6 +8,7 @@ import CourseBasicInfoForm from "./CourseBasicInfoForm";
 import CourseCurriculumForm from "./CourseCurriculumForm";
 import { Category } from "@/features/courses/types";
 import { CreateCourseAction, UpdateCourseAction } from "../action";
+import { useModalStore } from "@/stores/useModalStore";
 
 export type CourseFormMode = "create" | "edit";
 
@@ -49,8 +50,6 @@ export default function CourseForm({
   mode = "create",
   initialFormData = defaultFormData,
 }: CourseFormProps) {
-  const [activeTab, setActiveTab] = useState<"basic" | "curriculum">("basic");
-
   const {
     formData,
     handleFieldChange,
@@ -62,6 +61,8 @@ export default function CourseForm({
     handleThumbnailChange,
     resetForm,
   } = useCourseForm(initialFormData);
+
+  const [activeTab, setActiveTab] = useState<"basic" | "curriculum">("basic");
 
   const getAction = () => {
     if (mode === "create") {
@@ -75,6 +76,17 @@ export default function CourseForm({
     message: "",
     errors: {},
   });
+
+  const { openModal } = useModalStore();
+
+  useEffect(() => {
+    if (!state.success && state.message) {
+      openModal({
+        title: "오류 발생",
+        message: state.message,
+      });
+    }
+  }, [state.success, state.message, openModal]);
 
   return (
     <form action={formAction} className={styles.form}>
