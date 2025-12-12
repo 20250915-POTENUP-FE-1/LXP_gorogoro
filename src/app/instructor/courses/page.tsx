@@ -1,7 +1,8 @@
 import InstructorCourseList from "@/features/intructor/components/InstructorCourseList";
-import { getCourses } from "@/services/course.service";
+import { getInstructorCourses } from "@/services/course.service";
 
 export default async function InstructorCoursePage() {
-  const courses = await getCourses();
+  const courses = await getInstructorCourses();
+  console.log(courses);
   return <InstructorCourseList courses={courses} />;
 }

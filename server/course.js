@@ -222,16 +222,8 @@ const registerCourseRoutes = (server, router) => {
       courses = courses.sort((a, b) => (b.price || 0) - (a.price || 0));
     }
 
-    // CourseSummaryResponse 형식으로 반환
-    const contents = courses.map((course) => ({
-      courseId: course.id,
-      title: course.title,
-      price: course.price,
-      name: "강사명", // Mock 데이터
-      coverImageUrl: course.coverImageUrl,
-    }));
-
-    return res.status(200).json({ contents });
+    // 전체 course 배열 반환 (DB에 있는 모든 데이터)
+    return res.status(200).json(courses);
   });
 
   // ==========================================

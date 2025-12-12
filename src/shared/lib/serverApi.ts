@@ -1,12 +1,14 @@
 "use server";
 
 import { cookies } from "next/headers";
+import { handleResponse } from "./api";
+import { ApiResponse } from "../types/types";
 const BASE_URL = process.env.API_BASE_URL || "http://localhost:3002/api/v1";
 
-export const fetchWithAuth = async (
+export const fetchWithAuth = async <T = any>(
   endpoint: string,
   options: RequestInit = {}
-): Promise<Response> => {
+): Promise<ApiResponse<T>> => {
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken")?.value;
 
@@ -24,7 +26,6 @@ export const fetchWithAuth = async (
     ...options,
     headers,
   });
-  if (!res.ok) throw new Error(`fetchWithAuth 실패:${res.status}`);
-  console.log("Response status:", res.status);
-  return res;
+
+  return handleResponse<T>(res);
 };

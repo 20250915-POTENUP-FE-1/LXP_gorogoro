@@ -1,37 +1,30 @@
-import { fetchWithAuth } from "@/shared/lib/serverApi";
+import { get, post, del } from "@/shared/lib/api";
 
 const CARTS_ENDPOINT = "carts";
 
 export const getCart = async () => {
-  const data = await fetchWithAuth(`${CARTS_ENDPOINT}`, {
-    method: "GET",
-  });
-  if (!data.ok) throw new Error(`장바구니 정보 가져오기 실패:${data.status}`);
-  return data.json();
+  const response = await get(CARTS_ENDPOINT);
+  if (response.error) throw response.error;
+  return response.data;
 };
+
 //장바구니 등록
 export const addToCart = async (courseId: string) => {
-  const data = await fetchWithAuth(`${CARTS_ENDPOINT}`, {
-    method: "POST",
-    body: JSON.stringify({ courseId }),
-  });
-  if (!data.ok) throw new Error(`장바구니 등록 실패:${data.status}`);
-  return data.json();
+  const response = await post(CARTS_ENDPOINT, { courseId });
+  if (response.error) throw response.error;
+  return response.data;
 };
+
 //장바구니 전체 삭제
 export const deleteAllCart = async () => {
-  const data = await fetchWithAuth(`${CARTS_ENDPOINT}`, {
-    method: "DELETE",
-  });
-  if (!data.ok) throw new Error(`장바구니 전체 삭제 실패:${data.status}`);
-  return data.json();
+  const response = await del(CARTS_ENDPOINT);
+  if (response.error) throw response.error;
+  return response.data;
 };
+
 //장바구니 선택 삭제
 export const deleteCartItem = async (courseId: number) => {
-  const data = await fetchWithAuth(`${CARTS_ENDPOINT}/items`, {
-    method: "DELETE",
-    body: JSON.stringify({ courseId }),
-  });
-  if (!data.ok) throw new Error(`장바구니 선택 삭제 실패:${data.status}`);
-  return data.json();
+  const response = await del(`${CARTS_ENDPOINT}/items`, { courseId });
+  if (response.error) throw response.error;
+  return response.data;
 };

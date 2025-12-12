@@ -14,18 +14,21 @@ const REFRESH_ENDPOINT = "auth/refresh";
 export const regitsterUser = async (
   body: RegitstRequest
 ): Promise<RegistResponse> => {
-  const data = await post(`${REGISTER_ENDPOIINT}`, body);
-  return data as RegistResponse;
+  const response = await post<RegistResponse>(`${REGISTER_ENDPOIINT}`, body);
+  if (response.error) throw response.error;
+  return response.data!;
 };
 
 export const loginUser = async (body: LoginRequest): Promise<LoginResponse> => {
-  const data = await post(`${LOGIN_ENDPOINT}`, body);
-  return data as LoginResponse;
+  const response = await post<LoginResponse>(`${LOGIN_ENDPOINT}`, body);
+  if (response.error) throw response.error;
+  return response.data!;
 };
 
 export const refreshToken = async (
   body: RefreshRequest
 ): Promise<RefreshResponse> => {
-  const data = await post(`${REFRESH_ENDPOINT}`, body);
-  return data as RefreshResponse;
+  const response = await post<RefreshResponse>(`${REFRESH_ENDPOINT}`, body);
+  if (response.error) throw response.error;
+  return response.data!;
 };

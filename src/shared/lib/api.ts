@@ -1,14 +1,9 @@
-import { BackendError } from "../types/types";
+import { ApiResponse } from "../types/types";
 
 const BASE_URL = process.env.API_BASE_URL || "http://localhost:8080/api/v1";
 
-type ApiResponse<T> = {
-  data: T | null;
-  error: BackendError | null;
-};
-
 // 응답 처리 유틸 함수
-const handleResponse = async <T = any>(
+export const handleResponse = async <T = any>(
   res: Response
 ): Promise<ApiResponse<T>> => {
   if (!res.ok) {
