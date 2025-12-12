@@ -77,7 +77,7 @@ export default function CourseDetail({
                 </div>
                 <span className={styles.statDivider}>|</span>
                 <div className={styles.statItem}>
-                  <span className={styles.statIcon}>:busts_in_silhouette:</span>
+                  <span className={styles.statIcon}>👥</span>
                   <span className={styles.statValue}>
                     {course.studentCount.toLocaleString()}
                   </span>
@@ -85,7 +85,7 @@ export default function CourseDetail({
                 </div>
                 <span className={styles.statDivider}>|</span>
                 <div className={styles.statItem}>
-                  <span className={styles.statIcon}>:heart:</span>
+                  <span className={styles.statIcon}>❤️</span>
                   <span className={styles.statValue}>
                     {course.likeCount.toLocaleString()}
                   </span>

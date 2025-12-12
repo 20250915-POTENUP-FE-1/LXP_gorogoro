@@ -43,7 +43,8 @@ const registerUserRoutes = (server, router) => {
     const user = db.get("users").find({ email, password }).value();
 
     if (user) {
-      const accessToken = "fake_access_token_" + Date.now();
+      // user.uid를 accessToken으로 사용 (cart.js의 checkAuth와 일치)
+      const accessToken = user.uid;
       const refreshToken = "fake_refresh_token_" + Date.now();
 
       return res.status(200).json({
