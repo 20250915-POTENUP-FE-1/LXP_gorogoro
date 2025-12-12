@@ -1,17 +1,13 @@
 "use client";
-
 import { useState } from "react";
 import styles from "./CourseDetail.module.css";
-import { Category } from "../types";
 import { addToCart } from "@/services/cart.service";
+import { useModalStore } from "@/stores/useModalStore";
 import { useRouter } from "next/navigation";
-import { useModal } from "@/shared/components/ui/ModalContext";
-
-export default function CourseDetail({ categories, course }: any) {
-  const category = categories.find((c: Category) => c.id === course.categoryId);
-  const categoryName = category?.name;
+import CourseCurriculum from "./CourseCurriculum";
+export default function CourseDetail({ categoryName, course }: any) {
   const router = useRouter();
-  const { openModal } = useModal();
+  const { openModal } = useModalStore();
   const handleCartError = (error: unknown, pageRoute?: unknown) => {
     if (error instanceof Error) {
       if (error.message.includes("409"))
@@ -27,15 +23,10 @@ export default function CourseDetail({ categories, course }: any) {
       });
     }
   };
-  const handleAddToCart = async () => {
-import CourseCurriculum from "./CourseCurriculum";
-
-export default function CourseDetail({ categoryName, course }: any) {
   const [activeTab, setActiveTab] = useState<
     "description" | "curriculum" | "review" | "request"
   >("description");
-
-  const handleAddToCart = async (courseId: string) => {
+  const handleAddToCart = async () => {
     try {
       await addToCart(course.id);
       openModal({
@@ -70,25 +61,30 @@ export default function CourseDetail({ categoryName, course }: any) {
               </div>
               <div className={styles.statsInfo}>
                 <div className={styles.statItem}>
-                  <span className={styles.statIcon}>⭐</span>
+                  <span className={styles.statIcon}>:star:</span>
                   <span className={styles.statValue}>{course.rating}</span>
-                  <span className={styles.statLabel}>({course.reviewCount.toLocaleString()})</span>
+                  <span className={styles.statLabel}>
+                    ({course.reviewCount.toLocaleString()})
+                  </span>
                 </div>
                 <span className={styles.statDivider}>|</span>
                 <div className={styles.statItem}>
-                  <span className={styles.statIcon}>👥</span>
-                  <span className={styles.statValue}>{course.studentCount.toLocaleString()}</span>
+                  <span className={styles.statIcon}>:busts_in_silhouette:</span>
+                  <span className={styles.statValue}>
+                    {course.studentCount.toLocaleString()}
+                  </span>
                   <span className={styles.statLabel}>수강생</span>
                 </div>
                 <span className={styles.statDivider}>|</span>
                 <div className={styles.statItem}>
-                  <span className={styles.statIcon}>❤️</span>
-                  <span className={styles.statValue}>{course.likeCount.toLocaleString()}</span>
+                  <span className={styles.statIcon}>:heart:</span>
+                  <span className={styles.statValue}>
+                    {course.likeCount.toLocaleString()}
+                  </span>
                   <span className={styles.statLabel}>좋아요</span>
                 </div>
               </div>
             </div>
-
             <section className={styles.section}>
               <div className={styles.tabContainer}>
                 <button
@@ -128,27 +124,23 @@ export default function CourseDetail({ categoryName, course }: any) {
                   문의
                 </button>
               </div>
-
               {activeTab === "description" && (
                 <>
                   <h2 className={styles.sectionTitle}>{course.title}</h2>
                   <p className={styles.paragraph}>{course.description}</p>
                 </>
               )}
-
               {activeTab === "curriculum" && (
                 <CourseCurriculum
                   contents={course.contents || []}
                   mode="view"
                 />
               )}
-
               {activeTab === "review" && (
                 <div className={styles.placeholder}>
                   <p>리뷰 기능은 준비 중입니다.</p>
                 </div>
               )}
-
               {activeTab === "request" && (
                 <div className={styles.placeholder}>
                   <p>문의 기능은 준비 중입니다.</p>
@@ -156,9 +148,12 @@ export default function CourseDetail({ categoryName, course }: any) {
               )}
             </section>
           </div>
-
           <aside className={styles.sidebar}>
-            <img className={styles.thumbnail} src={course.coverImageUrl} alt={course.title} />
+            <img
+              className={styles.thumbnail}
+              src={course.coverImageUrl}
+              alt={course.title}
+            />
             <div className={styles.summaryCard}>
               <dl className={styles.meta}>
                 <div className={styles.metaRow}>
@@ -180,7 +175,7 @@ export default function CourseDetail({ categoryName, course }: any) {
                 <button
                   className={styles.ctaPrimary}
                   type="button"
-                  onClick={() => handleAddToCart(course.id)}
+                  onClick={handleAddToCart}
                 >
                   <img
                     className={styles.ctaIcon}
@@ -193,7 +188,7 @@ export default function CourseDetail({ categoryName, course }: any) {
                 <button
                   className={styles.ctaSecondary}
                   type="button"
-                  onClick={() => alert("바로 결제하기 기능은 준비중입니다.")}
+                  onClick={handleCheckoutNow}
                 >
                   바로 결제하기
                 </button>

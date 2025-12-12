@@ -3,15 +3,14 @@
 import Link from "next/link";
 import styles from "./MySidebar.module.css";
 import { logoutAction } from "@/features/auth/actions";
-
-const userProfile = {
-  displayName: "윤선",
-  email: "ys@gmail.com",
-};
+import { useAuthStore } from "@/stores/useAuthStore";
 
 export default function MySidebar() {
+  const { userProfile, logout } = useAuthStore();
+
   const handleLogout = async () => {
-    logoutAction();
+    logout(); // zustand 상태 초기화 (localStorage도 자동 반영)
+    await logoutAction(); // 서버 쿠키 삭제 및 리다이렉트
   };
 
   return (
@@ -19,8 +18,8 @@ export default function MySidebar() {
       <div className={styles.profile}>
         <div className={styles.avatar}></div>
         <div className={styles.info}>
-          <span className={styles.name}>{userProfile.displayName}</span>
-          <span className={styles.email}>{userProfile.email}</span>
+          <span className={styles.name}>{userProfile.nickName}</span>
+          <span className={styles.email}>{userProfile.role}</span>
         </div>
       </div>
       <nav className={styles.nav} aria-label="마이페이지 메뉴">

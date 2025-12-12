@@ -1,20 +1,21 @@
 "use server";
 
 import { loginUser, regitsterUser } from "@/services/auth.service";
-import { LoginRequest, RegitstRequest, ROLE } from "./types";
+import { LoginRequest, LoginUserInfo, RegitstRequest, ROLE } from "./types";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-type ActionState = {
+type ActionState<T> = {
   success: boolean;
   message?: string;
   errors?: Record<string, string>;
+  data?: T;
 };
 
 export const registAction = async (
-  prevState: ActionState,
+  prevState: ActionState<void>,
   formData: FormData
-): Promise<ActionState> => {
+): Promise<ActionState<void>> => {
   const name = formData.get("name") as string;
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
@@ -77,9 +78,9 @@ export const registAction = async (
   };
 };
 export const loginAction = async (
-  prevState: ActionState,
+  prevState: ActionState<LoginUserInfo>,
   formData: FormData
-) => {
+): Promise<ActionState<LoginUserInfo>> => {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
 
@@ -124,10 +125,17 @@ export const loginAction = async (
     path: "/",
   });
 
-  redirect("/courses");
+  return {
+    success: true,
+    data: {
+      nickName: data.nickName,
+      role: data.role,
+    },
+  };
 };
+
 export const logoutAction = async () => {
   const cookieStore = await cookies();
   cookieStore.delete("accessToken");
-  redirect("/courses");
+  redirect("/login");
 };
