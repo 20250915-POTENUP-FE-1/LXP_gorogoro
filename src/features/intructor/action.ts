@@ -116,17 +116,50 @@ export const CreateCourseAction = async (
     await createCourse(newCourse);
   } catch (error) {
     const err = error as BackendError;
-    switch (err.code) {
-      case "":
-        break;
 
+    // Status code 기준으로 분기 처리
+    switch (err.status) {
+      case 400:
+        // 잘못된 요청 (Validation 또는 비즈니스 에러)
+        return {
+          success: false,
+          message: err.message || "입력값을 확인해주세요.",
+          errors: {},
+        };
+
+      case 401:
+        // 인증 실패
+        return {
+          success: false,
+          message: err.message || "로그인이 필요합니다.",
+          errors: {},
+        };
+
+      case 403:
+        // 권한 없음
+        return {
+          success: false,
+          message: err.message || "권한이 없습니다.",
+          errors: {},
+        };
+
+      case 404:
+        // 리소스를 찾을 수 없음
+        return {
+          success: false,
+          message: err.message || "강좌를 찾을 수 없습니다.",
+          errors: {},
+        };
+
+      case 500:
       default:
-        break;
+        // 서버 에러 또는 알 수 없는 에러
+        return {
+          success: false,
+          message: err.message || "서버 오류가 발생했습니다.",
+          errors: {},
+        };
     }
-    return {
-      success: false,
-      message: err.message,
-    };
   }
 
   revalidatePath("/instructor/courses");
