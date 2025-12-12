@@ -1,5 +1,6 @@
 "use client";
-import { useModal } from "@/shared/components/ui/ModalContext";
+
+import { useModalStore } from "@/stores/useModalStore";
 import CartItem from "./CartItem";
 import styles from "./CartList.module.css";
 import { CartCourse } from "../types";

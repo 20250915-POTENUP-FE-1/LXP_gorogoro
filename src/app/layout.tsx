@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "@/styles/global.css";
 import Header from "../shared/components/layout/Header";
-import { ModalProvider } from "@/shared/components/ui/ModalContext";
+import ModalContainer from "@/shared/components/ui/ModalContainer";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,7 +17,8 @@ export default function RootLayout({
     <html lang="ko">
       <body>
         <Header />
-        <ModalProvider>{children}</ModalProvider>
+        <ModalContainer />
+        {children}
       </body>
     </html>
   );
