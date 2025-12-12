@@ -115,7 +115,7 @@
 .errorMessage {
   display: block;
   padding: 0.5rem 0.75rem;
-  margin-top: -0.5rem;
+  margin-top: 0.5rem;
   border-radius: var(--radius-sm);
   background-color: rgba(215, 4, 102, 0.08);
   color: var(--primary-400);

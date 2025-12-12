@@ -1,4 +1,4 @@
-const BASE_URL = process.env.API_BASE_URL || "http://localhost:3002/api/v1";
+const BASE_URL = process.env.API_BASE_URL || "http://localhost:8080/api/v1";
 
 export const get = async (endpoint: string, apiParams?: any) => {
   let url = `${BASE_URL}/${endpoint}`;
@@ -19,7 +19,26 @@ export const post = async (endpoint: string, body: unknown) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
   });
-  if (!res.ok) throw new Error(`POST FAILED: ${res.status}`);
+  // if (!res.ok) throw new Error(`POST FAILED:${res.status}} `);
+  if (!res.ok) {
+    let errorBody = null;
+    try {
+      errorBody = await res.json(); //{ code, message }
+    } catch {
+      const error = {
+        status: res.status,
+        code: undefined,
+        message: errorBody.message ?? "요청이 실패했습니다",
+      };
+      throw error;
+    }
+    const error = {
+      status: res.status,
+      code: errorBody.code,
+      message: errorBody.message,
+    };
+    throw error;
+  }
   return res.json();
 };
 

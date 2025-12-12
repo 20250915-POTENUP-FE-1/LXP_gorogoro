@@ -14,7 +14,7 @@ const registerCategoryRoutes = require("./category");
 const registerTestRoutes = require("./test-endpoints");
 
 // 기본 포트 설정
-const PORT = 3002;
+const PORT = 8080;
 
 // 기본 미들웨어 설정 (Logger, Static files serving 등)
 server.use(middlewares);

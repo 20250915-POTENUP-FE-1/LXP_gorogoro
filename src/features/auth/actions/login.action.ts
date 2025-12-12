@@ -4,6 +4,7 @@ import { loginUser } from "@/services/auth.service";
 import { LoginRequest, LoginUserInfo } from "../types";
 import { cookies } from "next/headers";
 import { validateLoginForm } from "../validate";
+import { BackendError } from "../types";
 
 type ActionState<T> = {
   success: boolean;
@@ -25,20 +26,36 @@ export const loginAction = async (
       errors: validation.errors,
     };
   }
-
   const payload: LoginRequest = {
     email,
     password,
   };
+
   let data;
   try {
     data = await loginUser(payload);
   } catch (error) {
     //백엔드 에러 코드 기반으로 매핑 필요
-    return {
-      success: false,
-      message: error instanceof Error ? error.message : "Unknow Error",
-    };
+    const err = error as BackendError;
+    switch (err.code) {
+      case "CRS-001":
+        return {
+          success: false,
+          message: err.message ?? "입력값이 올바르지 않습니다.",
+          errors: { email: "입력값이 올바르지 않습니다." },
+        };
+      case "CRS-002":
+        return {
+          success: false,
+          message: err.message ?? "입력값이 올바르지 않습니다.",
+          errors: { email: "유효하지 않은 이메일입니다." },
+        };
+      default:
+        return {
+          success: false,
+          message: err.message ?? "로그인 실패",
+        };
+    }
   }
 
   const cookieStore = await cookies();
