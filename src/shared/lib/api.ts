@@ -60,6 +60,19 @@ export const post = async <T = any>(
   return handleResponse<T>(res);
 };
 
+export const put = async <T = any>(
+  endpoint: string,
+  body: unknown
+): Promise<ApiResponse<T>> => {
+  const res = await fetch(`${BASE_URL}/${endpoint}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+
+  return handleResponse<T>(res);
+};
+
 export const patch = async <T = any>(
   endpoint: string,
   body: unknown

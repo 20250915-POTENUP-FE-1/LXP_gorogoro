@@ -1,6 +1,6 @@
 import { Course } from "@/features/courses/types";
 import { CourseFormRequest } from "@/features/intructor/types";
-import { get, post, patch, del } from "@/shared/lib/api";
+import { get, post, put, del } from "@/shared/lib/api";
 
 const COURSES_ENDPOINT = "courses";
 
@@ -28,7 +28,7 @@ export const updateCourse = async (
   id: string,
   body: CourseFormRequest
 ): Promise<Course> => {
-  const response = await patch<Course>(`${COURSES_ENDPOINT}/${id}`, body);
+  const response = await put<Course>(`${COURSES_ENDPOINT}/${id}`, body);
   if (response.error) throw response.error;
   return response.data!;
 };
