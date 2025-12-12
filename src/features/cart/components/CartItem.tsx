@@ -42,7 +42,11 @@ export default function CartItem({
   return (
     <article className={styles.item}>
       <div className={styles.thumbnail}>
-        <img className={styles.image} src={course.coverImgUrl} />
+        <img
+          className={styles.image}
+          src={course.coverImgUrl}
+          alt={course.courseTitle}
+        />
       </div>
       <div className={styles.content}>
         <span className={styles.category}>
