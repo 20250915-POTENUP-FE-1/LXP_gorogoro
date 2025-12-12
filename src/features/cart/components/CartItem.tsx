@@ -2,16 +2,7 @@
 
 import { useModalStore } from "@/stores/useModalStore";
 import styles from "./CartItem.module.css";
-
-type CartCourse = {
-  courseId: string | number;
-  coverImgUrl: string;
-  categoryName: string;
-  subCategoryName: string;
-  courseTitle: string;
-  instructorName: string;
-  price: number;
-};
+import { CartCourse } from "../types";
 interface CartItemProps {
   course: CartCourse;
   deleteCartItemAction: (courseId: string | number) => Promise<void>;
@@ -20,7 +11,7 @@ export default function CartItem({
   course,
   deleteCartItemAction,
 }: CartItemProps) {
-  const { openModal } = useModal();
+  const { openModal } = useModalStore();
   const handleDeleteItem = async () => {
     try {
       openModal({

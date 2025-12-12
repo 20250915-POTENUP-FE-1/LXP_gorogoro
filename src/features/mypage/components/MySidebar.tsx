@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import styles from "./MySidebar.module.css";
-import { logoutAction } from "@/features/auth/actions";
+import { logoutAction } from "@/features/auth/actions/logout.action";
 import { useAuthStore } from "@/stores/useAuthStore";
 
 export default function MySidebar() {
