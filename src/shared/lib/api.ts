@@ -24,6 +24,9 @@ export const handleResponse = async <T = any>(
     };
   }
 
+  if (res.status === 204) {
+    return { data: null, error: null };
+  }
   return { data: await res.json(), error: null };
 };
 
