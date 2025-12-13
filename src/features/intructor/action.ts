@@ -10,6 +10,7 @@ import {
 import { CourseFormRequest, CourseFormResponse } from "./types";
 import { Chapter, Difficulty } from "../courses/types";
 import { BackendError } from "@/shared/types/types";
+import { handleBackendError } from "@/shared/utils/errorHandler";
 
 type ActionState = {
   success: boolean;
@@ -115,68 +116,7 @@ export const CreateCourseAction = async (
   try {
     await createCourse(newCourse);
   } catch (error) {
-    const err = error as BackendError;
-
-    // Status code 기준으로 분기 처리
-    switch (err.status) {
-      case 400:
-        // 잘못된 요청 (Validation 또는 비즈니스 에러)
-        return {
-          success: false,
-          message: err.message || "입력값을 확인해주세요.",
-          errors:
-            err.errors &&
-            typeof err.errors === "object" &&
-            !Array.isArray(err.errors)
-              ? err.errors
-              : Array.isArray(err.errors)
-              ? err.errors.reduce(
-                  (
-                    acc: Record<string, string>,
-                    curr: { field: string; message: string }
-                  ) => {
-                    if (curr.field && curr.message)
-                      acc[curr.field] = curr.message;
-                    return acc;
-                  },
-                  {}
-                )
-              : {},
-        };
-
-      case 401:
-        // 인증 실패
-        return {
-          success: false,
-          message: err.message || "로그인이 필요합니다.",
-          errors: {},
-        };
-
-      case 403:
-        // 권한 없음
-        return {
-          success: false,
-          message: err.message || "권한이 없습니다.",
-          errors: {},
-        };
-
-      case 404:
-        // 리소스를 찾을 수 없음
-        return {
-          success: false,
-          message: err.message || "강좌를 찾을 수 없습니다.",
-          errors: {},
-        };
-
-      case 500:
-      default:
-        // 서버 에러 또는 알 수 없는 에러
-        return {
-          success: false,
-          message: err.message || "서버 오류가 발생했습니다.",
-          errors: {},
-        };
-    }
+    return handleBackendError(error as BackendError);
   }
 
   revalidatePath("/instructor/courses");
@@ -204,51 +144,7 @@ export const UpdateCourseAction = async (
   try {
     await updateCourse(id, updatedCourse);
   } catch (error) {
-    const err = error as BackendError;
-
-    // Status code 기준으로 분기 처리
-    switch (err.status) {
-      case 400:
-        // 잘못된 요청 (Validation 또는 비즈니스 에러)
-        return {
-          success: false,
-          message: err.message || "입력값을 확인해주세요.",
-          errors: {},
-        };
-
-      case 401:
-        // 인증 실패
-        return {
-          success: false,
-          message: err.message || "로그인이 필요합니다.",
-          errors: {},
-        };
-
-      case 403:
-        // 권한 없음
-        return {
-          success: false,
-          message: err.message || "권한이 없습니다.",
-          errors: {},
-        };
-
-      case 404:
-        // 리소스를 찾을 수 없음
-        return {
-          success: false,
-          message: err.message || "강좌를 찾을 수 없습니다.",
-          errors: {},
-        };
-
-      case 500:
-      default:
-        // 서버 에러 또는 알 수 없는 에러
-        return {
-          success: false,
-          message: err.message || "서버 오류가 발생했습니다.",
-          errors: {},
-        };
-    }
+    return handleBackendError(error as BackendError);
   }
 
   revalidatePath("/instructor/courses");
