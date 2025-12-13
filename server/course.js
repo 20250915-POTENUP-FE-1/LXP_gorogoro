@@ -2,21 +2,34 @@ const registerCourseRoutes = (server, router) => {
   const db = router.db;
 
   // ==========================================
-  // Helper: 인증 체크 (개발 편의를 위해 임시 비활성화)
+  // Helper: 인증 체크
   // ==========================================
   const checkAuth = (req, res) => {
-    // const authHeader = req.headers.authorization;
-    // if (!authHeader) {
-    //   res.status(401).json({ message: "로그인이 필요합니다." });
-    //   return null;
-    // }
-    // 코스 생성/수정은 강사(instructor) 권한이 필요할 수 있으나,
-    // Mock에서는 일단 유저가 존재하면 통과시킵니다.
-    return "user-1"; // 항상 고정된 사용자 ID를 반환
+    const authHeader = req.headers.authorization;
+    if (!authHeader) {
+      res.status(401).json({
+        message: "인증이 필요합니다.",
+        code: "AUTH-001",
+      });
+      return null;
+    }
+    // Mock에서는 토큰이 있으면 통과
+    return "user-1";
   };
 
   // ==========================================
-  // Course: 강의 생성 (POST /api/v1/courses)
+  // Helper: Validation Error 생성
+  // ==========================================
+  const createValidationError = (errors) => {
+    return {
+      message: "입력값이 올바르지 않습니다.",
+      code: "VALIDATION_ERROR",
+      errors: errors,
+    };
+  };
+
+  // ==========================================
+  // Course: 강좌 생성 (POST /api/v1/courses)
   // ==========================================
   server.post("/api/v1/courses", (req, res) => {
     const userId = checkAuth(req, res);
@@ -29,55 +42,140 @@ const registerCourseRoutes = (server, router) => {
       price,
       coverImageUrl,
       description,
-      level,
+      courseDifficulty,
       contents,
       availableDays,
     } = req.body;
 
-    // 필수값 유효성 검사 (필요에 따라 추가)
-    if (!title || !contents) {
-      return res
-        .status(400)
-        .json({ message: "제목과 커리큘럼(contents)은 필수입니다." });
+    // Validation 체크
+    const validationErrors = [];
+
+    if (!title) {
+      validationErrors.push({
+        field: "title",
+        reason: "강좌 제목을 작성해주세요.",
+      });
+    } else if (title.length > 30) {
+      validationErrors.push({
+        field: "title",
+        reason: "강좌 제목은 30자까지만 가능합니다.",
+      });
+    }
+
+    if (!summary) {
+      validationErrors.push({
+        field: "summary",
+        reason: "강좌 소개를 작성해주세요.",
+      });
+    } else if (summary.length > 200) {
+      validationErrors.push({
+        field: "summary",
+        reason: "강좌 소개는 200자까지만 가능합니다.",
+      });
+    }
+
+    if (!description) {
+      validationErrors.push({
+        field: "description",
+        reason: "강좌 설명을 작성해주세요.",
+      });
+    } else if (description.length > 1000) {
+      validationErrors.push({
+        field: "description",
+        reason: "강좌 설명은 1000자까지만 가능합니다.",
+      });
+    }
+
+    if (!categoryId) {
+      validationErrors.push({
+        field: "categoryId",
+        reason: "카테고리를 선택해주세요.",
+      });
+    }
+
+    if (price === undefined || price === null) {
+      validationErrors.push({ field: "price", reason: "금액을 입력해주세요." });
+    } else if (price < 0) {
+      validationErrors.push({
+        field: "price",
+        reason: "금액은 0이상 설정해주세요.",
+      });
+    }
+
+    if (!coverImageUrl) {
+      validationErrors.push({
+        field: "coverImageUrl",
+        reason: "커버 이미지를 업로드해주세요.",
+      });
+    }
+
+    if (!courseDifficulty) {
+      validationErrors.push({
+        field: "courseDifficulty",
+        reason: "강좌의 난이도를 선택해주세요",
+      });
+    }
+
+    if (availableDays === undefined || availableDays === null) {
+      validationErrors.push({
+        field: "availableDays",
+        reason: "이용가능한 날을 선택해주세요",
+      });
+    } else if (availableDays < 0) {
+      validationErrors.push({
+        field: "availableDays",
+        reason: "이용 가능한 날은 0이상 설정해주세요.",
+      });
+    }
+
+    if (validationErrors.length > 0) {
+      return res.status(400).json(createValidationError(validationErrors));
+    }
+
+    // 중복 시퀀스 체크 (임의로 시뮬레이션)
+    // 실제로는 contents 배열에서 seq가 중복되는지 검사
+    if (contents && contents.length > 0) {
+      const seqs = contents.map((c) => c.seq);
+      if (new Set(seqs).size !== seqs.length) {
+        return res.status(400).json({
+          message: "중복된 시퀀스가 존재합니다.",
+          code: "COS-0011",
+        });
+      }
     }
 
     const newCourse = {
-      id: Date.now(), // Number ID
-      instructorId: userId, // 생성한 사람
+      id: Date.now(),
+      instructorId: userId,
       title,
-      summary: summary || "",
-      categoryId: categoryId || 1, // Default category
-      price: price || 0,
-      coverImageUrl: coverImageUrl || "https://via.placeholder.com/600x400",
-      description: description || "",
-      // 명세서 코멘트 반영: ENUM 처럼 관리 (BEGINNER, INTERMEDIATE, ADVANCED)
-      level: level || "BEGINNER",
-      contents: contents || [], // 챕터와 레슨 구조
-      availableDays: availableDays || 9999, // 평생 소장 기본값
+      summary,
+      categoryId,
+      price,
+      coverImageUrl,
+      description,
+      difficulty: courseDifficulty,
+      contents: contents || [],
+      availableDays,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
 
     db.get("courses").push(newCourse).write();
 
-    return res.status(201).json({
-      message: "강의가 성공적으로 생성되었습니다.",
-      course: newCourse,
-    });
+    // 201 Created - 응답 본문 없음 (swagger 명세)
+    return res.status(201).send();
   });
 
   // ==========================================
-  // Course: 강의 목록 조회 (GET /api/v1/courses)
+  // Course: 강좌 목록 조회 (GET /api/v1/courses)
   // ==========================================
   server.get("/api/v1/courses", (req, res) => {
-    // 필터링 기능 지원 (예: ?categoryId=1&search=React&sort=priceAsc)
     const { categoryId, search, sort } = req.query;
 
     let courses = db.get("courses").value();
 
-    // 1. 카테고리 필터링
+    // 카테고리 필터링
     if (categoryId) {
-      // categoryId가 1차인지 2차인지 판별
       const category = db
         .get("categories")
         .find({ id: Number(categoryId) })
@@ -85,7 +183,6 @@ const registerCourseRoutes = (server, router) => {
 
       if (category) {
         if (category.parentId === null) {
-          // 1차 카테고리 → 하위 2차 카테고리 ID들 찾기
           const subCategoryIds = db
             .get("categories")
             .filter((c) => c.parentId === category.id)
@@ -95,13 +192,12 @@ const registerCourseRoutes = (server, router) => {
             subCategoryIds.includes(c.categoryId)
           );
         } else {
-          // 2차 카테고리 → 직접 필터링
           courses = courses.filter((c) => c.categoryId == categoryId);
         }
       }
     }
 
-    // 2. 검색 필터링 (제목, 요약, 설명에서 검색)
+    // 검색 필터링
     if (search) {
       const searchLower = search.toLowerCase();
       courses = courses.filter((course) => {
@@ -113,91 +209,165 @@ const registerCourseRoutes = (server, router) => {
       });
     }
 
-    // 3. 정렬
+    // 정렬
     if (sort === "latest") {
-      // 최신순 (createdAt 기준 내림차순)
       courses = courses.sort((a, b) => {
         const dateA = new Date(a.createdAt || 0);
         const dateB = new Date(b.createdAt || 0);
         return dateB - dateA;
       });
     } else if (sort === "priceAsc") {
-      // 낮은 가격순
       courses = courses.sort((a, b) => (a.price || 0) - (b.price || 0));
     } else if (sort === "priceDesc") {
-      // 높은 가격순
       courses = courses.sort((a, b) => (b.price || 0) - (a.price || 0));
     }
 
-    // 리스트 조회 시에는 contents 같은 무거운 데이터는 제외하고 내려주는 것이 성능상 좋습니다.
-    // (여기서는 Mock이라 그냥 다 내려줍니다)
+    // 전체 course 배열 반환 (DB에 있는 모든 데이터)
     return res.status(200).json(courses);
   });
 
   // ==========================================
-  // Course: 강의 상세 조회 (GET /api/v1/courses/:courseId)
+  // Course: 강좌 상세 조회 (GET /api/v1/courses/:courseId)
   // ==========================================
   server.get("/api/v1/courses/:courseId", (req, res) => {
     const { courseId } = req.params;
 
     const course = db
       .get("courses")
-      .find({ id: isNaN(Number(courseId)) ? courseId : Number(courseId) })
+      .find({ id: Number(courseId) })
       .value();
 
     if (!course) {
-      return res.status(404).json({ message: "강의를 찾을 수 없습니다." });
+      return res.status(404).json({
+        message: "강좌를 찾을 수 없습니다.",
+        code: "COS-0012",
+      });
     }
 
-    return res.status(200).json(course);
+    // CourseDetailResponse 형식으로 반환
+    const response = {
+      courseId: course.id,
+      title: course.title,
+      summary: course.summary,
+      description: course.description,
+      price: course.price,
+      accessDays: course.availableDays,
+      categoryDetail: {
+        categoryId: course.categoryId,
+        name: "카테고리명",
+        subCategoryDetailDto: {
+          subCategoryId: course.categoryId,
+          name: "하위카테고리명",
+        },
+      },
+      instructorName: "강사명",
+      instructorId: course.instructorId,
+      coverImageUrl: course.coverImageUrl,
+      difficulty: course.difficulty,
+      chapters: course.contents || [],
+    };
+
+    return res.status(200).json(response);
   });
 
   // ==========================================
-  // Course: 강의 수정 (PATCH /api/v1/courses/:courseId)
+  // Course: 강좌 수정 (PUT /api/v1/courses/:courseId)
   // ==========================================
-  server.patch("/api/v1/courses/:courseId", (req, res) => {
+  server.put("/api/v1/courses/:courseId", (req, res) => {
     const userId = checkAuth(req, res);
     if (!userId) return;
 
     const { courseId } = req.params;
-    const updates = req.body; // 수정할 필드들
+    const updates = req.body;
 
     const course = db
       .get("courses")
-      .find({ id: isNaN(Number(courseId)) ? courseId : Number(courseId) })
+      .find({ id: Number(courseId) })
       .value();
 
     if (!course) {
-      return res
-        .status(404)
-        .json({ message: "수정할 강의를 찾을 수 없습니다." });
+      return res.status(404).json({
+        message: "강좌를 찾을 수 없습니다.",
+        code: "COS-0012",
+      });
     }
 
-    // (옵션) 본인이 만든 강의인지 체크하는 로직이 들어갈 자리
-    // if (course.instructorId !== userId) return res.status(403)...
+    // 권한 체크 (강좌 소유자가 아닌 경우)
+    if (course.instructorId !== userId) {
+      return res.status(403).json({
+        message: "해당 유저는 강좌의 소유자가 아닙니다.",
+        code: "COS-0013",
+      });
+    }
+
+    // Validation 체크
+    const validationErrors = [];
+
+    if (updates.title && updates.title.length > 30) {
+      validationErrors.push({
+        field: "title",
+        reason: "강좌 제목은 30자까지만 가능합니다.",
+      });
+    }
+
+    if (updates.summary && updates.summary.length > 200) {
+      validationErrors.push({
+        field: "summary",
+        reason: "강좌 소개는 200자까지만 가능합니다.",
+      });
+    }
+
+    if (updates.description && updates.description.length > 1000) {
+      validationErrors.push({
+        field: "description",
+        reason: "강좌 설명은 1000자까지만 가능합니다.",
+      });
+    }
+
+    if (updates.price !== undefined && updates.price < 0) {
+      validationErrors.push({
+        field: "price",
+        reason: "금액은 0보다 크게 작성해주세요.",
+      });
+    }
+
+    if (updates.availableDays !== undefined && updates.availableDays < 0) {
+      validationErrors.push({
+        field: "availableDays",
+        reason: "이용 가능한 날은 0이상 설정해주세요.",
+      });
+    }
+
+    if (validationErrors.length > 0) {
+      return res.status(400).json(createValidationError(validationErrors));
+    }
+
+    // 중복 시퀀스 체크
+    if (updates.contents && updates.contents.length > 0) {
+      const seqs = updates.contents.map((c) => c.seq);
+      if (new Set(seqs).size !== seqs.length) {
+        return res.status(400).json({
+          message: "중복된 시퀀스가 존재합니다.",
+          code: "COS-0011",
+        });
+      }
+    }
 
     // 업데이트 수행
     db.get("courses")
-      .find({ id: isNaN(Number(courseId)) ? courseId : Number(courseId) })
+      .find({ id: Number(courseId) })
       .assign({
         ...updates,
-        updatedAt: new Date().toISOString(), // 수정 시간 갱신
+        updatedAt: new Date().toISOString(),
       })
       .write();
 
-    const updatedCourse = db
-      .get("courses")
-      .find({ id: isNaN(Number(courseId)) ? courseId : Number(courseId) })
-      .value();
-
-    return res.status(200).json({
-      message: "강의 정보가 수정되었습니다.",
-      course: updatedCourse,
-    });
+    // 204 No Content - 응답 본문 없음
+    return res.status(204).send();
   });
 
   // ==========================================
-  // Course: 강의 삭제 (DELETE /api/v1/courses/:courseId)
+  // Course: 강좌 삭제 (DELETE /api/v1/courses/:courseId)
   // ==========================================
   server.delete("/api/v1/courses/:courseId", (req, res) => {
     const userId = checkAuth(req, res);
@@ -207,20 +377,50 @@ const registerCourseRoutes = (server, router) => {
 
     const course = db
       .get("courses")
-      .find({ id: isNaN(Number(courseId)) ? courseId : Number(courseId) })
+      .find({ id: Number(courseId) })
       .value();
 
     if (!course) {
-      return res
-        .status(404)
-        .json({ message: "삭제할 강의가 존재하지 않습니다." });
+      return res.status(404).json({
+        message: "강좌를 찾을 수 없습니다.",
+        code: "COS-0012",
+      });
+    }
+
+    // 권한 체크
+    if (course.instructorId !== userId) {
+      return res.status(403).json({
+        message: "해당 유저는 강좌의 소유자가 아닙니다.",
+        code: "COS-0013",
+      });
     }
 
     db.get("courses")
-      .remove({ id: isNaN(Number(courseId)) ? courseId : Number(courseId) })
+      .remove({ id: Number(courseId) })
       .write();
 
-    return res.status(200).json({ message: "강의가 삭제되었습니다." });
+    // 204 No Content
+    return res.status(204).send();
+  });
+
+  // ==========================================
+  // Instructor: 강사 본인 강좌 요약 조회 (GET /api/instructor/courses)
+  // ==========================================
+  server.get("/api/instructor/courses", (req, res) => {
+    const userId = checkAuth(req, res);
+    if (!userId) return;
+
+    const courses = db.get("courses").filter({ instructorId: userId }).value();
+
+    const contents = courses.map((course) => ({
+      courseId: course.id,
+      title: course.title,
+      coverImageUrl: course.coverImageUrl,
+      price: course.price,
+      difficulty: course.difficulty,
+    }));
+
+    return res.status(200).json({ contents });
   });
 };
 

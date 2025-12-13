@@ -15,7 +15,7 @@
       "email": "instructor@mock.com",
       "password": "password123",
       "nickName": "박강사 (테스트 강사)",
-      "role": "instructor",
+      "role": "INSTRUCTOR",
       "createdAt": "2024-10-20T10:05:00Z"
     },
     {

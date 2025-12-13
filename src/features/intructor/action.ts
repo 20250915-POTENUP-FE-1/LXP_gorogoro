@@ -2,7 +2,6 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-
 import {
   createCourse,
   deleteCourse,
@@ -10,6 +9,8 @@ import {
 } from "@/services/course.service";
 import { CourseFormRequest, CourseFormResponse } from "./types";
 import { Chapter, Difficulty } from "../courses/types";
+import { BackendError } from "@/shared/types/types";
+import { handleBackendError } from "@/shared/utils/errorHandler";
 
 type ActionState = {
   success: boolean;
@@ -115,14 +116,7 @@ export const CreateCourseAction = async (
   try {
     await createCourse(newCourse);
   } catch (error) {
-    return {
-      success: false,
-      message:
-        error instanceof Error
-          ? error.message
-          : "게시글 등록에 실패하였습니다.",
-      errors: {},
-    };
+    return handleBackendError(error as BackendError);
   }
 
   revalidatePath("/instructor/courses");
@@ -134,8 +128,6 @@ export const UpdateCourseAction = async (
   prevState: ActionState,
   formData: FormData
 ): Promise<CourseFormResponse> => {
-  const title = formData.get("title") as string;
-  const categoryId = formData.get("categoryId") as string;
   const updatedCourse = getCourseDataFromFormData(formData);
 
   // 유효성 검사 로직
@@ -152,14 +144,7 @@ export const UpdateCourseAction = async (
   try {
     await updateCourse(id, updatedCourse);
   } catch (error) {
-    return {
-      success: false,
-      message:
-        error instanceof Error
-          ? error.message
-          : "게시글 수정에 실패하였습니다.",
-      errors: {},
-    };
+    return handleBackendError(error as BackendError);
   }
 
   revalidatePath("/instructor/courses");

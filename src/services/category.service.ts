@@ -5,23 +5,27 @@ const CATEGORIES_ENDPOINT = "categories";
 
 //모든 카테고리
 export const getAllCategories = async (): Promise<Category[]> => {
-  const data = await get(CATEGORIES_ENDPOINT);
-  return data as Category[];
+  const response = await get<Category[]>(CATEGORIES_ENDPOINT);
+  if (response.error) throw response.error;
+  return response.data!;
 };
 
 export const getCategoriesById = async (id: string): Promise<Category> => {
-  const data = await get(`${CATEGORIES_ENDPOINT}/${id}`);
-  return data as Category;
+  const response = await get<Category>(`${CATEGORIES_ENDPOINT}/${id}`);
+  if (response.error) throw response.error;
+  return response.data!;
 };
 
 //카테고리 추가
 export const createCategory = async (body: unknown): Promise<Category> => {
-  const data = await post(CATEGORIES_ENDPOINT, body);
-  return data as Category;
+  const response = await post<Category>(CATEGORIES_ENDPOINT, body);
+  if (response.error) throw response.error;
+  return response.data!;
 };
 
 //카테고리 삭제
 export const deleteCategory = async (id: string) => {
-  const data = await del(`${CATEGORIES_ENDPOINT}/${id}`);
-  return data;
+  const response = await del(`${CATEGORIES_ENDPOINT}/${id}`);
+  if (response.error) throw response.error;
+  return response.data;
 };

@@ -34,6 +34,9 @@ export default function SignupForm() {
           type="text"
           placeholder="이름을 입력하세요"
         />
+        {state.errors?.name && (
+          <span className={styles.errorMessage}>{state.errors.name}</span>
+        )}
       </label>
       <label className={styles.field}>
         <span className={styles.label}>이메일</span>
@@ -44,6 +47,9 @@ export default function SignupForm() {
           type="email"
           placeholder="hello@example.com"
         />
+        {state.errors?.email && (
+          <span className={styles.errorMessage}>{state.errors.email}</span>
+        )}
       </label>
       <label className={styles.field}>
         <span className={styles.label}>비밀번호</span>
@@ -54,6 +60,9 @@ export default function SignupForm() {
           type="password"
           placeholder="8자 이상 입력"
         />
+        {state.errors?.password && (
+          <span className={styles.errorMessage}>{state.errors.password}</span>
+        )}
       </label>
       <label className={styles.field}>
         <span className={styles.label}>비밀번호 확인</span>
@@ -64,6 +73,9 @@ export default function SignupForm() {
           type="password"
           placeholder="비밀번호를 다시 입력하세요"
         />
+        {state.errors?.confirmPassword && (
+          <span className={styles.errorMessage}>{state.errors.confirmPassword}</span>
+        )}
       </label>
 
       <fieldset className={styles.fieldset}>

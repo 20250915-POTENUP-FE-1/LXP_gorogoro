@@ -5,6 +5,7 @@ import { loginAction } from "../actions/login.action";
 import styles from "./LoginForm.module.css";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { useRouter } from "next/navigation";
+import { useModalStore } from "@/stores/useModalStore";
 
 const initialState = {
   success: false,
@@ -19,7 +20,9 @@ export default function LoginForm() {
   );
   const setUser = useAuthStore((state) => state.setUser);
   const router = useRouter();
+  const { openModal } = useModalStore();
 
+  // 로그인 성공 시
   useEffect(() => {
     if (state.success && state.data) {
       setUser({
@@ -28,7 +31,17 @@ export default function LoginForm() {
       });
       router.push("/courses");
     }
-  }, [state, setUser]);
+  }, [state, setUser, router]);
+
+  // 로그인 실패 시 모달 표시
+  useEffect(() => {
+    if (!state.success && state.message) {
+      openModal({
+        title: "로그인 실패",
+        message: state.message,
+      });
+    }
+  }, [state.success, state.message, openModal]);
 
   return (
     <form action={formAction} className={styles.form}>
