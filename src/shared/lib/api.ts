@@ -18,6 +18,7 @@ export const handleResponse = async <T = any>(
       data: null,
       error: {
         status: res.status,
+        errors: errorBody.errors,
         code: errorBody?.code,
         message: errorBody?.message || res.statusText,
       },
@@ -88,7 +89,7 @@ export const del = async <T = any>(
   const res = await fetch(`${BASE_URL}/${endpoint}`, {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
+    ...(body !== undefined ? { body: JSON.stringify(body) } : {}),
   });
 
   return handleResponse<T>(res);

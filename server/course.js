@@ -295,7 +295,7 @@ const registerCourseRoutes = (server, router) => {
     // 권한 체크 (강좌 소유자가 아닌 경우)
     if (course.instructorId !== userId) {
       return res.status(403).json({
-        message: "해당 유저는 강의의 소유자가 아닙니다.",
+        message: "해당 유저는 강좌의 소유자가 아닙니다.",
         code: "COS-0013",
       });
     }
@@ -390,7 +390,7 @@ const registerCourseRoutes = (server, router) => {
     // 권한 체크
     if (course.instructorId !== userId) {
       return res.status(403).json({
-        message: "해당 유저는 강의의 소유자가 아닙니다.",
+        message: "해당 유저는 강좌의 소유자가 아닙니다.",
         code: "COS-0013",
       });
     }

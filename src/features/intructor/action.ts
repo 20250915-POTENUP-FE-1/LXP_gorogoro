@@ -124,7 +124,24 @@ export const CreateCourseAction = async (
         return {
           success: false,
           message: err.message || "입력값을 확인해주세요.",
-          errors: {},
+          errors:
+            err.errors &&
+            typeof err.errors === "object" &&
+            !Array.isArray(err.errors)
+              ? err.errors
+              : Array.isArray(err.errors)
+              ? err.errors.reduce(
+                  (
+                    acc: Record<string, string>,
+                    curr: { field: string; message: string }
+                  ) => {
+                    if (curr.field && curr.message)
+                      acc[curr.field] = curr.message;
+                    return acc;
+                  },
+                  {}
+                )
+              : {},
         };
 
       case 401:

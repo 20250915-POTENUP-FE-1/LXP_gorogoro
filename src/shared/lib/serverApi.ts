@@ -3,7 +3,7 @@
 import { cookies } from "next/headers";
 import { handleResponse } from "./api";
 import { ApiResponse } from "../types/types";
-const BASE_URL = process.env.API_BASE_URL || "http://localhost:3002/api/v1";
+const BASE_URL = process.env.API_BASE_URL || "http://localhost:8080/api/v1";
 
 export const fetchWithAuth = async <T = any>(
   endpoint: string,
