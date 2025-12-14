@@ -4,12 +4,8 @@ import { deleteAllCart, deleteCartItem } from "@/services/cart.service";
 import { BackendError } from "@/shared/types/types";
 import { handleBackendError } from "@/shared/utils/errorHandler";
 import { revalidatePath } from "next/cache";
+import { ActionState } from "@/shared/types/types";
 
-type ActionState = {
-  success: boolean;
-  message?: string;
-  errors?: Record<string, string>;
-};
 export const deleteCartItemAction = async (
   courseId: number
 ): Promise<ActionState> => {

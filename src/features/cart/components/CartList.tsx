@@ -4,12 +4,8 @@ import { useModalStore } from "@/stores/useModalStore";
 import CartItem from "./CartItem";
 import styles from "./CartList.module.css";
 import { CartCourse } from "../types";
+import { ActionState } from "@/shared/types/types";
 
-type ActionState = {
-  success: boolean;
-  message?: string;
-  errors?: Record<string, string>;
-};
 interface CartListProps {
   cartItems: CartCourse[];
   deleteCartItemAction: (courseId: number) => Promise<ActionState>;

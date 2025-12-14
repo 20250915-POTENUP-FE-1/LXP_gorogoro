@@ -9,3 +9,9 @@ export type BackendError = {
   message?: string;
   errors?: {};
 };
+
+export type ActionState = {
+  success: boolean;
+  message?: string;
+  errors?: Record<string, string>;
+};

@@ -46,7 +46,7 @@ export const registAction = async (
   try {
     await regitsterUser(payload);
   } catch (error) {
-    //백엔드 에러 코드 기반으로 매핑 필요
+    //백엔드 에러 코드 기반으로 매핑
     const err = error as BackendError;
     return mapAuthError(err);
   }

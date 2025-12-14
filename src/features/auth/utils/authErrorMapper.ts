@@ -1,10 +1,4 @@
-import { BackendError } from "@/shared/types/types";
-
-type ActionState = {
-  success: boolean;
-  message?: string;
-  errors?: Record<string, string>;
-};
+import { BackendError, ActionState } from "@/shared/types/types";
 
 export const mapAuthError = (err: BackendError): ActionState => {
   switch (err.code) {
@@ -77,15 +71,14 @@ export const mapAuthError = (err: BackendError): ActionState => {
       return {
         success: false,
         message:
-          err.message ??
-          "휴면 계정입니다. 이메일 인증을 통해 활성화 시켜주세요.",
+          err.message ?? "휴면 계정입니다. 이메일 인증을 통해 활성화 해주세요.",
       };
     case "US-0005":
       return {
         success: false,
         message:
           err.message ??
-          "닉네임 생성에 실패했습니다. 잠시후 다시 시도해주세요.",
+          "닉네임 생성에 실패했습니다. 잠시 후 다시 시도해주세요.",
       };
     case "US-0008":
       return {
@@ -131,7 +124,7 @@ export const mapAuthError = (err: BackendError): ActionState => {
         success: false,
         message:
           err.message ??
-          "리프레시 토큰을 찾을수 없습니다. 확인 후 다시 시도해주세요.",
+          "리프레시 토큰을 찾을 수 없습니다. 확인 후 다시 시도해주세요.",
       };
     case "TK-0004":
       return {
