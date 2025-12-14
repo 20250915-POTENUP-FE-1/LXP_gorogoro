@@ -31,7 +31,11 @@ export function proxy(request: NextRequest) {
   return NextResponse.next();
 }
 
+// 인증이 필요한 경로에서만 middleware 실행
 export const config = {
-  // 아래 경로들에만 proxy가 실행되는 것
-  matcher: ["/instructor/:path*", "/mypage/:path*", "/cart"],
+  matcher: [
+    "/instructor/:path*", // 강사 전용 페이지
+    "/mypage/:path*", // 마이페이지
+    "/cart", // 장바구니
+  ],
 };
