@@ -1,4 +1,4 @@
-import { ApiResponse } from "../types/types";
+import { ApiResponse, BackendError } from "../types/types";
 
 const BASE_URL = process.env.API_BASE_URL || "http://localhost:8080/api/v1";
 
@@ -14,21 +14,22 @@ export const handleResponse = async <T = any>(
       // JSON 파싱 실패 - 백엔드에서 정의하지 못한 에러
       errorBody = { message: "알 수 없는 에러가 발생했습니다" };
     }
+    const backendError: BackendError = {
+      status: res.status,
+      code: errorBody?.code,
+      message: errorBody?.message || res.statusText,
+      errors: errorBody?.errors,
+    };
     return {
       data: null,
-      error: {
-        status: res.status,
-        errors: errorBody.errors,
-        code: errorBody?.code,
-        message: errorBody?.message || res.statusText,
-      },
+      error: backendError,
     };
   }
 
   if (res.status === 204) {
     return { data: null, error: null };
   }
-  return { data: await res.json(), error: null };
+  return { data: (await res.json()) as T, error: null };
 };
 
 export const get = async <T = any>(

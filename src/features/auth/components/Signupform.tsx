@@ -4,6 +4,7 @@ import { useActionState, useEffect } from "react";
 import styles from "./SignupForm.module.css";
 import { registAction } from "../actions/regist.action";
 import { useRouter } from "next/navigation";
+import { useModalStore } from "@/stores/useModalStore";
 
 const initialState = {
   success: false,
@@ -12,17 +13,33 @@ const initialState = {
 };
 
 export default function SignupForm() {
-  const router = useRouter();
   const [state, formAction, isPending] = useActionState(
     registAction,
     initialState
   );
+  const router = useRouter();
+  const { openModal } = useModalStore();
+  //회원가입 성공시
   useEffect(() => {
     if (state.success === true) {
-      alert(state.message);
-      router.push("/login");
+      openModal({
+        title: "회원가입 성공",
+        message: state.message || "회원가입이 완료되었습니다.",
+        onConfirm: () => router.push("/login"),
+      });
     }
-  }, [state, router]);
+  }, [state, router, openModal]);
+
+  //회원가입 실패시 모달 표시
+  useEffect(() => {
+    if (!state.success && state.message) {
+      openModal({
+        title: "회원가입 실패",
+        message: state.message,
+      });
+    }
+  }, [state.success, state.message, openModal]);
+
   return (
     <form action={formAction} className={styles.form}>
       <label className={styles.field}>
@@ -74,7 +91,9 @@ export default function SignupForm() {
           placeholder="비밀번호를 다시 입력하세요"
         />
         {state.errors?.confirmPassword && (
-          <span className={styles.errorMessage}>{state.errors.confirmPassword}</span>
+          <span className={styles.errorMessage}>
+            {state.errors.confirmPassword}
+          </span>
         )}
       </label>
 
@@ -95,9 +114,6 @@ export default function SignupForm() {
         </select>
       </fieldset>
 
-      {!state.success && state.message && (
-        <span className={styles.errorMessage}>{state.message}</span>
-      )}
       <button className={styles.submit} type="submit">
         회원가입
       </button>

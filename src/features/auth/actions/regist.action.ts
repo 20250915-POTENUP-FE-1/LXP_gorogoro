@@ -3,6 +3,8 @@
 import { regitsterUser } from "@/services/auth.service";
 import { RegitstRequest, ROLE } from "../types";
 import { validateRegistForm } from "../validate";
+import { BackendError } from "@/shared/types/types";
+import { mapAuthError } from "../utils/authErrorMapper";
 
 type ActionState<T> = {
   success: boolean;
@@ -45,10 +47,8 @@ export const registAction = async (
     await regitsterUser(payload);
   } catch (error) {
     //백엔드 에러 코드 기반으로 매핑 필요
-    return {
-      success: false,
-      message: error instanceof Error ? error.message : "Unknown Error 발생",
-    };
+    const err = error as BackendError;
+    return mapAuthError(err);
   }
   return {
     success: true,

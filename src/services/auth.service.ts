@@ -21,7 +21,7 @@ export const regitsterUser = async (
 
 export const loginUser = async (body: LoginRequest): Promise<LoginResponse> => {
   const response = await post<LoginResponse>(`${LOGIN_ENDPOINT}`, body);
-  if (response.error) throw response.error;
+  if (response.error) throw response.error; // BackendError
   return response.data!;
 };
 
