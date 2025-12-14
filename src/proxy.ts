@@ -6,9 +6,6 @@ export function proxy(request: NextRequest) {
   const accessToken = request.cookies.get("accessToken")?.value;
   const { pathname } = request.nextUrl;
 
-  console.log("현재 경로:", pathname);
-  console.log("토큰 존재:", !!accessToken);
-
   // 인증 체크
   if (!accessToken) {
     const loginUrl = new URL("/login", request.url);
