@@ -3,7 +3,7 @@ import {
   ModifyMeRequest,
   ModifyMeResponse,
 } from "@/features/auth/types";
-import { fetchWithAuth } from "@/shared/lib/serverApi";
+import { fetchWithAuth } from "@/shared/lib/authApi";
 
 const GET_ME_ENDPOINT = "auth/v1/users/me";
 const MODIFY_ME_ENDPOINT = "auth/users/modify";

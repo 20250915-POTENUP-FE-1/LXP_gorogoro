@@ -1,8 +1,9 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { handleResponse } from "./api";
+import { handleResponse } from "./responseHandler";
 import { ApiResponse } from "../types/types";
+
 const BASE_URL = process.env.API_BASE_URL || "http://localhost:8080/api/v1";
 
 export const fetchWithAuth = async <T = any>(
