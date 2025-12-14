@@ -31,7 +31,7 @@ export default function LoginForm() {
         role: state.data.role,
       });
       const from = searchParams.get("from") || "/";
-      router.push(from ? from : "/courses");
+      router.push(from);
     }
   }, [state, setUser, router]);
 
