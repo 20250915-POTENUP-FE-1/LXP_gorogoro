@@ -12,8 +12,7 @@ export function decodeJWT(
     const decoded = JSON.parse(atob(payload));
 
     return decoded;
-  } catch (error) {
-    console.error("JWT 디코딩 실패:", error);
+  } catch {
     return null;
   }
 }
