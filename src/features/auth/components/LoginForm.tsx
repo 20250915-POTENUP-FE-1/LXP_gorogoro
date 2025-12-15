@@ -4,7 +4,7 @@ import { useEffect, useActionState } from "react";
 import { loginAction } from "../actions/login.action";
 import styles from "./LoginForm.module.css";
 import { useAuthStore } from "@/stores/useAuthStore";
-import { useRouter } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { useModalStore } from "@/stores/useModalStore";
 
 const initialState = {
@@ -19,6 +19,7 @@ export default function LoginForm() {
     initialState
   );
   const setUser = useAuthStore((state) => state.setUser);
+  const searchParams = useSearchParams();
   const router = useRouter();
   const { openModal } = useModalStore();
 
@@ -29,7 +30,8 @@ export default function LoginForm() {
         nickName: state.data.nickName,
         role: state.data.role,
       });
-      router.push("/courses");
+      const from = searchParams.get("from") || "/";
+      router.push(from);
     }
   }, [state, setUser, router]);
 
