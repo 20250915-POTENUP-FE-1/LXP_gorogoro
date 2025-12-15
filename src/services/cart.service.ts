@@ -1,4 +1,4 @@
-import { fetchWithAuth } from "@/shared/lib/serverApi";
+import { fetchWithAuth } from "@/shared/lib/authApi";
 
 const CARTS_ENDPOINT = "carts";
 

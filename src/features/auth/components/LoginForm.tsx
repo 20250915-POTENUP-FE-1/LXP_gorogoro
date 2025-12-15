@@ -23,7 +23,7 @@ export default function LoginForm() {
   const router = useRouter();
   const { openModal } = useModalStore();
 
-  // 로그인 성공 시
+  // 로그인 성공시
   useEffect(() => {
     if (state.success && state.data) {
       setUser({
@@ -35,7 +35,7 @@ export default function LoginForm() {
     }
   }, [state, setUser, router]);
 
-  // 로그인 실패 시 모달 표시
+  // 로그인 실패시 모달 표시
   useEffect(() => {
     if (!state.success && state.message) {
       openModal({
@@ -55,6 +55,9 @@ export default function LoginForm() {
           type="email"
           placeholder="Enter your email"
         />
+        {state.errors?.email && (
+          <span className={styles.errorMessage}>{state.errors.email}</span>
+        )}
       </label>
       <label className={styles.field}>
         <span className={styles.label}>비밀번호</span>
@@ -67,13 +70,7 @@ export default function LoginForm() {
         {state.errors?.password && (
           <span className={styles.errorMessage}>{state.errors.password}</span>
         )}
-        {state.errors?.email && (
-          <span className={styles.errorMessage}>{state.errors.email}</span>
-        )}
       </label>
-      {!state.success && state.message && (
-        <span className={styles.errorMessage}>{state.message}</span>
-      )}
       <button className={styles.submit} type="submit">
         {isPending ? "로그인 하는 중..." : "로그인"}
       </button>

@@ -1,35 +1,7 @@
 import { ApiResponse } from "../types/types";
+import { handleResponse } from "./responseHandler";
 
 const BASE_URL = process.env.API_BASE_URL || "http://localhost:8080/api/v1";
-
-// 응답 처리 유틸 함수
-export const handleResponse = async <T = any>(
-  res: Response
-): Promise<ApiResponse<T>> => {
-  if (!res.ok) {
-    let errorBody = null;
-    try {
-      errorBody = await res.json();
-    } catch {
-      // JSON 파싱 실패 - 백엔드에서 정의하지 못한 에러
-      errorBody = { message: "알 수 없는 에러가 발생했습니다" };
-    }
-    return {
-      data: null,
-      error: {
-        status: res.status,
-        errors: errorBody.errors,
-        code: errorBody?.code,
-        message: errorBody?.message || res.statusText,
-      },
-    };
-  }
-
-  if (res.status === 204) {
-    return { data: null, error: null };
-  }
-  return { data: await res.json(), error: null };
-};
 
 export const get = async <T = any>(
   endpoint: string,

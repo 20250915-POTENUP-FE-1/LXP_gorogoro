@@ -1,7 +1,7 @@
 import { Course } from "@/features/courses/types";
 import { CourseFormRequest } from "@/features/intructor/types";
 import { get, post, put, del } from "@/shared/lib/api";
-import { fetchWithAuth } from "@/shared/lib/serverApi";
+import { fetchWithAuth } from "@/shared/lib/authApi";
 
 const COURSES_ENDPOINT = "courses";
 const INSTRUCTOR_COURSES_ENDPOINT = "instructor/courses";

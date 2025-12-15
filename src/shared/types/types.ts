@@ -7,5 +7,11 @@ export type BackendError = {
   status: number;
   code?: string;
   message?: string;
-  errors: {};
+  errors?: {};
+};
+
+export type ActionState = {
+  success: boolean;
+  message?: string;
+  errors?: Record<string, string>;
 };
