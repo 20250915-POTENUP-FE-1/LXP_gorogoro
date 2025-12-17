@@ -6,7 +6,7 @@ import UserInfo from "./UserInfo";
 import UserActions from "./UserActions";
 
 export default async function Header() {
-  const categories = await getAllCategories();
+  const { contents: categories } = await getAllCategories();
 
   return (
     <header className={styles.header}>

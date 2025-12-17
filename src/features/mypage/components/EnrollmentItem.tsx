@@ -2,9 +2,14 @@
 
 import Link from "next/link";
 import styles from "./EnrollmentItem.module.css";
+import { EnrolledCourse } from "../types";
 
-export default function EnrollmentItem({ course }: any) {
-  const handleCancel = async (courseId: string) => {
+interface EnrollmentItemProps {
+  course: EnrolledCourse;
+}
+
+export default function EnrollmentItem({ course }: EnrollmentItemProps) {
+  const handleCancel = async (enrollmentId: string) => {
     if (confirm("정말로 수강을 취소하시겠습니까?")) {
       alert("수강 취소 기능은 준비중입니다.");
     }
@@ -13,17 +18,17 @@ export default function EnrollmentItem({ course }: any) {
   const progress = course.progress || 0;
 
   return (
-    <article className={styles.item} key={course.title}>
+    <article className={styles.item} key={course.courseTitle}>
       <div className={styles.thumbnail}>
         <img
           className={styles.image}
           src={course.coverImageUrl}
-          alt={course.title}
+          alt={course.courseTitle}
         />
       </div>
       <div className={styles.body}>
-        <div className={styles.category}>{course.category}</div>
-        <h3 className={styles.title}>{course.title}</h3>
+        <div className={styles.category}>{course.categoryName}</div>
+        <h3 className={styles.title}>{course.courseTitle}</h3>
         <p className={styles.instructor}>{course.instructorName}</p>
         <div className={styles.progressContainer}>
           <div className={styles.progressLabel}>
@@ -39,13 +44,16 @@ export default function EnrollmentItem({ course }: any) {
         </div>
       </div>
       <div className={styles.meta}>
-        <Link href={`/courses/${course.id}/learn`} className={styles.action}>
+        <Link
+          href={`/courses/${course.courseId}/learn`}
+          className={styles.action}
+        >
           이어 학습하기
         </Link>
         <button
           className={`${styles.action} ${styles.actionSecondary}`}
           type="button"
-          onClick={() => handleCancel(course.id)}
+          onClick={() => handleCancel(course.enrollmentId)}
         >
           수강 취소
         </button>

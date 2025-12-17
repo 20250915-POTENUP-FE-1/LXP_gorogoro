@@ -10,7 +10,7 @@ export default async function CourseEditPage({
 }) {
   const { id } = await params;
 
-  const categories = await getAllCategories();
+  const { contents: categories } = await getAllCategories();
   const course = await getCourseById(id);
 
   return (

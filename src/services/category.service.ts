@@ -4,8 +4,8 @@ import { del, get, post } from "@/shared/lib/api";
 const CATEGORIES_ENDPOINT = "categories";
 
 //모든 카테고리
-export const getAllCategories = async (): Promise<Category[]> => {
-  const response = await get<Category[]>(CATEGORIES_ENDPOINT);
+export const getAllCategories = async (): Promise<{ contents: Category[] }> => {
+  const response = await get<{ contents: Category[] }>(CATEGORIES_ENDPOINT);
   if (response.error) throw response.error;
   return response.data!;
 };

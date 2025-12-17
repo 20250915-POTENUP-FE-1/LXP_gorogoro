@@ -1,4 +1,4 @@
-import { getCourseById } from "@/services/course.service";
+import { getCourseLearn } from "@/services/course.service";
 import LearnHeader from "./components/LearnHeader";
 import LearnSidebar from "./components/LearnSidebar";
 import styles from "./layout.module.css";
@@ -11,7 +11,7 @@ export default async function LearnLayout({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const course = await getCourseById(id);
+  const course = await getCourseLearn(id);
 
   return (
     <div className={styles.container}>

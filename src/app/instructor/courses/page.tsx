@@ -2,6 +2,6 @@ import InstructorCourseList from "@/features/intructor/components/InstructorCour
 import { getInstructorCourses } from "@/services/course.service";
 
 export default async function InstructorCoursePage() {
-  const courses = await getInstructorCourses();
+  const { contents: courses } = await getInstructorCourses();
   return <InstructorCourseList courses={courses} />;
 }

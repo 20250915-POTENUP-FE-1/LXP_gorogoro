@@ -1,5 +1,5 @@
 import styles from "./page.module.css";
-import { getCourseById } from "@/services/course.service";
+import { getCourseLearn } from "@/services/course.service";
 
 export default async function LearnPage({
   params,
@@ -10,7 +10,7 @@ export default async function LearnPage({
 }) {
   const { id } = await params;
   const { chapter, lesson } = await searchParams;
-  const course = await getCourseById(id);
+  const course = await getCourseLearn(id);
 
   // searchParams에서 현재 챕터와 레슨 가져오기, 없으면 첫 번째 레슨
   const currentChapterSeq = chapter

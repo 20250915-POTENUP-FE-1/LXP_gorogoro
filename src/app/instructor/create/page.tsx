@@ -4,7 +4,7 @@ import { getAllCategories } from "@/services/category.service";
 import { Category } from "@/features/courses/types";
 
 export default async function CourseCreatePage() {
-  const categories: Category[] = await getAllCategories();
+  const { contents: categories } = await getAllCategories();
 
   return (
     <section className={styles.container}>

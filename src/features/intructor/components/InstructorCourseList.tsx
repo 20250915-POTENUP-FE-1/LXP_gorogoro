@@ -1,7 +1,9 @@
 import styles from "./InstructorCourseList.module.css";
 import InstructorCourseItem from "./InstructorCourseItem";
+import { InstructorCourse } from "../types";
+
 interface InstructorCourseListProps {
-  courses: any[];
+  courses: InstructorCourse[];
 }
 
 export default function InstructorCourseList({
@@ -15,7 +17,7 @@ export default function InstructorCourseList({
       </header>
       <div className={styles.items}>
         {courses.map((course) => (
-          <InstructorCourseItem key={course.id} course={course} />
+          <InstructorCourseItem key={course.courseId} course={course} />
         ))}
       </div>
     </section>

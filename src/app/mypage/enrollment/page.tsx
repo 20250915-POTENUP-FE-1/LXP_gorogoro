@@ -1,5 +1,5 @@
 import EnrollmentList from "@/features/mypage/components/EnrollmentList";
-import { getCourses } from "@/services/course.service";
+import { getMyEnrollments } from "@/services/course.service";
 
 export default async function EnrollmentPage({
   params,
@@ -8,9 +8,11 @@ export default async function EnrollmentPage({
 }) {
   const { userId } = await params;
 
-  const courses = await getCourses();
+  const { contents: enrolledCourses } = await getMyEnrollments();
 
-  const coursesCount = courses.length;
+  const coursesCount = enrolledCourses.length;
 
-  return <EnrollmentList courses={courses} coursesCount={coursesCount} />;
+  return (
+    <EnrollmentList courses={enrolledCourses} coursesCount={coursesCount} />
+  );
 }
