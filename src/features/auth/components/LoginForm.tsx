@@ -27,7 +27,7 @@ export default function LoginForm() {
   useEffect(() => {
     if (state.success && state.data) {
       setUser({
-        nickName: state.data.nickName,
+        nickname: state.data.nickname,
         role: state.data.role,
       });
       const from = searchParams.get("from") || "/";

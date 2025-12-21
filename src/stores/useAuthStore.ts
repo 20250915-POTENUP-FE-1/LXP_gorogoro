@@ -2,39 +2,23 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { ROLE } from "@/features/auth/types";
 
-interface UserProfile {
-  nickName: string;
+type UserProfile = {
+  nickname: string;
   role: ROLE;
-}
-
+};
 interface AuthStore {
-  userProfile: UserProfile;
-  setUser: (data: UserProfile) => void;
-  logout: () => void;
+  userProfile: UserProfile | null; // 유저 프로필
+  setUser: (user: UserProfile) => void; // 로그인/유저정보 갱신 (항상 객체)
+  clearUser: () => void; // 로그아웃 (null로 초기화)
 }
 
 export const useAuthStore = create<AuthStore>()(
   persist(
     (set) => ({
-      userProfile: {
-        nickName: "",
-        role: "STUDENT",
-      },
-      setUser: (data: UserProfile) =>
-        set({
-          userProfile: data,
-        }),
-      logout: () =>
-        set({
-          userProfile: {
-            nickName: "",
-            role: "STUDENT",
-          },
-        }),
+      userProfile: null,
+      setUser: (user: UserProfile) => set({ userProfile: user }),
+      clearUser: () => set({ userProfile: null }),
     }),
-    {
-      name: "auth-storage", // localStorage key
-      storage: createJSONStorage(() => localStorage),
-    }
+    { name: "auth-store", storage: createJSONStorage(() => localStorage) }
   )
 );

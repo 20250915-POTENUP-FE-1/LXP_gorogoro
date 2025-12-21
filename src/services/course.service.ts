@@ -11,70 +11,81 @@ const COURSES_ENDPOINT = "courses";
 const INSTRUCTOR_COURSES_ENDPOINT = "instructor/courses";
 const ENROLLMENTS_ENDPOINT = "enrollments";
 
+/**
+ * 강좌 목록 조회
+ * @throws {BackendError}
+ */
 export const getCourses = async (
   apiParams?: any
 ): Promise<{ contents: Course[] }> => {
-  const response = await get<{ contents: Course[] }>(
-    COURSES_ENDPOINT,
-    apiParams
-  );
-  if (response.error) throw response.error;
-  return response.data!;
+  return await get<{ contents: Course[] }>(COURSES_ENDPOINT, apiParams);
 };
 
+/**
+ * 강사의 강좌 목록 조회
+ * @throws {BackendError}
+ */
 export const getInstructorCourses = async (): Promise<{
   contents: InstructorCourse[];
 }> => {
-  const response = await fetchWithAuth(INSTRUCTOR_COURSES_ENDPOINT, {
+  return await fetchWithAuth(INSTRUCTOR_COURSES_ENDPOINT, {
     method: "GET",
   });
-  if (response.error) throw response.error;
-  return response.data!;
 };
 
+/**
+ * 강좌 상세 조회
+ * @throws {BackendError}
+ */
 export const getCourseById = async (id: string): Promise<CourseDetail> => {
-  const response = await get<CourseDetail>(`${COURSES_ENDPOINT}/${id}`);
-  if (response.error) throw response.error;
-  return response.data!;
+  return await get<CourseDetail>(`${COURSES_ENDPOINT}/${id}`);
 };
 
-// 학습용 강좌 상세 조회 (수강자 전용 - contents 포함)
+/**
+ * 학습용 강좌 상세 조회 (수강자 전용 - contents 포함)
+ * @throws {BackendError}
+ */
 export const getCourseLearn = async (id: string): Promise<CourseLearn> => {
-  const response = await fetchWithAuth(`${COURSES_ENDPOINT}/${id}/learn`, {
+  return await fetchWithAuth(`${COURSES_ENDPOINT}/${id}/learn`, {
     method: "GET",
   });
-  if (response.error) throw response.error;
-  return response.data!;
 };
 
-// 내 수강 목록 조회
+/**
+ * 내 수강 목록 조회
+ * @throws {BackendError}
+ */
 export const getMyEnrollments = async (): Promise<MyEnrollmentsResponse> => {
-  const response = await fetchWithAuth(`${ENROLLMENTS_ENDPOINT}/my`, {
+  return await fetchWithAuth(`${ENROLLMENTS_ENDPOINT}/my`, {
     method: "GET",
   });
-  if (response.error) throw response.error;
-  return response.data!;
 };
 
+/**
+ * 강좌 생성
+ * @throws {BackendError}
+ */
 export const createCourse = async (
   body: CourseFormRequest
 ): Promise<Course> => {
-  const response = await post<Course>(COURSES_ENDPOINT, body);
-  if (response.error) throw response.error;
-  return response.data!;
+  return await post<Course>(COURSES_ENDPOINT, body);
 };
 
+/**
+ * 강좌 수정
+ * @throws {BackendError}
+ */
 export const updateCourse = async (
   id: string,
   body: CourseFormRequest
 ): Promise<Course> => {
-  const response = await put<Course>(`${COURSES_ENDPOINT}/${id}`, body);
-  if (response.error) throw response.error;
-  return response.data!;
+  return await put<Course>(`${COURSES_ENDPOINT}/${id}`, body);
 };
 
+/**
+ * 강좌 삭제
+ * @throws {BackendError}
+ */
 export const deleteCourse = async (id: string) => {
-  const response = await del(`${COURSES_ENDPOINT}/${id}`);
-  if (response.error) throw response.error;
-  return response.data;
+  return await del(`${COURSES_ENDPOINT}/${id}`);
 };
