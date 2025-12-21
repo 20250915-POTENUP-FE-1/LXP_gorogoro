@@ -3,7 +3,7 @@
 import { registerUser } from "@/services/auth.service";
 import { RegitstRequest, ROLE } from "../types";
 import { validateRegistForm } from "../validate";
-import { BackendError } from "@/shared/types/types";
+import { isBackendError } from "@/shared/types/types";
 import { mapAuthError } from "../utils/authErrorMapper";
 
 type ActionState<T> = {
@@ -45,13 +45,21 @@ export const registAction = async (
 
   try {
     await registerUser(payload);
+
+    return {
+      success: true,
+      message: "회원가입이 성공적으로 완료되었습니다.",
+    };
   } catch (error) {
-    //백엔드 에러 코드 기반으로 매핑
-    const err = error as BackendError;
-    return mapAuthError(err);
+    // 백엔드 에러 코드 기반으로 매핑
+    if (isBackendError(error)) {
+      return mapAuthError(error);
+    }
+
+    // 예상치 못한 에러
+    return {
+      success: false,
+      message: "알 수 없는 에러가 발생했습니다.",
+    };
   }
-  return {
-    success: true,
-    message: "회원가입이 성공적으로 완료되었습니다.",
-  };
 };

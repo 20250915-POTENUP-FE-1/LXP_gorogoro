@@ -1,13 +1,51 @@
-import { ApiResponse } from "../types/types";
-import { handleResponse } from "./responseHandler";
+import { BackendError } from "../types/types";
 
-const BASE_URL = process.env.API_BASE_URL || "http://localhost:8080/api/v1";
+const BASE_URL = process.env.API_BASE_URL || "http://localhost:8080/api/";
 
+/**
+ * HTTP Response를 처리하고 에러 시 throw
+ * @throws {BackendError} HTTP 에러 발생 시
+ */
+const handleResponse = async <T>(res: Response): Promise<T> => {
+  // 에러 응답 처리
+  if (!res.ok) {
+    let errorBody: any = null;
+
+    try {
+      errorBody = await res.json();
+    } catch {
+      // JSON 파싱 실패 - 백엔드에서 정의하지 못한 에러
+      errorBody = { message: "알 수 없는 에러가 발생했습니다" };
+    }
+
+    const backendError: BackendError = {
+      status: res.status,
+      code: errorBody?.code,
+      message: errorBody?.message || res.statusText,
+      errors: errorBody?.errors,
+    };
+
+    throw backendError;
+  }
+
+  // 204 No Content
+  if (res.status === 204) {
+    return null as T;
+  }
+
+  // 정상 응답
+  return await res.json();
+};
+
+/**
+ * GET 요청
+ * @throws {BackendError}
+ */
 export const get = async <T = any>(
   endpoint: string,
   apiParams?: any
-): Promise<ApiResponse<T>> => {
-  let url = `${BASE_URL}/${endpoint}`;
+): Promise<T> => {
+  let url = `${BASE_URL}${endpoint}`;
 
   if (apiParams && Object.keys(apiParams).length > 0) {
     const queryString = new URLSearchParams(apiParams).toString();
@@ -18,11 +56,15 @@ export const get = async <T = any>(
   return handleResponse<T>(res);
 };
 
+/**
+ * POST 요청
+ * @throws {BackendError}
+ */
 export const post = async <T = any>(
   endpoint: string,
   body: unknown
-): Promise<ApiResponse<T>> => {
-  const res = await fetch(`${BASE_URL}/${endpoint}`, {
+): Promise<T> => {
+  const res = await fetch(`${BASE_URL}${endpoint}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
@@ -31,11 +73,15 @@ export const post = async <T = any>(
   return handleResponse<T>(res);
 };
 
+/**
+ * PUT 요청
+ * @throws {BackendError}
+ */
 export const put = async <T = any>(
   endpoint: string,
   body: unknown
-): Promise<ApiResponse<T>> => {
-  const res = await fetch(`${BASE_URL}/${endpoint}`, {
+): Promise<T> => {
+  const res = await fetch(`${BASE_URL}${endpoint}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
@@ -44,11 +90,15 @@ export const put = async <T = any>(
   return handleResponse<T>(res);
 };
 
+/**
+ * PATCH 요청
+ * @throws {BackendError}
+ */
 export const patch = async <T = any>(
   endpoint: string,
   body: unknown
-): Promise<ApiResponse<T>> => {
-  const res = await fetch(`${BASE_URL}/${endpoint}`, {
+): Promise<T> => {
+  const res = await fetch(`${BASE_URL}${endpoint}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
@@ -57,11 +107,15 @@ export const patch = async <T = any>(
   return handleResponse<T>(res);
 };
 
+/**
+ * DELETE 요청
+ * @throws {BackendError}
+ */
 export const del = async <T = any>(
   endpoint: string,
   body?: unknown
-): Promise<ApiResponse<T>> => {
-  const res = await fetch(`${BASE_URL}/${endpoint}`, {
+): Promise<T> => {
+  const res = await fetch(`${BASE_URL}${endpoint}`, {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
     ...(body !== undefined ? { body: JSON.stringify(body) } : {}),

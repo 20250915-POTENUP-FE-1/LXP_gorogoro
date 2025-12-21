@@ -7,7 +7,7 @@ import styles from "@/shared/components/layout/Header.module.css";
 export default function UserActions() {
   const userProfile = useAuthStore((state) => state.userProfile);
 
-  if (!userProfile.nickName) {
+  if (!userProfile) {
     return (
       <Link href="/login" className={styles.dashboardLink}>
         로그인 하기
