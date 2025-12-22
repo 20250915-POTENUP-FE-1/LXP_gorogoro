@@ -4,6 +4,7 @@ import styles from "./CourseDetail.module.css";
 import { addToCart } from "@/services/cart.service";
 import { useModalStore } from "@/stores/useModalStore";
 import { useRouter } from "next/navigation";
+import { Button } from "@/shared/components/ui";
 import CourseCurriculum from "./CourseCurriculum";
 import { CourseDetail as CourseDetailType } from "../types";
 
@@ -97,42 +98,36 @@ export default function CourseDetail({
             </div>
             <section className={styles.section}>
               <div className={styles.tabContainer}>
-                <button
-                  type="button"
-                  className={`${styles.tabButton} ${
-                    activeTab === "description" ? styles.activeTab : ""
-                  }`}
+                <Button
+                  variant={activeTab === "description" ? "secondary" : "ghost"}
                   onClick={() => setActiveTab("description")}
+                  className={
+                    activeTab === "description" ? styles.activeTab : ""
+                  }
                 >
                   상세 정보
-                </button>
-                <button
-                  type="button"
-                  className={`${styles.tabButton} ${
-                    activeTab === "curriculum" ? styles.activeTab : ""
-                  }`}
+                </Button>
+                <Button
+                  variant={activeTab === "curriculum" ? "secondary" : "ghost"}
                   onClick={() => setActiveTab("curriculum")}
+                  className={activeTab === "curriculum" ? styles.activeTab : ""}
                 >
                   커리큘럼
-                </button>
-                <button
-                  type="button"
-                  className={`${styles.tabButton} ${
-                    activeTab === "review" ? styles.activeTab : ""
-                  }`}
+                </Button>
+                <Button
+                  variant={activeTab === "review" ? "secondary" : "ghost"}
                   onClick={() => setActiveTab("review")}
+                  className={activeTab === "review" ? styles.activeTab : ""}
                 >
                   리뷰
-                </button>
-                <button
-                  type="button"
-                  className={`${styles.tabButton} ${
-                    activeTab === "request" ? styles.activeTab : ""
-                  }`}
+                </Button>
+                <Button
+                  variant={activeTab === "request" ? "secondary" : "ghost"}
                   onClick={() => setActiveTab("request")}
+                  className={activeTab === "request" ? styles.activeTab : ""}
                 >
                   문의
-                </button>
+                </Button>
               </div>
               {activeTab === "description" && (
                 <>
@@ -258,9 +253,10 @@ export default function CourseDetail({
                 </div>
               </dl>
               <div className={styles.ctaGroup}>
-                <button
-                  className={styles.ctaPrimary}
-                  type="button"
+                <Button
+                  variant="outline"
+                  size="lg"
+                  fullWidth
                   onClick={handleAddToCart}
                 >
                   <img
@@ -270,14 +266,15 @@ export default function CourseDetail({
                     aria-hidden="true"
                   />
                   장바구니 담기
-                </button>
-                <button
-                  className={styles.ctaSecondary}
-                  type="button"
+                </Button>
+                <Button
+                  variant="primary"
+                  size="lg"
+                  fullWidth
                   onClick={handleCheckoutNow}
                 >
                   바로 결제하기
-                </button>
+                </Button>
               </div>
             </div>
           </aside>

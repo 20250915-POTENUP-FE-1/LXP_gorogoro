@@ -5,6 +5,7 @@ import styles from "./SignupForm.module.css";
 import { registAction } from "../actions/regist.action";
 import { useRouter } from "next/navigation";
 import { useModalStore } from "@/stores/useModalStore";
+import { Button } from "@/shared/components/ui";
 
 const initialState = {
   success: false,
@@ -114,9 +115,9 @@ export default function SignupForm() {
         </select>
       </fieldset>
 
-      <button className={styles.submit} type="submit">
+      <Button type="submit" size="lg" fullWidth isLoading={isPending}>
         회원가입
-      </button>
+      </Button>
     </form>
   );
 }

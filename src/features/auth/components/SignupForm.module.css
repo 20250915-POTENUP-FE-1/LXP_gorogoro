@@ -91,27 +91,6 @@
   border-color: var(--primary-400);
 }
 
-.submit {
-  width: 100%;
-  height: 3rem;
-  border: none;
-  border-radius: var(--radius-md);
-  background-color: var(--primary-500);
-  color: var(--gray-00);
-  font-size: var(--text-base);
-  font-weight: var(--font-bold);
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.2s ease;
-}
-
-.submit:hover {
-  background-color: var(--primary-400);
-}
-
-.submit:active {
-  transform: translateY(1px);
-}
-
 .errorMessage {
   display: block;
   padding: 0.5rem 0.75rem;

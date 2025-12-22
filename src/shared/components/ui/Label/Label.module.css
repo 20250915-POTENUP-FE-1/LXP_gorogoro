@@ -1,0 +1,7 @@
+.label {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  color: var(--gray-700);
+  display: block;
+}

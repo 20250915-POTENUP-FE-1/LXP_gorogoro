@@ -6,6 +6,7 @@ import styles from "./LoginForm.module.css";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useModalStore } from "@/stores/useModalStore";
+import { Button, Input, Label } from "@/shared/components/ui";
 
 const initialState = {
   success: false,
@@ -47,33 +48,30 @@ export default function LoginForm() {
 
   return (
     <form action={formAction} className={styles.form}>
-      <label className={styles.field}>
-        <span className={styles.label}>이메일</span>
-        <input
+      <div className={styles.field}>
+        <Label htmlFor="email">이메일</Label>
+        <Input
+          id="email"
           name="email"
-          className={styles.input}
           type="email"
           placeholder="Enter your email"
+          error={state.errors?.email}
         />
-        {state.errors?.email && (
-          <span className={styles.errorMessage}>{state.errors.email}</span>
-        )}
-      </label>
-      <label className={styles.field}>
-        <span className={styles.label}>비밀번호</span>
-        <input
+      </div>
+
+      <div className={styles.field}>
+        <Label htmlFor="password">비밀번호</Label>
+        <Input
+          id="password"
           name="password"
-          className={styles.input}
           type="password"
           placeholder="Enter your password"
+          error={state.errors?.password}
         />
-        {state.errors?.password && (
-          <span className={styles.errorMessage}>{state.errors.password}</span>
-        )}
-      </label>
-      <button className={styles.submit} type="submit">
-        {isPending ? "로그인 하는 중..." : "로그인"}
-      </button>
+      </div>
+      <Button type="submit" size="lg" fullWidth isLoading={isPending}>
+        로그인
+      </Button>
     </form>
   );
 }
