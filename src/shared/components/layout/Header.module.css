@@ -190,3 +190,108 @@
   content: "→ ";
   margin-right: 0.25rem;
 }
+.userDropdown {
+  position: relative;
+}
+
+.userTrigger {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem !important;
+  color: var(--gray-800) !important;
+}
+
+.userName {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+}
+
+.arrow {
+  font-size: 0.8rem;
+  opacity: 0.5;
+}
+
+.userMenu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  background: var(--gray-00);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  min-width: 180px;
+  z-index: 1000;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
+  padding: 0.5rem;
+  animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdownHeader {
+  padding: 0.75rem 1rem;
+}
+
+.userEmail {
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--gray-500);
+  font-weight: var(--font-medium);
+}
+
+.dropdownDivider {
+  height: 1px;
+  background-color: var(--gray-100);
+  margin: 0.5rem 0;
+}
+
+.dropdownItem {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  color: var(--gray-700);
+  text-decoration: none;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  border-radius: var(--radius-sm);
+  transition: all 0.2s ease;
+  text-align: left;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.dropdownItem:hover {
+  background-color: var(--gray-50);
+  color: var(--primary-500);
+}
+
+.dropdownItemDanger {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  color: var(--primary-300); /* Reddish */
+  text-decoration: none;
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  border-radius: var(--radius-sm);
+  transition: all 0.2s ease;
+  text-align: left;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.dropdownItemDanger:hover {
+  background-color: var(--primary-50);
+  color: var(--primary-400);
+}

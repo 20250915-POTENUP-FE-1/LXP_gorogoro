@@ -2,7 +2,6 @@ import Link from "next/link";
 import styles from "@/shared/components/layout/Header.module.css";
 import CategoryDropdown from "./CategoryDropdown";
 import { getAllCategories } from "@/services/category.service";
-import UserInfo from "./UserInfo";
 import UserActions from "./UserActions";
 
 export default async function Header() {
@@ -16,7 +15,6 @@ export default async function Header() {
             GORO
           </Link>
           <CategoryDropdown categories={categories} />
-          <UserInfo />
         </div>
         <UserActions />
       </div>
