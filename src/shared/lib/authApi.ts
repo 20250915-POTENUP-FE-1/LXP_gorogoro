@@ -48,8 +48,8 @@ export const fetchWithAuth = async <T = any>(
   let accessToken = cookieStore.get("accessToken")?.value;
 
   const headers = {
-    "Content-Type": "application/json",
     ...(options.headers || {}),
+    "Content-Type": "application/json",
     ...((accessToken && { Authorization: `Bearer ${accessToken}` }) || {}),
   };
 

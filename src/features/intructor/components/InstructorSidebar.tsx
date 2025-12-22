@@ -5,15 +5,15 @@ import styles from "./InstructorSidebar.module.css";
 import { useAuthStore } from "@/stores/useAuthStore";
 
 export default function InstructorSidebar() {
-  const { userProfile } = useAuthStore();
+  const userProfile = useAuthStore((state) => state.userProfile);
 
   return (
     <aside className={styles.sidebar} aria-label="강사 사이드바">
       <div className={styles.profile}>
         <div className={styles.avatar}></div>
         <div className={styles.info}>
-          <span className={styles.name}>{userProfile.nickname}</span>
-          <span className={styles.email}>{userProfile.role}</span>
+          <span className={styles.name}>{userProfile?.nickname}</span>
+          <span className={styles.email}>{userProfile?.role}</span>
         </div>
       </div>
       <nav className={styles.nav} aria-label="강사 메뉴">

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "@/styles/global.css";
 import Header from "../shared/components/layout/Header";
 import ModalContainer from "@/shared/components/ui/ModalContainer";
+import AuthHydrator from "@/shared/components/hydrator/AuthHydrator";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,6 +17,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
+        <AuthHydrator />
         <Header />
         <ModalContainer />
         {children}
