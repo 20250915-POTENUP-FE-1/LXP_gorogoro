@@ -12,8 +12,8 @@ export default function InstructorSidebar() {
       <div className={styles.profile}>
         <div className={styles.avatar}></div>
         <div className={styles.info}>
-          <span className={styles.name}>{userProfile.nickname}</span>
-          <span className={styles.email}>{userProfile.role}</span>
+          <span className={styles.name}>{userProfile?.nickname || ""}</span>
+          <span className={styles.email}>{userProfile?.role || ""}</span>
         </div>
       </div>
       <nav className={styles.nav} aria-label="강사 메뉴">

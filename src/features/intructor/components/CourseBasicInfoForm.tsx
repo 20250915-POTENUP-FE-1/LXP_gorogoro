@@ -2,6 +2,7 @@
 
 import { ChangeEvent } from "react";
 import styles from "./CourseForm.module.css";
+import { Input, Label } from "@/shared/components/ui";
 import { CourseFormRequest } from "../types";
 import { Category } from "@/features/courses/types";
 
@@ -23,23 +24,22 @@ export default function CourseBasicInfoForm({
   return (
     <div className={styles.form}>
       <div className={`${styles.group} ${styles.groupInline}`}>
-        <label className={styles.field}>
-          <span className={styles.label}>강좌명</span>
-          <input
+        <div className={styles.field}>
+          <Label htmlFor="title">강좌명</Label>
+          <Input
             name="title"
             id="title"
-            className={styles.input}
             type="text"
             placeholder="강좌 제목을 입력해주세요."
             value={formData.title ?? ""}
             onChange={handleFieldChange}
           />
-        </label>
+        </div>
       </div>
 
       <div className={`${styles.group} ${styles.groupGrid}`}>
-        <label className={styles.field}>
-          <span className={styles.label}>카테고리</span>
+        <div className={styles.field}>
+          <Label htmlFor="categoryId">카테고리</Label>
           <select
             name="categoryId"
             id="categoryId"
@@ -56,10 +56,10 @@ export default function CourseBasicInfoForm({
               </option>
             ))}
           </select>
-        </label>
+        </div>
 
-        <label className={styles.field}>
-          <span className={styles.label}>난이도</span>
+        <div className={styles.field}>
+          <Label htmlFor="difficulty">난이도</Label>
           <select
             name="difficulty"
             id="difficulty"
@@ -74,14 +74,13 @@ export default function CourseBasicInfoForm({
             <option value="INTERMEDIATE">중급</option>
             <option value="ADVANCED">고급</option>
           </select>
-        </label>
+        </div>
 
-        <label className={styles.field}>
-          <span className={styles.label}>가격 (원)</span>
-          <input
+        <div className={styles.field}>
+          <Label htmlFor="price">가격 (원)</Label>
+          <Input
             name="price"
             id="price"
-            className={styles.input}
             type="number"
             step={1000}
             min={0}
@@ -89,7 +88,7 @@ export default function CourseBasicInfoForm({
             value={formData.price ?? 0}
             onChange={handleFieldChange}
           />
-        </label>
+        </div>
       </div>
 
       <div className={styles.group}>
@@ -113,16 +112,16 @@ export default function CourseBasicInfoForm({
             style={{ display: "none" }}
             onChange={handleThumbnailChange}
           />
-          <label htmlFor="coverImageUrl" className={styles.thumbnailButton}>
+          <Label htmlFor="coverImageUrl" className={styles.thumbnailButton}>
             파일 업로드
-          </label>
+          </Label>
           <p className={styles.thumbnailHint}>PNG, JPG 최대 1MB.</p>
         </div>
       </div>
 
       <div className={styles.group}>
-        <label className={styles.field}>
-          <span className={styles.label}>강좌 요약</span>
+        <div className={styles.field}>
+          <Label htmlFor="summary">강좌 요약</Label>
           <textarea
             name="summary"
             id="summary"
@@ -132,12 +131,12 @@ export default function CourseBasicInfoForm({
             value={formData.summary ?? ""}
             onChange={handleFieldChange}
           />
-        </label>
+        </div>
       </div>
 
       <div className={styles.group}>
-        <label className={styles.field}>
-          <span className={styles.label}>강좌 내용</span>
+        <div className={styles.field}>
+          <Label htmlFor="description">강좌 내용</Label>
           <textarea
             name="description"
             id="description"
@@ -147,7 +146,7 @@ export default function CourseBasicInfoForm({
             value={formData.description ?? ""}
             onChange={handleFieldChange}
           />
-        </label>
+        </div>
       </div>
     </div>
   );

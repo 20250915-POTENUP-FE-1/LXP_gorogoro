@@ -3,7 +3,7 @@
 import { ChangeEvent } from "react";
 import styles from "./CourseCurriculum.module.css";
 import { Chapter } from "../types";
-import { Button } from "@/shared/components/ui";
+import { Button, Input } from "@/shared/components/ui";
 
 interface CourseCurriculumProps {
   contents: Chapter[];
@@ -59,10 +59,10 @@ export default function CourseCurriculum({
                 <span className={styles.chapterSeq}>
                   Chapter {chapterIdx + 1}
                 </span>
-                <input
+                <Input
                   name={`contents[${chapterIdx}][chapterTitle]`}
                   value={chapter.chapterTitle ?? ""}
-                  className={styles.input}
+                  size="sm"
                   type="text"
                   placeholder="챕터 제목을 입력하세요"
                   onChange={handleChapterTitleChange?.(chapterIdx)}
@@ -73,10 +73,10 @@ export default function CourseCurriculum({
                 {chapter.lessons.map((lesson, lessonIdx) => (
                   <div key={lessonIdx} className={styles.lessonItem}>
                     <span className={styles.lessonSeq}>{lessonIdx + 1}.</span>
-                    <input
+                    <Input
                       name={`contents[${chapterIdx}][lessons][${lessonIdx}][title]`}
                       value={lesson.title}
-                      className={styles.input}
+                      size="sm"
                       type="text"
                       placeholder="레슨 제목 (예: 코딩이란?)"
                       onChange={handleLessonTitleChange?.(
@@ -84,10 +84,10 @@ export default function CourseCurriculum({
                         lessonIdx
                       )}
                     />
-                    <input
+                    <Input
                       name={`contents[${chapterIdx}][lessons][${lessonIdx}][resourceUrl]`}
                       value={lesson.resourceUrl ?? ""}
-                      className={styles.input}
+                      size="sm"
                       type="text"
                       placeholder="영상/자료 URL"
                       onChange={handleLessonResourceUrlChange?.(

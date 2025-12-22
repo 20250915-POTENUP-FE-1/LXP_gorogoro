@@ -2,7 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import styles from "./CategoryBar.module.css";
-import { Button } from "@/shared/components/ui";
+import { Button, Input } from "@/shared/components/ui";
 
 export default function CategoryBar({ subCategories }: any) {
   const searchParams = useSearchParams();
@@ -70,8 +70,9 @@ export default function CategoryBar({ subCategories }: any) {
               alt=""
               aria-hidden="true"
             />
-            <input
+            <Input
               className={styles.input}
+              size="sm"
               type="text"
               placeholder="검색"
               aria-label="검색어 입력"

@@ -87,7 +87,7 @@ export default function CourseForm({
         message: state.message,
       });
     }
-  }, [state.success, state.message, openModal]);
+  }, [state.success, state.message]);
 
   return (
     <form action={formAction} className={styles.form}>
@@ -96,6 +96,7 @@ export default function CourseForm({
       {state.errors && <p>{state.message}</p>}
       <div className={styles.tabContainer}>
         <Button
+          type="button"
           variant={activeTab === "basic" ? "secondary" : "ghost"}
           onClick={() => setActiveTab("basic")}
           className={activeTab === "basic" ? styles.activeTab : ""}
@@ -103,6 +104,7 @@ export default function CourseForm({
           기본 정보
         </Button>
         <Button
+          type="button"
           variant={activeTab === "curriculum" ? "secondary" : "ghost"}
           onClick={() => setActiveTab("curriculum")}
           className={activeTab === "curriculum" ? styles.activeTab : ""}

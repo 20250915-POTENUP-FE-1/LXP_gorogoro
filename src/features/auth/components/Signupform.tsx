@@ -5,7 +5,7 @@ import styles from "./SignupForm.module.css";
 import { registAction } from "../actions/regist.action";
 import { useRouter } from "next/navigation";
 import { useModalStore } from "@/stores/useModalStore";
-import { Button } from "@/shared/components/ui";
+import { Button, Input, Label } from "@/shared/components/ui";
 
 const initialState = {
   success: false,
@@ -43,60 +43,49 @@ export default function SignupForm() {
 
   return (
     <form action={formAction} className={styles.form}>
-      <label className={styles.field}>
-        <span className={styles.label}>이름</span>
-        <input
+      <div className={styles.field}>
+        <Label htmlFor="name">이름</Label>
+        <Input
           name="name"
           id="name"
-          className={styles.input}
           type="text"
           placeholder="이름을 입력하세요"
+          error={state.errors?.name}
         />
-        {state.errors?.name && (
-          <span className={styles.errorMessage}>{state.errors.name}</span>
-        )}
-      </label>
-      <label className={styles.field}>
-        <span className={styles.label}>이메일</span>
-        <input
+      </div>
+
+      <div className={styles.field}>
+        <Label htmlFor="email">이메일</Label>
+        <Input
           name="email"
           id="email"
-          className={styles.input}
           type="email"
           placeholder="hello@example.com"
+          error={state.errors?.email}
         />
-        {state.errors?.email && (
-          <span className={styles.errorMessage}>{state.errors.email}</span>
-        )}
-      </label>
-      <label className={styles.field}>
-        <span className={styles.label}>비밀번호</span>
-        <input
+      </div>
+
+      <div className={styles.field}>
+        <Label htmlFor="password">비밀번호</Label>
+        <Input
           name="password"
           id="password"
-          className={styles.input}
           type="password"
           placeholder="8자 이상 입력"
+          error={state.errors?.password}
         />
-        {state.errors?.password && (
-          <span className={styles.errorMessage}>{state.errors.password}</span>
-        )}
-      </label>
-      <label className={styles.field}>
-        <span className={styles.label}>비밀번호 확인</span>
-        <input
+      </div>
+
+      <div className={styles.field}>
+        <Label htmlFor="confirmPassword">비밀번호 확인</Label>
+        <Input
           name="confirmPassword"
           id="confirmPassword"
-          className={styles.input}
           type="password"
           placeholder="비밀번호를 다시 입력하세요"
+          error={state.errors?.confirmPassword}
         />
-        {state.errors?.confirmPassword && (
-          <span className={styles.errorMessage}>
-            {state.errors.confirmPassword}
-          </span>
-        )}
-      </label>
+      </div>
 
       <fieldset className={styles.fieldset}>
         <legend className={styles.legend}>회원 유형 선택</legend>
