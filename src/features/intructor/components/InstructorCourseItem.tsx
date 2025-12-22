@@ -3,6 +3,7 @@ import styles from "./InstructorCourseItem.module.css";
 import { DeleteCourseAction } from "../action";
 import { useRouter } from "next/navigation";
 import { InstructorCourse } from "../types";
+import { Button } from "@/shared/components/ui";
 
 const getLevelLabel = (level: string) => {
   switch (level) {
@@ -48,9 +49,9 @@ export default function InstructorCourseItem({
         />
       </div>
       <div className={styles.body}>
-        <span className={styles.category}>{course.category}</span>
+        <span className={styles.category}>Category</span>
         <h3 className={styles.title}>{course.title}</h3>
-        <p className={styles.instructor}>{course.instructor}</p>
+        <p className={styles.instructor}>Instructor Name</p>
         <div className={styles.stats}>
           <span className={styles.levelBadge}>
             {getLevelLabel(course.difficulty)}
@@ -79,20 +80,12 @@ export default function InstructorCourseItem({
             {course.createdAt.toDate().toLocaleDateString()}
           </span> */}
         <div className={styles.actions}>
-          <button
-            className={`${styles.action} ${styles.actionEdit}`}
-            type="button"
-            onClick={handleClickEdit}
-          >
+          <Button variant="outline" size="sm" onClick={handleClickEdit}>
             수정하기
-          </button>
-          <button
-            className={`${styles.action} ${styles.actionDelete}`}
-            type="button"
-            onClick={handleClickDelete}
-          >
+          </Button>
+          <Button variant="danger" size="sm" onClick={handleClickDelete}>
             삭제하기
-          </button>
+          </Button>
         </div>
       </div>
     </article>

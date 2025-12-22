@@ -1,24 +1,35 @@
-import { ButtonHTMLAttributes } from "react";
+import { ElementType, ComponentPropsWithoutRef, ReactNode } from "react";
 import styles from "./Button.module.css";
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "outline" | "ghost";
-  size?: "sm" | "md" | "lg";
+type ButtonVariant = "primary" | "secondary" | "outline" | "ghost" | "danger";
+type ButtonSize = "sm" | "md" | "lg";
+
+interface ButtonBaseProps {
+  children: ReactNode;
+  variant?: ButtonVariant;
+  size?: ButtonSize;
   fullWidth?: boolean;
   isLoading?: boolean;
+  className?: string;
 }
 
-const Button = ({
+type ButtonProps<T extends ElementType> = ButtonBaseProps &
+  Omit<ComponentPropsWithoutRef<T>, keyof ButtonBaseProps | "as"> & {
+    as?: T;
+  };
+
+const Button = <T extends ElementType = "button">({
   children,
   variant = "primary",
   size = "md",
   fullWidth = false,
   isLoading = false,
   className = "",
-  disabled,
+  as,
   ...props
-}: ButtonProps) => {
-  // 클래스명 결합
+}: ButtonProps<T>) => {
+  const Component = as || "button";
+
   const buttonClassName = [
     styles.button,
     styles[variant],
@@ -30,18 +41,13 @@ const Button = ({
     .join(" ");
 
   return (
-    <button
+    <Component
       className={buttonClassName}
-      disabled={disabled || isLoading}
+      {...(Component === "button" ? { disabled: isLoading } : {})}
       {...props}
     >
-      {isLoading ? (
-        // 간단한 로딩 텍스트 (추후 Spinner 컴포넌트로 대체 가능)
-        <span>Loading...</span>
-      ) : (
-        children
-      )}
-    </button>
+      {isLoading ? <span>Loading...</span> : children}
+    </Component>
   );
 };
 

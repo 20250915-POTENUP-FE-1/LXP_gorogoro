@@ -5,6 +5,7 @@ import CartItem from "./CartItem";
 import styles from "./CartList.module.css";
 import { CartCourse } from "../types";
 import { ActionState } from "@/shared/types/types";
+import { Button } from "@/shared/components/ui";
 
 interface CartListProps {
   cartItems: CartCourse[];
@@ -37,13 +38,14 @@ export default function CartList({
     <section className={styles.list}>
       <div className={styles.header}>
         <h1 className={styles.title}>총 {cartItems.length}개의 강좌</h1>
-        <button
+        <Button
+          variant="ghost"
+          size="sm"
           className={styles.clearButton}
-          type="button"
           onClick={handleDeleteAll}
         >
           전체 삭제
-        </button>
+        </Button>
       </div>
       <div className={styles.items}>
         {cartItems.map((course: CartCourse) => (

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import styles from "./EnrollmentItem.module.css";
 import { EnrolledCourse } from "../types";
+import { Button } from "@/shared/components/ui";
 
 interface EnrollmentItemProps {
   course: EnrolledCourse;
@@ -44,19 +45,20 @@ export default function EnrollmentItem({ course }: EnrollmentItemProps) {
         </div>
       </div>
       <div className={styles.meta}>
-        <Link
+        <Button
+          as={Link}
           href={`/courses/${course.courseId}/learn`}
           className={styles.action}
         >
           이어 학습하기
-        </Link>
-        <button
-          className={`${styles.action} ${styles.actionSecondary}`}
-          type="button"
+        </Button>
+        <Button
+          variant="secondary"
+          className={styles.action}
           onClick={() => handleCancel(course.enrollmentId)}
         >
           수강 취소
-        </button>
+        </Button>
       </div>
     </article>
   );

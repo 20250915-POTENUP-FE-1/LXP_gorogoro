@@ -140,39 +140,6 @@
   gap: 0.75rem;
 }
 
-.actionButton {
-  min-width: 6.5rem;
-  padding: 0.85rem 1.5rem;
-  border-radius: 0.9rem;
-  border: 1px solid transparent;
-  font-size: var(--text-sm);
-  font-weight: var(--font-bold);
-  cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease,
-    border-color 0.2s ease;
-}
-
-.actionButtonCancel {
-  border-color: var(--gray-300);
-  background-color: transparent;
-  color: var(--gray-700);
-}
-
-.actionButtonCancel:hover {
-  background-color: var(--gray-100);
-}
-
-.actionButtonSubmit {
-  background-color: var(--primary-500);
-  color: var(--gray-00);
-}
-
-.actionButtonSubmit:hover {
-  background-color: var(--primary-400);
-  box-shadow: 0 16px 26px rgba(39, 179, 244, 0.25);
-}
-
-/* Tab Styles */
 .tabContainer {
   display: flex;
   gap: 1rem;
@@ -180,25 +147,8 @@
   margin-bottom: 1.5rem;
 }
 
-.tabButton {
-  padding: 0.75rem 1.5rem;
-  background: transparent;
-  border: none;
-  font-size: var(--text-base);
-  font-weight: var(--font-medium);
-  color: var(--gray-500);
-  cursor: pointer;
-  border-bottom: 2px solid transparent;
-  margin-bottom: -2px; /* Pull down to overlap container border */
-  transition: all 0.2s ease;
-}
-
-.tabButton:hover {
-  color: var(--gray-700);
-}
-
 .activeTab {
-  color: var(--primary-500);
-  border-bottom-color: var(--primary-500);
-  font-weight: var(--font-bold);
+  border-bottom: 2px solid var(--primary-500) !important;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
 }

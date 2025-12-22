@@ -2,6 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import styles from "./CategoryBar.module.css";
+import { Button } from "@/shared/components/ui";
 
 export default function CategoryBar({ subCategories }: any) {
   const searchParams = useSearchParams();
@@ -30,28 +31,34 @@ export default function CategoryBar({ subCategories }: any) {
     <section className={styles.bar} aria-label="카테고리 및 정렬">
       <div className={styles.inner}>
         <div className={styles.chipGroup} role="tablist">
-          <button
-            className={`${styles.chip} ${
+          <Button
+            variant={
+              currentCategory === subCategories[0].parentId
+                ? "primary"
+                : "outline"
+            }
+            size="sm"
+            onClick={() => handleCategoryClick(subCategories[0].parentId)}
+            className={
               currentCategory === subCategories[0].parentId
                 ? styles.chipActive
                 : ""
-            }`}
-            type="button"
-            onClick={() => handleCategoryClick(subCategories[0].parentId)}
+            }
           >
             전체
-          </button>
+          </Button>
           {subCategories.map((category: { id: number; name: string }) => (
-            <button
+            <Button
               key={category.id}
-              className={`${styles.chip} ${
-                currentCategory === category.id ? styles.chipActive : ""
-              }`}
-              type="button"
+              variant={currentCategory === category.id ? "primary" : "outline"}
+              size="sm"
               onClick={() => handleCategoryClick(category.id)}
+              className={
+                currentCategory === category.id ? styles.chipActive : ""
+              }
             >
               {category.name}
-            </button>
+            </Button>
           ))}
         </div>
         <div className={styles.divider} aria-hidden="true" />

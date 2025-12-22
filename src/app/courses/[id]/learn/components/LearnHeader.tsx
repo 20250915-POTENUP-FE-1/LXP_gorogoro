@@ -4,6 +4,7 @@ import Link from "next/link";
 import styles from "./LearnHeader.module.css";
 import { useRouter, useSearchParams } from "next/navigation";
 import { CourseLearn } from "@/features/courses/types";
+import { Button } from "@/shared/components/ui";
 
 interface LearnHeaderProps {
   course: CourseLearn;
@@ -61,45 +62,48 @@ export default function LearnHeader({ course }: LearnHeaderProps) {
 
   return (
     <div className={styles.actions}>
-      <Link
+      <Button
+        as={Link}
         href="/courses"
-        className={`${styles.button} ${styles.buttonSecondary}`}
+        variant="secondary"
+        size="sm"
         style={{ marginRight: "auto" }}
       >
         ← Go to Courses
-      </Link>
+      </Button>
 
-      <button className={`${styles.button} ${styles.buttonSecondary}`}>
+      <Button variant="secondary" size="sm">
         Hide Sidebar
-      </button>
+      </Button>
 
       {prevLesson ? (
-        <Link
+        <Button
+          as={Link}
           href={`?chapter=${prevLesson.chapter}&lesson=${prevLesson.lesson}`}
-          className={`${styles.button} ${styles.buttonSecondary}`}
+          variant="secondary"
+          size="sm"
         >
           ← Previous Lecture
-        </Link>
+        </Button>
       ) : (
-        <button
-          className={`${styles.button} ${styles.buttonSecondary}`}
-          disabled
-        >
+        <Button variant="secondary" size="sm" disabled>
           ← Previous Lecture
-        </button>
+        </Button>
       )}
 
       {nextLesson ? (
-        <Link
+        <Button
+          as={Link}
           href={`?chapter=${nextLesson.chapter}&lesson=${nextLesson.lesson}`}
-          className={`${styles.button} ${styles.buttonPrimary}`}
+          variant="primary"
+          size="sm"
         >
           Complete and Continue →
-        </Link>
+        </Button>
       ) : (
-        <button className={`${styles.button} ${styles.buttonPrimary}`} disabled>
+        <Button variant="primary" size="sm" disabled>
           Complete and Continue →
-        </button>
+        </Button>
       )}
     </div>
   );

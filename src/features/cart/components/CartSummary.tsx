@@ -1,6 +1,7 @@
 import { Summary } from "../types";
 import styles from "./CartSummary.module.css";
 import Link from "next/link";
+import { Button } from "@/shared/components/ui";
 
 interface CartSummaryProps {
   cartSummary: Summary;
@@ -29,8 +30,10 @@ export default function CartSummary({ cartSummary }: CartSummaryProps) {
           ₩{totalAmount.toLocaleString()}
         </span>
       </div>
-      <Link href="/mypage">
-        <button className={styles.button}>결제하기</button>
+      <Link href="/mypage" className="block w-full">
+        <Button size="lg" fullWidth>
+          결제하기
+        </Button>
       </Link>
     </aside>
   );

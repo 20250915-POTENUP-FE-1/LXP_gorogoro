@@ -9,6 +9,7 @@ import CourseCurriculumForm from "./CourseCurriculumForm";
 import { Category } from "@/features/courses/types";
 import { CreateCourseAction, UpdateCourseAction } from "../action";
 import { useModalStore } from "@/stores/useModalStore";
+import { Button } from "@/shared/components/ui";
 
 export type CourseFormMode = "create" | "edit";
 
@@ -94,24 +95,20 @@ export default function CourseForm({
       {isPending && <p>로딩중...</p>}
       {state.errors && <p>{state.message}</p>}
       <div className={styles.tabContainer}>
-        <button
-          type="button"
-          className={`${styles.tabButton} ${
-            activeTab === "basic" ? styles.activeTab : ""
-          }`}
+        <Button
+          variant={activeTab === "basic" ? "secondary" : "ghost"}
           onClick={() => setActiveTab("basic")}
+          className={activeTab === "basic" ? styles.activeTab : ""}
         >
           기본 정보
-        </button>
-        <button
-          type="button"
-          className={`${styles.tabButton} ${
-            activeTab === "curriculum" ? styles.activeTab : ""
-          }`}
+        </Button>
+        <Button
+          variant={activeTab === "curriculum" ? "secondary" : "ghost"}
           onClick={() => setActiveTab("curriculum")}
+          className={activeTab === "curriculum" ? styles.activeTab : ""}
         >
           커리큘럼
-        </button>
+        </Button>
       </div>
 
       {/* Step Content */}
@@ -136,19 +133,12 @@ export default function CourseForm({
       </div>
 
       <div className={styles.actions}>
-        <button
-          className={`${styles.actionButton} ${styles.actionButtonCancel}`}
-          type="reset"
-          onClick={resetForm}
-        >
+        <Button variant="secondary" type="reset" onClick={resetForm}>
           초기화
-        </button>
-        <button
-          className={`${styles.actionButton} ${styles.actionButtonSubmit}`}
-          type="submit"
-        >
+        </Button>
+        <Button type="submit" isLoading={isPending}>
           {mode === "create" ? "개설하기" : "수정하기"}
-        </button>
+        </Button>
       </div>
     </form>
   );

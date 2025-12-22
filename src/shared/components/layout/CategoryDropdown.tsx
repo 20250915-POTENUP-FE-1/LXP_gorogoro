@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Category } from "@/features/courses/types";
 import styles from "./Header.module.css";
+import { Button } from "@/shared/components/ui";
 
 interface CategoryDropdownProps {
   categories: Category[];
@@ -20,9 +21,9 @@ export default function CategoryDropdown({
       onMouseEnter={() => setIsFirstOpen(true)}
       onMouseLeave={() => setIsFirstOpen(false)}
     >
-      <button className={styles.categoryButton}>
+      <Button variant="ghost" className={styles.categoryButton}>
         카테고리 {isFirstOpen ? "↑" : "↓"}
-      </button>
+      </Button>
 
       {isFirstOpen && (
         <div className={styles.dropdownMenu}>
