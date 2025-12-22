@@ -1,12 +1,12 @@
 "use client";
 
 import styles from "./LearnSidebar.module.css";
-import { Course } from "@/features/courses/types";
+import { CourseLearn } from "@/features/courses/types";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
 interface LearnSidebarProps {
-  course: Course;
+  course: CourseLearn;
 }
 
 export default function LearnSidebar({ course }: LearnSidebarProps) {

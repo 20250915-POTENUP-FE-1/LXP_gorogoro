@@ -1,6 +1,6 @@
 export function decodeJWT(
   token: string
-): { role?: string; nickName?: string } | null {
+): { role?: string; nickname?: string } | null {
   try {
     // JWT 구조: header.payload.signature
     // 자세한 내용은 노션 공부방 참조!

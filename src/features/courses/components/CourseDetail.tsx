@@ -5,11 +5,13 @@ import { addToCart } from "@/services/cart.service";
 import { useModalStore } from "@/stores/useModalStore";
 import { useRouter } from "next/navigation";
 import CourseCurriculum from "./CourseCurriculum";
-import { Course } from "../types";
+import { CourseDetail as CourseDetailType } from "../types";
+
 interface CourseDetailProps {
   categoryName: string;
-  course: Course;
+  course: CourseDetailType;
 }
+
 export default function CourseDetail({
   categoryName,
   course,
@@ -145,13 +147,89 @@ export default function CourseDetail({
                 />
               )}
               {activeTab === "review" && (
-                <div className={styles.placeholder}>
-                  <p>리뷰 기능은 준비 중입니다.</p>
+                <div className={styles.reviewSection}>
+                  <h2 className={styles.sectionTitle}>리뷰</h2>
+                  {course.reviews && course.reviews.length > 0 ? (
+                    <div className={styles.reviewList}>
+                      {course.reviews.map((review) => (
+                        <div key={review.id} className={styles.reviewItem}>
+                          <div className={styles.reviewHeader}>
+                            <span className={styles.reviewAuthor}>
+                              {review.userName}
+                            </span>
+                            <span className={styles.reviewRating}>
+                              ⭐ {review.rating}
+                            </span>
+                            <span className={styles.reviewDate}>
+                              {new Date(review.createdAt).toLocaleDateString()}
+                            </span>
+                          </div>
+                          <p className={styles.reviewContent}>
+                            {review.content}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className={styles.placeholder}>
+                      <p>아직 리뷰가 없습니다.</p>
+                    </div>
+                  )}
                 </div>
               )}
               {activeTab === "request" && (
-                <div className={styles.placeholder}>
-                  <p>문의 기능은 준비 중입니다.</p>
+                <div className={styles.qnaSection}>
+                  <h2 className={styles.sectionTitle}>문의</h2>
+                  {course.qna && course.qna.length > 0 ? (
+                    <div className={styles.qnaList}>
+                      {course.qna.map((item) => (
+                        <div key={item.id} className={styles.qnaItem}>
+                          <div className={styles.qnaHeader}>
+                            <span className={styles.qnaTitle}>
+                              {item.title}
+                            </span>
+                            <span
+                              className={`${styles.qnaStatus} ${
+                                item.status === "answered"
+                                  ? styles.qnaAnswered
+                                  : styles.qnaPending
+                              }`}
+                            >
+                              {item.status === "answered"
+                                ? "답변완료"
+                                : "대기중"}
+                            </span>
+                          </div>
+                          <div className={styles.qnaBody}>
+                            <p className={styles.qnaQuestion}>
+                              <strong>{item.userName}</strong> -{" "}
+                              {new Date(item.createdAt).toLocaleDateString()}
+                            </p>
+                            <p className={styles.qnaContent}>{item.content}</p>
+                            {item.answer && (
+                              <div className={styles.qnaAnswer}>
+                                <strong>답변:</strong> {item.answer}
+                                {item.answeredAt && (
+                                  <span className={styles.answerDate}>
+                                    {" "}
+                                    (
+                                    {new Date(
+                                      item.answeredAt
+                                    ).toLocaleDateString()}
+                                    )
+                                  </span>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className={styles.placeholder}>
+                      <p>아직 문의가 없습니다.</p>
+                    </div>
+                  )}
                 </div>
               )}
             </section>

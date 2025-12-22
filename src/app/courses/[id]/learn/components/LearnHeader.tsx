@@ -3,10 +3,10 @@
 import Link from "next/link";
 import styles from "./LearnHeader.module.css";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Course } from "@/features/courses/types";
+import { CourseLearn } from "@/features/courses/types";
 
 interface LearnHeaderProps {
-  course: Course;
+  course: CourseLearn;
 }
 
 export default function LearnHeader({ course }: LearnHeaderProps) {
@@ -16,10 +16,11 @@ export default function LearnHeader({ course }: LearnHeaderProps) {
   const currentLessonSeq = parseInt(searchParams.get("lesson") || "1");
 
   // 현재 챕터와 레슨 찾기
-  const currentChapter = course.contents.find((ch) => ch.seq === currentChapterSeq);
-  const currentLessonIndex = currentChapter?.lessons.findIndex(
-    (l) => l.seq === currentLessonSeq
-  ) ?? -1;
+  const currentChapter = course.contents.find(
+    (ch) => ch.seq === currentChapterSeq
+  );
+  const currentLessonIndex =
+    currentChapter?.lessons.findIndex((l) => l.seq === currentLessonSeq) ?? -1;
 
   // 이전/다음 레슨 찾기
   const getPrevLesson = () => {
@@ -29,7 +30,9 @@ export default function LearnHeader({ course }: LearnHeaderProps) {
       return { chapter: currentChapter.seq, lesson: prevLesson.seq };
     }
     // 이전 챕터의 마지막 레슨
-    const prevChapter = course.contents.find((ch) => ch.seq === currentChapterSeq - 1);
+    const prevChapter = course.contents.find(
+      (ch) => ch.seq === currentChapterSeq - 1
+    );
     if (prevChapter && prevChapter.lessons.length > 0) {
       const lastLesson = prevChapter.lessons[prevChapter.lessons.length - 1];
       return { chapter: prevChapter.seq, lesson: lastLesson.seq };
@@ -44,7 +47,9 @@ export default function LearnHeader({ course }: LearnHeaderProps) {
       return { chapter: currentChapter.seq, lesson: nextLesson.seq };
     }
     // 다음 챕터의 첫 레슨
-    const nextChapter = course.contents.find((ch) => ch.seq === currentChapterSeq + 1);
+    const nextChapter = course.contents.find(
+      (ch) => ch.seq === currentChapterSeq + 1
+    );
     if (nextChapter && nextChapter.lessons.length > 0) {
       return { chapter: nextChapter.seq, lesson: nextChapter.lessons[0].seq };
     }
@@ -76,7 +81,10 @@ export default function LearnHeader({ course }: LearnHeaderProps) {
           ← Previous Lecture
         </Link>
       ) : (
-        <button className={`${styles.button} ${styles.buttonSecondary}`} disabled>
+        <button
+          className={`${styles.button} ${styles.buttonSecondary}`}
+          disabled
+        >
           ← Previous Lecture
         </button>
       )}

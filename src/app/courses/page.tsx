@@ -31,7 +31,7 @@ export default async function CoursePage({
     limit: "10",
   };
 
-  const categories = await getAllCategories();
+  const { contents: categories } = await getAllCategories();
 
   let subCategories: Category[] = [];
   let categoryName = "";
@@ -55,7 +55,7 @@ export default async function CoursePage({
     }
   }
 
-  const courses = await getCourses(apiParams);
+  const { contents: courses } = await getCourses(apiParams);
 
   const pageTitle = searchQuery
     ? `"${searchQuery}" 검색 결과`
@@ -94,7 +94,7 @@ export default async function CoursePage({
             </span>
           </section>
           <CategoryBar subCategories={subCategories} />
-          <CourseList courses={courses} categories={categories} />
+          <CourseList courses={courses} />
         </div>
       )}
     </main>

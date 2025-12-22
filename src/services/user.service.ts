@@ -5,24 +5,28 @@ import {
 } from "@/features/auth/types";
 import { fetchWithAuth } from "@/shared/lib/authApi";
 
-const GET_ME_ENDPOINT = "auth/v1/users/me";
-const MODIFY_ME_ENDPOINT = "auth/users/modify";
+const GET_ME_ENDPOINT = "users/info";
+const MODIFY_ME_ENDPOINT = "users/modify";
 
+/**
+ * 내 정보 조회
+ * @throws {BackendError}
+ */
 export const getMe = async (): Promise<GetMeResponse> => {
-  const response = await fetchWithAuth(`${GET_ME_ENDPOINT}`, {
+  return await fetchWithAuth(`${GET_ME_ENDPOINT}`, {
     method: "GET",
   });
-  if (response.error) throw response.error;
-  return response.data;
 };
 
+/**
+ * 내 정보 수정
+ * @throws {BackendError}
+ */
 export const modifyMe = async (
   body: ModifyMeRequest
 ): Promise<ModifyMeResponse> => {
-  const response = await fetchWithAuth(`${MODIFY_ME_ENDPOINT}`, {
+  return await fetchWithAuth(`${MODIFY_ME_ENDPOINT}`, {
     method: "PATCH",
     body: JSON.stringify(body),
   });
-  if (response.error) throw response.error;
-  return response.data;
 };

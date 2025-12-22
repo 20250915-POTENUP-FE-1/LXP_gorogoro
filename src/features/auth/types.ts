@@ -1,4 +1,4 @@
-export type ROLE = "STUDENT" | "INSTRUCTOR";
+export type ROLE = "STUDENT" | "INSTRUCTOR" | "ADMIN";
 
 export interface User {
   id: string;
@@ -26,13 +26,13 @@ export interface LoginRequest {
 export interface LoginResponse {
   accessToken: string;
   refreshToken: string;
-  nickName: string;
+  nickname: string;
   role: ROLE;
 }
 
 // 클라이언트로 반환되는 사용자 정보 (토큰 제외)
 export interface LoginUserInfo {
-  nickName: string;
+  nickname: string;
   role: ROLE;
 }
 
@@ -42,16 +42,20 @@ export interface RefreshRequest {
 export interface RefreshResponse {
   accessToken: string;
 }
+
 export interface GetMeResponse {
-  accessToken: string;
-  name: string;
-  role: string;
+  id: number;
+  username: string;
+  nickname: string;
+  email: string;
+  role: ROLE;
+  createdAt: string;
 }
 export interface ModifyMeRequest {
   email?: string;
   password?: string;
   name?: string;
-  nickName?: string;
+  nickname?: string;
 }
 export interface ModifyMeResponse {
   user: User;

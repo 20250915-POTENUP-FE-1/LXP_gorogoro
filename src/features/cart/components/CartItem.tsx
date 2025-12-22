@@ -40,8 +40,8 @@ export default function CartItem({
       </div>
       <div className={styles.content}>
         <span className={styles.category}>
-          {course.categoryName}&nbsp;&gt;&nbsp;
-          {course.subCategoryName}
+          {course.categoryDetail.name}&nbsp;&gt;&nbsp;
+          {course.categoryDetail.subCategoryDetail.name}
         </span>
         <h3 className={styles.title}>{course.courseTitle}</h3>
         <p className={styles.instructor}>{course.instructorName}</p>

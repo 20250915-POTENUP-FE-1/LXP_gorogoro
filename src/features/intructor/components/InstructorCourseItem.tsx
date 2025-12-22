@@ -2,6 +2,7 @@
 import styles from "./InstructorCourseItem.module.css";
 import { DeleteCourseAction } from "../action";
 import { useRouter } from "next/navigation";
+import { InstructorCourse } from "../types";
 
 const getLevelLabel = (level: string) => {
   switch (level) {
@@ -16,9 +17,15 @@ const getLevelLabel = (level: string) => {
   }
 };
 
-export default function InstructorCourseItem({ course }: any) {
+interface InstructorCourseItemProps {
+  course: InstructorCourse;
+}
+
+export default function InstructorCourseItem({
+  course,
+}: InstructorCourseItemProps) {
   const router = useRouter();
-  const courseId = course.id;
+  const courseId = course.courseId;
   const handleClickEdit = () => {
     router.push(`/instructor/courses/${courseId}/edit`);
   };
@@ -46,7 +53,7 @@ export default function InstructorCourseItem({ course }: any) {
         <p className={styles.instructor}>{course.instructor}</p>
         <div className={styles.stats}>
           <span className={styles.levelBadge}>
-            {getLevelLabel(course.level)}
+            {getLevelLabel(course.difficulty)}
           </span>
           <div className={styles.statItem}>
             <span className={styles.statLabel}>평점(4.5)</span>

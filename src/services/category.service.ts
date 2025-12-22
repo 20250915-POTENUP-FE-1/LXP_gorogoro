@@ -3,29 +3,34 @@ import { del, get, post } from "@/shared/lib/api";
 
 const CATEGORIES_ENDPOINT = "categories";
 
-//모든 카테고리
-export const getAllCategories = async (): Promise<Category[]> => {
-  const response = await get<Category[]>(CATEGORIES_ENDPOINT);
-  if (response.error) throw response.error;
-  return response.data!;
+/**
+ * 모든 카테고리 조회
+ * @throws {BackendError}
+ */
+export const getAllCategories = async (): Promise<{ contents: Category[] }> => {
+  return await get<{ contents: Category[] }>(CATEGORIES_ENDPOINT);
 };
 
+/**
+ * 카테고리 상세 조회
+ * @throws {BackendError}
+ */
 export const getCategoriesById = async (id: string): Promise<Category> => {
-  const response = await get<Category>(`${CATEGORIES_ENDPOINT}/${id}`);
-  if (response.error) throw response.error;
-  return response.data!;
+  return await get<Category>(`${CATEGORIES_ENDPOINT}/${id}`);
 };
 
-//카테고리 추가
+/**
+ * 카테고리 추가
+ * @throws {BackendError}
+ */
 export const createCategory = async (body: unknown): Promise<Category> => {
-  const response = await post<Category>(CATEGORIES_ENDPOINT, body);
-  if (response.error) throw response.error;
-  return response.data!;
+  return await post<Category>(CATEGORIES_ENDPOINT, body);
 };
 
-//카테고리 삭제
+/**
+ * 카테고리 삭제
+ * @throws {BackendError}
+ */
 export const deleteCategory = async (id: string) => {
-  const response = await del(`${CATEGORIES_ENDPOINT}/${id}`);
-  if (response.error) throw response.error;
-  return response.data;
+  return await del(`${CATEGORIES_ENDPOINT}/${id}`);
 };
