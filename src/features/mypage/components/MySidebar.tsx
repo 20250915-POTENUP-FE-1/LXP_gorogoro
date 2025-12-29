@@ -10,6 +10,8 @@ export default function MySidebar() {
     userProfile: state.userProfile,
     clearUser: state.clearUser,
   }));
+// const userProfile = useAuthStore((state)=>(state.useProfile)
+//   const clearUser = useAuthStore((state)=>state.clearUser)
 
   const handleLogout = async () => {
     clearUser(); // zustand 상태 초기화 (localStorage도 자동 반영)

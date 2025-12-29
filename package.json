@@ -6,12 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
     "json-server": "cd ./server && node mock-server.js"
   },
   "dependencies": {
     "immer": "^11.0.1",
-    "next": "16.0.5",
+    "next": "^16.1.1",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "zustand": "^5.0.9"

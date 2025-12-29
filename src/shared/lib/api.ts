@@ -1,6 +1,4 @@
-import { BackendError } from "../types/types";
-
-const BASE_URL = process.env.API_BASE_URL || "http://localhost:8080/api/";
+const BASE_URL = process.env.API_BASE_URL || "http://localhost:8082/api/";
 
 /**
  * HTTP Response를 처리하고 에러 시 throw
@@ -9,7 +7,7 @@ const BASE_URL = process.env.API_BASE_URL || "http://localhost:8080/api/";
 const handleResponse = async <T>(res: Response): Promise<T> => {
   // 에러 응답 처리
   if (!res.ok) {
-    let errorBody: any = null;
+    let errorBody = null;
 
     try {
       errorBody = await res.json();
@@ -18,14 +16,12 @@ const handleResponse = async <T>(res: Response): Promise<T> => {
       errorBody = { message: "알 수 없는 에러가 발생했습니다" };
     }
 
-    const backendError: BackendError = {
+     throw {
       status: res.status,
       code: errorBody?.code,
       message: errorBody?.message || res.statusText,
       errors: errorBody?.errors,
     };
-
-    throw backendError;
   }
 
   // 204 No Content
@@ -33,15 +29,17 @@ const handleResponse = async <T>(res: Response): Promise<T> => {
     return null as T;
   }
 
-  // 정상 응답
-  return await res.json();
+  // 성공(200): 응답 바디 비어있음 ""
+  const text = await res.text();
+  if (!text) return null as T;
+  return JSON.parse(text) as T;
 };
 
 /**
  * GET 요청
  * @throws {BackendError}
  */
-export const get = async <T = any>(
+export const get = async <T,>(
   endpoint: string,
   apiParams?: any
 ): Promise<T> => {
@@ -60,7 +58,7 @@ export const get = async <T = any>(
  * POST 요청
  * @throws {BackendError}
  */
-export const post = async <T = any>(
+export const post = async <T,>(
   endpoint: string,
   body: unknown
 ): Promise<T> => {
@@ -77,7 +75,7 @@ export const post = async <T = any>(
  * PUT 요청
  * @throws {BackendError}
  */
-export const put = async <T = any>(
+export const put = async <T,>(
   endpoint: string,
   body: unknown
 ): Promise<T> => {
@@ -94,7 +92,7 @@ export const put = async <T = any>(
  * PATCH 요청
  * @throws {BackendError}
  */
-export const patch = async <T = any>(
+export const patch = async <T,>(
   endpoint: string,
   body: unknown
 ): Promise<T> => {
@@ -111,7 +109,7 @@ export const patch = async <T = any>(
  * DELETE 요청
  * @throws {BackendError}
  */
-export const del = async <T = any>(
+export const del = async <T,>(
   endpoint: string,
   body?: unknown
 ): Promise<T> => {
