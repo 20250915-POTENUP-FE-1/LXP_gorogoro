@@ -3,6 +3,7 @@ import styles from "./InstructorCourseItem.module.css";
 import { DeleteCourseAction } from "../action";
 import { useRouter } from "next/navigation";
 import { InstructorCourse } from "../types";
+import Image from "next/image";
 
 const getLevelLabel = (level: string) => {
   switch (level) {
@@ -41,16 +42,14 @@ export default function InstructorCourseItem({
       }`}
     >
       <div className={styles.thumbnail}>
-        <img
+        <Image
           className={styles.image}
           src={course.coverImageUrl}
           alt={course.title}
         />
       </div>
       <div className={styles.body}>
-        <span className={styles.category}>{course.category}</span>
         <h3 className={styles.title}>{course.title}</h3>
-        <p className={styles.instructor}>{course.instructor}</p>
         <div className={styles.stats}>
           <span className={styles.levelBadge}>
             {getLevelLabel(course.difficulty)}

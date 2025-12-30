@@ -25,8 +25,7 @@ export interface Summary {
   totalAmount: number;
 }
 
-// 장바구니 전체
-export interface Cart {
+export interface GetCartResponse {
   owner_id: number;
   items: CartCourse[];
   summary: Summary;

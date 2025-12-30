@@ -1,6 +1,7 @@
 import styles from "./page.module.css";
 import LoginForm from "@/features/auth/components/LoginForm";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function LoginPage() {
   return (
@@ -8,7 +9,7 @@ export default function LoginPage() {
       <div className={styles.card}>
         <div className={styles.illustration}>
           <div className={styles.illustrationContent}>
-            <img
+            <Image
               className={styles.illustrationImage}
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuCt3Z9MrMi0I99SK_HYjJb0WlT6pzfG3F96hwg4EFBWs4dSaNVaZ8iYnUSt8sDRI3pERhF5Obro2NY3EJT_96K3Ox1J7hB9s-WIVO2yDUsX9teGrCJ8RcW_mpOWAP-yLsQ7xeEU7mRSYBks0ZqkGO4FzJS7BSv9kbXO_pvBM5Eq5lCBM91loCeNFHcrcMLu3bR1Oaq1vmRj-TCvS082VAMOiQ6OTrVI8t0DWkpym0JsG6xRKt0GgOcv2ZBwrTsx8J0HlJ7iYcVtlEY"
               alt="People collaborating around a laptop, representing online learning."

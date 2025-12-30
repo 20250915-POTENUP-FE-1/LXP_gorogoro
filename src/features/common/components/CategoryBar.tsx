@@ -2,6 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import styles from "./CategoryBar.module.css";
+import Image from "next/image";
 
 export default function CategoryBar({ subCategories }: any) {
   const searchParams = useSearchParams();
@@ -57,7 +58,7 @@ export default function CategoryBar({ subCategories }: any) {
         <div className={styles.divider} aria-hidden="true" />
         <div className={styles.search}>
           <label className={styles.searchField}>
-            <img
+            <Image
               className={styles.searchIcon}
               src="/assets/search.svg"
               alt=""

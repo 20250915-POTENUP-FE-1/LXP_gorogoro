@@ -4,12 +4,13 @@ import { ChangeEvent } from "react";
 import styles from "./CourseForm.module.css";
 import { CourseFormRequest } from "../types";
 import { Category } from "@/features/courses/types";
+import Image from "next/image";
 
 interface CourseBasicInfoFormProps {
   categories: Category[];
   formData: CourseFormRequest;
   handleFieldChange: (
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
   ) => void;
   handleThumbnailChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
@@ -96,7 +97,7 @@ export default function CourseBasicInfoForm({
         <span className={styles.label}>썸네일 이미지</span>
         <div className={styles.thumbnail}>
           {formData.coverImageUrl ? (
-            <img
+            <Image
               src={formData.coverImageUrl}
               className={styles.thumbnailPreview}
               alt="Thumbnail Preview"

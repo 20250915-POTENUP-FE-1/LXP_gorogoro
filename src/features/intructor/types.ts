@@ -1,4 +1,4 @@
-import { Course, Difficulty, Chapter } from "../courses/types";
+import { Difficulty, Chapter } from "../courses/types";
 
 // 강사가 생성한 강좌 목록 조회용 타입 (추가 통계 필드 포함)
 export interface InstructorCourse {

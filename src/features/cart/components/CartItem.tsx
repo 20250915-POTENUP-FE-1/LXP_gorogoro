@@ -32,7 +32,7 @@ export default function CartItem({
   return (
     <article className={styles.item}>
       <div className={styles.thumbnail}>
-        <img
+        <Image
           className={styles.image}
           src={course.coverImgUrl}
           alt={course.courseTitle}

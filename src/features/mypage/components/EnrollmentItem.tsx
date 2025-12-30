@@ -20,7 +20,7 @@ export default function EnrollmentItem({ course }: EnrollmentItemProps) {
   return (
     <article className={styles.item} key={course.courseTitle}>
       <div className={styles.thumbnail}>
-        <img
+        <Image
           className={styles.image}
           src={course.coverImageUrl}
           alt={course.courseTitle}

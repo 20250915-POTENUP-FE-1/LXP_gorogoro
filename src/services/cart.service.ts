@@ -1,4 +1,5 @@
 import { fetchWithAuth } from "@/shared/lib/authApi";
+import {GetCartResponse} from "@/features/cart/types";
 
 const CARTS_ENDPOINT = "carts";
 
@@ -6,7 +7,7 @@ const CARTS_ENDPOINT = "carts";
  * 장바구니 조회
  * @throws {BackendError}
  */
-export const getCart = async () => {
+export const getCart = async ():Promise<GetCartResponse> => {
   return await fetchWithAuth(CARTS_ENDPOINT, {
     method: "GET",
   });
