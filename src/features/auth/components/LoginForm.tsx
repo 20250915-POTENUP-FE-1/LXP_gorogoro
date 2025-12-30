@@ -30,10 +30,11 @@ export default function LoginForm() {
         nickname: state.data.nickname,
         role: state.data.role,
       });
-      const from = searchParams.get("from") || "/";
-      router.push(from);
+      const callback = searchParams.get("callback") || "/";
+      // proxy가 /login으로 리다이렉트할 때 URL에 추가한 복귀 경로
+      router.push(callback);
     }
-  }, [state, setUser, router]);
+  }, [state, setUser, router, searchParams]);
 
   // 로그인 실패시 모달 표시
   useEffect(() => {

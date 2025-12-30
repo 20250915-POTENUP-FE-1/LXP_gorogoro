@@ -7,9 +7,7 @@ export default async function EnrollmentPage({
   params: Promise<{ userId: string }>;
 }) {
   const { userId } = await params;
-
   const { contents: enrolledCourses } = await getMyEnrollments();
-
   const coursesCount = enrolledCourses.length;
 
   return (

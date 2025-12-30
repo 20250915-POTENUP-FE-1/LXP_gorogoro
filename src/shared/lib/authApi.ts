@@ -2,7 +2,6 @@
 
 import { cookies } from "next/headers";
 import { refreshToken } from "@/services/auth.service";
-import { BackendError } from "../types/types";
 
 const BASE_URL = process.env.API_BASE_URL || "http://localhost:8080/api/";
 
@@ -19,14 +18,12 @@ const handleResponse = async <T>(res: Response): Promise<T> => {
       errorBody = { message: "알 수 없는 에러가 발생했습니다" };
     }
 
-    const backendError: BackendError = {
+    throw {
       status: res.status,
       code: errorBody?.code,
       message: errorBody?.message || res.statusText,
       errors: errorBody?.errors,
     };
-
-    throw backendError;
   }
 
   if (res.status === 204) {
@@ -40,16 +37,16 @@ const handleResponse = async <T>(res: Response): Promise<T> => {
  * 인증이 필요한 API 요청 (자동 토큰 갱신 포함)
  * @throws {BackendError}
  */
-export const fetchWithAuth = async <T = any>(
+export const fetchWithAuth = async <T,>(
   endpoint: string,
   options: RequestInit = {}
 ): Promise<T> => {
   const cookieStore = await cookies();
-  let accessToken = cookieStore.get("accessToken")?.value;
+  const accessToken = cookieStore.get("accessToken")?.value;
 
   const headers = {
-    "Content-Type": "application/json",
     ...(options.headers || {}),
+    "Content-Type": "application/json",
     ...((accessToken && { Authorization: `Bearer ${accessToken}` }) || {}),
   };
 

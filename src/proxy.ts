@@ -4,23 +4,22 @@ import { decodeJWT } from "./shared/utils/jwt";
 
 export function proxy(request: NextRequest) {
   const accessToken = request.cookies.get("accessToken")?.value;
-  const { pathname } = request.nextUrl;
+  const url = request.nextUrl;
 
   // 인증 체크
   if (!accessToken) {
     const loginUrl = new URL("/login", request.url);
-    // 로그인 후 돌아올 경로 저장
-    loginUrl.searchParams.set("from", pathname);
+    loginUrl.searchParams.set("callback", url.pathname); // 로그인 후 복귀할 경로
     return NextResponse.redirect(loginUrl);
   }
 
   // 역할 체크
-  if (pathname.startsWith("/instructor")) {
+  if (url.pathname.startsWith("/instructor")) {
     const user = decodeJWT(accessToken);
 
     if (!user || user.role !== "INSTRUCTOR") {
-      // INSTRUCTOR가 아니면 홈으로
-      return NextResponse.redirect(new URL("/", request.url));
+      const homeUrl = new URL("/",request.url); // INSTRUCTOR가 아니면 홈으로
+      return NextResponse.redirect(homeUrl);
     }
   }
 
@@ -28,7 +27,7 @@ export function proxy(request: NextRequest) {
   return NextResponse.next();
 }
 
-// 인증이 필요한 경로에서만 middleware 실행
+// 인증이 필요한 경로에서만 proxy 실행
 export const config = {
   matcher: [
     "/instructor/:path*", // 강사 전용 페이지
