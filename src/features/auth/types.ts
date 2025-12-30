@@ -9,15 +9,18 @@ export interface User {
   role: ROLE;
   createdAt?: string;
 }
-export interface RegitstRequest {
+
+export interface RegistRequest {
   name: string;
   email: string;
   password: string;
   role: string;
 }
+
 export interface RegistResponse {
   message: string;
 }
+
 export interface LoginRequest {
   email: string;
   password: string;
@@ -39,6 +42,7 @@ export interface LoginUserInfo {
 export interface RefreshRequest {
   refreshToken: string;
 }
+
 export interface RefreshResponse {
   accessToken: string;
 }
@@ -51,12 +55,14 @@ export interface GetMeResponse {
   role: ROLE;
   createdAt: string;
 }
+
 export interface ModifyMeRequest {
   email?: string;
   password?: string;
   name?: string;
   nickname?: string;
 }
+
 export interface ModifyMeResponse {
   user: User;
 }

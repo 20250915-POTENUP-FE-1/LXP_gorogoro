@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useAuthStore } from "@/stores/useAuthStore";
 import styles from "@/shared/components/layout/Header.module.css";
+import Image from "next/image";
 
 export default function UserActions() {
   const userProfile = useAuthStore((state) => state.userProfile);
@@ -24,7 +25,7 @@ export default function UserActions() {
       )}
 
       <Link href="/cart" className={styles.actionButton} aria-label="장바구니">
-        <img
+        <Image
           src="/assets/shopping-cart.svg"
           alt=""
           className={styles.actionIcon}
@@ -36,7 +37,7 @@ export default function UserActions() {
         className={styles.actionButton}
         aria-label="마이페이지"
       >
-        <img src="/assets/user.svg" alt="" className={styles.actionIcon} />
+        <Image src="/assets/user.svg" alt="" className={styles.actionIcon} />
       </Link>
     </div>
   );

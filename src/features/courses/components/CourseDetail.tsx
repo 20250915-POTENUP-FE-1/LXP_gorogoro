@@ -6,6 +6,7 @@ import { useModalStore } from "@/stores/useModalStore";
 import { useRouter } from "next/navigation";
 import CourseCurriculum from "./CourseCurriculum";
 import { CourseDetail as CourseDetailType } from "../types";
+import Image from "next/image";
 
 interface CourseDetailProps {
   categoryName: string;
@@ -18,14 +19,14 @@ export default function CourseDetail({
 }: CourseDetailProps) {
   const router = useRouter();
   const { openModal } = useModalStore();
-  const handleCartError = (error: unknown, pageRoute?: unknown) => {
+  const handleCartError = (error: unknown) => {
     if (error instanceof Error) {
       if (error.message.includes("409"))
         openModal({
           title: "장바구니",
           message: "이미 장바구니에 담겨있습니다.",
         });
-      pageRoute;
+      return;
     } else {
       openModal({
         title: "장바구니",
@@ -52,8 +53,8 @@ export default function CourseDetail({
       await addToCart(course.id);
       router.push("/cart");
     } catch (error: unknown) {
-      const pageRoute = router.push("/cart");
-      handleCartError(error, pageRoute);
+      router.push("/cart");
+      handleCartError(error);
     }
   };
   return (
@@ -214,7 +215,7 @@ export default function CourseDetail({
                                     {" "}
                                     (
                                     {new Date(
-                                      item.answeredAt
+                                      item.answeredAt,
                                     ).toLocaleDateString()}
                                     )
                                   </span>
@@ -235,7 +236,7 @@ export default function CourseDetail({
             </section>
           </div>
           <aside className={styles.sidebar}>
-            <img
+            <Image
               className={styles.thumbnail}
               src={course.coverImageUrl}
               alt={course.title}
@@ -263,7 +264,7 @@ export default function CourseDetail({
                   type="button"
                   onClick={handleAddToCart}
                 >
-                  <img
+                  <Image
                     className={styles.ctaIcon}
                     src="/assets/shopping-cart.svg"
                     alt=""

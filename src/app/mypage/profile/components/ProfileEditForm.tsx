@@ -8,7 +8,7 @@ export default function ProfileEditForm() {
           <div className={styles.avatarPlaceholder} aria-hidden="true">
             👤
           </div>
-          {/* <img src="/path/to/avatar.jpg" alt="프로필 이미지" /> */}
+          {/* <Image src="/path/to/avatar.jpg" alt="프로필 이미지" /> */}
         </div>
         <button type="button" className={styles.avatarButton}>
           이미지 변경

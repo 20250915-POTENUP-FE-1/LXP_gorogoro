@@ -1,5 +1,5 @@
 import {
-  RegitstRequest,
+  RegistRequest,
   RegistResponse,
   LoginRequest,
   LoginResponse,
@@ -17,7 +17,7 @@ const REFRESH_ENDPOINT = "auth/refresh";
  * @throws {BackendError} 백엔드 에러 발생 시
  */
 export const registerUser = async (
-  body: RegitstRequest
+  body: RegistRequest
 ): Promise<RegistResponse> => {
   return await post<RegistResponse>(REGISTER_ENDPOINT, body);
 };
