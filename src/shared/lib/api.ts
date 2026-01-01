@@ -16,7 +16,7 @@ const handleResponse = async <T>(res: Response): Promise<T> => {
       errorBody = { message: "알 수 없는 에러가 발생했습니다" };
     }
 
-     throw {
+    throw {
       status: res.status,
       code: errorBody?.code,
       message: errorBody?.message || res.statusText,
@@ -39,17 +39,14 @@ const handleResponse = async <T>(res: Response): Promise<T> => {
  * GET 요청
  * @throws {BackendError}
  */
-export const get = async <T,>(
-  endpoint: string,
-  apiParams?: any
-): Promise<T> => {
+export const get = async <T>(endpoint: string, apiParams?: any): Promise<T> => {
   let url = `${BASE_URL}${endpoint}`;
 
   if (apiParams && Object.keys(apiParams).length > 0) {
     const queryString = new URLSearchParams(apiParams).toString();
     url = `${url}?${queryString}`;
   }
-
+  console.log("fetch url:", url);
   const res = await fetch(url);
   return handleResponse<T>(res);
 };
@@ -58,10 +55,7 @@ export const get = async <T,>(
  * POST 요청
  * @throws {BackendError}
  */
-export const post = async <T,>(
-  endpoint: string,
-  body: unknown
-): Promise<T> => {
+export const post = async <T>(endpoint: string, body: unknown): Promise<T> => {
   const res = await fetch(`${BASE_URL}${endpoint}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -75,10 +69,7 @@ export const post = async <T,>(
  * PUT 요청
  * @throws {BackendError}
  */
-export const put = async <T,>(
-  endpoint: string,
-  body: unknown
-): Promise<T> => {
+export const put = async <T>(endpoint: string, body: unknown): Promise<T> => {
   const res = await fetch(`${BASE_URL}${endpoint}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
@@ -92,10 +83,7 @@ export const put = async <T,>(
  * PATCH 요청
  * @throws {BackendError}
  */
-export const patch = async <T,>(
-  endpoint: string,
-  body: unknown
-): Promise<T> => {
+export const patch = async <T>(endpoint: string, body: unknown): Promise<T> => {
   const res = await fetch(`${BASE_URL}${endpoint}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
@@ -109,10 +97,7 @@ export const patch = async <T,>(
  * DELETE 요청
  * @throws {BackendError}
  */
-export const del = async <T,>(
-  endpoint: string,
-  body?: unknown
-): Promise<T> => {
+export const del = async <T>(endpoint: string, body?: unknown): Promise<T> => {
   const res = await fetch(`${BASE_URL}${endpoint}`, {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },

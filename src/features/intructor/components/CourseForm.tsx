@@ -9,6 +9,7 @@ import CourseCurriculumForm from "./CourseCurriculumForm";
 import { Category } from "@/features/courses/types";
 import { CreateCourseAction, UpdateCourseAction } from "../action";
 import { useModalStore } from "@/stores/useModalStore";
+import { Button } from "@/shared/components/ui/button/Button";
 
 export type CourseFormMode = "create" | "edit";
 
@@ -94,24 +95,22 @@ export default function CourseForm({
       {isPending && <p>로딩중...</p>}
       {state.errors && <p>{state.message}</p>}
       <div className={styles.tabContainer}>
-        <button
+        <Button
+          variant="tab"
           type="button"
-          className={`${styles.tabButton} ${
-            activeTab === "basic" ? styles.activeTab : ""
-          }`}
+          className={activeTab === "basic" ? styles.activeTab : ""}
           onClick={() => setActiveTab("basic")}
         >
           기본 정보
-        </button>
-        <button
+        </Button>
+        <Button
+          variant="tab"
           type="button"
-          className={`${styles.tabButton} ${
-            activeTab === "curriculum" ? styles.activeTab : ""
-          }`}
+          className={activeTab === "curriculum" ? styles.activeTab : ""}
           onClick={() => setActiveTab("curriculum")}
         >
           커리큘럼
-        </button>
+        </Button>
       </div>
 
       {/* Step Content */}
@@ -136,19 +135,19 @@ export default function CourseForm({
       </div>
 
       <div className={styles.actions}>
-        <button
-          className={`${styles.actionButton} ${styles.actionButtonCancel}`}
+        <Button
+          variant="cancel"
           type="reset"
           onClick={resetForm}
         >
           초기화
-        </button>
-        <button
-          className={`${styles.actionButton} ${styles.actionButtonSubmit}`}
+        </Button>
+        <Button
+          variant="submit"
           type="submit"
         >
           {mode === "create" ? "개설하기" : "수정하기"}
-        </button>
+        </Button>
       </div>
     </form>
   );

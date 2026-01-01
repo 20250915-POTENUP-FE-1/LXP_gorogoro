@@ -1,11 +1,11 @@
-import { LoginRequest, RegitstRequest } from "./types";
+import { LoginRequest, RegistRequest } from "./types";
 
 export const validateRegistForm = ({
   name,
   email,
   password,
   confirmPassword,
-}: Omit<RegitstRequest, "role"> & { confirmPassword: string }) => {
+}: Omit<RegistRequest, "role"> & { confirmPassword: string }) => {
   const errors: Record<string, string> = {};
   const nameRegex = /^[가-힣]{2,7}$/; // 완성형 한글 2~7자
   const passwordRegex =

@@ -1,0 +1,237 @@
+/* Base button styles */
+.button {
+  padding: 0 16px;
+  border-radius: var(--radius-pill);
+  font-size: var(--text-body-sm);
+  font-weight: var(--font-medium);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  white-space: nowrap;
+}
+
+/* Size variants */
+.sizeSm {
+  height: 28px;
+  padding: 0 12px;
+  font-size: var(--text-xs);
+}
+
+.sizeMd {
+  height: 36px;
+  padding: 0 16px;
+  font-size: var(--text-sm);
+}
+
+.sizeLg {
+  height: 48px;
+  padding: 0 24px;
+  font-size: var(--text-base);
+}
+
+.sizeFull {
+  width: 100%;
+  height: 48px;
+  padding: 0 24px;
+  font-size: var(--text-base);
+}
+
+/* Button variants */
+.buttonPrimary {
+  background-color: var(--primary-500);
+  color: var(--gray-00);
+}
+
+.buttonPrimary:hover {
+  background-color: var(--primary-400);
+}
+
+.buttonSecondary {
+  background-color: var(--gray-800);
+  color: var(--gray-400);
+  border: 1px solid var(--gray-600);
+}
+
+.buttonSecondary:hover {
+  background-color: var(--gray-700);
+  color: var(--gray-00);
+}
+
+.submitButton {
+  background-color: var(--primary-500);
+  color: var(--gray-00);
+  border-radius: var(--radius-md);
+  font-weight: var(--font-bold);
+}
+
+.submitButton:hover {
+  background-color: var(--primary-400);
+  box-shadow: 0 16px 26px rgba(39, 179, 244, 0.25);
+}
+
+.submitButton:active {
+  transform: translateY(1px);
+}
+
+.cancelButton {
+  padding: 0.85rem 1.5rem;
+  border-radius: 0.9rem;
+  border: 1px solid var(--gray-300);
+  background-color: transparent;
+  color: var(--gray-700);
+  font-weight: var(--font-bold);
+}
+
+.cancelButton:hover {
+  background-color: var(--gray-100);
+}
+
+.editButton {
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--highlight);
+  background-color: transparent;
+  font-weight: var(--font-medium);
+  color: var(--gray-900);
+}
+
+.editButton:hover {
+  background-color: var(--gray-100);
+}
+
+.deleteButton {
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--primary-500);
+  background-color: transparent;
+  font-weight: var(--font-medium);
+  color: var(--primary-500);
+}
+
+.deleteButton:hover {
+  background-color: var(--primary-50);
+  color: var(--primary-600);
+}
+
+.addButton {
+  padding: 0.5rem 1rem;
+  border-radius: 0.6rem;
+  border: 1px dashed var(--gray-300);
+  background-color: transparent;
+  color: var(--gray-600);
+  font-size: var(--text-sm);
+}
+
+.addButton:hover {
+  background-color: var(--gray-100);
+  border-color: var(--primary-400);
+  color: var(--primary-600);
+}
+
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1.2rem;
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  background-color: var(--primary-500);
+  color: var(--gray-00);
+  width: 100%;
+}
+
+.ctaButton:hover {
+  background-color: var(--primary-400);
+  box-shadow: 0 12px 24px rgba(76, 81, 191, 0.35);
+}
+
+.avatarButton {
+  padding: 0.75rem 1.25rem;
+  background-color: var(--primary-bg);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--gray-700);
+}
+
+.avatarButton:hover {
+  background-color: var(--gray-50);
+  border-color: var(--gray-400);
+}
+
+.categoryButton {
+  padding: 0.5rem 1rem;
+  color: var(--gray-900);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  background: transparent;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.categoryButton:hover {
+  background-color: var(--gray-100);
+  color: var(--primary-500);
+}
+
+.chipButton {
+  padding: 0.5rem 1.25rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: transparent;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--gray-500);
+}
+
+.chipButton:hover {
+  background-color: var(--gray-100);
+}
+
+.tabButton {
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  border: none;
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  color: var(--gray-500);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+}
+
+.tabButton:hover {
+  color: var(--gray-700);
+}
+
+.navItem {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: none;
+  border-radius: 0.9rem;
+  background-color: transparent;
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  color: var(--gray-700);
+  text-align: left;
+}
+
+.navItem:hover {
+  background-color: var(--gray-100);
+  color: var(--gray-800);
+}
+
+@media (max-width: 768px) {
+  .sizeFull {
+    grid-column: span 1;
+    width: 100%;
+  }
+}

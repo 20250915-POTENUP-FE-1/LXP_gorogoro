@@ -62,24 +62,6 @@
   gap: 0.4rem;
 }
 
-.remove {
-  border: 1px solid var(--gray-200);
-  background-color: transparent;
-  font-size: var(--text-xs);
-  font-weight: var(--font-medium);
-  color: var(--gray-500);
-  padding: 0.25rem 0.9rem;
-  border-radius: var(--radius-pill);
-  cursor: pointer;
-  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
-}
-
-.remove:hover {
-  border-color: var(--primary-400);
-  color: var(--primary-400);
-  background-color: rgba(39, 179, 244, 0.08);
-}
-
 .price {
   font-size: var(--text-title-sm);
   font-weight: 700;

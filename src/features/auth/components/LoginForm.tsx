@@ -6,6 +6,7 @@ import styles from "./LoginForm.module.css";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useModalStore } from "@/stores/useModalStore";
+import { Button } from "@/shared/components/ui/button/Button";
 
 const initialState = {
   success: false,
@@ -16,7 +17,7 @@ const initialState = {
 export default function LoginForm() {
   const [state, formAction, isPending] = useActionState(
     loginAction,
-    initialState
+    initialState,
   );
   const setUser = useAuthStore((state) => state.setUser);
   const searchParams = useSearchParams();
@@ -72,9 +73,9 @@ export default function LoginForm() {
           <span className={styles.errorMessage}>{state.errors.password}</span>
         )}
       </label>
-      <button className={styles.submit} type="submit">
+      <Button variant="submit" type="submit">
         {isPending ? "로그인 하는 중..." : "로그인"}
-      </button>
+      </Button>
     </form>
   );
 }

@@ -1,4 +1,5 @@
 import styles from "./ProfileEditForm.module.css";
+import { Button } from "@/shared/components/ui/button/Button";
 
 export default function ProfileEditForm() {
   return (
@@ -10,9 +11,7 @@ export default function ProfileEditForm() {
           </div>
           {/* <Image src="/path/to/avatar.jpg" alt="프로필 이미지" /> */}
         </div>
-        <button type="button" className={styles.avatarButton}>
-          이미지 변경
-        </button>
+        <Button variant="avatar">이미지 변경</Button>
       </div>
 
       <div className={styles.grid}>
@@ -65,10 +64,9 @@ export default function ProfileEditForm() {
             placeholder="비밀번호를 다시 입력하세요"
           />
         </div>
-
-        <button type="submit" className={styles.submitButton}>
+        <Button variant="submit" type="submit">
           저장하기
-        </button>
+        </Button>
       </div>
     </form>
   );

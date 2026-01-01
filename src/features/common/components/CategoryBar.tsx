@@ -3,6 +3,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import styles from "./CategoryBar.module.css";
 import Image from "next/image";
+import { Button } from "@/shared/components/ui/button/Button";
 
 export default function CategoryBar({ subCategories }: any) {
   const searchParams = useSearchParams();
@@ -30,29 +31,31 @@ export default function CategoryBar({ subCategories }: any) {
   return (
     <section className={styles.bar} aria-label="카테고리 및 정렬">
       <div className={styles.inner}>
-        <div className={styles.chipGroup} role="tablist">
-          <button
-            className={`${styles.chip} ${
+        <div className={styles.chipGroup}>
+          <Button
+            variant="chip"
+            className={
               currentCategory === subCategories[0].parentId
                 ? styles.chipActive
                 : ""
-            }`}
+            }
             type="button"
             onClick={() => handleCategoryClick(subCategories[0].parentId)}
           >
             전체
-          </button>
+          </Button>
           {subCategories.map((category: { id: number; name: string }) => (
-            <button
+            <Button
               key={category.id}
-              className={`${styles.chip} ${
+              variant="chip"
+              className={
                 currentCategory === category.id ? styles.chipActive : ""
-              }`}
+              }
               type="button"
               onClick={() => handleCategoryClick(category.id)}
             >
               {category.name}
-            </button>
+            </Button>
           ))}
         </div>
         <div className={styles.divider} aria-hidden="true" />
@@ -75,7 +78,12 @@ export default function CategoryBar({ subCategories }: any) {
         </div>
         <div className={styles.select}>
           <label className={styles.selectField}>
-            <select className={styles.dropdown} onChange={handleSortChange}>
+            <span className="sr-only">정렬 기준</span>
+            <select
+              className={styles.dropdown}
+              onChange={handleSortChange}
+              aria-label="정렬 기준 선택"
+            >
               <option value="latest">최신순</option>
               <option value="priceAsc">낮은 가격순</option>
               <option value="priceDesc">높은 가격순</option>

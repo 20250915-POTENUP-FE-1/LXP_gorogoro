@@ -65,21 +65,3 @@
   font-weight: 700;
   color: var(--primary-500);
 }
-
-.button {
-  width: 100%;
-  padding: 0.95rem 1.25rem;
-  border: none;
-  border-radius: var(--radius-md);
-  background-color: var(--primary-500);
-  color: var(--gray-00);
-  font-size: var(--text-base);
-  font-weight: var(--font-bold);
-  cursor: pointer;
-  transition: background-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.button:hover {
-  background-color: var(--primary-400);
-  box-shadow: 0 16px 26px rgba(26, 145, 209, 0.25);
-}

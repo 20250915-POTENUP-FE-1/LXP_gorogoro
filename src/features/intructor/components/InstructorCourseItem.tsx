@@ -4,6 +4,7 @@ import { DeleteCourseAction } from "../action";
 import { useRouter } from "next/navigation";
 import { InstructorCourse } from "../types";
 import Image from "next/image";
+import { Button } from "@/shared/components/ui/button/Button";
 
 const getLevelLabel = (level: string) => {
   switch (level) {
@@ -78,20 +79,22 @@ export default function InstructorCourseItem({
             {course.createdAt.toDate().toLocaleDateString()}
           </span> */}
         <div className={styles.actions}>
-          <button
-            className={`${styles.action} ${styles.actionEdit}`}
+          <Button
+            variant="edit"
+            size="sm"
             type="button"
             onClick={handleClickEdit}
           >
             수정하기
-          </button>
-          <button
-            className={`${styles.action} ${styles.actionDelete}`}
+          </Button>
+          <Button
+            variant="delete"
+            size="sm"
             type="button"
             onClick={handleClickDelete}
           >
             삭제하기
-          </button>
+          </Button>
         </div>
       </div>
     </article>

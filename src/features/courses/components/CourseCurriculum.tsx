@@ -3,6 +3,7 @@
 import { ChangeEvent } from "react";
 import styles from "./CourseCurriculum.module.css";
 import { Chapter } from "../types";
+import { Button } from "@/shared/components/ui/button/Button";
 
 interface CourseCurriculumProps {
   contents: Chapter[];
@@ -40,13 +41,13 @@ export default function CourseCurriculum({
       <div className={styles.container}>
         {addChapter && (
           <div className={styles.header}>
-            <button
+            <Button
+              variant="add"
               type="button"
               onClick={addChapter}
-              className={styles.addButton}
             >
               + 챕터 추가
-            </button>
+            </Button>
           </div>
         )}
 
@@ -97,13 +98,14 @@ export default function CourseCurriculum({
                 ))}
 
                 {addLesson && (
-                  <button
+                  <Button
+                    variant="add"
+                    size="sm"
                     type="button"
                     onClick={() => addLesson(chapterIdx)}
-                    className={styles.addLessonButton}
                   >
                     + 강의 추가
-                  </button>
+                  </Button>
                 )}
               </div>
             </div>

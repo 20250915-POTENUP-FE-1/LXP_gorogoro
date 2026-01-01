@@ -4,40 +4,6 @@
   align-items: center;
 }
 
-.button {
-  height: 36px;
-  padding: 0 16px;
-  border-radius: var(--radius-pill);
-  font-size: var(--text-body-sm);
-  font-weight: var(--font-medium);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s;
-  border: none;
-}
-
-.buttonSecondary {
-  background-color: var(--gray-800);
-  color: var(--gray-400);
-  border: 1px solid var(--gray-600);
-}
-
-.buttonSecondary:hover {
-  background-color: var(--gray-700);
-  color: var(--gray-00);
-}
-
-.buttonPrimary {
-  background-color: var(--primary-500); /* Green color from screenshot -> using primary */
-  color: var(--gray-00);
-}
-
-.buttonPrimary:hover {
-  background-color: var(--primary-400);
-}
-
 .icon {
   margin-right: 8px;
 }
