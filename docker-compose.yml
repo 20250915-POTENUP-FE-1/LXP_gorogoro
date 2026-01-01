@@ -1,0 +1,233 @@
+################################
+# Network
+################################
+networks:
+  msa-net:
+
+volumes:
+  mysql-course-data:
+  mysql-cart-data:
+  mysql-user-data:
+  rabbit1-data:
+  rabbit2-data:
+  rabbit3-data:
+
+services:
+  ################################
+  # 1) Application Servers
+  ################################
+  app-course:
+    image: tkstjd565/gorogoro-course:1.2
+    container_name: app-course
+    depends_on:
+      mysql-course:
+        condition: service_healthy
+      rabbit1:
+        condition: service_healthy
+    environment:
+      - PORT=8080
+      - BATCH_SIZE=400
+      - DATABASE_URL=jdbc:mysql://mysql-course:3306/course_db?serverTimezone=UTC&characterEncoding=UTF-8
+      - DATABASE_USERNAME=course
+      - DATABASE_PASSWORD=course_pw
+      - RABBIT_MQ_HOST_IP=rabbit1
+      - RABBITMQ_PORT=5672
+      - RABBIT_MQ_USERNAME=appuser
+      - RABBIT_MQ_PASSWORD=apppass
+      - RABBITMQ_VIRTUAL_HOST=app-vhost
+      - USER_SERVER_URL=http://app-user:8081/users/nickname
+    ports:
+      - "8082:8080"
+    networks:
+      - msa-net
+
+  app-gateway:
+    image: tkstjd565/gorogoro-gateway:1.3.1
+    container_name: app-gateway
+    depends_on:
+      rabbit1:
+        condition: service_healthy
+    environment:
+      - PORT=8080
+    ports:
+      - "8080:8080"
+    networks:
+      - msa-net
+
+  app-user:
+    image: tkstjd565/gorogoro-user:1.0
+    container_name: app-user
+    depends_on:
+      mysql-user:
+        condition: service_healthy
+      rabbit1:
+        condition: service_healthy
+    environment:
+      - PORT=8080
+      - DB_URL=jdbc:mysql://mysql-user:3306/user_db?serverTimezone=UTC&characterEncoding=UTF-8
+      - DB_USER=user
+      - BATCH_SIZE=100
+      - DB_PASSWORD=user_pw
+      - RABBIT_HOST=rabbit1
+      - SPRING_RABBITMQ_PORT=5672
+      - RABBIT_ID=appuser
+      - RABBIT_PASSWORD=apppass
+      - VHOST=app-vhost
+      - ACCESS_TOKEN_EXPIRED=3155760000
+      - REFRESH_TOKEN_EXPIRED=900
+    ports:
+      - "8081:8080"
+    networks:
+      - msa-net
+
+  app-cart:
+    image: tkstjd565/gorogoro-cart:1.1
+    container_name: app-cart
+    depends_on:
+      mysql-cart:
+        condition: service_healthy
+      rabbit1:
+        condition: service_healthy
+    environment:
+      - SERVER_PORT=8080
+      - DATASOURCE_URL=jdbc:mysql://mysql-cart:3306/cart_db?serverTimezone=UTC&characterEncoding=UTF-8
+      - DATASOURCE_USERNAME=cart
+      - DATASOURCE_PASSWORD=cart_pw
+      - COURSE_SERVICE_URL=http://app-course:8080/api/internal/courses
+      - SANSEONG_IP=rabbit1
+      - RABBIT_ID=appuser
+      - RABBIT_PASSWORD=apppass
+      - VHOST=app-vhost
+    ports:
+      - "8084:8080"
+    networks:
+      - msa-net
+
+  ################################
+  # 2) MySQL (3개)
+  ################################
+  mysql-course:
+    image: mysql:8.0
+    container_name: mysql-course
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_ROOT_PASSWORD=root_pw
+      - MYSQL_DATABASE=course_db
+      - MYSQL_USER=course
+      - MYSQL_PASSWORD=course_pw
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql-course-data:/var/lib/mysql
+    networks:
+      - msa-net
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-proot_pw" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  mysql-user:
+    image: mysql:8.0
+    container_name: mysql-user
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_ROOT_PASSWORD=root_pw
+      - MYSQL_DATABASE=user_db
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=user_pw
+    ports:
+      - "3309:3306"
+    volumes:
+      - mysql-user-data:/var/lib/mysql
+    networks:
+      - msa-net
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-proot_pw" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  mysql-cart:
+    image: mysql:8.0
+    container_name: mysql-cart
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_ROOT_PASSWORD=root_pw
+      - MYSQL_DATABASE=cart_db
+      - MYSQL_USER=cart
+      - MYSQL_PASSWORD=cart_pw
+    ports:
+      - "3308:3306"
+    volumes:
+      - mysql-cart-data:/var/lib/mysql
+    networks:
+      - msa-net
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-proot_pw" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  ################################
+  # 3) RabbitMQ Cluster (Quorum)
+  ################################
+  rabbit1:
+    image: tkstjd565/gorogoro-rabbitmq:1.0
+    container_name: rabbit1
+    hostname: rabbit1
+    environment:
+      - RABBITMQ_ERLANG_COOKIE=MY_SUPER_SECRET_COOKIE
+      - RABBITMQ_DEFAULT_USER=appuser
+      - RABBITMQ_DEFAULT_PASS=apppass
+      - RABBITMQ_DEFAULT_VHOST=app-vhost
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbit1-data:/var/lib/rabbitmq
+    networks:
+      - msa-net
+    healthcheck:
+      test: [ "CMD", "rabbitmq-diagnostics", "-q", "ping" ]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  rabbit2:
+    image: tkstjd565/gorogoro-rabbitmq:1.0
+    container_name: rabbit2
+    hostname: rabbit2
+    environment:
+      - RABBITMQ_ERLANG_COOKIE=MY_SUPER_SECRET_COOKIE
+    depends_on:
+      rabbit1:
+        condition: service_healthy
+    volumes:
+      - rabbit2-data:/var/lib/rabbitmq
+    networks:
+      - msa-net
+    healthcheck:
+      test: [ "CMD", "rabbitmq-diagnostics", "-q", "ping" ]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  rabbit3:
+    image: tkstjd565/gorogoro-rabbitmq:1.0
+    container_name: rabbit3
+    hostname: rabbit3
+    environment:
+      - RABBITMQ_ERLANG_COOKIE=MY_SUPER_SECRET_COOKIE
+    depends_on:
+      rabbit1:
+        condition: service_healthy
+    volumes:
+      - rabbit3-data:/var/lib/rabbitmq
+    networks:
+      - msa-net
+    healthcheck:
+      test: [ "CMD", "rabbitmq-diagnostics", "-q", "ping" ]
+      interval: 5s
+      timeout: 5s
+      retries: 12

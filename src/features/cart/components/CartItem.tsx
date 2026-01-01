@@ -4,6 +4,9 @@ import { useModalStore } from "@/stores/useModalStore";
 import styles from "./CartItem.module.css";
 import { CartCourse } from "../types";
 import { ActionState } from "@/shared/types/types";
+import Image from "next/image";
+import { Button } from "@/shared/components/ui/button/Button";
+
 interface CartItemProps {
   course: CartCourse;
   deleteCartItemAction: (courseId: number) => Promise<ActionState>;
@@ -47,13 +50,9 @@ export default function CartItem({
         <p className={styles.instructor}>{course.instructorName}</p>
       </div>
       <div className={styles.summary}>
-        <button
-          className={styles.remove}
-          type="button"
-          onClick={handleDeleteItem}
-        >
+        <Button variant="delete" size="sm" onClick={handleDeleteItem}>
           삭제
-        </button>
+        </Button>
         <p className={styles.price}>{`₩${course.price.toLocaleString()}`}</p>
       </div>
     </article>

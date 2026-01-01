@@ -30,23 +30,6 @@
   font-size: 3rem;
 }
 
-.avatarButton {
-  padding: 0.75rem 1.25rem;
-  background-color: var(--primary-bg);
-  border: 1px solid var(--gray-300);
-  border-radius: var(--radius-sm);
-  font-size: var(--text-sm);
-  font-weight: var(--font-medium);
-  color: var(--gray-700);
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.avatarButton:hover {
-  background-color: var(--gray-50);
-  border-color: var(--gray-400);
-}
-
 .grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -89,34 +72,9 @@
   border-color: transparent;
 }
 
-.submitButton {
-  grid-column: span 2;
-  margin-top: 1rem;
-  padding: 1rem;
-  background-color: var(--gray-900);
-  color: #ffffff;
-  border: none;
-  border-radius: var(--radius-sm);
-  font-size: var(--text-base);
-  font-weight: var(--font-bold);
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  justify-self: end;
-  min-width: 120px;
-}
-
-.submitButton:hover {
-  background-color: var(--gray-700);
-}
-
 @media (max-width: 768px) {
   .grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
-  }
-  
-  .submitButton {
-    grid-column: span 1;
-    width: 100%;
   }
 }

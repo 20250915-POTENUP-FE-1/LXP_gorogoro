@@ -20,28 +20,31 @@ export default function AuthInitializer() {
 
   useEffect(() => {
     let ignore = false;
-    const fetchUser = async ()=>{
-      try{
-        const res = await fetch("/api/me",{
-          cache:"no-store",
-          credentials:"include"
-        })
-        if(!res.ok) throw new Error("unauthorized");
-        const me:MeResponse = await res.json();
-        if(!ignore){
+    const fetchUser = async () => {
+      try {
+        const res = await fetch("/api/me", {
+          cache: "no-store",
+          credentials: "include",
+        });
+        console.log("status", res.status);
+        console.log("set-cookie?", res.headers.get("set-cookie")); // route handler에서만 의미
+
+        if (!res.ok) throw new Error("unauthorized");
+        const me: MeResponse = await res.json();
+        if (!ignore) {
           setUser({ nickname: me.nickname, role: me.role });
         }
-      }catch (error){
-        if(!ignore){
+      } catch (error) {
+        if (!ignore) {
           clearUser();
           console.log(error);
         }
       }
-    }
+    };
     void fetchUser();
     return () => {
       ignore = true;
-    }
+    };
   }, [setUser, clearUser]);
 
   return null;

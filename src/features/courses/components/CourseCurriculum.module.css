@@ -8,22 +8,6 @@
   margin-bottom: 0.5rem;
 }
 
-.addButton {
-  padding: 0.5rem 1rem;
-  border-radius: 0.6rem;
-  border: 1px dashed var(--gray-300);
-  background-color: transparent;
-  color: var(--gray-600);
-  font-size: var(--text-sm);
-  cursor: pointer;
-}
-
-.addButton:hover {
-  background-color: var(--gray-100);
-  border-color: var(--primary-400);
-  color: var(--primary-600);
-}
-
 .chapterList {
   display: flex;
   flex-direction: column;
@@ -151,23 +135,4 @@
   background-color: var(--primary-500);
   color: var(--gray-00);
   box-shadow: 0 4px 12px rgba(39, 179, 244, 0.3);
-}
-
-.addLessonButton {
-  align-self: flex-start;
-  margin-top: 0.5rem;
-  padding: 0.4rem 0.8rem;
-  border-radius: 0.5rem;
-  border: 1px dashed var(--gray-300);
-  background-color: transparent;
-  color: var(--gray-500);
-  font-size: var(--text-xs);
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.addLessonButton:hover {
-  background-color: var(--gray-100);
-  border-color: var(--primary-300);
-  color: var(--primary-500);
 }

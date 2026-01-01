@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import styles from "./EnrollmentItem.module.css";
 import { EnrolledCourse } from "../types";
+import { Button } from "@/shared/components/ui/button/Button";
 
 interface EnrollmentItemProps {
   course: EnrolledCourse;
@@ -50,13 +52,14 @@ export default function EnrollmentItem({ course }: EnrollmentItemProps) {
         >
           이어 학습하기
         </Link>
-        <button
-          className={`${styles.action} ${styles.actionSecondary}`}
+        <Button
+          variant="cancel"
+          size="sm"
           type="button"
           onClick={() => handleCancel(course.enrollmentId)}
         >
           수강 취소
-        </button>
+        </Button>
       </div>
     </article>
   );

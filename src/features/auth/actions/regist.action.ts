@@ -1,7 +1,7 @@
 "use server";
 
 import { registerUser } from "@/services/auth.service";
-import { RegitstRequest, ROLE } from "../types";
+import { RegistRequest, ROLE } from "../types";
 import { validateRegistForm } from "../validate";
 import { isBackendError } from "@/shared/types/types";
 import { mapAuthError } from "../utils/authErrorMapper";
@@ -15,7 +15,7 @@ type ActionState<T> = {
 
 export const registAction = async (
   prevState: ActionState<void>,
-  formData: FormData
+  formData: FormData,
 ): Promise<ActionState<void>> => {
   const name = formData.get("name") as string;
   const email = formData.get("email") as string;
@@ -36,7 +36,7 @@ export const registAction = async (
     };
   }
 
-  const payload: RegitstRequest = {
+  const payload: RegistRequest = {
     name,
     email,
     password,

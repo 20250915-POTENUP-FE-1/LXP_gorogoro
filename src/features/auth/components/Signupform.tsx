@@ -5,6 +5,7 @@ import styles from "./SignupForm.module.css";
 import { registAction } from "../actions/regist.action";
 import { useRouter } from "next/navigation";
 import { useModalStore } from "@/stores/useModalStore";
+import { Button } from "@/shared/components/ui/button/Button";
 
 const initialState = {
   success: false,
@@ -13,12 +14,10 @@ const initialState = {
 };
 
 export default function SignupForm() {
-  const [state, formAction, isPending] = useActionState(
-    registAction,
-    initialState
-  );
+  const [state, formAction] = useActionState(registAction, initialState);
   const router = useRouter();
   const { openModal } = useModalStore();
+
   //회원가입 성공시
   useEffect(() => {
     if (state.success === true) {
@@ -104,6 +103,7 @@ export default function SignupForm() {
           name="role"
           id="role"
           defaultValue="STUDENT"
+          aria-label="회원 유형 선택"
         >
           <option className={styles.userType} value="STUDENT">
             학생
@@ -114,9 +114,9 @@ export default function SignupForm() {
         </select>
       </fieldset>
 
-      <button className={styles.submit} type="submit">
+      <Button variant="submit" size="full" type="submit">
         회원가입
-      </button>
+      </Button>
     </form>
   );
 }

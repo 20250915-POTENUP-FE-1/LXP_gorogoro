@@ -1,6 +1,7 @@
 import { Summary } from "../types";
 import styles from "./CartSummary.module.css";
 import Link from "next/link";
+import { Button } from "@/shared/components/ui/button/Button";
 
 interface CartSummaryProps {
   cartSummary: Summary;
@@ -30,7 +31,9 @@ export default function CartSummary({ cartSummary }: CartSummaryProps) {
         </span>
       </div>
       <Link href="/mypage">
-        <button className={styles.button}>결제하기</button>
+        <Button variant="submit" size="full">
+          결제하기
+        </Button>
       </Link>
     </aside>
   );

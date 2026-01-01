@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import CourseCurriculum from "./CourseCurriculum";
 import { CourseDetail as CourseDetailType } from "../types";
 import Image from "next/image";
+import { Button } from "@/shared/components/ui/button/Button";
 
 interface CourseDetailProps {
   categoryName: string;
@@ -98,42 +99,38 @@ export default function CourseDetail({
             </div>
             <section className={styles.section}>
               <div className={styles.tabContainer}>
-                <button
+                <Button
+                  variant="tab"
                   type="button"
-                  className={`${styles.tabButton} ${
-                    activeTab === "description" ? styles.activeTab : ""
-                  }`}
+                  className={activeTab === "description" ? styles.activeTab : ""}
                   onClick={() => setActiveTab("description")}
                 >
                   상세 정보
-                </button>
-                <button
+                </Button>
+                <Button
+                  variant="tab"
                   type="button"
-                  className={`${styles.tabButton} ${
-                    activeTab === "curriculum" ? styles.activeTab : ""
-                  }`}
+                  className={activeTab === "curriculum" ? styles.activeTab : ""}
                   onClick={() => setActiveTab("curriculum")}
                 >
                   커리큘럼
-                </button>
-                <button
+                </Button>
+                <Button
+                  variant="tab"
                   type="button"
-                  className={`${styles.tabButton} ${
-                    activeTab === "review" ? styles.activeTab : ""
-                  }`}
+                  className={activeTab === "review" ? styles.activeTab : ""}
                   onClick={() => setActiveTab("review")}
                 >
                   리뷰
-                </button>
-                <button
+                </Button>
+                <Button
+                  variant="tab"
                   type="button"
-                  className={`${styles.tabButton} ${
-                    activeTab === "request" ? styles.activeTab : ""
-                  }`}
+                  className={activeTab === "request" ? styles.activeTab : ""}
                   onClick={() => setActiveTab("request")}
                 >
                   문의
-                </button>
+                </Button>
               </div>
               {activeTab === "description" && (
                 <>
@@ -259,8 +256,8 @@ export default function CourseDetail({
                 </div>
               </dl>
               <div className={styles.ctaGroup}>
-                <button
-                  className={styles.ctaPrimary}
+                <Button
+                  variant="cta"
                   type="button"
                   onClick={handleAddToCart}
                 >
@@ -271,14 +268,15 @@ export default function CourseDetail({
                     aria-hidden="true"
                   />
                   장바구니 담기
-                </button>
-                <button
+                </Button>
+                <Button
+                  variant="cta"
                   className={styles.ctaSecondary}
                   type="button"
                   onClick={handleCheckoutNow}
                 >
                   바로 결제하기
-                </button>
+                </Button>
               </div>
             </div>
           </aside>

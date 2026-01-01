@@ -77,6 +77,7 @@
   font-size: var(--text-xs);
   font-weight: var(--font-medium);
   color: var(--primary-500);
+  text-decoration: none;
   cursor: pointer;
   transition: background-color 0.2s ease, color 0.2s ease,
     border-color 0.2s ease;
@@ -84,19 +85,6 @@
 
 .action:hover {
   background-color: var(--primary-50);
-}
-
-.actionSecondary {
-  border-color: var(--gray-300);
-  padding: 0.35rem 0.5rem;
-  font-size: 0.7rem;
-  color: var(--gray-500);
-}
-
-.actionSecondary:hover {
-  background-color: var(--gray-100);
-  border-color: var(--gray-400);
-  color: var(--gray-700);
 }
 
 .progressContainer {
