@@ -1,22 +1,23 @@
 "use server";
 
-import { registerUser } from "@/services/auth.service";
-import { RegistRequest, ROLE } from "../types";
-import { validateRegistForm } from "../validate";
-import { isBackendError } from "@/shared/types/types";
-import { mapAuthError } from "../utils/authErrorMapper";
+import {registerUser} from "@/services/auth.service";
+import {RegistRequest, ROLE} from "../types";
+import {validateRegistForm} from "../validate";
+import {isBackendError} from "@/shared/types/types";
+import {mapAuthError} from "../utils/authErrorMapper";
 
-type ActionState<T> = {
-  success: boolean;
-  message?: string;
-  errors?: Record<string, string>;
-  data?: T;
+export type RegistFormData = {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  role: ROLE;
 };
 
 export const registAction = async (
-  prevState: ActionState<void>,
+  prevState: ActionState<RegistFormData>,
   formData: FormData,
-): Promise<ActionState<void>> => {
+): Promise<ActionState<RegistFormData>> => {
   const name = formData.get("name") as string;
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
@@ -33,6 +34,7 @@ export const registAction = async (
     return {
       success: false,
       errors: validation.errors,
+      data: {name, email, password: "", confirmPassword: "", role},
     };
   }
 

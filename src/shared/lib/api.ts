@@ -1,4 +1,4 @@
-const BASE_URL = process.env.API_BASE_URL || "http://localhost:8082/api/";
+const BASE_URL = process.env.API_BASE_URL || "http://localhost:8080/api/";
 
 /**
  * HTTP Response를 처리하고 에러 시 throw
