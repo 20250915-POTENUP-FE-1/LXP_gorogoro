@@ -27,6 +27,8 @@ export default function UserActions() {
       <Link href="/cart" className={styles.actionButton} aria-label="장바구니">
         <Image
           src="/assets/shopping-cart.svg"
+          width={10}
+          height={10}
           alt=""
           className={styles.actionIcon}
           aria-hidden="true"
@@ -37,7 +39,13 @@ export default function UserActions() {
         className={styles.actionButton}
         aria-label="마이페이지"
       >
-        <Image src="/assets/user.svg" alt="" className={styles.actionIcon} />
+        <Image
+          src="/assets/user.svg"
+          width={10}
+          height={10}
+          alt=""
+          className={styles.actionIcon}
+        />
       </Link>
     </div>
   );
