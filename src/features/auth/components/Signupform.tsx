@@ -1,22 +1,29 @@
 "use client";
 
-import { useActionState, useEffect } from "react";
+import {useActionState, useEffect} from "react";
 import styles from "./SignupForm.module.css";
-import { registAction } from "../actions/regist.action";
-import { useRouter } from "next/navigation";
-import { useModalStore } from "@/stores/useModalStore";
-import { Button } from "@/shared/components/ui/button/Button";
+import {registAction, RegistFormData} from "../actions/regist.action";
+import {useRouter} from "next/navigation";
+import {useModalStore} from "@/stores/useModalStore";
+import {Button} from "@/shared/components/ui/button/Button";
 
 const initialState = {
   success: false,
+  data: {
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    role: "STUDENT",
+  },
   message: "",
   errors: {},
-};
+} satisfies ActionState<RegistFormData>;
 
 export default function SignupForm() {
   const [state, formAction] = useActionState(registAction, initialState);
   const router = useRouter();
-  const { openModal } = useModalStore();
+  const {openModal} = useModalStore();
 
   //회원가입 성공시
   useEffect(() => {
@@ -48,6 +55,7 @@ export default function SignupForm() {
           id="name"
           className={styles.input}
           type="text"
+          defaultValue={state.data?.name ?? ""}
           placeholder="이름을 입력하세요"
         />
         {state.errors?.name && (
@@ -62,6 +70,7 @@ export default function SignupForm() {
           className={styles.input}
           type="email"
           placeholder="hello@example.com"
+          defaultValue={state.data?.email ?? ""}
         />
         {state.errors?.email && (
           <span className={styles.errorMessage}>{state.errors.email}</span>
@@ -74,6 +83,7 @@ export default function SignupForm() {
           id="password"
           className={styles.input}
           type="password"
+          defaultValue=""
           placeholder="8자 이상 입력"
         />
         {state.errors?.password && (
@@ -87,6 +97,7 @@ export default function SignupForm() {
           id="confirmPassword"
           className={styles.input}
           type="password"
+          defaultValue=""
           placeholder="비밀번호를 다시 입력하세요"
         />
         {state.errors?.confirmPassword && (
@@ -102,7 +113,7 @@ export default function SignupForm() {
           className={styles.userTypes}
           name="role"
           id="role"
-          defaultValue="STUDENT"
+          defaultValue={state.data?.role ?? "STUDENT"}
           aria-label="회원 유형 선택"
         >
           <option className={styles.userType} value="STUDENT">
