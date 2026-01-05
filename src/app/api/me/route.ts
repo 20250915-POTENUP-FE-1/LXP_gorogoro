@@ -6,12 +6,13 @@ export async function GET() {
     const me = await getMe();
     return NextResponse.json(me, { status: 200 });
   } catch (error) {
-    console.error("[/api/me] error:", error);
-
     const message =
       error instanceof Error ? error.message : "Internal Server Error";
-    const status =
-      typeof (error as any)?.status === "number" ? (error as any).status : 500;
+    const status = typeof error?.status === "number" ? error.status : 500;
+
+    if (status === 401) {
+      return NextResponse.json({ message: "unauthorized" }, { status: 401 });
+    }
 
     return NextResponse.json({ message }, { status });
   }

@@ -8,12 +8,8 @@ import Avatar from "@/shared/components/ui/avatar/Avatar/Avatar";
 import { Button } from "@/shared/components/ui/button/Button";
 
 export default function MySidebar() {
-  const { userProfile, clearUser } = useAuthStore((state) => ({
-    userProfile: state.userProfile,
-    clearUser: state.clearUser,
-  }));
-  // const userProfile = useAuthStore((state)=>(state.useProfile)
-  // const clearUser = useAuthStore((state)=>state.clearUser)
+  const userProfile = useAuthStore((state) => state.userProfile);
+  const clearUser = useAuthStore((state) => state.clearUser);
 
   const handleLogout = async () => {
     clearUser(); // zustand 상태 초기화 (localStorage도 자동 반영)
@@ -30,11 +26,7 @@ export default function MySidebar() {
         <Link href="/mypage/enrollment" className={styles.navItem}>
           수강 중인 강좌
         </Link>
-        <Button
-          variant="navItem"
-          type="button"
-          onClick={handleLogout}
-        >
+        <Button variant="navItem" type="button" onClick={handleLogout}>
           로그아웃
         </Button>
       </nav>
