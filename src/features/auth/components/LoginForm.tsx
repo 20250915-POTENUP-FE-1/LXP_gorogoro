@@ -52,14 +52,14 @@ export default function LoginForm() {
         name="email"
         type="email"
         placeholder="Enter your email"
-        errorMessage={state.errors.email}
+        errorMessage={state.errors?.email}
       />
       <FieldInput
         label="비밀번호"
         name="password"
         type="password"
         placeholder="Enter your password"
-        errorMessage={state.errors.password}
+        errorMessage={state.errors?.password}
       />
 
       <Button variant="submit" type="submit">

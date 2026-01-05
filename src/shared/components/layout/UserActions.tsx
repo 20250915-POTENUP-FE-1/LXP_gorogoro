@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { useAuthStore } from "@/stores/useAuthStore";
-import styles from "@/shared/components/layout/Header.module.css";
-import Image from "next/image";
+import Link from 'next/link';
+import { useAuthStore } from '@/stores/useAuthStore';
+import styles from '@/shared/components/layout/Header.module.css';
+import Image from 'next/image';
 
 export default function UserActions() {
   const userProfile = useAuthStore((state) => state.userProfile);
@@ -18,7 +18,7 @@ export default function UserActions() {
 
   return (
     <div className={styles.actions}>
-      {userProfile.role === "INSTRUCTOR" && (
+      {userProfile.role === 'INSTRUCTOR' && (
         <Link href="/instructor" className={styles.dashboardLink}>
           강사 대시보드
         </Link>
@@ -30,6 +30,8 @@ export default function UserActions() {
           width={10}
           height={10}
           alt=""
+          width={500}
+          height={500}
           className={styles.actionIcon}
           aria-hidden="true"
         />
