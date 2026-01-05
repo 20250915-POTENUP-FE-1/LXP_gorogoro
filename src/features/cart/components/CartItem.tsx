@@ -1,31 +1,28 @@
-"use client";
+'use client';
 
-import { useModalStore } from "@/stores/useModalStore";
-import styles from "./CartItem.module.css";
-import { CartCourse } from "../types";
-import { ActionState } from "@/shared/types/types";
-import Image from "next/image";
-import { Button } from "@/shared/components/ui/button/Button";
+import { useModalStore } from '@/stores/useModalStore';
+import styles from './CartItem.module.css';
+import { CartCourse } from '../types';
+import { ActionState } from '@/shared/types/types';
+import Image from 'next/image';
+import { Button } from '@/shared/components/ui/Button';
 
 interface CartItemProps {
   course: CartCourse;
   deleteCartItemAction: (courseId: number) => Promise<ActionState>;
 }
-export default function CartItem({
-  course,
-  deleteCartItemAction,
-}: CartItemProps) {
+export default function CartItem({ course, deleteCartItemAction }: CartItemProps) {
   const { openModal } = useModalStore();
   const handleDeleteItem = () => {
     openModal({
-      title: "장바구니 삭제",
-      message: "선택한 강좌를 삭제하시겠습니까?",
+      title: '장바구니 삭제',
+      message: '선택한 강좌를 삭제하시겠습니까?',
       onConfirm: async () => {
         const result = await deleteCartItemAction(course.courseId);
         if (!result.success) {
           openModal({
-            title: "삭제 실패",
-            message: result.message || "삭제에 실패했습니다.",
+            title: '삭제 실패',
+            message: result.message || '삭제에 실패했습니다.',
           });
         }
       },
@@ -35,11 +32,7 @@ export default function CartItem({
   return (
     <article className={styles.item}>
       <div className={styles.thumbnail}>
-        <Image
-          className={styles.image}
-          src={course.coverImgUrl}
-          alt={course.courseTitle}
-        />
+        <Image className={styles.image} src={course.coverImgUrl} alt={course.courseTitle} />
       </div>
       <div className={styles.content}>
         <span className={styles.category}>

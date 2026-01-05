@@ -1,19 +1,19 @@
-"use client";
-import styles from "./InstructorCourseItem.module.css";
-import { DeleteCourseAction } from "../action";
-import { useRouter } from "next/navigation";
-import { InstructorCourse } from "../types";
-import Image from "next/image";
-import { Button } from "@/shared/components/ui/button/Button";
+'use client';
+import styles from './InstructorCourseItem.module.css';
+import { DeleteCourseAction } from '../action';
+import { useRouter } from 'next/navigation';
+import { InstructorCourse } from '../types';
+import Image from 'next/image';
+import { Button } from '@/shared/components/ui/Button';
 
 const getLevelLabel = (level: string) => {
   switch (level) {
-    case "BEGINNER":
-      return "초급";
-    case "INTERMEDIATE":
-      return "중급";
-    case "ADVANCED":
-      return "고급";
+    case 'BEGINNER':
+      return '초급';
+    case 'INTERMEDIATE':
+      return '중급';
+    case 'ADVANCED':
+      return '고급';
     default:
       return level;
   }
@@ -23,38 +23,26 @@ interface InstructorCourseItemProps {
   course: InstructorCourse;
 }
 
-export default function InstructorCourseItem({
-  course,
-}: InstructorCourseItemProps) {
+export default function InstructorCourseItem({ course }: InstructorCourseItemProps) {
   const router = useRouter();
   const courseId = course.courseId;
   const handleClickEdit = () => {
     router.push(`/instructor/courses/${courseId}/edit`);
   };
   const handleClickDelete = async () => {
-    if (confirm("삭제 하시겠습니까?")) {
+    if (confirm('삭제 하시겠습니까?')) {
       await DeleteCourseAction(courseId);
     }
   };
   return (
-    <article
-      className={`${styles.item} ${
-        course.status === "archived" ? styles.archived : ""
-      }`}
-    >
+    <article className={`${styles.item} ${course.status === 'archived' ? styles.archived : ''}`}>
       <div className={styles.thumbnail}>
-        <Image
-          className={styles.image}
-          src={course.coverImageUrl}
-          alt={course.title}
-        />
+        <Image className={styles.image} src={course.coverImageUrl} alt={course.title} />
       </div>
       <div className={styles.body}>
         <h3 className={styles.title}>{course.title}</h3>
         <div className={styles.stats}>
-          <span className={styles.levelBadge}>
-            {getLevelLabel(course.difficulty)}
-          </span>
+          <span className={styles.levelBadge}>{getLevelLabel(course.difficulty)}</span>
           <div className={styles.statItem}>
             <span className={styles.statLabel}>평점(4.5)</span>
             {course.rating}
@@ -79,20 +67,10 @@ export default function InstructorCourseItem({
             {course.createdAt.toDate().toLocaleDateString()}
           </span> */}
         <div className={styles.actions}>
-          <Button
-            variant="edit"
-            size="sm"
-            type="button"
-            onClick={handleClickEdit}
-          >
+          <Button variant="edit" size="sm" type="button" onClick={handleClickEdit}>
             수정하기
           </Button>
-          <Button
-            variant="delete"
-            size="sm"
-            type="button"
-            onClick={handleClickDelete}
-          >
+          <Button variant="delete" size="sm" type="button" onClick={handleClickDelete}>
             삭제하기
           </Button>
         </div>

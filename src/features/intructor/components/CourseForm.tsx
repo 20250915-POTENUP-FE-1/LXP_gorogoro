@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { useActionState, useEffect, useState } from "react";
-import styles from "./CourseForm.module.css";
-import { CourseFormRequest } from "../types";
-import { useCourseForm } from "../hooks/useCourseForm";
-import CourseBasicInfoForm from "./CourseBasicInfoForm";
-import CourseCurriculumForm from "./CourseCurriculumForm";
-import { Category } from "@/features/courses/types";
-import { CreateCourseAction, UpdateCourseAction } from "../action";
-import { useModalStore } from "@/stores/useModalStore";
-import { Button } from "@/shared/components/ui/button/Button";
+import { useActionState, useEffect, useState } from 'react';
+import styles from './CourseForm.module.css';
+import { CourseFormRequest } from '../types';
+import { useCourseForm } from '../hooks/useCourseForm';
+import CourseBasicInfoForm from './CourseBasicInfoForm';
+import CourseCurriculumForm from './CourseCurriculumForm';
+import { Category } from '@/features/courses/types';
+import { CreateCourseAction, UpdateCourseAction } from '../action';
+import { useModalStore } from '@/stores/useModalStore';
+import { Button } from '@/shared/components/ui/Button';
 
-export type CourseFormMode = "create" | "edit";
+export type CourseFormMode = 'create' | 'edit';
 
 interface CourseFormProps {
   categories: Category[];
@@ -22,22 +22,22 @@ interface CourseFormProps {
 
 // Default data matching types.ts (contents array)
 const defaultFormData: CourseFormRequest = {
-  title: "",
-  categoryId: "",
-  difficulty: "BEGINNER",
+  title: '',
+  categoryId: '',
+  difficulty: 'BEGINNER',
   price: 0,
-  coverImageUrl: "",
-  summary: "",
-  description: "",
+  coverImageUrl: '',
+  summary: '',
+  description: '',
   contents: [
     {
-      chapterTitle: "",
+      chapterTitle: '',
       seq: 0,
       lessons: [
         {
-          title: "",
+          title: '',
           seq: 0,
-          resourceUrl: "",
+          resourceUrl: '',
         },
       ],
     },
@@ -48,7 +48,7 @@ const defaultFormData: CourseFormRequest = {
 export default function CourseForm({
   categories,
   id,
-  mode = "create",
+  mode = 'create',
   initialFormData = defaultFormData,
 }: CourseFormProps) {
   const {
@@ -63,18 +63,18 @@ export default function CourseForm({
     resetForm,
   } = useCourseForm(initialFormData);
 
-  const [activeTab, setActiveTab] = useState<"basic" | "curriculum">("basic");
+  const [activeTab, setActiveTab] = useState<'basic' | 'curriculum'>('basic');
 
   const getAction = () => {
-    if (mode === "create") {
+    if (mode === 'create') {
       return CreateCourseAction;
     }
-    return UpdateCourseAction.bind(null, id ?? "");
+    return UpdateCourseAction.bind(null, id ?? '');
   };
 
   const [state, formAction, isPending] = useActionState(getAction(), {
     success: false,
-    message: "",
+    message: '',
     errors: {},
   });
 
@@ -83,7 +83,7 @@ export default function CourseForm({
   useEffect(() => {
     if (!state.success && state.message) {
       openModal({
-        title: "오류 발생",
+        title: '오류 발생',
         message: state.message,
       });
     }
@@ -98,23 +98,23 @@ export default function CourseForm({
         <Button
           variant="tab"
           type="button"
-          className={activeTab === "basic" ? styles.activeTab : ""}
-          onClick={() => setActiveTab("basic")}
+          className={activeTab === 'basic' ? styles.activeTab : ''}
+          onClick={() => setActiveTab('basic')}
         >
           기본 정보
         </Button>
         <Button
           variant="tab"
           type="button"
-          className={activeTab === "curriculum" ? styles.activeTab : ""}
-          onClick={() => setActiveTab("curriculum")}
+          className={activeTab === 'curriculum' ? styles.activeTab : ''}
+          onClick={() => setActiveTab('curriculum')}
         >
           커리큘럼
         </Button>
       </div>
 
       {/* Step Content */}
-      <div style={{ display: activeTab === "basic" ? "block" : "none" }}>
+      <div style={{ display: activeTab === 'basic' ? 'block' : 'none' }}>
         <CourseBasicInfoForm
           categories={categories}
           formData={formData}
@@ -123,7 +123,7 @@ export default function CourseForm({
         />
       </div>
 
-      <div style={{ display: activeTab === "curriculum" ? "block" : "none" }}>
+      <div style={{ display: activeTab === 'curriculum' ? 'block' : 'none' }}>
         <CourseCurriculumForm
           formData={formData}
           addChapter={addChapter}
@@ -135,18 +135,11 @@ export default function CourseForm({
       </div>
 
       <div className={styles.actions}>
-        <Button
-          variant="cancel"
-          type="reset"
-          onClick={resetForm}
-        >
+        <Button variant="cancel" type="reset" onClick={resetForm}>
           초기화
         </Button>
-        <Button
-          variant="submit"
-          type="submit"
-        >
-          {mode === "create" ? "개설하기" : "수정하기"}
+        <Button variant="submit" type="submit">
+          {mode === 'create' ? '개설하기' : '수정하기'}
         </Button>
       </div>
     </form>

@@ -39,7 +39,7 @@
   font-size: var(--text-base);
 }
 
-/* Button variants */
+/* Index variants */
 .buttonPrimary {
   background-color: var(--primary-500);
   color: var(--gray-00);

@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import styles from "./LearnHeader.module.css";
-import { useSearchParams } from "next/navigation";
-import { CourseLearn } from "@/features/courses/types";
-import { Button } from "@/shared/components/ui/button/Button";
+import Link from 'next/link';
+import styles from './LearnHeader.module.css';
+import { useSearchParams } from 'next/navigation';
+import { CourseLearn } from '@/features/courses/types';
+import { Button } from '@/shared/components/ui/Button';
 
 interface LearnHeaderProps {
   course: CourseLearn;
@@ -12,13 +12,11 @@ interface LearnHeaderProps {
 
 export default function LearnHeader({ course }: LearnHeaderProps) {
   const searchParams = useSearchParams();
-  const currentChapterSeq = parseInt(searchParams.get("chapter") || "1");
-  const currentLessonSeq = parseInt(searchParams.get("lesson") || "1");
+  const currentChapterSeq = parseInt(searchParams.get('chapter') || '1');
+  const currentLessonSeq = parseInt(searchParams.get('lesson') || '1');
 
   // 현재 챕터와 레슨 찾기
-  const currentChapter = course.contents.find(
-    (ch) => ch.seq === currentChapterSeq,
-  );
+  const currentChapter = course.contents.find((ch) => ch.seq === currentChapterSeq);
   const currentLessonIndex =
     currentChapter?.lessons.findIndex((l) => l.seq === currentLessonSeq) ?? -1;
 
@@ -32,9 +30,7 @@ export default function LearnHeader({ course }: LearnHeaderProps) {
     }
 
     // 이전 챕터의 마지막 레슨
-    const prevChapter = course.contents.find(
-      (ch) => ch.seq === currentChapterSeq - 1,
-    );
+    const prevChapter = course.contents.find((ch) => ch.seq === currentChapterSeq - 1);
     if (prevChapter && prevChapter.lessons.length > 0) {
       const lastLesson = prevChapter.lessons[prevChapter.lessons.length - 1];
       return { chapter: prevChapter.seq, lesson: lastLesson.seq };
@@ -51,9 +47,7 @@ export default function LearnHeader({ course }: LearnHeaderProps) {
     }
 
     // 다음 챕터의 첫 레슨
-    const nextChapter = course.contents.find(
-      (ch) => ch.seq === currentChapterSeq + 1,
-    );
+    const nextChapter = course.contents.find((ch) => ch.seq === currentChapterSeq + 1);
     if (nextChapter && nextChapter.lessons.length > 0) {
       return { chapter: nextChapter.seq, lesson: nextChapter.lessons[0].seq };
     }
@@ -65,16 +59,14 @@ export default function LearnHeader({ course }: LearnHeaderProps) {
 
   return (
     <div className={styles.actions}>
-      <Link href="/courses" style={{ marginRight: "auto" }}>
+      <Link href="/courses" style={{ marginRight: 'auto' }}>
         <Button variant="secondary">← Go to Courses</Button>
       </Link>
 
       <Button variant="secondary">Hide Sidebar</Button>
 
       {prevLesson ? (
-        <Link
-          href={`?chapter=${prevLesson.chapter}&lesson=${prevLesson.lesson}`}
-        >
+        <Link href={`?chapter=${prevLesson.chapter}&lesson=${prevLesson.lesson}`}>
           <Button variant="secondary">← Previous Lecture</Button>
         </Link>
       ) : (
@@ -84,9 +76,7 @@ export default function LearnHeader({ course }: LearnHeaderProps) {
       )}
 
       {nextLesson ? (
-        <Link
-          href={`?chapter=${nextLesson.chapter}&lesson=${nextLesson.lesson}`}
-        >
+        <Link href={`?chapter=${nextLesson.chapter}&lesson=${nextLesson.lesson}`}>
           <Button variant="primary">Complete and Continue →</Button>
         </Link>
       ) : (

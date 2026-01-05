@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useRouter, useSearchParams } from "next/navigation";
-import styles from "./CategoryBar.module.css";
-import Image from "next/image";
-import { Button } from "@/shared/components/ui/button/Button";
+import { useRouter, useSearchParams } from 'next/navigation';
+import styles from './CategoryBar.module.css';
+import Image from 'next/image';
+import { Button } from '@/shared/components/ui/Button';
 
 export default function CategoryBar({ subCategories }: any) {
   const searchParams = useSearchParams();
@@ -11,20 +11,20 @@ export default function CategoryBar({ subCategories }: any) {
   // 현재 쿼리 파라미터를 복사하여 새로운 객체 생성
   const params = new URLSearchParams(searchParams?.toString());
 
-  const currentCategory = Number(params.get("categoryId")) || null;
+  const currentCategory = Number(params.get('categoryId')) || null;
 
   const handleCategoryClick = (categoryId: number) => {
-    params.set("categoryId", String(categoryId));
+    params.set('categoryId', String(categoryId));
     router.push(`?${params.toString()}`);
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    params.set("search", e.target.value);
+    params.set('search', e.target.value);
     router.push(`?${params.toString()}`);
   };
 
   const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    params.set("sort", e.target.value);
+    params.set('sort', e.target.value);
     router.push(`?${params.toString()}`);
   };
 
@@ -34,11 +34,7 @@ export default function CategoryBar({ subCategories }: any) {
         <div className={styles.chipGroup}>
           <Button
             variant="chip"
-            className={
-              currentCategory === subCategories[0].parentId
-                ? styles.chipActive
-                : ""
-            }
+            className={currentCategory === subCategories[0].parentId ? styles.chipActive : ''}
             type="button"
             onClick={() => handleCategoryClick(subCategories[0].parentId)}
           >
@@ -48,9 +44,7 @@ export default function CategoryBar({ subCategories }: any) {
             <Button
               key={category.id}
               variant="chip"
-              className={
-                currentCategory === category.id ? styles.chipActive : ""
-              }
+              className={currentCategory === category.id ? styles.chipActive : ''}
               type="button"
               onClick={() => handleCategoryClick(category.id)}
             >

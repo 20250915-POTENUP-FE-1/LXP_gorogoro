@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import styles from "./InstructorSidebar.module.css";
-import { useAuthStore } from "@/stores/useAuthStore";
-import Avatar from "@/shared/components/ui/avatar/Avatar/Avatar";
+import Link from 'next/link';
+import styles from './InstructorSidebar.module.css';
+import { useAuthStore } from '@/stores/useAuthStore';
+import Avatar from '@/shared/components/ui/Avatar';
 
 export default function InstructorSidebar() {
   const userProfile = useAuthStore((state) => state.userProfile);

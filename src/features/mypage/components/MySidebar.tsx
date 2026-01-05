@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import styles from "./MySidebar.module.css";
-import { logoutAction } from "@/features/auth/actions/logout.action";
-import { useAuthStore } from "@/stores/useAuthStore";
-import Avatar from "@/shared/components/ui/avatar/Avatar/Avatar";
-import { Button } from "@/shared/components/ui/button/Button";
+import Link from 'next/link';
+import styles from './MySidebar.module.css';
+import { logoutAction } from '@/features/auth/actions/logout.action';
+import { useAuthStore } from '@/stores/useAuthStore';
+import Avatar from '@/shared/components/ui/Avatar';
+import { Button } from '@/shared/components/ui/Button';
 
 export default function MySidebar() {
   const userProfile = useAuthStore((state) => state.userProfile);

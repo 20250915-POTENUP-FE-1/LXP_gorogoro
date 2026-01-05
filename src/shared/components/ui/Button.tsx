@@ -1,22 +1,22 @@
-import React from "react";
-import styles from "./button.module.css";
+import React from 'react';
+import styles from './Button.module.css';
 
 type ButtonVariant =
-  | "primary"
-  | "secondary"
-  | "submit"
-  | "cancel"
-  | "edit"
-  | "delete"
-  | "add"
-  | "cta"
-  | "avatar"
-  | "category"
-  | "chip"
-  | "tab"
-  | "navItem";
+  | 'primary'
+  | 'secondary'
+  | 'submit'
+  | 'cancel'
+  | 'edit'
+  | 'delete'
+  | 'add'
+  | 'cta'
+  | 'avatar'
+  | 'category'
+  | 'chip'
+  | 'tab'
+  | 'navItem';
 
-type ButtonSize = "sm" | "md" | "lg" | "full";
+type ButtonSize = 'sm' | 'md' | 'lg' | 'full';
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant: ButtonVariant;
@@ -49,15 +49,15 @@ const sizeClassMap: Record<ButtonSize, string> = {
 
 export const Button = ({
   variant,
-  size = "md",
+  size = 'md',
   disabled = false,
   children,
-  type = "button",
+  type = 'button',
   ...rest
 }: ButtonProps) => {
   const variantClass = variantClassMap[variant];
   const sizeClass = sizeClassMap[size];
-  
+
   return (
     <button
       {...rest}

@@ -1,5 +1,5 @@
-import styles from "./ProfileEditForm.module.css";
-import { Button } from "@/shared/components/ui/button/Button";
+import styles from './ProfileEditForm.module.css';
+import { Button } from '@/shared/components/ui/Button';
 
 export default function ProfileEditForm() {
   return (

@@ -1,7 +1,7 @@
-import { Summary } from "../types";
-import styles from "./CartSummary.module.css";
-import Link from "next/link";
-import { Button } from "@/shared/components/ui/button/Button";
+import { Summary } from '../types';
+import styles from './CartSummary.module.css';
+import Link from 'next/link';
+import { Button } from '@/shared/components/ui/Button';
 
 interface CartSummaryProps {
   cartSummary: Summary;
@@ -26,9 +26,7 @@ export default function CartSummary({ cartSummary }: CartSummaryProps) {
       </dl>
       <div className={styles.total}>
         <span className={styles.totalLabel}>총 결제금액</span>
-        <span className={styles.totalValue}>
-          ₩{totalAmount.toLocaleString()}
-        </span>
+        <span className={styles.totalValue}>₩{totalAmount.toLocaleString()}</span>
       </div>
       <Link href="/mypage">
         <Button variant="submit" size="full">

@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import Image from "next/image";
-import styles from "./EnrollmentItem.module.css";
-import { EnrolledCourse } from "../types";
-import { Button } from "@/shared/components/ui/button/Button";
+import Link from 'next/link';
+import Image from 'next/image';
+import styles from './EnrollmentItem.module.css';
+import { EnrolledCourse } from '../types';
+import { Button } from '@/shared/components/ui/Button';
 
 interface EnrollmentItemProps {
   course: EnrolledCourse;
@@ -12,8 +12,8 @@ interface EnrollmentItemProps {
 
 export default function EnrollmentItem({ course }: EnrollmentItemProps) {
   const handleCancel = async (enrollmentId: string) => {
-    if (confirm("정말로 수강을 취소하시겠습니까?")) {
-      alert("수강 취소 기능은 준비중입니다.");
+    if (confirm('정말로 수강을 취소하시겠습니까?')) {
+      alert('수강 취소 기능은 준비중입니다.');
     }
   };
 
@@ -22,11 +22,7 @@ export default function EnrollmentItem({ course }: EnrollmentItemProps) {
   return (
     <article className={styles.item} key={course.courseTitle}>
       <div className={styles.thumbnail}>
-        <Image
-          className={styles.image}
-          src={course.coverImageUrl}
-          alt={course.courseTitle}
-        />
+        <Image className={styles.image} src={course.coverImageUrl} alt={course.courseTitle} />
       </div>
       <div className={styles.body}>
         <div className={styles.category}>{course.categoryName}</div>
@@ -38,18 +34,12 @@ export default function EnrollmentItem({ course }: EnrollmentItemProps) {
             <span>{progress}%</span>
           </div>
           <div className={styles.progressTrack}>
-            <div
-              className={styles.progressBar}
-              style={{ width: `${progress}%` }}
-            />
+            <div className={styles.progressBar} style={{ width: `${progress}%` }} />
           </div>
         </div>
       </div>
       <div className={styles.meta}>
-        <Link
-          href={`/courses/${course.courseId}/learn`}
-          className={styles.action}
-        >
+        <Link href={`/courses/${course.courseId}/learn`} className={styles.action}>
           이어 학습하기
         </Link>
         <Button

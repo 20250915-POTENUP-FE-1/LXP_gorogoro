@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { useModalStore } from "@/stores/useModalStore";
-import CartItem from "./CartItem";
-import styles from "./CartList.module.css";
-import { CartCourse } from "../types";
-import { ActionState } from "@/shared/types/types";
-import { Button } from "@/shared/components/ui/button/Button";
+import { useModalStore } from '@/stores/useModalStore';
+import CartItem from './CartItem';
+import styles from './CartList.module.css';
+import { CartCourse } from '../types';
+import { ActionState } from '@/shared/types/types';
+import { Button } from '@/shared/components/ui/Button';
 
 interface CartListProps {
   cartItems: CartCourse[];
@@ -20,14 +20,14 @@ export default function CartList({
   const { openModal } = useModalStore();
   const handleDeleteAll = () => {
     openModal({
-      title: "장바구니 삭제",
-      message: "장바구니에 담은 모든 강좌를 삭제하시겠습니까?",
+      title: '장바구니 삭제',
+      message: '장바구니에 담은 모든 강좌를 삭제하시겠습니까?',
       onConfirm: async () => {
         const result = await deleteCartAllAction();
         if (!result.success) {
           openModal({
-            title: "삭제 실패",
-            message: result.message || "전체 삭제에 실패했습니다.",
+            title: '삭제 실패',
+            message: result.message || '전체 삭제에 실패했습니다.',
           });
         }
       },

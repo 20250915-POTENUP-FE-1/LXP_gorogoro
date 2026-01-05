@@ -6,7 +6,7 @@ import styles from './LoginForm.module.css';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useModalStore } from '@/stores/useModalStore';
-import { Button } from '@/shared/components/ui/button/Button';
+import { Button } from '@/shared/components/ui/Button';
 import FieldInput from '@/shared/components/ui/FieldInput';
 
 const initialState = {

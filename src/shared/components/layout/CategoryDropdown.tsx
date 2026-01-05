@@ -1,18 +1,16 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import Link from "next/link";
-import { Category } from "@/features/courses/types";
-import styles from "./Header.module.css";
-import { Button } from "@/shared/components/ui/button/Button";
+import { useState } from 'react';
+import Link from 'next/link';
+import { Category } from '@/features/courses/types';
+import styles from './Header.module.css';
+import { Button } from '@/shared/components/ui/Button';
 
 interface CategoryDropdownProps {
   categories: Category[];
 }
 
-export default function CategoryDropdown({
-  categories,
-}: CategoryDropdownProps) {
+export default function CategoryDropdown({ categories }: CategoryDropdownProps) {
   const [isFirstOpen, setIsFirstOpen] = useState(false);
 
   return (
@@ -21,9 +19,7 @@ export default function CategoryDropdown({
       onMouseEnter={() => setIsFirstOpen(true)}
       onMouseLeave={() => setIsFirstOpen(false)}
     >
-      <Button variant="category">
-        카테고리 {isFirstOpen ? "↑" : "↓"}
-      </Button>
+      <Button variant="category">카테고리 {isFirstOpen ? '↑' : '↓'}</Button>
 
       {isFirstOpen && (
         <div className={styles.dropdownMenu}>
