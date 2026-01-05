@@ -9,32 +9,27 @@ import { getCourses } from "@/services/course.service";
 import { Category } from "@/features/courses/types";
 import Link from "next/link";
 
+type CoursePageSearchParams = {
+  categoryId?: string;
+  search?: string;
+  sort?: string;
+};
 export default async function CoursePage({
   searchParams,
 }: {
-  searchParams: Promise<{
-    categoryId?: string;
-    search?: string;
-    sort?: string;
-  }>;
+  searchParams: CoursePageSearchParams;
 }) {
-  const params = await searchParams;
-
-  const categoryQuery = params.categoryId || "";
-  const searchQuery = params.search || "";
-  const sortQuery = params.sort || "";
-
-  const apiParams = {
-    categoryId: categoryQuery,
-    search: searchQuery,
-    sort: sortQuery,
-    limit: "10",
-  };
+  const categoryQuery = searchParams.categoryId || "";
+  const searchQuery = searchParams.search || "";
+  const sortQuery = searchParams.sort || "";
 
   const { contents: categories } = await getAllCategories();
 
   let subCategories: Category[] = [];
   let categoryName = "";
+
+  // categoryId 없을 때는 courses 호출하지 않도록 기본값 세팅
+  let courses: any[] = [];
 
   if (categoryQuery) {
     const currentCategory = await getCategoriesById(categoryQuery);
@@ -48,14 +43,21 @@ export default async function CoursePage({
     } else {
       // 2차 카테고리 → 부모 카테고리의 subCategories 가져오기
       const parentCategory = await getCategoriesById(
-        String(currentCategory.parentId)
+        String(currentCategory.parentId),
       );
       categoryName = currentCategory.name;
       subCategories = parentCategory.subCategories ?? [];
     }
+    // categoryQuery 있을 때만 호출
+    const apiParams = {
+      categoryId: categoryQuery,
+      search: searchQuery,
+      sort: sortQuery,
+      limit: "10",
+    };
+    const { contents } = await getCourses(apiParams);
+    courses = contents;
   }
-
-  const { contents: courses } = await getCourses(apiParams);
 
   const pageTitle = searchQuery
     ? `"${searchQuery}" 검색 결과`
