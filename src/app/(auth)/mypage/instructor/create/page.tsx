@@ -1,7 +1,13 @@
-import CourseForm from "@/features/intructor/components/CourseForm";
-import styles from "./page.module.css";
-import { getAllCategories } from "@/services/category.service";
-import { Category } from "@/features/courses/types";
+import CourseForm from '@/features/intructor/components/CourseForm';
+import styles from './page.module.css';
+import { getAllCategories } from '@/services/category.service';
+import { Category } from '@/features/courses/types';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: '강의 개설',
+  description: '새 강의를 생성하고 기본 정보와 커리큘럼을 등록하세요.',
+};
 
 export default async function CourseCreatePage() {
   const { contents: categories } = await getAllCategories();

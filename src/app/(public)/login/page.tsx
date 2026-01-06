@@ -1,7 +1,13 @@
-import styles from "./page.module.css";
-import LoginForm from "@/features/auth/components/LoginForm";
-import Link from "next/link";
-import Image from "next/image";
+import styles from './page.module.css';
+import LoginForm from '@/features/auth/components/LoginForm';
+import Link from 'next/link';
+import Image from 'next/image';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: '로그인',
+  description: '로그인 후 수강, 장바구니, 마이페이지 기능을 이용하세요.',
+};
 
 export default function LoginPage() {
   return (
@@ -9,7 +15,7 @@ export default function LoginPage() {
       <div className={styles.card}>
         <div className={styles.illustration}>
           <div className={styles.illustrationContent}>
-            <div style={{ position: "relative", width: 320, height: 350 }}>
+            <div style={{ position: 'relative', width: 320, height: 350 }}>
               <Image
                 fill
                 className={styles.illustrationImage}
@@ -17,9 +23,7 @@ export default function LoginPage() {
                 alt="People collaborating around a laptop, representing online learning."
               />
             </div>
-            <h2 className={styles.illustrationTitle}>
-              지식의 세계를 열어보세요
-            </h2>
+            <h2 className={styles.illustrationTitle}>지식의 세계를 열어보세요</h2>
             <p className={styles.illustrationDescription}>
               GOROGORO와 함께 성장의 여정을 시작하세요.
             </p>
@@ -32,7 +36,7 @@ export default function LoginPage() {
           </div>
           <LoginForm />
           <p className={styles.caption}>
-            계정이 없으신가요?{" "}
+            계정이 없으신가요?{' '}
             <Link href="/signup" className={styles.link}>
               회원가입하기
             </Link>
