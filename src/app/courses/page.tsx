@@ -1,13 +1,10 @@
-import CategoryBar from "@/features/common/components/CategoryBar";
-import CourseList from "@/features/courses/components/CourseList";
-import styles from "./page.module.css";
-import {
-  getAllCategories,
-  getCategoriesById,
-} from "@/services/category.service";
-import { getCourses } from "@/services/course.service";
-import { Category } from "@/features/courses/types";
-import Link from "next/link";
+import CategoryBar from '@/features/common/components/CategoryBar';
+import CourseList from '@/features/courses/components/CourseList';
+import styles from './page.module.css';
+import { getAllCategories, getCategoriesById } from '@/services/category.service';
+import { getCourses } from '@/services/course.service';
+import { Category } from '@/features/courses/types';
+import Link from 'next/link';
 
 type CoursePageSearchParams = {
   categoryId?: string;
@@ -17,16 +14,17 @@ type CoursePageSearchParams = {
 export default async function CoursePage({
   searchParams,
 }: {
-  searchParams: CoursePageSearchParams;
+  searchParams: Promise<CoursePageSearchParams>;
 }) {
-  const categoryQuery = searchParams.categoryId || "";
-  const searchQuery = searchParams.search || "";
-  const sortQuery = searchParams.sort || "";
+  const filters = await searchParams;
+  const categoryQuery = filters.categoryId || '';
+  const searchQuery = filters.search || '';
+  const sortQuery = filters.sort || '';
 
   const { contents: categories } = await getAllCategories();
 
   let subCategories: Category[] = [];
-  let categoryName = "";
+  let categoryName = '';
 
   // categoryId 없을 때는 courses 호출하지 않도록 기본값 세팅
   let courses: any[] = [];
@@ -42,9 +40,7 @@ export default async function CoursePage({
       subCategories = currentCategory.subCategories ?? [];
     } else {
       // 2차 카테고리 → 부모 카테고리의 subCategories 가져오기
-      const parentCategory = await getCategoriesById(
-        String(currentCategory.parentId),
-      );
+      const parentCategory = await getCategoriesById(String(currentCategory.parentId));
       categoryName = currentCategory.name;
       subCategories = parentCategory.subCategories ?? [];
     }
@@ -53,15 +49,13 @@ export default async function CoursePage({
       categoryId: categoryQuery,
       search: searchQuery,
       sort: sortQuery,
-      limit: "10",
+      limit: '10',
     };
     const { contents } = await getCourses(apiParams);
     courses = contents;
   }
 
-  const pageTitle = searchQuery
-    ? `"${searchQuery}" 검색 결과`
-    : `${categoryName} 강좌`;
+  const pageTitle = searchQuery ? `"${searchQuery}" 검색 결과` : `${categoryName} 강좌`;
 
   return (
     <main className={styles.page}>
@@ -74,10 +68,7 @@ export default async function CoursePage({
           </section>
           <div className={styles.categoryGrid}>
             {categories.map((category) => (
-              <Link
-                key={category.id}
-                href={`/courses?categoryId=${category.id}`}
-              >
+              <Link key={category.id} href={`/courses?categoryId=${category.id}`}>
                 <div className={styles.categoryCard}>
                   <h2>{category.name}</h2>
                   <p>{category.subCategories?.length || 0}개 세부 카테고리</p>
@@ -91,9 +82,7 @@ export default async function CoursePage({
         <div className={`page-wrapper ${styles.container}`}>
           <section className={styles.intro}>
             <h1 className={styles.title}>{pageTitle}</h1>
-            <span className={styles.subtitle}>
-              총 {courses.length}개의 강좌
-            </span>
+            <span className={styles.subtitle}>총 {courses.length}개의 강좌</span>
           </section>
           <CategoryBar subCategories={subCategories} />
           <CourseList courses={courses} />

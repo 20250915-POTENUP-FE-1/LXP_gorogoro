@@ -109,7 +109,11 @@ services:
   mysql-course:
     image: mysql:8.0
     container_name: mysql-course
-    command: --default-authentication-plugin=mysql_native_password
+    command:
+      - --default-authentication-plugin=mysql_native_password
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_0900_ai_ci
+      - --skip-character-set-client-handshake
     environment:
       - MYSQL_ROOT_PASSWORD=root_pw
       - MYSQL_DATABASE=course_db
@@ -119,6 +123,7 @@ services:
       - "3307:3306"
     volumes:
       - mysql-course-data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
     networks:
       - msa-net
     healthcheck:

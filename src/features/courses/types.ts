@@ -1,4 +1,4 @@
-export type Difficulty = "BEGINNER" | "INTERMEDIATE" | "ADVANCED";
+export type Difficulty = 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED';
 
 export interface Lesson {
   title: string;
@@ -19,7 +19,7 @@ export interface Course {
   description: string;
   difficulty: Difficulty;
   price: number;
-  status: "published" | "archived";
+  status: 'published' | 'archived';
   summary: string;
   coverImageUrl: string;
   rating: number;
@@ -31,10 +31,15 @@ export interface Course {
 }
 
 export interface Category {
-  id: string;
+  id: number;
   name: string;
-  parentId?: number | null;
-  subCategories?: Category[];
+  subCategories: SubCategory[];
+}
+
+export interface SubCategory {
+  id: number;
+  name: string;
+  parentId: number;
 }
 
 export interface Review {
@@ -56,7 +61,7 @@ export interface QnA {
   answer?: string;
   answeredAt?: string;
   createdAt: string;
-  status: "pending" | "answered";
+  status: 'pending' | 'answered';
 }
 
 // 일반 상세 조회용 (구매 전 - 커리큘럼은 보이되 resourceUrl은 null)
@@ -69,7 +74,7 @@ export interface CourseDetail {
   description: string;
   difficulty: Difficulty;
   price: number;
-  status: "published" | "archived";
+  status: 'published' | 'archived';
   summary: string;
   coverImageUrl: string;
   rating: number;
