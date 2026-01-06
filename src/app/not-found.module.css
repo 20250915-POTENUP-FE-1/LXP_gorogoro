@@ -1,0 +1,141 @@
+/* not-found.module.css */
+
+.page {
+  min-height: 70vh;
+  width: 100%;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 36rem; /* 576px */
+  padding: 4rem 1.5rem; /* py-16 px-6 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem; /* gap-4 */
+  text-align: center;
+}
+
+.card {
+  width: 100%;
+  border: 1px solid #e5e7eb; /* gray-200 */
+  background: #ffffff;
+  padding: 1.5rem; /* p-6 */
+  border-radius: 1rem; /* rounded-2xl */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06); /* shadow-sm 느낌 */
+}
+
+.iconWrap {
+  margin: 0 auto 0.75rem;
+  height: 3rem; /* h-12 */
+  width: 3rem; /* w-12 */
+  border-radius: 9999px;
+  background: #f3f4f6; /* gray-100 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  font-size: 1.25rem; /* text-xl */
+  line-height: 1;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.25rem; /* text-xl */
+  font-weight: 600; /* font-semibold */
+}
+
+.subtitle {
+  margin-top: 0.5rem; /* mt-2 */
+  font-size: 0.875rem; /* text-sm */
+  color: #4b5563; /* gray-600 */
+}
+
+.grid {
+  margin-top: 1.5rem; /* mt-6 */
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem; /* gap-2 */
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.primaryLink {
+  border: 1px solid #111827;
+  background: #111827;
+  color: #ffffff;
+  border-radius: 0.75rem; /* rounded-xl */
+  padding: 0.75rem 1rem; /* py-3 px-4 */
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.primaryLink:hover {
+  opacity: 0.9;
+}
+
+.secondaryLink {
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  color: #111827;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.secondaryLink:hover {
+  background: #f9fafb; /* gray-50 */
+}
+
+.helpBox {
+  margin-top: 1.25rem; /* mt-5 */
+  border-radius: 0.75rem; /* rounded-xl */
+  background: #f9fafb; /* gray-50 */
+  padding: 1rem; /* p-4 */
+  text-align: left;
+}
+
+.helpTitle {
+  margin: 0;
+  font-size: 0.75rem; /* text-xs */
+  font-weight: 500;
+  color: #374151; /* gray-700 */
+}
+
+.helpList {
+  margin-top: 0.5rem; /* mt-2 */
+  padding-left: 1.25rem; /* pl-5 */
+  font-size: 0.75rem; /* text-xs */
+  color: #4b5563; /* gray-600 */
+}
+
+.helpListItem {
+  margin: 0.25rem 0; /* space-y-1 느낌 */
+}
+
+.footnote {
+  margin: 0;
+  font-size: 0.75rem; /* text-xs */
+  color: #6b7280; /* gray-500 */
+}
+
+.mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+  "Courier New", monospace;
+}
