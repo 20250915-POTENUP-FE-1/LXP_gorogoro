@@ -1,5 +1,11 @@
-import styles from "./page.module.css";
-import { getCourseLearn } from "@/services/course.service";
+import styles from './page.module.css';
+import { getCourseLearn } from '@/services/course.service';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: '수강하기',
+  description: '강의 콘텐츠를 학습하고 진도를 관리하며, 필요한 자료를 바로 확인하세요.',
+};
 
 export default async function LearnPage({
   params,
@@ -13,32 +19,24 @@ export default async function LearnPage({
   const course = await getCourseLearn(id);
 
   // searchParams에서 현재 챕터와 레슨 가져오기, 없으면 첫 번째 레슨
-  const currentChapterSeq = chapter
-    ? parseInt(chapter)
-    : course.contents[0]?.seq;
-  const currentLessonSeq = lesson
-    ? parseInt(lesson)
-    : course.contents[0]?.lessons[0]?.seq;
+  const currentChapterSeq = chapter ? parseInt(chapter) : course.contents[0]?.seq;
+  const currentLessonSeq = lesson ? parseInt(lesson) : course.contents[0]?.lessons[0]?.seq;
 
-  const currentChapter = course.contents.find(
-    (ch) => ch.seq === currentChapterSeq
-  );
-  const currentLecture = currentChapter?.lessons.find(
-    (l) => l.seq === currentLessonSeq
-  );
+  const currentChapter = course.contents.find((ch) => ch.seq === currentChapterSeq);
+  const currentLecture = currentChapter?.lessons.find((l) => l.seq === currentLessonSeq);
 
   return (
     <div
       style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        width: "100%",
-        padding: "40px",
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        width: '100%',
+        padding: '40px',
       }}
     >
       <h1 className={styles.lectureTitle}>
-        {currentLecture ? currentLecture.title : "Select a lecture"}
+        {currentLecture ? currentLecture.title : 'Select a lecture'}
       </h1>
 
       <div className={styles.videoContainer}>
@@ -58,16 +56,16 @@ export default async function LearnPage({
 
       <div
         style={{
-          marginTop: "40px",
-          color: "#9ca3af",
-          maxWidth: "1000px",
-          width: "100%",
+          marginTop: '40px',
+          color: '#9ca3af',
+          maxWidth: '1000px',
+          width: '100%',
         }}
       >
         <h3>About this lecture</h3>
         <p>
-          In this lecture, we will cover the basics of {currentLecture?.title}.
-          Changes in ES6 are fundamental to modern React development.
+          In this lecture, we will cover the basics of {currentLecture?.title}. Changes in ES6 are
+          fundamental to modern React development.
         </p>
       </div>
     </div>

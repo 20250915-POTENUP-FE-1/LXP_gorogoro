@@ -1,7 +1,7 @@
-import { getCourseLearn } from "@/services/course.service";
-import LearnHeader from "./components/LearnHeader";
-import LearnSidebar from "./components/LearnSidebar";
-import styles from "./layout.module.css";
+import { getCourseLearn } from '@/services/course.service';
+import LearnHeader from '../../../../../features/courses/components/LearnHeader';
+import LearnSidebar from '../../../../../features/courses/components/LearnSidebar';
+import styles from './layout.module.css';
 
 export default async function LearnLayout({
   children,
