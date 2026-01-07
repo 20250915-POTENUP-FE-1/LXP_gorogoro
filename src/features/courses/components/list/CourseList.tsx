@@ -1,6 +1,6 @@
-import { Course } from "../types";
-import CourseItem from "./CourseItem";
-import styles from "./CourseList.module.css";
+import { Course } from '../../types';
+import CourseItem from './CourseItem';
+import styles from './CourseList.module.css';
 
 interface CourseListProps {
   courses: Course[];

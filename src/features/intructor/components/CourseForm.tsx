@@ -23,21 +23,21 @@ interface CourseFormProps {
 // Default data matching types.ts (contents array)
 const defaultFormData: CourseFormRequest = {
   title: '',
-  categoryId: '',
-  difficulty: 'BEGINNER',
+  categoryId: 0,
+  courseDifficulty: 'BEGINNER',
   price: 0,
   coverImageUrl: '',
   summary: '',
   description: '',
   contents: [
     {
-      chapterTitle: '',
-      seq: 0,
+      title: '',
+      seq: 1,
       lessons: [
         {
           title: '',
-          seq: 0,
-          resourceUrl: '',
+          seq: 1,
+          resourceUrl: null,
         },
       ],
     },

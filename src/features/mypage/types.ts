@@ -1,4 +1,3 @@
-// 내 수강 목록 아이템
 export interface EnrolledCourse {
   enrollmentId: string; // 수강 ID
   courseId: string; // 강좌 ID
@@ -14,7 +13,7 @@ export interface EnrolledCourse {
   expiresAt?: string; // 만료일 (ISO string, optional)
 }
 
-// 내 수강 목록 Response
+// 내 수강 목록 - 성훈님이 미리 만들어 놓은거
 export interface MyEnrollmentsResponse {
   contents: EnrolledCourse[];
 }

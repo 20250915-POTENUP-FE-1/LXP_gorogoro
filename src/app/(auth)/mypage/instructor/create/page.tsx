@@ -1,7 +1,6 @@
 import CourseForm from '@/features/intructor/components/CourseForm';
 import styles from './page.module.css';
 import { getAllCategories } from '@/services/category.service';
-import { Category } from '@/features/courses/types';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
