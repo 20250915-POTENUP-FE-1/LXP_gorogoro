@@ -3,10 +3,10 @@
 import type { ChangeEvent } from 'react';
 import styles from './CourseCurriculum.module.css';
 import { Button } from '@/shared/components/ui/Button';
-import type { ChapterDto } from '@/features/courses/types';
+import { CourseFormRequest } from '@/features/intructor/types';
 
 interface CourseCurriculumProps {
-  contents: ChapterDto[];
+  formData: CourseFormRequest;
   mode?: 'view' | 'edit';
   addChapter?: () => void;
   addLesson?: (chapterIdx: number) => void;
@@ -23,7 +23,7 @@ interface CourseCurriculumProps {
 }
 
 export default function CourseCurriculum({
-  contents,
+  formData,
   mode = 'view',
   addChapter,
   addLesson,

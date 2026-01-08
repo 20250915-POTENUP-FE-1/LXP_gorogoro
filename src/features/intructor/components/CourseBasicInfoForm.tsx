@@ -3,11 +3,9 @@
 import { ChangeEvent } from 'react';
 import styles from './CourseForm.module.css';
 import { CourseFormRequest } from '../types';
-import { Category } from '@/features/courses/types';
 import Image from 'next/image';
 
 interface CourseBasicInfoFormProps {
-  categories: Category[];
   formData: CourseFormRequest;
   handleFieldChange: (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
@@ -16,7 +14,6 @@ interface CourseBasicInfoFormProps {
 }
 
 export default function CourseBasicInfoForm({
-  categories,
   formData,
   handleFieldChange,
   handleThumbnailChange,
@@ -51,11 +48,11 @@ export default function CourseBasicInfoForm({
             <option value="" disabled>
               카테고리 선택
             </option>
-            {categories.map((category) => (
-              <option key={category.id} value={category.id}>
-                {category.name}
-              </option>
-            ))}
+            {/*{categories.map((category) => (*/}
+            {/*  <option key={category.id} value={category.id}>*/}
+            {/*    {category.name}*/}
+            {/*  </option>*/}
+            {/*))}*/}
           </select>
         </label>
 

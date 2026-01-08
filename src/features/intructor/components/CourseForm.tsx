@@ -6,7 +6,6 @@ import { CourseFormRequest } from '../types';
 import { useCourseForm } from '../hooks/useCourseForm';
 import CourseBasicInfoForm from './CourseBasicInfoForm';
 import CourseCurriculumForm from './CourseCurriculumForm';
-import { Category } from '@/features/courses/types';
 import { CreateCourseAction, UpdateCourseAction } from '../action';
 import { useModalStore } from '@/stores/useModalStore';
 import { Button } from '@/shared/components/ui/Button';
@@ -14,21 +13,19 @@ import { Button } from '@/shared/components/ui/Button';
 export type CourseFormMode = 'create' | 'edit';
 
 interface CourseFormProps {
-  categories: Category[];
-  id?: string;
   mode?: CourseFormMode;
+  courseId?: number;
   initialFormData?: CourseFormRequest;
 }
 
-// Default data matching types.ts (contents array)
 const defaultFormData: CourseFormRequest = {
   title: '',
-  categoryId: 0,
-  courseDifficulty: 'BEGINNER',
-  price: 0,
-  coverImageUrl: '',
   summary: '',
   description: '',
+  coverImageUrl: '',
+  categoryId: 0,
+  price: 0,
+  courseDifficulty: 'BEGINNER',
   contents: [
     {
       title: '',
@@ -46,9 +43,8 @@ const defaultFormData: CourseFormRequest = {
 };
 
 export default function CourseForm({
-  categories,
-  id,
   mode = 'create',
+  courseId,
   initialFormData = defaultFormData,
 }: CourseFormProps) {
   const {
@@ -69,10 +65,10 @@ export default function CourseForm({
     if (mode === 'create') {
       return CreateCourseAction;
     }
-    return UpdateCourseAction.bind(null, id ?? '');
+    return UpdateCourseAction.bind(null, courseId);
   };
 
-  const [state, formAction, isPending] = useActionState(getAction(), {
+  const [state, formAction] = useActionState(getAction(), {
     success: false,
     message: '',
     errors: {},
@@ -91,8 +87,6 @@ export default function CourseForm({
 
   return (
     <form action={formAction} className={styles.form}>
-      {/* Tab Navigation */}
-      {isPending && <p>로딩중...</p>}
       {state.errors && <p>{state.message}</p>}
       <div className={styles.tabContainer}>
         <Button
@@ -113,10 +107,8 @@ export default function CourseForm({
         </Button>
       </div>
 
-      {/* Step Content */}
       <div style={{ display: activeTab === 'basic' ? 'block' : 'none' }}>
         <CourseBasicInfoForm
-          categories={categories}
           formData={formData}
           handleFieldChange={handleFieldChange}
           handleThumbnailChange={handleThumbnailChange}

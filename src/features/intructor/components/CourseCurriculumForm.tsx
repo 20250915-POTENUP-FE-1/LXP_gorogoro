@@ -33,7 +33,7 @@ export default function CourseCurriculumForm({
       {/* useFieldArray 사용하기 */}
       <CourseCurriculum
         mode="edit"
-        contents={formData.contents}
+        formData={formData}
         addChapter={addChapter}
         addLesson={addLesson}
         handleChapterTitleChange={handleChapterTitleChange}

@@ -16,7 +16,7 @@ export interface InstructorCoursesResponse {
 export interface CourseChapterRequest {
   chapterId?: number; // PUT에서만 필요
   title: string;
-  seq: number;
+  seq?: number;
   lessons: CourseLessonRequest[];
 }
 

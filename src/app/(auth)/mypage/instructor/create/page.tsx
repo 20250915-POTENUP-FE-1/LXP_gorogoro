@@ -17,7 +17,7 @@ export default async function CourseCreatePage() {
         <h1 className={styles.title}>내 강좌 생성하기</h1>
         <p className={styles.subtitle}>새 강좌를 만들고 지식을 공유해주세요!</p>
       </header>
-      <CourseForm categories={categories} />
+      <CourseForm />
     </section>
   );
 }
