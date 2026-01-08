@@ -8,12 +8,9 @@ export const metadata: Metadata = {
   description: '강의 소개, 커리큘럼, 수강 정보와 후기를 확인하고 수강을 시작하세요.',
 };
 
-export default async function CourseDetailPage({
-  params,
-}: {
-  params: Promise<{ courseId: number }>;
-}) {
-  const { courseId } = await params;
+export default async function CourseDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const courseId = Number(id);
 
   const course = await getCourseById(courseId);
 

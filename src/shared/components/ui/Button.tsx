@@ -59,14 +59,14 @@ export const Button = ({
 }: ButtonProps) => {
   const variantClass = variantClassMap[variant];
   const sizeClass = sizeClassMap[size];
-  const onClickClass = onClick ? onClick : undefined;
 
   return (
     <button
       {...rest}
       type={type}
-      className={`${styles.button} ${variantClass} ${sizeClass} ${onClickClass()}`}
+      className={`${styles.button} ${variantClass} ${sizeClass}}`}
       disabled={disabled}
+      onClick={onClick}
     >
       {children}
     </button>
