@@ -1,34 +1,41 @@
-import { Difficulty, Chapter } from "../courses/types";
+import { Difficulty } from '../courses/types';
 
-// 강사가 생성한 강좌 목록 조회용 타입 (추가 통계 필드 포함)
 export interface InstructorCourse {
-  courseId: string;
+  courseId: number;
   title: string;
   coverImageUrl: string;
   price: number;
-  difficulty: "BEGINNER" | "INTERMEDIATE" | "ADVANCED";
-  status: "published" | "archived";
-  rating: number;
-  reviewCount: number;
-  studentCount: number;
-  likeCount: number;
+  difficulty: Difficulty;
 }
 
-// 강좌 생성/수정 요청용 타입 (categoryId 사용)
+/** GET /api/instructor/courses 응답 */
+export interface InstructorCoursesResponse {
+  contents: InstructorCourse[];
+}
+
+export interface CourseChapterRequest {
+  chapterId?: number; // PUT에서만 필요
+  title: string;
+  seq?: number;
+  lessons: CourseLessonRequest[];
+}
+
+export interface CourseLessonRequest {
+  lessonId?: number; // PUT에서만 필요
+  title: string;
+  seq?: number | null;
+  resourceUrl?: string | null;
+}
+
+/** POST /api/courses, PUT /api/courses/{courseId} 요청 바디 */
 export interface CourseFormRequest {
   title: string;
-  categoryId: string; // 폼에서는 ID를 선택
-  difficulty: Difficulty;
-  price: number;
-  coverImageUrl: string;
   summary: string;
   description: string;
-  contents: Chapter[];
+  categoryId: number;
+  price: number;
+  coverImageUrl: string;
+  courseDifficulty: Difficulty;
+  contents: CourseChapterRequest[];
   availableDays: number;
 }
-
-export type CourseFormResponse = {
-  success: boolean;
-  message?: string;
-  errors?: Record<string, string>;
-};

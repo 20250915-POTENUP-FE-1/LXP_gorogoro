@@ -22,6 +22,7 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant: ButtonVariant;
   size?: ButtonSize;
   children: React.ReactNode;
+  onClick?: () => void;
 };
 
 const variantClassMap: Record<ButtonVariant, string> = {
@@ -52,17 +53,19 @@ export const Button = ({
   size = 'md',
   disabled = false,
   children,
+  onClick,
   type = 'button',
   ...rest
 }: ButtonProps) => {
   const variantClass = variantClassMap[variant];
   const sizeClass = sizeClassMap[size];
+  const onClickClass = onClick ? onClick : undefined;
 
   return (
     <button
       {...rest}
       type={type}
-      className={`${styles.button} ${variantClass} ${sizeClass}`}
+      className={`${styles.button} ${variantClass} ${sizeClass} ${onClickClass()}`}
       disabled={disabled}
     >
       {children}

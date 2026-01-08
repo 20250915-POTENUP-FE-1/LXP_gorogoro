@@ -1,16 +1,13 @@
 'use client';
 
-import { ChangeEvent } from 'react';
+import type { ChangeEvent } from 'react';
 import styles from './CourseCurriculum.module.css';
-import { Chapter } from '../types';
 import { Button } from '@/shared/components/ui/Button';
+import { CourseFormRequest } from '@/features/intructor/types';
 
 interface CourseCurriculumProps {
-  contents: Chapter[];
+  formData: CourseFormRequest;
   mode?: 'view' | 'edit';
-  // 편집 모드용 props
-
-  // useFieldArray 사용하면 props로 함수 전달 받지 않아도 됨
   addChapter?: () => void;
   addLesson?: (chapterIdx: number) => void;
   handleChapterTitleChange?: (chapterIdx: number) => (e: ChangeEvent<HTMLInputElement>) => void;
@@ -18,6 +15,7 @@ interface CourseCurriculumProps {
     chapterIdx: number,
     lessonIdx: number,
   ) => (e: ChangeEvent<HTMLInputElement>) => void;
+
   handleLessonResourceUrlChange?: (
     chapterIdx: number,
     lessonIdx: number,
@@ -25,7 +23,7 @@ interface CourseCurriculumProps {
 }
 
 export default function CourseCurriculum({
-  contents,
+  formData,
   mode = 'view',
   addChapter,
   addLesson,
@@ -47,12 +45,12 @@ export default function CourseCurriculum({
 
         <div className={styles.chapterList}>
           {contents?.map((chapter, chapterIdx) => (
-            <div key={chapterIdx} className={styles.chapterItem}>
+            <div key={chapter.chapterId ?? chapterIdx} className={styles.chapterItem}>
               <div className={styles.chapterHeader}>
                 <span className={styles.chapterSeq}>Chapter {chapterIdx + 1}</span>
                 <input
-                  name={`contents[${chapterIdx}][chapterTitle]`}
-                  value={chapter.chapterTitle ?? ''}
+                  name={`contents[${chapterIdx}][title]`}
+                  value={chapter.title ?? ''}
                   className={styles.input}
                   type="text"
                   placeholder="챕터 제목을 입력하세요"
@@ -62,16 +60,18 @@ export default function CourseCurriculum({
 
               <div className={styles.lessonList}>
                 {chapter.lessons.map((lesson, lessonIdx) => (
-                  <div key={lessonIdx} className={styles.lessonItem}>
+                  <div key={lesson.lessonId ?? lessonIdx} className={styles.lessonItem}>
                     <span className={styles.lessonSeq}>{lessonIdx + 1}.</span>
+
                     <input
                       name={`contents[${chapterIdx}][lessons][${lessonIdx}][title]`}
-                      value={lesson.title}
+                      value={lesson.title ?? ''}
                       className={styles.input}
                       type="text"
                       placeholder="레슨 제목 (예: 코딩이란?)"
                       onChange={handleLessonTitleChange?.(chapterIdx, lessonIdx)}
                     />
+
                     <input
                       name={`contents[${chapterIdx}][lessons][${lessonIdx}][resourceUrl]`}
                       value={lesson.resourceUrl ?? ''}
@@ -106,18 +106,19 @@ export default function CourseCurriculum({
     <div className={styles.container}>
       <div className={styles.chapterList}>
         {contents?.map((chapter, chapterIdx) => (
-          <div key={chapterIdx} className={styles.chapterItem}>
+          <div key={chapter.chapterId ?? chapterIdx} className={styles.chapterItem}>
             <div className={styles.chapterHeader}>
               <span className={styles.chapterSeq}>Chapter {chapterIdx + 1}</span>
-              <h3 className={styles.chapterTitle}>{chapter.chapterTitle}</h3>
+              <h3 className={styles.chapterTitle}>{chapter.title}</h3>
             </div>
 
             <div className={styles.lessonList}>
               {chapter.lessons.map((lesson, lessonIdx) => (
-                <div key={lessonIdx} className={styles.lessonItem}>
+                <div key={lesson.lessonId ?? lessonIdx} className={styles.lessonItem}>
                   <span className={styles.lessonSeq}>{lessonIdx + 1}.</span>
                   <div className={styles.lessonInfo}>
                     <span className={styles.lessonTitle}>{lesson.title}</span>
+                    {/* resourceUrl 보여주려면 이거 주석 해제 */}
                     {/* {lesson.resourceUrl && (
                       <a
                         href={lesson.resourceUrl}

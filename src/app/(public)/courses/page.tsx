@@ -1,10 +1,4 @@
-import CategoryBar from '@/features/common/components/CategoryBar';
-import CourseList from '@/features/courses/components/CourseList';
 import styles from './page.module.css';
-import { getAllCategories, getCategoriesById } from '@/services/category.service';
-import { getCourses } from '@/services/course.service';
-import { Category } from '@/features/courses/types';
-import Link from 'next/link';
 import { Metadata } from 'next';
 
 type CoursePageSearchParams = {

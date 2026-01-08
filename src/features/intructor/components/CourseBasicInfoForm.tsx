@@ -1,13 +1,11 @@
-"use client";
+'use client';
 
-import { ChangeEvent } from "react";
-import styles from "./CourseForm.module.css";
-import { CourseFormRequest } from "../types";
-import { Category } from "@/features/courses/types";
-import Image from "next/image";
+import { ChangeEvent } from 'react';
+import styles from './CourseForm.module.css';
+import { CourseFormRequest } from '../types';
+import Image from 'next/image';
 
 interface CourseBasicInfoFormProps {
-  categories: Category[];
   formData: CourseFormRequest;
   handleFieldChange: (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
@@ -16,7 +14,6 @@ interface CourseBasicInfoFormProps {
 }
 
 export default function CourseBasicInfoForm({
-  categories,
   formData,
   handleFieldChange,
   handleThumbnailChange,
@@ -32,7 +29,7 @@ export default function CourseBasicInfoForm({
             className={styles.input}
             type="text"
             placeholder="강좌 제목을 입력해주세요."
-            value={formData.title ?? ""}
+            value={formData.title ?? ''}
             onChange={handleFieldChange}
           />
         </label>
@@ -45,17 +42,17 @@ export default function CourseBasicInfoForm({
             name="categoryId"
             id="categoryId"
             className={styles.select}
-            value={formData.categoryId ?? ""}
+            value={formData.categoryId ?? ''}
             onChange={handleFieldChange}
           >
             <option value="" disabled>
               카테고리 선택
             </option>
-            {categories.map((category) => (
-              <option key={category.id} value={category.id}>
-                {category.name}
-              </option>
-            ))}
+            {/*{categories.map((category) => (*/}
+            {/*  <option key={category.id} value={category.id}>*/}
+            {/*    {category.name}*/}
+            {/*  </option>*/}
+            {/*))}*/}
           </select>
         </label>
 
@@ -65,7 +62,7 @@ export default function CourseBasicInfoForm({
             name="difficulty"
             id="difficulty"
             className={styles.select}
-            value={formData.difficulty ?? ""}
+            value={formData.courseDifficulty ?? ''}
             onChange={handleFieldChange}
           >
             <option value="" disabled>
@@ -111,7 +108,7 @@ export default function CourseBasicInfoForm({
             id="coverImageUrl"
             type="file"
             accept="image/png, image/jpeg, image/gif"
-            style={{ display: "none" }}
+            style={{ display: 'none' }}
             onChange={handleThumbnailChange}
           />
           <label htmlFor="coverImageUrl" className={styles.thumbnailButton}>
@@ -130,7 +127,7 @@ export default function CourseBasicInfoForm({
             className={styles.textarea}
             placeholder="강좌에 대한 짧은 요약을 입력하세요."
             rows={4}
-            value={formData.summary ?? ""}
+            value={formData.summary ?? ''}
             onChange={handleFieldChange}
           />
         </label>
@@ -145,7 +142,7 @@ export default function CourseBasicInfoForm({
             className={styles.textarea}
             placeholder="강좌의 전체 내용을 상세하게 작성해주세요."
             rows={6}
-            value={formData.description ?? ""}
+            value={formData.description ?? ''}
             onChange={handleFieldChange}
           />
         </label>

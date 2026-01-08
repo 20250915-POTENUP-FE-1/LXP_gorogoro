@@ -1,14 +1,12 @@
-import styles from "./InstructorCourseList.module.css";
-import InstructorCourseItem from "./InstructorCourseItem";
-import { InstructorCourse } from "../types";
+import styles from './InstructorCourseList.module.css';
+import InstructorCourseItem from './InstructorCourseItem';
+import { InstructorCourse } from '../types';
 
 interface InstructorCourseListProps {
   courses: InstructorCourse[];
 }
 
-export default function InstructorCourseList({
-  courses,
-}: InstructorCourseListProps) {
+export default function InstructorCourseList({ courses }: InstructorCourseListProps) {
   return (
     <section className={styles.list} aria-label="내가 생성한 강좌">
       <header className={styles.header}>
@@ -17,7 +15,7 @@ export default function InstructorCourseList({
       </header>
       <div className={styles.items}>
         {courses.map((course) => (
-          <InstructorCourseItem key={course.courseId} course={course} />
+          <InstructorCourseItem key={course.courseId} course={course} /> // course: {  }
         ))}
       </div>
     </section>

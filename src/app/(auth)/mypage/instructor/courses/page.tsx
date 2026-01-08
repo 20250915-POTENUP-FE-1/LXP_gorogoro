@@ -9,5 +9,5 @@ export const metadata: Metadata = {
 
 export default async function InstructorCoursePage() {
   const { contents: courses } = await getInstructorCourses();
-  return <InstructorCourseList courses={courses} />;
+  return <InstructorCourseList courses={courses} />; // courses: [{ },{ },..,{ }]
 }

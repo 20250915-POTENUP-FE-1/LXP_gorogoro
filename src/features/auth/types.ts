@@ -1,4 +1,4 @@
-export type ROLE = "STUDENT" | "INSTRUCTOR" | "ADMIN";
+export type ROLE = 'STUDENT' | 'INSTRUCTOR' | 'ADMIN';
 
 export interface User {
   id: string;
@@ -14,7 +14,7 @@ export interface RegistRequest {
   name: string;
   email: string;
   password: string;
-  role: string;
+  role: ROLE;
 }
 
 export interface RegistResponse {
@@ -58,11 +58,7 @@ export interface GetMeResponse {
 
 export interface ModifyMeRequest {
   email?: string;
-  password?: string;
+  passwordEncrypted?: string;
   name?: string;
   nickname?: string;
-}
-
-export interface ModifyMeResponse {
-  user: User;
 }

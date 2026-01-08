@@ -1,6 +1,5 @@
-import InstructorCourseList from '@/features/intructor/components/InstructorCourseList';
-import { getInstructorCourses } from '@/services/course.service';
 import { Metadata } from 'next';
+import { redirect } from 'next/navigation';
 
 export const metadata: Metadata = {
   title: '강의 관리 상세',
@@ -8,6 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default async function InstructorCoursePage() {
-  const { contents: courses } = await getInstructorCourses();
-  return <InstructorCourseList courses={courses} />;
+  redirect('/mypage/instructor/courses');
 }

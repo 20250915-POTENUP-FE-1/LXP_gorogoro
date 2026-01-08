@@ -1,7 +1,7 @@
-import Link from "next/link";
-import styles from "./CourseItem.module.css";
-import { Course } from "../types";
-import Image from "next/image";
+import Link from 'next/link';
+import styles from './CourseItem.module.css';
+import { Course } from '../../types';
+import Image from 'next/image';
 
 interface CourseItemProps {
   course: Course;

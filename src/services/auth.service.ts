@@ -5,26 +5,26 @@ import {
   LoginResponse,
   RefreshRequest,
   RefreshResponse,
-} from "@/features/auth/types";
-import { post } from "@/shared/lib/api";
+} from '@/features/auth/types';
+import { post } from '@/shared/lib/api';
 
-const REGISTER_ENDPOINT = "auth/register";
-const LOGIN_ENDPOINT = "auth/login";
-const REFRESH_ENDPOINT = "auth/refresh";
+const REGISTER_ENDPOINT = 'auth/register';
+const LOGIN_ENDPOINT = 'auth/login';
+const REFRESH_ENDPOINT = 'auth/refresh';
 
 /**
  * 회원가입
- * @throws {BackendError} 백엔드 에러 발생 시
+ * POST /api/auth/register
+ * @throws {BackendError}
  */
-export const registerUser = async (
-  body: RegistRequest
-): Promise<RegistResponse> => {
+export const registerUser = async (body: RegistRequest): Promise<RegistResponse> => {
   return await post<RegistResponse>(REGISTER_ENDPOINT, body);
 };
 
 /**
  * 로그인
- * @throws {BackendError} 백엔드 에러 발생 시
+ *  POST /api/auth/login
+ * @throws {BackendError}
  */
 export const loginUser = async (body: LoginRequest): Promise<LoginResponse> => {
   return await post<LoginResponse>(LOGIN_ENDPOINT, body);
@@ -32,10 +32,9 @@ export const loginUser = async (body: LoginRequest): Promise<LoginResponse> => {
 
 /**
  * 토큰 갱신
- * @throws {BackendError} 백엔드 에러 발생 시
+ * POST /api/auth/refresh
+ * @throws {BackendError}
  */
-export const refreshToken = async (
-  body: RefreshRequest
-): Promise<RefreshResponse> => {
+export const refreshToken = async (body: RefreshRequest): Promise<RefreshResponse> => {
   return await post<RefreshResponse>(REFRESH_ENDPOINT, body);
 };
