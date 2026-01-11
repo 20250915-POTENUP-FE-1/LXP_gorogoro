@@ -1,33 +1,31 @@
-import { useState, ChangeEvent } from "react";
-import { CourseFormRequest } from "../types";
+import { useState, ChangeEvent } from 'react';
+import { CourseFormRequest } from '../types';
 
 export function useCourseForm(initialFormData: CourseFormRequest) {
   const [formData, setFormData] = useState<CourseFormRequest>(initialFormData);
 
   const handleFieldChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: name === "price" ? Number(value) : value,
+      [name]: name === 'price' ? Number(value) : value,
     }));
   };
 
-  const handleChapterTitleChange =
-    (chapterIdx: number) => (e: ChangeEvent<HTMLInputElement>) => {
-      const value = e.target.value;
-      setFormData((prev) => ({
-        ...prev,
-        contents: prev.contents.map((chapter, idx) =>
-          idx === chapterIdx ? { ...chapter, chapterTitle: value } : chapter
-        ),
-      }));
-    };
+  const handleChapterTitleChange = (chapterIdx: number) => (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setFormData((prev) => ({
+      ...prev,
+      contents: prev.contents.map((chapter, idx) =>
+        idx === chapterIdx ? { ...chapter, title: value } : chapter,
+      ),
+    }));
+  };
 
   const handleLessonTitleChange =
-    (chapterIdx: number, lessonIdx: number) =>
-    (e: ChangeEvent<HTMLInputElement>) => {
+    (chapterIdx: number, lessonIdx: number) => (e: ChangeEvent<HTMLInputElement>) => {
       const value = e.target.value;
       setFormData((prev) => ({
         ...prev,
@@ -36,7 +34,7 @@ export function useCourseForm(initialFormData: CourseFormRequest) {
           return {
             ...chapter,
             lessons: chapter.lessons.map((lesson, lIdx) =>
-              lIdx === lessonIdx ? { ...lesson, title: value } : lesson
+              lIdx === lessonIdx ? { ...lesson, title: value } : lesson,
             ),
           };
         }),
@@ -44,8 +42,7 @@ export function useCourseForm(initialFormData: CourseFormRequest) {
     };
 
   const handleLessonResourceUrlChange =
-    (chapterIdx: number, lessonIdx: number) =>
-    (e: ChangeEvent<HTMLInputElement>) => {
+    (chapterIdx: number, lessonIdx: number) => (e: ChangeEvent<HTMLInputElement>) => {
       const value = e.target.value;
       setFormData((prev) => ({
         ...prev,
@@ -54,7 +51,7 @@ export function useCourseForm(initialFormData: CourseFormRequest) {
           return {
             ...chapter,
             lessons: chapter.lessons.map((lesson, lIdx) =>
-              lIdx === lessonIdx ? { ...lesson, resourceUrl: value } : lesson
+              lIdx === lessonIdx ? { ...lesson, resourceUrl: value } : lesson,
             ),
           };
         }),
@@ -62,17 +59,16 @@ export function useCourseForm(initialFormData: CourseFormRequest) {
     };
 
   const addChapter = () => {
-    console.log("click Add Chapter");
+    console.log('click Add Chapter');
     setFormData((prev) => {
       const _oldContent = prev.contents;
       const _newContent = {
-        chapterTitle: "",
-        seq: prev.contents.length + 1,
+        title: '',
         lessons: [
           {
-            title: "",
+            title: '',
             seq: 1,
-            resourceUrl: "",
+            resourceUrl: '',
           },
         ],
       };
@@ -86,9 +82,8 @@ export function useCourseForm(initialFormData: CourseFormRequest) {
         if (idx !== chapterIdx) return chapter;
         const _oldLesson = chapter.lessons;
         const _newLesson = {
-          title: "",
-          seq: chapter.lessons.length + 1,
-          resourceUrl: "",
+          title: '',
+          resourceUrl: '',
         };
         return {
           ...chapter,

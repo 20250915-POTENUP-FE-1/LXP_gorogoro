@@ -1,8 +1,8 @@
-import CourseForm from '@/features/intructor/components/CourseForm';
+import CourseForm from '@/features/instructor/components/CourseForm';
 import styles from './page.module.css';
 import { getCourseById } from '@/services/course.service';
 import { Metadata } from 'next';
-import mapCourseDetailForm from '@/features/intructor/utils/mapCourseDetailToForm';
+import mapCourseDetailForm from '@/features/instructor/utils/mapCourseDetailToForm';
 
 export const metadata: Metadata = {
   title: '강의 수정',

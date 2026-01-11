@@ -1,0 +1,43 @@
+.container {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  gap: 28px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  background-color:var(--gray-100);
+}
+
+.container::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 5px;
+  height: 2px;
+  background: #dbe4f0;
+}
+
+.tabButton {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 0;
+  font-size: 18px;
+  font-weight: 500;
+  color: #111827;
+  background: none;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.tabButton:hover {
+  color: #334d88;
+}
+
+.active {
+  color: #2a51bd;
+}
+

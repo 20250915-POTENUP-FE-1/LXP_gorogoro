@@ -1,6 +1,11 @@
 import React from 'react';
 import styles from './Button.module.css';
 
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant: ButtonVariant;
+  size?: ButtonSize;
+}
+
 type ButtonVariant =
   | 'primary'
   | 'secondary'
@@ -17,13 +22,6 @@ type ButtonVariant =
   | 'navItem';
 
 type ButtonSize = 'sm' | 'md' | 'lg' | 'full';
-
-type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant: ButtonVariant;
-  size?: ButtonSize;
-  children: React.ReactNode;
-  onClick?: () => void;
-};
 
 const variantClassMap: Record<ButtonVariant, string> = {
   primary: styles.buttonPrimary,
@@ -64,7 +62,7 @@ export const Button = ({
     <button
       {...rest}
       type={type}
-      className={`${styles.button} ${variantClass} ${sizeClass}}`}
+      className={`${styles.button} ${variantClass} ${sizeClass}`}
       disabled={disabled}
       onClick={onClick}
     >

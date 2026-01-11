@@ -1,6 +1,6 @@
 import styles from './page.module.css';
-import QnAList from '@/features/intructor/components/QnAList';
-import DashboardStats from '@/features/intructor/components/DashboardStats';
+import QnAList from '@/features/instructor/components/QnAList';
+import DashboardStats from '@/features/instructor/components/DashboardStats';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
