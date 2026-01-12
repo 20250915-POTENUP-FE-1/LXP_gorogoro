@@ -72,6 +72,7 @@ export interface LessonDto {
 export interface Reviews {
   reviews: ReviewDto[];
 }
+
 export interface ReviewDto {
   id: number;
   userName: string;
@@ -79,20 +80,48 @@ export interface ReviewDto {
   createdAt: string;
   content: string;
 }
+
 export interface Qna {
-  qna: QnaDto[];
+  qna: ThreadDto[];
 }
+
 export type QnaStatus = 'answered' | 'pending';
-export interface QnaDto {
-  id: number;
-  title: string;
-  status: QnaStatus;
-  userName: string;
-  createdAt: string;
-  content: string;
-  answer?: string;
-  answeredAt?: string;
+
+export type UserRole = 'student' | 'instructor';
+
+export interface Author {
+  name: string;
+  role: UserRole;
+  profileImage?: string; // Optional for now
 }
+
+export interface ReplyDto {
+  id: number;
+  content: string;
+  author: Author;
+  createdAt: string;
+}
+
+export interface ThreadDto {
+  id: number;
+  lessonId: number; // Linked Lesson ID
+  lessonTitle: string; // Denormalized title
+  title: string;
+  content: string;
+  status: QnaStatus;
+  author: Author;
+  createdAt: string;
+  replies: ReplyDto[];
+  readCount?: number;
+}
+
+export type CourseLearnPageModel = CourseDetailResponse & {
+  progress?: number;
+  activeLessonId: number;
+  activeLesson: LessonDto;
+  qna: ThreadDto[];
+};
+
 /** DELETE /api/courses/{courseId}/chapters 요청 바디 */
 export interface DeleteChaptersRequest {
   chapterIds: number[];
