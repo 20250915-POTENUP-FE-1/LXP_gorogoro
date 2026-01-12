@@ -9,6 +9,7 @@ import CourseCurriculumForm from './CourseCurriculumForm';
 import { CreateCourseAction, UpdateCourseAction } from '../action';
 import { useModalStore } from '@/stores/useModalStore';
 import { Button } from '@/shared/components/ui/Button';
+import { Category } from '@/features/courses/types';
 
 export type CourseFormMode = 'create' | 'edit';
 
@@ -16,6 +17,7 @@ interface CourseFormProps {
   mode?: CourseFormMode;
   courseId?: number;
   initialFormData?: CourseFormRequest;
+  categories: Category[];
 }
 
 const defaultFormData: CourseFormRequest = {
@@ -46,6 +48,7 @@ export default function CourseForm({
   mode = 'create',
   courseId,
   initialFormData = defaultFormData,
+  categories,
 }: CourseFormProps) {
   const {
     formData,
@@ -92,7 +95,7 @@ export default function CourseForm({
         <Button
           variant="tab"
           type="button"
-          className={activeTab === 'basic' ? styles.activeTab : ''}
+          className={activeTab === 'basic' && styles.activeTab}
           onClick={() => setActiveTab('basic')}
         >
           기본 정보
@@ -100,7 +103,7 @@ export default function CourseForm({
         <Button
           variant="tab"
           type="button"
-          className={activeTab === 'curriculum' ? styles.activeTab : ''}
+          className={activeTab === 'curriculum' && styles.activeTab}
           onClick={() => setActiveTab('curriculum')}
         >
           커리큘럼
@@ -112,6 +115,7 @@ export default function CourseForm({
           formData={formData}
           handleFieldChange={handleFieldChange}
           handleThumbnailChange={handleThumbnailChange}
+          categories={categories}
         />
       </div>
 

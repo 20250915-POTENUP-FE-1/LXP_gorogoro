@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useAuthStore } from "@/stores/useAuthStore";
+import { useAuthStore } from '@/stores/useAuthStore';
 
 export default function UserInfo() {
   const userProfile = useAuthStore((state) => state.userProfile);

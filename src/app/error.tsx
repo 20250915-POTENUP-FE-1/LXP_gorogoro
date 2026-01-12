@@ -61,10 +61,6 @@ export default function ErrorPage({ error, reset }: Props) {
           </div>
 
           <div className={styles.grid}>
-            <button type="button" onClick={() => reset()} className={styles.primaryBtn}>
-              다시 시도
-            </button>
-
             <button
               type="button"
               onClick={() => window.location.reload()}

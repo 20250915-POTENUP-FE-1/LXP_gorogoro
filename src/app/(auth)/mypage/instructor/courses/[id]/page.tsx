@@ -8,4 +8,5 @@ export const metadata: Metadata = {
 
 export default async function InstructorCoursePage() {
   redirect('/mypage/instructor/courses');
+  // return <div></div>;
 }

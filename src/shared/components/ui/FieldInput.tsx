@@ -7,14 +7,15 @@ type FieldInputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   icon?: React.ReactNode;
   errorMessage?: string;
   label: string;
+  inputStyle?: React.CSSProperties;
 };
 
 export default function FieldInput(props: FieldInputProps) {
-  const { icon, label, errorMessage, ...rest } = props;
+  const { icon, label, errorMessage, inputStyle, ...rest } = props;
   return (
     <label className={styles.field}>
       <span className={styles.label}>{label}</span>
-      <Input {...rest} />
+      <Input {...rest} style={inputStyle} />
       {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
     </label>
   );

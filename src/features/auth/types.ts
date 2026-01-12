@@ -37,6 +37,7 @@ export interface LoginResponse {
 export interface LoginUserInfo {
   nickname: string;
   role: ROLE;
+  email?: string;
 }
 
 export interface RefreshRequest {
