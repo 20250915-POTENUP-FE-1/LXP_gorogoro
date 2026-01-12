@@ -7,6 +7,7 @@ interface InstructorCourseListProps {
 }
 
 export default function InstructorCourseList({ courses }: InstructorCourseListProps) {
+  console.log(courses);
   return (
     <section className={styles.list} aria-label="내가 생성한 강좌">
       <header className={styles.header}>
@@ -14,9 +15,13 @@ export default function InstructorCourseList({ courses }: InstructorCourseListPr
         <span className={styles.count}>총 {courses.length}개의 강좌</span>
       </header>
       <div className={styles.items}>
-        {courses.map((course) => (
-          <InstructorCourseItem key={course.courseId} course={course} /> // course: {  }
-        ))}
+        {courses.length === 0 ? (
+          <p>현재 내가 생성한 강좌가 없습니다.</p>
+        ) : (
+          courses.map((course) => (
+            <InstructorCourseItem key={course.courseId} course={course} /> // course: {  }
+          ))
+        )}
       </div>
     </section>
   );

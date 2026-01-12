@@ -25,9 +25,11 @@ export default function LoginForm() {
   // 로그인 성공시
   useEffect(() => {
     if (state.success && state.data) {
+      console.log(state.data);
       setUser({
         nickname: state.data.nickname,
         role: state.data.role,
+        email: state.data.email ?? '',
       });
       const callback = searchParams.get('callback') || '/';
       // proxy가 /login으로 리다이렉트할 때 URL에 추가한 복귀 경로

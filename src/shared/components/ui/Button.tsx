@@ -64,7 +64,7 @@ export const Button = ({
     <button
       {...rest}
       type={type}
-      className={`${styles.button} ${variantClass} ${sizeClass}}`}
+      className={`${styles.button} ${variantClass} ${sizeClass} ${rest.className}`}
       disabled={disabled}
       onClick={onClick}
     >

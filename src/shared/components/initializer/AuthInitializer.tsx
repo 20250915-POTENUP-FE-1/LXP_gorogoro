@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { ROLE } from "@/features/auth/types";
-import { useAuthStore } from "@/stores/useAuthStore";
-import { useEffect } from "react";
-import { usePathname } from "next/dist/client/components/navigation";
+import { ROLE } from '@/features/auth/types';
+import { useAuthStore } from '@/stores/useAuthStore';
+import { useEffect } from 'react';
+import { usePathname } from 'next/dist/client/components/navigation';
 
 type MeResponse = {
   id: number;
@@ -21,16 +21,16 @@ export default function AuthInitializer() {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (pathname === "/login" || pathname === "/signup") {
+    if (pathname === '/login' || pathname === '/signup') {
       clearUser();
       return;
     }
     let ignore = false;
     const fetchUser = async () => {
       try {
-        const res = await fetch("/api/me", {
-          cache: "no-store",
-          credentials: "include",
+        const res = await fetch('/api/me', {
+          cache: 'no-store',
+          credentials: 'include',
         });
         if (res.status === 401) {
           // 로그인 안 한 상태는 정상 상태
@@ -39,11 +39,11 @@ export default function AuthInitializer() {
         }
         if (!res.ok) {
           // 서버 문제(500 등)만 로깅/에러 UI 처리
-          throw new Error("ME API failed");
+          throw new Error('ME API failed');
         }
         const me: MeResponse = await res.json();
         if (!ignore) {
-          setUser({ nickname: me.nickname, role: me.role });
+          setUser({ nickname: me.nickname, role: me.role, email: me.email });
         }
       } catch (error) {
         if (!ignore) {

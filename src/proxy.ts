@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 function isAuthPage(pathname: string) {
-  return pathname === '/login' || pathname === '/signup' || pathname.startsWith('/auth');
+  return pathname === '/login' || pathname === '/signup';
 }
 
 const PUBLIC_FILE = /\.(.*)$/;

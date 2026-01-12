@@ -30,24 +30,12 @@ export default function UserActions() {
           width={10}
           height={10}
           alt=""
-          width={500}
-          height={500}
           className={styles.actionIcon}
           aria-hidden="true"
         />
       </Link>
-      <Link
-        href="/mypage"
-        className={styles.actionButton}
-        aria-label="마이페이지"
-      >
-        <Image
-          src="/assets/user.svg"
-          width={10}
-          height={10}
-          alt=""
-          className={styles.actionIcon}
-        />
+      <Link href="/mypage" className={styles.actionButton} aria-label="마이페이지">
+        <Image src="/assets/user.svg" width={10} height={10} alt="" className={styles.actionIcon} />
       </Link>
     </div>
   );
