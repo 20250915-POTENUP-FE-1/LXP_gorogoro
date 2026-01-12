@@ -1,56 +1,93 @@
 .sidebar {
-  width: 15rem;
-  padding: 2.5rem 2rem;
-  border-radius: 1.5rem;
-  background-color: var(--primary-bg);
-  border: 1px solid var(--gray-100);
+  width: 17.5rem;
+  padding: 2.25rem 2rem;
+  border-radius: 1.75rem;
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.08);
   box-shadow: 0 24px 40px rgba(15, 23, 42, 0.08);
+
   display: flex;
   flex-direction: column;
-  gap: 2.5rem;
+  gap: 2rem;
 }
 
 .profile {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: 0.9rem;
 }
 
 .avatar {
   width: 6rem;
   height: 6rem;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--highlight), var(--primary-400));
-  color: var(--gray-00);
-  font-family: var(--font-heading);
-  font-size: var(--text-display-sm);
+  border-radius: 9999px;
+
+  /* 사진처럼 보라→핑크 그라데이션 */
+  background: linear-gradient(135deg, #5b21b6 0%, #db2777 100%);
+
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 1.5rem;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
 }
 
 .info {
   text-align: center;
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 0.35rem;
 }
 
 .name {
-  font-family: var(--font-heading);
-  font-size: var(--text-title-md);
-  color: var(--gray-900);
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: #0f172a;
 }
 
 .email {
-  font-size: var(--text-sm);
-  color: var(--gray-500);
+  font-size: 0.875rem;
+  color: #94a3b8;
 }
 
 .nav {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+}
+
+/* Link / Button 공통 메뉴 아이템 */
+.navItem {
+  width: 100%;
+  display: block;
+  text-align: left;
+
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #334155;
+  text-decoration: none;
+
+  /* 버튼 리셋(공통화 핵심) */
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+.navItem:hover {
+  background: rgba(15, 23, 42, 0.04);
+}
+
+.navItemActive {
+  background: rgba(15, 23, 42, 0.06);
+  color: #0f172a;
 }

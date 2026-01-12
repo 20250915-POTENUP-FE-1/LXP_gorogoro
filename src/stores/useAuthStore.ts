@@ -1,10 +1,11 @@
-import { create } from "zustand";
-import { persist, createJSONStorage } from "zustand/middleware";
-import { ROLE } from "@/features/auth/types";
+import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
+import { ROLE } from '@/features/auth/types';
 
 type UserProfile = {
   nickname: string;
   role: ROLE;
+  email?: string;
 };
 interface AuthStore {
   userProfile: UserProfile | null; // 유저 프로필
@@ -19,6 +20,6 @@ export const useAuthStore = create<AuthStore>()(
       setUser: (user: UserProfile) => set({ userProfile: user }),
       clearUser: () => set({ userProfile: null }),
     }),
-    { name: "auth-store", storage: createJSONStorage(() => localStorage) }
-  )
+    { name: 'auth-store', storage: createJSONStorage(() => localStorage) },
+  ),
 );

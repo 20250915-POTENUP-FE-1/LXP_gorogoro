@@ -4,6 +4,7 @@ import { ChangeEvent } from 'react';
 import styles from './CourseForm.module.css';
 import { CourseFormRequest } from '../types';
 import Image from 'next/image';
+import { Category } from '@/features/courses/types';
 
 interface CourseBasicInfoFormProps {
   formData: CourseFormRequest;
@@ -11,15 +12,17 @@ interface CourseBasicInfoFormProps {
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
   ) => void;
   handleThumbnailChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  categories: Category[];
 }
 
 export default function CourseBasicInfoForm({
   formData,
   handleFieldChange,
   handleThumbnailChange,
+  categories,
 }: CourseBasicInfoFormProps) {
   return (
-    <div className={styles.form}>
+    <div className={styles.form} style={{}}>
       <div className={`${styles.group} ${styles.groupInline}`}>
         <label className={styles.field}>
           <span className={styles.label}>강좌명</span>
@@ -48,11 +51,15 @@ export default function CourseBasicInfoForm({
             <option value="" disabled>
               카테고리 선택
             </option>
-            {/*{categories.map((category) => (*/}
-            {/*  <option key={category.id} value={category.id}>*/}
-            {/*    {category.name}*/}
-            {/*  </option>*/}
-            {/*))}*/}
+            {categories.map((cat) => (
+              <optgroup key={cat.id} label={cat.name}>
+                {cat.subCategories.map((sub) => (
+                  <option key={sub.id} value={sub.id}>
+                    {sub.name}
+                  </option>
+                ))}
+              </optgroup>
+            ))}
           </select>
         </label>
 
@@ -98,6 +105,8 @@ export default function CourseBasicInfoForm({
               src={formData.coverImageUrl}
               className={styles.thumbnailPreview}
               alt="Thumbnail Preview"
+              width={500}
+              height={500}
             />
           ) : (
             <div className={styles.thumbnailPreview}>미리보기</div>
