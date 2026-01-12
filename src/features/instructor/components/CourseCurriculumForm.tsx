@@ -3,7 +3,7 @@
 import { ChangeEvent } from 'react';
 import styles from './CourseForm.module.css';
 import { CourseFormRequest } from '../types';
-import CourseCurriculum from '@/features/courses/components/detail/CourseCurriculum';
+import CourseCurriculum from '@/features/instructor/components/CourseCurriculumEditor';
 
 interface CourseCurriculumFormProps {
   formData: CourseFormRequest;
@@ -32,7 +32,6 @@ export default function CourseCurriculumForm({
     <div className={styles.group}>
       {/* useFieldArray 사용하기 */}
       <CourseCurriculum
-        mode="edit"
         formData={formData}
         addChapter={addChapter}
         addLesson={addLesson}

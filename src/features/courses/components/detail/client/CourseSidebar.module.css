@@ -1,0 +1,82 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: sticky;
+  top: 2rem;
+}
+
+.thumbnail {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  object-fit: cover;
+  aspect-ratio: 16 / 9;
+  border: 1px solid #e5e7eb;
+}
+
+.summaryCard {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 0 0 1.5rem 0;
+}
+
+.metaRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.metaLabel {
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.metaValue {
+  color: #111827;
+  font-weight: 600;
+  margin: 0;
+}
+
+.metaPrice {
+  color: #2563eb;
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.ctaGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.ctaIcon {
+  margin-right: 0.5rem;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.ctaSecondary {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  border: 1px solid #e5e7eb;
+}
+
+.ctaSecondary:hover {
+  background-color: #e5e7eb;
+}

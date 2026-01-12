@@ -63,3 +63,13 @@
   font-size: var(--text-sm);
   color: var(--gray-500);
 }
+
+.BtnBox{
+  display: flex;
+  gap:10px;
+}
+
+.BtnBox > button{
+  flex:1;
+  border-radius: 10px;
+}

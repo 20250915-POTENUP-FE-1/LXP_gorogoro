@@ -1,18 +1,26 @@
-import styles from './CourseDetail.module.css';
+'use client';
+import styles from './CourseSidebar.module.css';
 import Image from 'next/image';
 import { Button } from '@/shared/components/ui/Button';
 import { CourseDetailResponse } from '@/features/courses/types';
+import useCourseCartActions from '@/features/courses/hooks/useCourseCartActions';
 
 interface CourseSidebarProps {
   course: CourseDetailResponse;
-  onAddToCart: () => void;
-  onCheckout: () => void;
 }
-export default function CourseSidebar({ course, onAddToCart, onCheckout }: CourseSidebarProps) {
+export default function CourseSidebarClient({ course }: CourseSidebarProps) {
+  const { pending, add, checkout } = useCourseCartActions(course.courseId);
+
   return (
     <div>
       <aside className={styles.sidebar}>
-        <Image className={styles.thumbnail} src={course.coverImageUrl} alt={course.title} />
+        <Image
+          className={styles.thumbnail}
+          src={course.coverImageUrl}
+          alt={course.title}
+          width={200}
+          height={200}
+        />
         <div className={styles.summaryCard}>
           <dl className={styles.meta}>
             <div className={styles.metaRow}>
@@ -33,20 +41,15 @@ export default function CourseSidebar({ course, onAddToCart, onCheckout }: Cours
             </div>
           </dl>
           <div className={styles.ctaGroup}>
-            <Button variant="cta" type="button" onClick={onAddToCart}>
-              <Image
-                className={styles.ctaIcon}
-                src="/assets/shopping-cart.svg"
-                alt=""
-                aria-hidden="true"
-              />
+            <Button variant="cta" type="button" onClick={add} disabled={pending}>
               장바구니 담기
             </Button>
             <Button
               variant="cta"
               className={styles.ctaSecondary}
               type="button"
-              onClick={onCheckout}
+              onClick={checkout}
+              disabled={pending}
             >
               바로 결제하기
             </Button>

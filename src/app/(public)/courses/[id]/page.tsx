@@ -1,7 +1,8 @@
 import CourseDetail from '@/features/courses/components/detail/CourseDetail';
 import styles from './page.module.css';
-import { getCourseById } from '@/services/course.service';
 import { Metadata } from 'next';
+import { getCourseById } from '@/services/course.service';
+import { MOCK_COURSE_DETAIL } from '@/app/mockData';
 
 export const metadata: Metadata = {
   title: '강의 상세',
@@ -11,9 +12,10 @@ export const metadata: Metadata = {
 export default async function CourseDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const courseId = Number(id);
-
-  const course = await getCourseById(courseId);
-
+  // api 연동
+  // const course = await getCourseById(courseId);
+  // MOCK DATA
+  const course = MOCK_COURSE_DETAIL;
   return (
     <main className={styles.page}>
       <div className={`page-wrapper ${styles.container}`}>

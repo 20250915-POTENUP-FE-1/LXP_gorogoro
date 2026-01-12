@@ -1,4 +1,4 @@
-import InstructorCourseList from '@/features/intructor/components/InstructorCourseList';
+import InstructorCourseList from '@/features/instructor/components/InstructorCourseList';
 import { getInstructorCourses } from '@/services/course.service';
 import { Metadata } from 'next';
 

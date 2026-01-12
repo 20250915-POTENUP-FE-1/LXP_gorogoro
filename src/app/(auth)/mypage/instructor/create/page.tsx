@@ -1,4 +1,4 @@
-import CourseForm from '@/features/intructor/components/CourseForm';
+import CourseForm from '@/features/instructor/components/CourseForm';
 import styles from './page.module.css';
 import { getAllCategories } from '@/services/category.service';
 import { Metadata } from 'next';

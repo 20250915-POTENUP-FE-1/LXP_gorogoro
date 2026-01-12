@@ -1,0 +1,95 @@
+.curriculumSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.sectionTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 8px;
+}
+
+.chapterList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.chapterItem {
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+.chapterHeader {
+  background-color: #f9fafb;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.chapterSeq {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.chapterTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+
+.lessonList {
+  display: flex;
+  flex-direction: column;
+}
+
+.lessonItem {
+  display: flex;
+  align-items: flex-start;
+  padding: 0.875rem 1.25rem;
+  border-bottom: 1px solid #f3f4f6;
+  gap: 0.75rem;
+}
+
+.lessonItem:last-child {
+  border-bottom: none;
+}
+
+.lessonSeq {
+  font-size: 0.9rem;
+  color: #9ca3af;
+  min-width: 1.5rem;
+}
+
+.lessonInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.lessonTitle {
+  font-size: 0.95rem;
+  color: #374151;
+}
+
+.lessonLink {
+  font-size: 0.85rem;
+  color: #2563eb;
+  text-decoration: none;
+  align-self: flex-start;
+  font-weight: 500;
+}
+
+.lessonLink:hover {
+  text-decoration: underline;
+}

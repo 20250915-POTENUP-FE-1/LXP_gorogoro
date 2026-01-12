@@ -11,7 +11,7 @@ export default function CourseList({ courses }: CourseListProps) {
     <section className={styles.list} aria-label="강좌 목록">
       <div className={styles.grid}>
         {courses.map((course) => (
-          <CourseItem key={course.id} course={course} />
+          <CourseItem key={course.courseId} course={course} />
         ))}
       </div>
     </section>

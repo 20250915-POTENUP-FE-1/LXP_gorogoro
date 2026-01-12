@@ -68,7 +68,31 @@ export interface LessonDto {
   title: string;
   resourceUrl: string;
 }
-
+//MOCK DATA TYPE
+export interface Reviews {
+  reviews: ReviewDto[];
+}
+export interface ReviewDto {
+  id: number;
+  userName: string;
+  rating: number;
+  createdAt: string;
+  content: string;
+}
+export interface Qna {
+  qna: QnaDto[];
+}
+export type QnaStatus = 'answered' | 'pending';
+export interface QnaDto {
+  id: number;
+  title: string;
+  status: QnaStatus;
+  userName: string;
+  createdAt: string;
+  content: string;
+  answer?: string;
+  answeredAt?: string;
+}
 /** DELETE /api/courses/{courseId}/chapters 요청 바디 */
 export interface DeleteChaptersRequest {
   chapterIds: number[];

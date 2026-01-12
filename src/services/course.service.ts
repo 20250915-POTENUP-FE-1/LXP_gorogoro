@@ -4,7 +4,7 @@ import {
   DeleteChaptersRequest,
   DeleteLessonsRequest,
 } from '@/features/courses/types';
-import { CourseFormRequest, InstructorCoursesResponse } from '@/features/intructor/types';
+import { CourseFormRequest, InstructorCoursesResponse } from '@/features/instructor/types';
 import { get } from '@/shared/lib/api';
 import { fetchWithAuth } from '@/shared/lib/authApi';
 

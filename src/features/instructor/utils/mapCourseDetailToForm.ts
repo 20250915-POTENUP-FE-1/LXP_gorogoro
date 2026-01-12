@@ -1,5 +1,5 @@
 import { CourseDetailResponse } from '@/features/courses/types';
-import { CourseFormRequest } from '@/features/intructor/types';
+import { CourseFormRequest } from '@/features/instructor/types';
 
 // CourseDetailResponse -> CourseFormRequest 로 매핑
 const mapCourseDetailForm = (detail: CourseDetailResponse): CourseFormRequest => {

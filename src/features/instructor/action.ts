@@ -43,7 +43,7 @@ const getCourseDataFromFormData = (formData: FormData): CourseFormRequest => {
       lessonIndex++;
     }
 
-    contents.push({ chapterTitle, seq: chapterIndex + 1, lessons });
+    contents.push({ title, seq: chapterIndex + 1, lessons });
     chapterIndex++;
   }
 

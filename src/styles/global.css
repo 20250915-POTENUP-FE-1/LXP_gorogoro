@@ -11,7 +11,7 @@ html {
 
 body {
   margin: 0;
-  background-color: var(--primary-bg);
+  background-color: var(--gray-50);
   color: var(--gray-900);
 }
 

@@ -19,7 +19,7 @@ export default function UserActions() {
   return (
     <div className={styles.actions}>
       {userProfile.role === 'INSTRUCTOR' && (
-        <Link href="/instructor" className={styles.dashboardLink}>
+        <Link href="/mypage/instructor" className={styles.dashboardLink}>
           강사 대시보드
         </Link>
       )}
