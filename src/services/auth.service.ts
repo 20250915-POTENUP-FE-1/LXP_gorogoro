@@ -6,35 +6,29 @@ import {
   RefreshRequest,
   RefreshResponse,
 } from '@/features/auth/types';
-import { post } from '@/shared/lib/api';
+import { fetchWithAuth } from '@/shared/lib/authApi';
 
-const REGISTER_ENDPOINT = 'auth/register';
+const SIGNUP_ENDPOINT = 'users/register';
 const LOGIN_ENDPOINT = 'auth/login';
-const REFRESH_ENDPOINT = 'auth/refresh';
+const REFRESH_ENDPOINT = 'auth/reissue';
 
-/**
- * 회원가입
- * POST /api/auth/register
- * @throws {BackendError}
- */
 export const registerUser = async (body: RegistRequest): Promise<RegistResponse> => {
-  return await post<RegistResponse>(REGISTER_ENDPOINT, body);
+  return await fetchWithAuth<RegistResponse>(SIGNUP_ENDPOINT, {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
 };
 
-/**
- * 로그인
- *  POST /api/auth/login
- * @throws {BackendError}
- */
 export const loginUser = async (body: LoginRequest): Promise<LoginResponse> => {
-  return await post<LoginResponse>(LOGIN_ENDPOINT, body);
+  return await fetchWithAuth<LoginResponse>(LOGIN_ENDPOINT, {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
 };
 
-/**
- * 토큰 갱신
- * POST /api/auth/refresh
- * @throws {BackendError}
- */
 export const refreshToken = async (body: RefreshRequest): Promise<RefreshResponse> => {
-  return await post<RefreshResponse>(REFRESH_ENDPOINT, body);
+  return await fetchWithAuth<RefreshResponse>(REFRESH_ENDPOINT, {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
 };

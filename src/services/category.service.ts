@@ -1,5 +1,5 @@
 import { CategoriesResponse } from '@/features/courses/types';
-import { get } from '@/shared/lib/api';
+import { fetchWithAuth } from '@/shared/lib/authApi';
 
 const CATEGORIES_ENDPOINT = 'categories';
 
@@ -8,7 +8,9 @@ const CATEGORIES_ENDPOINT = 'categories';
  * @throws {BackendError}
  */
 export const getAllCategories = async (): Promise<CategoriesResponse> => {
-  return await get<CategoriesResponse>(CATEGORIES_ENDPOINT);
+  return await fetchWithAuth<CategoriesResponse>(CATEGORIES_ENDPOINT, {
+    method: 'GET',
+  });
 };
 
 // 미개발 api

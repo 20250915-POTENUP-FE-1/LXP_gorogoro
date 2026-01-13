@@ -1,104 +1,76 @@
-"use server";
+'use server';
 
-import { cookies } from "next/headers";
-import { refreshToken } from "@/services/auth.service";
+import { cookies } from 'next/headers';
+const BASE_URL = process.env.API_BASE_URL || 'http://localhost:8080/api/';
 
-const BASE_URL = process.env.API_BASE_URL || "http://localhost:8080/api/";
+type ApiError = {
+  status: number;
+  code?: string;
+  message?: string;
+  errors?: unknown;
+};
 
 /**
  * HTTP Response를 처리하고 에러 시 throw
  * @throws {BackendError} HTTP 에러 발생 시
  */
-const handleResponse = async <T>(res: Response): Promise<T> => {
+const handleResponse = async <T>(res: Response): Promise<T | null> => {
+  const text = await res.text();
+  const contentType = res.headers.get('content-type') ?? '';
+
+  // 에러 응답 처리
   if (!res.ok) {
-    let errorBody: any = null;
-    try {
-      errorBody = await res.json();
-    } catch {
-      errorBody = { message: "알 수 없는 에러가 발생했습니다" };
+    let errorBody = null;
+    if (text && contentType.includes('application/json')) {
+      try {
+        errorBody = JSON.parse(text);
+      } catch {
+        //백엔드 에러가 JSON 아닐 경우 프론트에서 JSON.parse가 실패로 터지지 않게 하기 위해
+        errorBody = null;
+      }
     }
 
-    throw {
+    const error: ApiError = {
       status: res.status,
       code: errorBody?.code,
-      message: errorBody?.message || res.statusText,
+      message: errorBody?.message || res.statusText || '알 수 없는 에러가 발생했습니다',
       errors: errorBody?.errors,
     };
+    throw error;
   }
 
-  if (res.status === 204) {
-    return null as T;
-  }
+  // 204 or empty body
+  if (!text) return null;
 
-  return await res.json();
+  // 성공인데 JSON이 아니면 버그로 판단
+  if (!contentType.includes('application/json')) {
+    throw {
+      status: res.status,
+      message: `JSON 응답을 기대했지만 content-type이 ${contentType} 입니다.`,
+    };
+  }
+  return JSON.parse(text) as T;
 };
 
 /**
  * 인증이 필요한 API 요청 (자동 토큰 갱신 포함)
  * @throws {BackendError}
  */
-export const fetchWithAuth = async <T,>(
-  endpoint: string,
-  options: RequestInit = {}
-): Promise<T> => {
+export const fetchWithAuth = async <T>(endpoint: string, options: RequestInit = {}): Promise<T> => {
   const cookieStore = await cookies();
-  const accessToken = cookieStore.get("accessToken")?.value;
+  const accessToken = cookieStore.get('accessToken')?.value;
 
   const headers = {
     ...(options.headers || {}),
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
     ...((accessToken && { Authorization: `Bearer ${accessToken}` }) || {}),
   };
 
-  let res = await fetch(`${BASE_URL}${endpoint}`, {
+  const res = await fetch(`${BASE_URL}${endpoint}`, {
     ...options,
     headers,
-    cache: "no-store",
+    cache: 'no-store',
   });
 
-  // 401 에러면 토큰 갱신 후 재시도
-  if (res.status === 401) {
-    const refreshedToken = await refreshAccessToken();
-    if (refreshedToken) {
-      res = await fetch(`${BASE_URL}${endpoint}`, {
-        ...options,
-        headers: {
-          ...(options.headers || {}),
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${refreshedToken}`,
-        },
-        cache: "no-store",
-      });
-    }
-  }
-
   return handleResponse<T>(res);
-};
-
-// 토큰 갱신 함수 -> 반환값 : accessToken(string) or null
-const refreshAccessToken = async (): Promise<string | null> => {
-  const cookieStore = await cookies();
-  const refreshTokenValue = cookieStore.get("refreshToken")?.value;
-  if (!refreshTokenValue) return null;
-
-  try {
-    const result = await refreshToken({
-      refreshToken: refreshTokenValue,
-    });
-    console.log("[refresh] success result: ", result);
-    const { accessToken } = result;
-    console.log("[refresh] accessToken exists?", !!accessToken);
-
-    if (!accessToken) return null;
-    cookieStore.set("accessToken", accessToken, {
-      httpOnly: true,
-      maxAge: 60 * 60,
-      path: "/",
-    });
-    console.log("[refresh] accessToken cookie set");
-    return accessToken;
-  } catch (error) {
-    console.log("refresh failed:", error);
-    return null;
-  }
 };

@@ -11,15 +11,7 @@ import {
 
 const initialState: UpdateProfileActionState = { success: true };
 
-export default function ProfileEditForm({
-  email,
-  nickname,
-  name,
-}: {
-  email: string;
-  nickname: string;
-  name?: string;
-}) {
+export default function ProfileEditForm({ email, name }: { email: string; name: string }) {
   const [state, formAction, isPending] = useActionState(updateProfileAction, initialState);
 
   return (
@@ -47,33 +39,33 @@ export default function ProfileEditForm({
             cursor: 'default',
             borderColor: 'transparent',
           }}
-          errorMessage={state.errors?.email}
+          errorMessage={state.errors?.email?.[0] ?? ''}
         />
 
         <FieldInput
-          label="닉네임"
-          id="nickname"
-          name="nickname"
-          defaultValue={nickname}
-          placeholder="닉네임을 입력하세요"
-          errorMessage={state.errors?.nickname}
+          label="이름"
+          id="name"
+          name="name"
+          defaultValue={name}
+          placeholder="이름을 입력하세요"
+          errorMessage={(state.message || state.errors?.name?.[0]) ?? ''}
         />
 
         <FieldInput
           label="비밀번호 변경"
-          id="password"
-          name="password"
+          id="newPassword"
+          name="newPassword"
           type="password"
           placeholder="변경할 비밀번호를 입력하세요"
-          errorMessage={state.errors?.password}
+          errorMessage={state.errors?.newPassword?.[0] ?? ''}
         />
 
         <FieldInput
           label="비밀번호 변경 확인"
           type="password"
-          id="passwordConfirm"
-          name="passwordConfirm"
-          errorMessage={state.errors?.passwordConfirm}
+          id="newPasswordCheck"
+          name="newPasswordCheck"
+          errorMessage={state.errors?.newPasswordCheck?.[0] ?? ''}
           placeholder="비밀번호를 다시 입력하세요"
         />
       </div>
