@@ -79,6 +79,7 @@
   border: 0;
   cursor: pointer;
   font: inherit;
+  position: relative;
 
   transition: background-color 150ms ease, color 150ms ease;
 }

@@ -13,7 +13,7 @@ import {
   UpdateQnaRequest,
 } from '@/features/courses/types';
 import { CourseFormRequest, InstructorCoursesResponse } from '@/features/instructor/types';
-import { get } from '@/shared/lib/api';
+import { del, get, patch, post } from '@/shared/lib/api';
 import { fetchWithAuth } from '@/shared/lib/authApi';
 
 const COURSES_ENDPOINT = 'courses';
@@ -56,9 +56,7 @@ export const getCourseById = async (courseId: number): Promise<CourseDetailRespo
  * @throws {BackendError}
  */
 export const getInstructorCourses = async (): Promise<InstructorCoursesResponse> => {
-  return await fetchWithAuth<InstructorCoursesResponse>(INSTRUCTOR_COURSES_ENDPOINT, {
-    method: 'GET',
-  });
+  return await get<InstructorCoursesResponse>(INSTRUCTOR_COURSES_ENDPOINT);
 };
 
 /**
@@ -67,10 +65,7 @@ export const getInstructorCourses = async (): Promise<InstructorCoursesResponse>
  * @throws {BackendError}
  */
 export const createCourse = async (body: CourseFormRequest): Promise<void> => {
-  await fetchWithAuth<void>(COURSES_ENDPOINT, {
-    method: 'POST',
-    body: JSON.stringify(body),
-  });
+  await post<void>(COURSES_ENDPOINT, JSON.stringify(body));
 };
 
 /**
@@ -79,10 +74,7 @@ export const createCourse = async (body: CourseFormRequest): Promise<void> => {
  * @throws {BackendError}
  */
 export const updateCourse = async (courseId: number, body: CourseFormRequest): Promise<void> => {
-  await fetchWithAuth<void>(`${COURSES_ENDPOINT}/${courseId}`, {
-    method: 'PUT',
-    body: JSON.stringify(body),
-  });
+  await patch<void>(`${COURSES_ENDPOINT}/${courseId}`, JSON.stringify(body));
 };
 
 /**
@@ -91,9 +83,7 @@ export const updateCourse = async (courseId: number, body: CourseFormRequest): P
  * @throws {BackendError}
  */
 export const deleteCourse = async (courseId: number): Promise<void> => {
-  await fetchWithAuth<void>(`${COURSES_ENDPOINT}/${courseId}`, {
-    method: 'DELETE',
-  });
+  await del<void>(`${COURSES_ENDPOINT}/${courseId}`);
 };
 
 /**
