@@ -39,7 +39,7 @@ export default function ProfileEditForm({ email, name }: { email: string; name: 
             cursor: 'default',
             borderColor: 'transparent',
           }}
-          errorMessage={state.errors?.email}
+          errorMessage={state.errors?.email?.[0] ?? ''}
         />
 
         <FieldInput
@@ -47,25 +47,25 @@ export default function ProfileEditForm({ email, name }: { email: string; name: 
           id="name"
           name="name"
           defaultValue={name}
-          placeholder="닉네임을 입력하세요"
-          errorMessage={state.errors?.name}
+          placeholder="이름을 입력하세요"
+          errorMessage={(state.message || state.errors?.name?.[0]) ?? ''}
         />
 
         <FieldInput
           label="비밀번호 변경"
-          id="password"
-          name="password"
+          id="newPassword"
+          name="newPassword"
           type="password"
           placeholder="변경할 비밀번호를 입력하세요"
-          errorMessage={state.errors?.password}
+          errorMessage={state.errors?.newPassword?.[0] ?? ''}
         />
 
         <FieldInput
           label="비밀번호 변경 확인"
           type="password"
-          id="passwordConfirm"
-          name="passwordConfirm"
-          errorMessage={state.errors?.passwordConfirm}
+          id="newPasswordCheck"
+          name="newPasswordCheck"
+          errorMessage={state.errors?.newPasswordCheck?.[0] ?? ''}
           placeholder="비밀번호를 다시 입력하세요"
         />
       </div>

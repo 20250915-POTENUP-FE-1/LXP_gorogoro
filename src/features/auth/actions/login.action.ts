@@ -75,8 +75,8 @@ export const loginAction = async (
   });
 
   if (!res.ok) {
-    const msg = await res.text().catch(() => '');
-    return { success: false, message: msg || `로그인 실패 (HTTP ${res.status})` };
+    const msg = await res.json();
+    return { success: false, message: msg.message || `로그인 실패 (HTTP ${res.status})` };
   }
 
   const data = await res.json();

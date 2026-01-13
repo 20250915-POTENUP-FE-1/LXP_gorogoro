@@ -1,13 +1,13 @@
 'use client';
 
-import { useEffect, useActionState } from 'react';
+import { useEffect, useActionState, useState } from 'react';
 import { loginAction } from '../actions/login.action';
 import styles from './LoginForm.module.css';
 import { useAuthStore } from '@/stores/useAuthStore';
-import { useSearchParams, useRouter } from 'next/navigation';
-import { useModalStore } from '@/stores/useModalStore';
+import { useRouter } from 'next/navigation';
 import { Button } from '@/shared/components/ui/Button';
 import FieldInput from '@/shared/components/ui/FieldInput';
+import NewModal from '@/shared/components/ui/NewModal';
 
 const initialState = {
   success: false,
@@ -19,8 +19,10 @@ export default function LoginForm() {
   const [state, formAction, isPending] = useActionState(loginAction, initialState);
   const setUser = useAuthStore((state) => state.setUser);
   const router = useRouter();
-  const { openModal } = useModalStore();
+  const [attempt, setAttempt] = useState(0);
+  const [dismissedAttempt, setDismissedAttempt] = useState(-1);
 
+  const isOpen = !state.success && !!state.message && attempt !== dismissedAttempt;
   // 로그인 성공시
   useEffect(() => {
     if (state.success && state.data) {
@@ -33,18 +35,14 @@ export default function LoginForm() {
     }
   }, [state, setUser, router]);
 
-  // 로그인 실패시 모달 표시
-  useEffect(() => {
-    if (!state.success && state.message) {
-      openModal({
-        title: '로그인 실패',
-        message: state.message,
-      });
-    }
-  }, [state.success, state.message, openModal]);
-
   return (
-    <form action={formAction} className={styles.form}>
+    <form
+      action={(fd) => {
+        setAttempt((n) => n + 1);
+        formAction(fd);
+      }}
+      className={styles.form}
+    >
       <FieldInput
         label="이메일"
         name="email"
@@ -65,6 +63,13 @@ export default function LoginForm() {
       <Button variant="submit" type="submit">
         {isPending ? '로그인 하는 중...' : '로그인'}
       </Button>
+
+      <NewModal
+        title="로그인 실패"
+        message={state.message ?? ''}
+        isOpen={isOpen}
+        onCancel={() => setDismissedAttempt(attempt)}
+      />
     </form>
   );
 }
