@@ -1,11 +1,9 @@
 'use server';
 
-import { loginUser } from '@/services/auth.service';
-import { LoginRequest, LoginUserInfo } from '../types';
 import { cookies } from 'next/headers';
 import { validateLoginForm } from '../validate';
-import { isBackendError } from '@/shared/types/types';
-import { mapAuthError } from '../utils/authErrorMapper';
+import type { LoginRequest, LoginUserInfo } from '../types';
+import { ACCESS_TOKEN } from '@/shared/constants/token';
 
 type ActionState<T> = {
   success: boolean;
@@ -13,63 +11,101 @@ type ActionState<T> = {
   errors?: Record<string, string>;
   data?: T;
 };
+type CookieOptions = {
+  path?: string;
+  domain?: string;
+  maxAge?: number;
+  expires?: Date;
+  sameSite?: 'lax' | 'strict' | 'none';
+  secure?: boolean;
+  httpOnly?: boolean;
+};
+
+function parseSetCookie(setCookie: string) {
+  const parts = setCookie.split(';').map((p) => p.trim());
+  const [nameValue, ...attrs] = parts;
+
+  const eqIdx = nameValue.indexOf('=');
+  if (eqIdx < 0) return null;
+
+  const name = nameValue.slice(0, eqIdx);
+  const value = nameValue.slice(eqIdx + 1);
+
+  const options: CookieOptions = {};
+
+  for (const a of attrs) {
+    const [rawK, ...rawV] = a.split('=');
+    const k = rawK.toLowerCase();
+    const v = rawV.join('=');
+
+    if (k === 'path') options.path = v || '/';
+    else if (k === 'domain') options.domain = v;
+    else if (k === 'max-age') options.maxAge = Number(v);
+    else if (k === 'expires') {
+      const d = new Date(v);
+      if (!Number.isNaN(d.getTime())) options.expires = d;
+    } else if (k === 'samesite') {
+      const s = v.toLowerCase();
+      if (s === 'lax' || s === 'strict' || s === 'none') options.sameSite = s;
+    } else if (k === 'secure') options.secure = true;
+    else if (k === 'httponly') options.httpOnly = true;
+  }
+  return { name, value, options };
+}
 
 export const loginAction = async (
   prevState: ActionState<LoginUserInfo>,
   formData: FormData,
 ): Promise<ActionState<LoginUserInfo>> => {
-  const email = formData.get('email') as string;
-  const password = formData.get('password') as string;
+  const email = String(formData.get('email') ?? '');
+  const password = String(formData.get('password') ?? '');
 
   const validation = validateLoginForm({ email, password });
   if (!validation.success) {
-    return {
-      success: false,
-      errors: validation.errors,
-    };
+    return { success: false, errors: validation.errors };
   }
 
-  const payload: LoginRequest = {
-    email,
-    password,
+  const payload: LoginRequest = { email, password };
+
+  const res = await fetch(`${process.env.API_BASE_URL}auth/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    cache: 'no-store',
+    body: JSON.stringify(payload),
+  });
+
+  if (!res.ok) {
+    const msg = await res.text().catch(() => '');
+    return { success: false, message: msg || `로그인 실패 (HTTP ${res.status})` };
+  }
+
+  const data = await res.json();
+  const cookieStore = await cookies();
+
+  // 1) 자바 서버가 내려준 refresh_token(Set-Cookie)을 브라우저 응답 쿠키로 "재설정"
+  const upstreamSetCookies = res.headers.getSetCookie?.() ?? [];
+  for (const sc of upstreamSetCookies) {
+    const parsed = parseSetCookie(sc);
+    cookieStore.set(parsed.name, parsed.value, {
+      ...parsed.options,
+      path: parsed.options.path ?? '/',
+    });
+  }
+
+  cookieStore.set(ACCESS_TOKEN, data.accessToken, {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'lax',
+    path: '/',
+    maxAge: 60 * 600,
+  });
+
+  return {
+    success: true,
+    data: {
+      nickname: data.nickname,
+      role: data.role,
+      email,
+    },
   };
-
-  try {
-    const data = await loginUser(payload);
-
-    // loginUser 에서 응답으로 받은 토큰(accessToken,refreshToken)을 HttpOnly 쿠키로 저장
-    // 프론트는 이 응답받은 토큰을 어딘가에 저장해야 다음 요청에서 사용 가능 -> 보안상 HttpOnly 쿠키가 안전
-    const cookieStore = await cookies();
-    cookieStore.set('accessToken', data.accessToken, {
-      httpOnly: true, //자바스크립트 접근 불가(XSS 방지)
-      maxAge: 60 * 60, //1시간
-      path: '/',
-    });
-    cookieStore.set('refreshToken', data.refreshToken, {
-      httpOnly: true,
-      maxAge: 60 * 60 * 24 * 7, // 7일
-      path: '/',
-    });
-    console.log('AccessToken from Cookie', cookieStore.get('accessToken')?.value);
-
-    return {
-      success: true,
-      data: {
-        nickname: data.nickname,
-        role: data.role,
-        email,
-      },
-    };
-  } catch (error) {
-    // 백엔드 에러 코드 기반으로 매핑
-    if (isBackendError(error)) {
-      return mapAuthError(error);
-    }
-
-    // 예상치 못한 에러
-    return {
-      success: false,
-      message: '알 수 없는 에러가 발생했습니다.',
-    };
-  }
 };

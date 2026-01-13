@@ -2,6 +2,7 @@ import styles from './page.module.css';
 import ProfileEditForm from '@/features/mypage/components/ProfileEditForm';
 import { Metadata } from 'next';
 import { getMe } from '@/services/user.service';
+import { refreshApi } from '@/shared/lib/refreshApi';
 
 export const metadata: Metadata = {
   title: '마이페이지',
@@ -9,12 +10,12 @@ export const metadata: Metadata = {
 };
 
 export default async function ProfilePage() {
-  const me = await getMe();
+  const me = await getMe().catch(async (error) => refreshApi(error));
 
   return (
     <div className={styles.container}>
       <h1 className={styles.heading}>내 정보 수정</h1>
-      <ProfileEditForm nickname={me.nickname} email={me.email} />
+      <ProfileEditForm name={me.name} email={me.email} />
     </div>
   );
 }

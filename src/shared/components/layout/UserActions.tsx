@@ -1,29 +1,40 @@
-'use client';
-
 import Link from 'next/link';
-import { useAuthStore } from '@/stores/useAuthStore';
 import styles from '@/shared/components/layout/Header.module.css';
 import Image from 'next/image';
+import { cookies, headers } from 'next/headers';
+import { redirect } from 'next/navigation';
+import { REFRESH_TOKEN } from '@/shared/constants/token';
+import { getMe } from '@/services/user.service';
+import React from 'react';
 
-export default function UserActions() {
-  const userProfile = useAuthStore((state) => state.userProfile);
+export default async function UserActions() {
+  const cookieStore = await cookies();
+  const refreshToken = cookieStore.get(REFRESH_TOKEN)?.value;
 
-  if (!userProfile) {
+  if (!refreshToken) {
     return (
       <Link href="/login" className={styles.dashboardLink}>
         로그인 하기
       </Link>
     );
   }
+  const me = await getMe().catch(async (error) => {
+    if (error?.status === 401) {
+      const h = await headers();
+      const pathname = h.get('x-pathname') ?? '/';
+      const search = h.get('x-search') ?? '';
+      redirect(`/api/refresh?callback=${encodeURIComponent(`${pathname}${search}`)}`);
+    }
+    throw error;
+  });
 
   return (
     <div className={styles.actions}>
-      {userProfile.role === 'INSTRUCTOR' && (
+      {me?.role === 'INSTRUCTOR' && (
         <Link href="/mypage/instructor" className={styles.dashboardLink}>
           강사 대시보드
         </Link>
       )}
-
       <Link href="/cart" className={styles.actionButton} aria-label="장바구니">
         <Image
           src="/assets/shopping-cart.svg"

@@ -10,7 +10,7 @@ const MODIFY_ME_ENDPOINT = 'users/modify';
  * @throws {BackendError}
  */
 export const getMe = async (): Promise<GetMeResponse> => {
-  return await fetchWithAuth(`${GET_ME_ENDPOINT}`, {
+  return await fetchWithAuth<GetMeResponse>(GET_ME_ENDPOINT, {
     method: 'GET',
   });
 };
@@ -21,7 +21,7 @@ export const getMe = async (): Promise<GetMeResponse> => {
  * @throws {BackendError}
  */
 export const modifyMe = async (body: ModifyMeRequest): Promise<void> => {
-  return await fetchWithAuth(`${MODIFY_ME_ENDPOINT}`, {
+  await fetchWithAuth<GetMeResponse>(MODIFY_ME_ENDPOINT, {
     method: 'PATCH',
     body: JSON.stringify(body),
   });

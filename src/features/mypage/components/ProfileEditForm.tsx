@@ -11,15 +11,7 @@ import {
 
 const initialState: UpdateProfileActionState = { success: true };
 
-export default function ProfileEditForm({
-  email,
-  nickname,
-  name,
-}: {
-  email: string;
-  nickname: string;
-  name?: string;
-}) {
+export default function ProfileEditForm({ email, name }: { email: string; name: string }) {
   const [state, formAction, isPending] = useActionState(updateProfileAction, initialState);
 
   return (
@@ -51,12 +43,12 @@ export default function ProfileEditForm({
         />
 
         <FieldInput
-          label="닉네임"
-          id="nickname"
-          name="nickname"
-          defaultValue={nickname}
+          label="이름"
+          id="name"
+          name="name"
+          defaultValue={name}
           placeholder="닉네임을 입력하세요"
-          errorMessage={state.errors?.nickname}
+          errorMessage={state.errors?.name}
         />
 
         <FieldInput

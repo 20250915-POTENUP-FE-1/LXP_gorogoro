@@ -16,12 +16,12 @@ export async function updateProfileAction(
   const email = (formData.get('email') ?? '').toString().trim();
   const password = (formData.get('password') ?? '').toString();
   const passwordConfirm = (formData.get('passwordConfirm') ?? '').toString();
-  const nickname = (formData.get('nickname') ?? '').toString().trim();
+  const name = (formData.get('name') ?? '').toString().trim();
 
   const errors: Record<string, string> = {};
 
-  if (!nickname) errors.nickname = '닉네임은 필수입니다.';
-  else if (nickname.length < 2) errors.nickname = '닉네임은 2자 이상이어야 합니다.';
+  if (!name) errors.name = '닉네임은 필수입니다.';
+  else if (name.length < 2) errors.name = '닉네임은 2자 이상이어야 합니다.';
 
   if (password) {
     if (password.length < 8) errors.password = '비밀번호는 8자 이상이어야 합니다.';
@@ -35,7 +35,7 @@ export async function updateProfileAction(
   const accessToken = cookieStore.get('accessToken')?.value;
   if (!accessToken) return { success: false, message: '로그인이 필요합니다.' };
 
-  const payload: Record<string, string> = { email, nickname };
+  const payload: Record<string, string> = { email, name };
   if (password) payload.passwordEncrypted = password;
 
   const res = await fetch(`${process.env.API_BASE_URL}users/modify`, {

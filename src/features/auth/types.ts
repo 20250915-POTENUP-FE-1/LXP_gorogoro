@@ -50,7 +50,7 @@ export interface RefreshResponse {
 
 export interface GetMeResponse {
   id: number;
-  username: string;
+  name: string;
   nickname: string;
   email: string;
   role: ROLE;
