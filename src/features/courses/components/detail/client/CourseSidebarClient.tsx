@@ -28,10 +28,9 @@ export default function CourseSidebarClient({ course }: CourseSidebarProps) {
               <dd className={styles.metaValue}>{course.difficulty}</dd>
             </div>
             <div className={styles.metaRow}>
-              <dt className={styles.metaLabel}>1차 카테고리</dt>
-              <dd className={styles.metaValue}>{course.categoryDetail.name}</dd>
-              <dt className={styles.metaLabel}>2차 카테고리</dt>
+              <dt className={styles.metaLabel}>카테고리</dt>
               <dd className={styles.metaValue}>
+                {course.categoryDetail.name} {` > `}{' '}
                 {course.categoryDetail.subCategoryDetailDto.name}
               </dd>
             </div>

@@ -1,4 +1,4 @@
-const BASE_URL = process.env.API_BASE_URL || "http://localhost:8080/api/";
+const BASE_URL = process.env.API_BASE_URL || 'http://localhost:8080/api/';
 
 /**
  * HTTP Response를 처리하고 에러 시 throw
@@ -13,12 +13,12 @@ type ApiError = {
 
 const handleResponse = async <T>(res: Response): Promise<T | null> => {
   const text = await res.text();
-  const contentType = res.headers.get("content-type") ?? "";
+  const contentType = res.headers.get('content-type') ?? '';
 
   // 에러 응답 처리
   if (!res.ok) {
     let errorBody: any = null;
-    if (text && contentType.includes("application/json")) {
+    if (text && contentType.includes('application/json')) {
       try {
         errorBody = JSON.parse(text);
       } catch {
@@ -30,10 +30,7 @@ const handleResponse = async <T>(res: Response): Promise<T | null> => {
     const error: ApiError = {
       status: res.status,
       code: errorBody?.code,
-      message:
-        errorBody?.message ||
-        res.statusText ||
-        "알 수 없는 에러가 발생했습니다",
+      message: errorBody?.message || res.statusText || '알 수 없는 에러가 발생했습니다',
       errors: errorBody?.errors,
     };
     throw error;
@@ -43,7 +40,7 @@ const handleResponse = async <T>(res: Response): Promise<T | null> => {
   if (!text) return null;
 
   // 성공인데 JSON이 아니면 버그로 판단
-  if (!contentType.includes("application/json")) {
+  if (!contentType.includes('application/json')) {
     throw {
       status: res.status,
       message: `JSON 응답을 기대했지만 content-type이 ${contentType} 입니다.`,
@@ -57,14 +54,24 @@ const handleResponse = async <T>(res: Response): Promise<T | null> => {
  * GET 요청
  * @throws {BackendError}
  */
-export const get = async <T>(endpoint: string, apiParams?: any): Promise<T> => {
+type ApiParamValue = string | number | boolean;
+type ApiParams = Record<string, ApiParamValue | null | undefined>;
+export const get = async <T>(endpoint: string, apiParams?: ApiParams): Promise<T> => {
   let url = `${BASE_URL}${endpoint}`;
 
-  if (apiParams && Object.keys(apiParams).length > 0) {
-    const queryString = new URLSearchParams(apiParams).toString();
-    url = `${url}?${queryString}`;
+  if (apiParams) {
+    const params = new URLSearchParams();
+
+    Object.entries(apiParams).forEach(([key, value]) => {
+      if (value === undefined || value === null || value === '') return;
+      params.set(key, String(value));
+    });
+
+    const qs = params.toString();
+    if (qs) url = `${url}?${qs}`;
   }
-  console.log("fetch url:", url);
+  console.log('fetch url:', url);
+
   const res = await fetch(url);
   return handleResponse<T>(res);
 };
@@ -75,8 +82,8 @@ export const get = async <T>(endpoint: string, apiParams?: any): Promise<T> => {
  */
 export const post = async <T>(endpoint: string, body: unknown): Promise<T> => {
   const res = await fetch(`${BASE_URL}${endpoint}`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
   });
 
@@ -89,8 +96,8 @@ export const post = async <T>(endpoint: string, body: unknown): Promise<T> => {
  */
 export const put = async <T>(endpoint: string, body: unknown): Promise<T> => {
   const res = await fetch(`${BASE_URL}${endpoint}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
   });
 
@@ -103,8 +110,8 @@ export const put = async <T>(endpoint: string, body: unknown): Promise<T> => {
  */
 export const patch = async <T>(endpoint: string, body: unknown): Promise<T> => {
   const res = await fetch(`${BASE_URL}${endpoint}`, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
   });
 
@@ -117,8 +124,8 @@ export const patch = async <T>(endpoint: string, body: unknown): Promise<T> => {
  */
 export const del = async <T>(endpoint: string, body?: unknown): Promise<T> => {
   const res = await fetch(`${BASE_URL}${endpoint}`, {
-    method: "DELETE",
-    headers: { "Content-Type": "application/json" },
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
     ...(body !== undefined ? { body: JSON.stringify(body) } : {}),
   });
 

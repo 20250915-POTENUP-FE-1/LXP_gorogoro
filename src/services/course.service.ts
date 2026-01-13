@@ -1,8 +1,16 @@
 import {
   CourseDetailResponse,
   CoursesResponse,
+  CreateQnaQuestionRequest,
+  CreateQnaReplyRequest,
   DeleteChaptersRequest,
   DeleteLessonsRequest,
+  UnansweredQnaResponse,
+  LessonQnaListResponse,
+  QnaThreadResponse,
+  ReviewRequest,
+  ReviewsResponse,
+  UpdateQnaRequest,
 } from '@/features/courses/types';
 import { CourseFormRequest, InstructorCoursesResponse } from '@/features/instructor/types';
 import { get } from '@/shared/lib/api';
@@ -12,6 +20,11 @@ const COURSES_ENDPOINT = 'courses';
 const INSTRUCTOR_COURSES_ENDPOINT = 'instructor/courses';
 const CHAPTERS_ENDPOINT = 'chapters';
 const LESSONS_ENDPOINT = 'lessons';
+const REVIEW_ENDPOINT = 'reviews';
+const QNA_ENDPOINT = 'qna';
+const REPLIES_ENDPOINT = 'replies';
+const THREAD_ENDPOINT = 'thread';
+const QNA_UNANSWERED_ENDPOINT = 'qna/instructors/unanswered';
 // const ENROLLMENTS_ENDPOINT = 'enrollments';
 
 /**
@@ -19,9 +32,13 @@ const LESSONS_ENDPOINT = 'lessons';
  * GET /api/courses
  * @throws {BackendError}
  */
-export type GetCoursesParams = { categoryId: number } & Record<string, any>;
-export const getCourses = async (apiParams: GetCoursesParams): Promise<CoursesResponse> => {
-  return await get<CoursesResponse>(COURSES_ENDPOINT, apiParams);
+type CourseRequest = {
+  categoryId: number | null;
+};
+export const getCourses = async ({ categoryId }: CourseRequest): Promise<CoursesResponse> => {
+  return await get<CoursesResponse>(`${COURSES_ENDPOINT}`, {
+    categoryId: categoryId ?? undefined,
+  });
 };
 
 /**
@@ -111,6 +128,176 @@ export const deleteChapterLessons = async (
       body: JSON.stringify(body),
     },
   );
+};
+
+/**
+ * 리뷰 조회
+ * GET /api/courses/{courseId}/reviews
+ */
+export const getReviews = async (): Promise<ReviewsResponse> => {
+  return await fetchWithAuth<ReviewsResponse>(REVIEW_ENDPOINT, {
+    method: 'GET',
+  });
+};
+
+/**
+ * 리뷰 상세 조회
+ * GET /api/courses/{courseId}/reviews/{reviewId}
+ */
+export const getReviewById = async (reviewId: number): Promise<void> => {
+  return await fetchWithAuth<void>(`${REVIEW_ENDPOINT}/${reviewId}`, {
+    method: 'GET',
+  });
+};
+
+/**
+ * 리뷰 생성
+ * POST /api/courses/{courseId}/reviews
+ */
+export const createReview = async (courseId: number, body: ReviewRequest) => {
+  await fetchWithAuth<void>(`${COURSES_ENDPOINT}/${courseId}/${REVIEW_ENDPOINT}`, {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+};
+
+/**
+ * 리뷰 수정
+ * PUT /api/courses/{courseId}/reviews/{reviewId}
+ */
+export const updateReview = async (courseId: number, reviewId: number, body: ReviewRequest) => {
+  await fetchWithAuth(`${COURSES_ENDPOINT}/${courseId}/${REVIEW_ENDPOINT}/${reviewId}`, {
+    method: 'PUT',
+    body: JSON.stringify(body),
+  });
+};
+
+/**
+ * 리뷰 삭제
+ * DELETE /api/courses/{courseId}/reviews/{reviewId}
+ */
+export const deleteReview = async (courseId: number, reviewId: number) => {
+  await fetchWithAuth(`${COURSES_ENDPOINT}/${courseId}/${REVIEW_ENDPOINT}/${reviewId}`, {
+    method: 'DELETE',
+  });
+};
+
+/**
+ * 레슨 단위 QnA 목록 조회 (root 질문 목록)
+ * GET /api/courses/{courseId}/lessons/{lessonId}
+ */
+export const getLessonQna = async (
+  courseId: number,
+  lessonId: number,
+): Promise<LessonQnaListResponse> => {
+  return await get<LessonQnaListResponse>(
+    `${COURSES_ENDPOINT}/${courseId}/${LESSONS_ENDPOINT}/${lessonId}/${QNA_ENDPOINT}`,
+  );
+};
+
+/**
+ * QnA 스레드 상세 조회 (root 질문 + 답변 전체)
+ * GET /api/courses/{courseId}/lessons/{lessonId}/qna/{questionId}/thread
+ */
+export const getQnaThread = async (
+  courseId: number,
+  lessonId: number,
+  questionId: number,
+): Promise<QnaThreadResponse> => {
+  return await get<QnaThreadResponse>(
+    `${COURSES_ENDPOINT}/${courseId}/${LESSONS_ENDPOINT}/${lessonId}/${QNA_ENDPOINT}/${questionId}/${THREAD_ENDPOINT}`,
+  );
+};
+
+/**
+ * 질문 생성
+ * POST /api/courses/{courseId}/lessons/{lessonId}/qna
+ */
+export const createQnaQuestion = async (
+  courseId: number,
+  lessonId: number,
+  body: CreateQnaQuestionRequest,
+): Promise<void> => {
+  await fetchWithAuth<void>(
+    `${COURSES_ENDPOINT}/${courseId}/${LESSONS_ENDPOINT}/${lessonId}/${QNA_ENDPOINT}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+    },
+  );
+};
+
+/**
+ * 답변 추가
+ * POST /api/courses/{courseId}/lessons/{lessonId}/qna/{questionId}/replies
+ */
+export const createQnaReply = async (
+  courseId: number,
+  lessonId: number,
+  questionId: number,
+  body: CreateQnaReplyRequest,
+): Promise<void> => {
+  await fetchWithAuth<void>(
+    `${COURSES_ENDPOINT}/${courseId}/${LESSONS_ENDPOINT}/${lessonId}/${QNA_ENDPOINT}/${questionId}/${REPLIES_ENDPOINT}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(body),
+    },
+  );
+};
+
+/**
+ * 질문/답변 수정
+ * PATCH /api/courses/{courseId}/lessons/{lessonId}/qna/{questionId}
+ */
+export const updateQna = async (
+  courseId: number,
+  lessonId: number,
+  questionId: number,
+  body: UpdateQnaRequest,
+): Promise<void> => {
+  await fetchWithAuth<void>(
+    `${COURSES_ENDPOINT}/${courseId}/${LESSONS_ENDPOINT}/${lessonId}/${QNA_ENDPOINT}/${questionId}`,
+    {
+      method: 'PATCH',
+      body: JSON.stringify(body),
+    },
+  );
+};
+
+/**
+ * 질문/답변 삭제
+ * DELETE /api/courses/{courseId}/lessons/{lessonId}/qna/{questionId}
+ */
+export const deleteQna = async (
+  courseId: number,
+  lessonId: number,
+  questionId: number,
+): Promise<void> => {
+  await fetchWithAuth<void>(
+    `${COURSES_ENDPOINT}/${courseId}/${LESSONS_ENDPOINT}/${lessonId}/${QNA_ENDPOINT}/${questionId}`,
+    { method: 'DELETE' },
+  );
+};
+
+/**
+ * [강사] 미답변 질문 조회
+ * GET /api/qna/instructors/unanswered?limit=
+ */
+export type UnansweredQnaParams = {
+  limit?: number; // default 3, max 10
+};
+
+export const getUnansweredQna = async (
+  params?: UnansweredQnaParams,
+): Promise<UnansweredQnaResponse> => {
+  const search = new URLSearchParams();
+  if (params?.limit) search.set('limit', String(params.limit));
+
+  const qs = search.toString();
+  const endpoint = `${QNA_UNANSWERED_ENDPOINT}${qs ? `?${qs}` : ''}`;
+
+  return await fetchWithAuth<UnansweredQnaResponse>(endpoint, { method: 'GET' });
 };
 
 // 미개발 api

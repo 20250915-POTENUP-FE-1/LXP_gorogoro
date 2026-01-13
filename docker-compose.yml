@@ -17,7 +17,7 @@ services:
   # 1) Application Servers
   ################################
   app-course:
-    image: tkstjd565/gorogoro-course:1.2
+    image: tkstjd565/gorogoro-course:1.2.1
     container_name: app-course
     depends_on:
       mysql-course:
@@ -35,14 +35,14 @@ services:
       - RABBIT_MQ_USERNAME=appuser
       - RABBIT_MQ_PASSWORD=apppass
       - RABBITMQ_VIRTUAL_HOST=app-vhost
-      - USER_SERVER_URL=http://app-user:8081/users/nickname
+      - USER_SERVER_URL=http://app-user:8080/server/users/nickname
     ports:
       - "8082:8080"
     networks:
       - msa-net
 
   app-gateway:
-    image: tkstjd565/gorogoro-gateway:1.3.1
+    image: tkstjd565/gorogoro-gateway:1.1
     container_name: app-gateway
     depends_on:
       rabbit1:
