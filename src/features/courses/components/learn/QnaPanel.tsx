@@ -16,7 +16,7 @@ export default function QnaPanel({ qnaData }: { qnaData: ThreadDto[] }) {
 
   const handleReplySubmit = () => {
     if (!replyContent.trim()) return;
-    // In a real app, this would call an API
+    // api 호출 로직
     console.log('Submitting reply:', replyContent);
     alert('답변이 등록되었습니다 (Mock Action)');
     setReplyContent('');
