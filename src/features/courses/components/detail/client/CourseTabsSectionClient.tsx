@@ -4,7 +4,6 @@ import CourseTabs from '@/features/courses/components/detail/CourseTabs';
 import { useState } from 'react';
 import CourseDescription from '@/features/courses/components/detail/CourseDescription';
 import CourseReview from '@/features/courses/components/detail/CourseReview';
-import CourseRequest from '@/features/courses/components/detail/CourseRequest';
 import CourseCurriculumView from '@/features/courses/components/detail/CourseCurriculumView';
 import { CourseDetailResponse, Qna, Reviews, TabKey } from '@/features/courses/types';
 
@@ -21,7 +20,6 @@ export default function CourseTabsSectionClient({ course }: CourseTabsSectionPro
         {activeTab === 'description' && <CourseDescription course={course} />}
         {activeTab === 'curriculum' && <CourseCurriculumView course={course} />}
         {activeTab === 'review' && <CourseReview course={course} />}
-        {activeTab === 'request' && <CourseRequest course={course} />}
       </section>
     </>
   );

@@ -1,46 +1,110 @@
-.videoContainer {
-  width: 100%;
-  max-width: 1000px;
-  aspect-ratio: 16 / 9;
-  background-color: #000;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px 60px;
 }
 
-.placeholder {
-  color: var(--gray-00);
-  text-align: center;
+/* Header Section */
+.header {
+  padding: 40px 0;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 32px;
 }
 
-.playButton {
-  width: 80px;
-  height: 80px;
-  background-color: rgba(255, 255, 255, 0.2);
-  border-radius: var(--radius-pill);
+.badges {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.categoryBadge {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #4f46e5;
+  background-color: #e0e7ff;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.subCategoryBadge {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #6b7280;
+  background-color: #f3f4f6;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #111827;
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+
+.summary {
+  font-size: 1.1rem;
+  color: #4b5563;
+  margin-bottom: 24px;
+}
+
+.metaRow {
   display: flex;
   align-items: center;
-  justify-content: center;
-  backdrop-filter: blur(4px);
+  gap: 24px;
+  font-size: 0.95rem;
+  color: #374151;
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.metaLabel {
+  font-weight: 600;
+  color: #111827;
+}
+
+/* Main Layout */
+.mainLayout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+
+@media (min-width: 1024px) {
+  .mainLayout {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 24px;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 24px;
+}
+
+.tab {
+  padding: 12px 0;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #6b7280;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
   cursor: pointer;
-  transition: transform 0.2s;
+  transition: all 0.2s;
 }
 
-.playButton:hover {
-  transform: scale(1.1);
-  background-color: rgba(255, 255, 255, 0.3);
-}
-
-.lectureTitle {
-  font-size: var(--text-2xl);
-  font-weight: var(--font-bold);
-  margin-bottom: 20px;
-  color: var(--gray-00);
-  align-self: flex-start;
-  max-width: 1000px;
-  width: 100%;
+.activeTab {
+  color: #4f46e5;
+  border-bottom-color: #4f46e5;
+  font-weight: 600;
 }
