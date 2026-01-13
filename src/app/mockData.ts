@@ -1,4 +1,10 @@
-import { CourseDetailResponse, CoursesResponse, Qna, Reviews } from '@/features/courses/types';
+import {
+  CourseDetailResponse,
+  CoursesResponse,
+  Qna,
+  Reviews,
+  CourseLearnPageModel,
+} from '@/features/courses/types';
 
 export const MOCK_COURSES: CoursesResponse = {
   contents: [
@@ -117,33 +123,189 @@ export const MOCK_COURSE_DETAIL: CourseDetailResponse & Reviews & Qna = {
   qna: [
     {
       id: 101,
+      lessonId: 1, // OT & 환경 세팅 > 강의 소개
+      lessonTitle: '강의 소개',
       title: '강의 난이도는 어느 정도인가요?',
       status: 'answered',
-      userName: '박서현',
+      author: {
+        name: '박서현',
+        role: 'student',
+      },
       createdAt: '2026-01-05T02:20:00.000Z',
       content: 'React는 조금 해봤는데 TypeScript가 처음이에요. 따라갈 수 있을까요?',
-      answer:
-        '네 가능합니다! 초반에 TS 기초 문법부터 차근차근 설명하고, 실습은 단계별로 진행합니다.',
-      answeredAt: '2026-01-05T05:10:00.000Z',
+      replies: [
+        {
+          id: 1,
+          content:
+            '네 가능합니다! 초반에 TS 기초 문법부터 차근차근 설명하고, 실습은 단계별로 진행합니다.',
+          author: {
+            name: '고로고로 강사',
+            role: 'instructor',
+          },
+          createdAt: '2026-01-05T05:10:00.000Z',
+        },
+      ],
+      readCount: 15,
     },
     {
       id: 102,
+      lessonId: 1,
+      lessonTitle: '강의 소개',
       title: '수강 기간 연장도 되나요?',
       status: 'pending',
-      userName: '김도윤',
+      author: {
+        name: '김도윤',
+        role: 'student',
+      },
       createdAt: '2026-01-07T11:40:00.000Z',
       content: 'accessDays 끝나면 자동으로 종료되는지, 연장 구매가 가능한지 궁금해요.',
-      // answer 없음 (대기중)
+      replies: [],
+      readCount: 8,
     },
     {
       id: 103,
+      lessonId: 3, // 강의 상세 페이지 UI 구현 > 상세 레이아웃 만들기
+      lessonTitle: '상세 레이아웃 만들기',
       title: '커리큘럼에 실습 코드 제공되나요?',
       status: 'answered',
-      userName: '이하린',
+      author: {
+        name: '이하린',
+        role: 'student',
+      },
       createdAt: '2026-01-08T01:05:00.000Z',
       content: '실습마다 브랜치로 제공되는지, zip 다운로드 형태인지 궁금합니다.',
-      answer: '실습은 챕터별 브랜치로 제공하고, 강의 자료에 GitHub 링크도 함께 안내드려요.',
-      answeredAt: '2026-01-08T03:15:00.000Z',
+      replies: [
+        {
+          id: 2,
+          content: '실습은 챕터별 브랜치로 제공하고, 강의 자료에 GitHub 링크도 함께 안내드려요.',
+          author: {
+            name: '고로고로 강사',
+            role: 'instructor',
+          },
+          createdAt: '2026-01-08T03:15:00.000Z',
+        },
+        {
+          id: 3,
+          content: '감사합니다! 바로 수강신청 할게요.',
+          author: {
+            name: '이하린',
+            role: 'student',
+          },
+          createdAt: '2026-01-08T03:30:00.000Z',
+        },
+      ],
+      readCount: 24,
+    },
+  ],
+};
+export const MOCK_COURSE_LEARN: CourseLearnPageModel = {
+  courseId: 101,
+  title: '마이크로서비스 아키텍처 기초',
+  summary: '모놀리식에서 MSA로 넘어가기 위한 핵심 개념을 학습합니다.',
+  description:
+    '마이크로서비스의 기본 개념부터 통신 패턴, 데이터 일관성까지 실무 관점으로 설명합니다.',
+  price: 99000,
+  accessDays: 30,
+  coverImageUrl:
+    'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600&q=80&auto=format&fit=crop',
+  difficulty: 'BEGINNER',
+  instructorName: '김성훈',
+  instructorId: 7,
+  categoryDetail: {
+    categoryId: 1,
+    name: '개발·프로그래밍',
+    subCategoryDetailDto: {
+      subCategoryId: 11,
+      name: '백엔드',
+    },
+  },
+
+  chapters: [
+    {
+      chapterId: 1,
+      title: 'Foundation of Microservices',
+      lessons: [
+        {
+          lessonId: 1001,
+          title: 'Why Microservices?',
+          resourceUrl: 'https://example.com/video/1001',
+        },
+        {
+          lessonId: 1002,
+          title: 'Bounded Context 이해',
+          resourceUrl: 'https://example.com/video/1002',
+        },
+      ],
+    },
+    {
+      chapterId: 2,
+      title: 'Communication Patterns',
+      lessons: [
+        {
+          lessonId: 2001,
+          title: 'Sync vs Async',
+          resourceUrl: 'https://example.com/video/2001',
+        },
+        {
+          lessonId: 2002,
+          title: 'API Gateway 패턴',
+          resourceUrl: 'https://example.com/video/2002',
+        },
+      ],
+    },
+  ],
+
+  // learn 전용
+  progress: 35,
+  activeLessonId: 1001,
+  activeLesson: {
+    lessonId: 1001,
+    title: 'Why Microservices?',
+    resourceUrl: 'https://example.com/video/1001',
+  },
+
+  // lesson QnA: ThreadDto가 lessonId/lessonTitle을 들고 있으니 연결이 쉬움
+  qna: [
+    {
+      id: 1,
+      lessonId: 1001,
+      lessonTitle: 'Why Microservices?',
+      title: '모놀리식과 MSA의 가장 큰 차이는 뭔가요?',
+      content: '개념적으로는 알겠는데 실무에서 어떤 점이 제일 달라요?',
+      status: 'answered',
+      author: {
+        name: '박학생',
+        role: 'student',
+      },
+      createdAt: '2026-01-10T10:15:00.000Z',
+      replies: [
+        {
+          id: 11,
+          content:
+            '배포 단위와 장애 전파 범위가 가장 크게 달라집니다. 팀/도메인 분리 관점도 함께 보시면 좋아요.',
+          author: {
+            name: '김성훈',
+            role: 'instructor',
+          },
+          createdAt: '2026-01-10T11:00:00.000Z',
+        },
+      ],
+      readCount: 12,
+    },
+    {
+      id: 2,
+      lessonId: 1001,
+      lessonTitle: 'Why Microservices?',
+      title: 'MSA는 무조건 좋은 선택인가요?',
+      content: '규모가 작아도 도입할 가치가 있나요?',
+      status: 'pending',
+      author: {
+        name: '최학습',
+        role: 'student',
+      },
+      createdAt: '2026-01-11T09:20:00.000Z',
+      replies: [],
+      readCount: 5,
     },
   ],
 };

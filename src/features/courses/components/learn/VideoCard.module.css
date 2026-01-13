@@ -1,0 +1,52 @@
+/* Video Card */
+.videoCard {
+    background-color: #111827;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 16 / 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin-bottom: 24px;
+}
+
+.playOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.playOverlay:hover {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.playIcon {
+    width: 64px;
+    height: 64px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(4px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+.videoTitle {
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-align: center;
+    padding: 0 20px;
+}

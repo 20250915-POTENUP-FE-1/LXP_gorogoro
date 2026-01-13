@@ -12,7 +12,6 @@ const TAB_ITEMS: Array<{ key: TabKey; label: string }> = [
   },
   { key: 'curriculum', label: '커리큘럼' },
   { key: 'review', label: '리뷰' },
-  { key: 'request', label: '문의' },
 ];
 
 export default function CourseTabs({ activeTab, handleChangeTab }: CourseTabsProps) {

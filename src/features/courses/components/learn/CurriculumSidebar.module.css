@@ -1,0 +1,81 @@
+/* Sidebar */
+.sidebar {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: white;
+    height: fit-content;
+}
+
+.sidebarHeader {
+    padding: 20px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.sidebarTitle {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 4px;
+}
+
+.sidebarSummary {
+    font-size: 0.85rem;
+    color: #6b7280;
+}
+
+.chapterList {
+    display: flex;
+    flex-direction: column;
+}
+
+.chapterHeader {
+    padding: 16px 20px;
+    background-color: #f9fafb;
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.95rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.lessonList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.lessonItem {
+    padding: 12px 20px;
+    border-bottom: 1px solid #f3f4f6;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.95rem;
+    color: #4b5563;
+    transition: all 0.2s;
+}
+
+.lessonItem:hover {
+    background-color: #f3f4f6;
+}
+
+.activeLesson {
+    background-color: #eff6ff;
+    color: #2563eb;
+    font-weight: 500;
+    border-left: 3px solid #2563eb;
+}
+
+.lessonDuration {
+    font-size: 0.8rem;
+    color: #9ca3af;
+}
+
+.noQna {
+    padding: 40px;
+    text-align: center;
+    color: #9ca3af;
+    background-color: #f9fafb;
+    border-radius: 8px;
+    border: 1px dashed #e5e7eb;
+}
