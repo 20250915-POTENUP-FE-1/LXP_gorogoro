@@ -1,54 +1,28 @@
 'use client';
-import { useState } from 'react';
-import { CourseLearnPageModel } from '@/features/courses/types';
 import VideoCard from './VideoCard';
-import OverviewPanel from './OverviewPanel';
 import QnaPanel from './QnaPanel';
-import { LessonDto } from '@/features/courses/types';
+import { CourseDetailResponse, LessonQnaListResponse } from '@/features/courses/types';
 import CurriculumSidebar from './CurriculumSidebar';
 import styles from './CourseLearn.module.css';
+import React from 'react';
+import { useSearchParams } from 'next/navigation';
 
-export default function CourseLearn({ data }: { data: CourseLearnPageModel }) {
-  const [activeLesson, setActiveLesson] = useState<LessonDto>(data.activeLesson);
-  const [activeTab, setActiveTab] = useState<'overview' | 'qna'>('overview');
-
-  // Filter QnA by activeLessonId
-  const lessonQna = data.qna.filter((t) => t.lessonId === activeLesson.lessonId);
+interface CourseLearnProps {
+  course: CourseDetailResponse;
+  qnaList: LessonQnaListResponse; //{questions:[{},...,{}]}
+}
+export default function CourseLearn({ course, qnaList }: CourseLearnProps) {
+  const qnaItems = qnaList.questions;
+  const searchParams = useSearchParams(); // 쿼리스트링 읽기 ?부터
+  const lessonId = searchParams.get('lessonId');
 
   return (
     <div className={styles.mainLayout}>
-      {/* LEFT: Main Content */}
       <main>
-        <VideoCard lessonTitle={activeLesson.title} />
-
-        <div className={styles.tabs}>
-          <button
-            className={`${styles.tab} ${activeTab === 'overview' ? styles.activeTab : ''}`}
-            onClick={() => setActiveTab('overview')}
-          >
-            Overview
-          </button>
-          <button
-            className={`${styles.tab} ${activeTab === 'qna' ? styles.activeTab : ''}`}
-            onClick={() => setActiveTab('qna')}
-          >
-            Q&A ({lessonQna.length})
-          </button>
-        </div>
-
-        {activeTab === 'overview' ? (
-          <OverviewPanel lessonTitle={activeLesson.title} />
-        ) : (
-          <QnaPanel qnaData={lessonQna} />
-        )}
+        <VideoCard />
+        <QnaPanel qnaItems={qnaItems} />
       </main>
-
-      {/* RIGHT: Sidebar */}
-      <CurriculumSidebar
-        chapters={data.chapters}
-        activeLessonId={activeLesson.lessonId}
-        onLessonSelect={setActiveLesson}
-      />
+      <CurriculumSidebar course={course} lessonId={lessonId} />
     </div>
   );
 }

@@ -9,11 +9,10 @@ import {
   LessonQnaListResponse,
   QnaThreadResponse,
   ReviewRequest,
-  ReviewsResponse,
+  ReviewListResponse,
   UpdateQnaRequest,
 } from '@/features/courses/types';
 import { CourseFormRequest, InstructorCoursesResponse } from '@/features/instructor/types';
-import { del, get, patch, post } from '@/shared/lib/api';
 import { fetchWithAuth } from '@/shared/lib/authApi';
 
 const COURSES_ENDPOINT = 'courses';
@@ -35,9 +34,14 @@ const QNA_UNANSWERED_ENDPOINT = 'qna/instructors/unanswered';
 type CourseRequest = {
   categoryId: number | null;
 };
-export const getCourses = async ({ categoryId }: CourseRequest): Promise<CoursesResponse> => {
-  return await get<CoursesResponse>(`${COURSES_ENDPOINT}`, {
-    categoryId: categoryId ?? undefined,
+export const getCourses = async (params?: CourseRequest): Promise<CoursesResponse> => {
+  const searchParams = new URLSearchParams();
+  if (params.categoryId) searchParams?.set('categoryId', String(params.categoryId));
+
+  const qs = searchParams.toString();
+  const endpoint = `${COURSES_ENDPOINT}${qs ? `?${qs}` : ''}`;
+  return await fetchWithAuth<CoursesResponse>(endpoint, {
+    method: 'GET',
   });
 };
 
@@ -47,7 +51,9 @@ export const getCourses = async ({ categoryId }: CourseRequest): Promise<Courses
  * @throws {BackendError}
  */
 export const getCourseById = async (courseId: number): Promise<CourseDetailResponse> => {
-  return await get<CourseDetailResponse>(`${COURSES_ENDPOINT}/${courseId}`);
+  return await fetchWithAuth<CourseDetailResponse>(`${COURSES_ENDPOINT}/${courseId}`, {
+    method: 'GET',
+  });
 };
 
 /**
@@ -56,7 +62,9 @@ export const getCourseById = async (courseId: number): Promise<CourseDetailRespo
  * @throws {BackendError}
  */
 export const getInstructorCourses = async (): Promise<InstructorCoursesResponse> => {
-  return await get<InstructorCoursesResponse>(INSTRUCTOR_COURSES_ENDPOINT);
+  return await fetchWithAuth<InstructorCoursesResponse>(INSTRUCTOR_COURSES_ENDPOINT, {
+    method: 'GET',
+  });
 };
 
 /**
@@ -65,7 +73,10 @@ export const getInstructorCourses = async (): Promise<InstructorCoursesResponse>
  * @throws {BackendError}
  */
 export const createCourse = async (body: CourseFormRequest): Promise<void> => {
-  await post<void>(COURSES_ENDPOINT, JSON.stringify(body));
+  await fetchWithAuth<void>(COURSES_ENDPOINT, {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
 };
 
 /**
@@ -74,7 +85,10 @@ export const createCourse = async (body: CourseFormRequest): Promise<void> => {
  * @throws {BackendError}
  */
 export const updateCourse = async (courseId: number, body: CourseFormRequest): Promise<void> => {
-  await patch<void>(`${COURSES_ENDPOINT}/${courseId}`, JSON.stringify(body));
+  await fetchWithAuth<void>(`${COURSES_ENDPOINT}/${courseId}`, {
+    method: 'PUT',
+    body: JSON.stringify(body),
+  });
 };
 
 /**
@@ -83,7 +97,9 @@ export const updateCourse = async (courseId: number, body: CourseFormRequest): P
  * @throws {BackendError}
  */
 export const deleteCourse = async (courseId: number): Promise<void> => {
-  await del<void>(`${COURSES_ENDPOINT}/${courseId}`);
+  await fetchWithAuth<void>(`${COURSES_ENDPOINT}/${courseId}`, {
+    method: 'DELETE',
+  });
 };
 
 /**
@@ -124,21 +140,19 @@ export const deleteChapterLessons = async (
  * 리뷰 조회
  * GET /api/courses/{courseId}/reviews
  */
-export const getReviews = async (): Promise<ReviewsResponse> => {
-  return await fetchWithAuth<ReviewsResponse>(REVIEW_ENDPOINT, {
-    method: 'GET',
-  });
+export const getReviews = async (courseId: number): Promise<ReviewListResponse> => {
+  return await fetchWithAuth<ReviewListResponse>(
+    `${COURSES_ENDPOINT}/${courseId}/${REVIEW_ENDPOINT}`,
+    {
+      method: 'GET',
+    },
+  );
 };
 
 /**
  * 리뷰 상세 조회
  * GET /api/courses/{courseId}/reviews/{reviewId}
  */
-export const getReviewById = async (reviewId: number): Promise<void> => {
-  return await fetchWithAuth<void>(`${REVIEW_ENDPOINT}/${reviewId}`, {
-    method: 'GET',
-  });
-};
 
 /**
  * 리뷰 생성
@@ -174,14 +188,17 @@ export const deleteReview = async (courseId: number, reviewId: number) => {
 
 /**
  * 레슨 단위 QnA 목록 조회 (root 질문 목록)
- * GET /api/courses/{courseId}/lessons/{lessonId}
+ * GET /api/courses/{courseId}/lessons/{lessonId}/qna
  */
 export const getLessonQna = async (
   courseId: number,
   lessonId: number,
 ): Promise<LessonQnaListResponse> => {
-  return await get<LessonQnaListResponse>(
+  return await fetchWithAuth<LessonQnaListResponse>(
     `${COURSES_ENDPOINT}/${courseId}/${LESSONS_ENDPOINT}/${lessonId}/${QNA_ENDPOINT}`,
+    {
+      method: 'GET',
+    },
   );
 };
 
@@ -194,8 +211,11 @@ export const getQnaThread = async (
   lessonId: number,
   questionId: number,
 ): Promise<QnaThreadResponse> => {
-  return await get<QnaThreadResponse>(
+  return await fetchWithAuth<QnaThreadResponse>(
     `${COURSES_ENDPOINT}/${courseId}/${LESSONS_ENDPOINT}/${lessonId}/${QNA_ENDPOINT}/${questionId}/${THREAD_ENDPOINT}`,
+    {
+      method: 'GET',
+    },
   );
 };
 
@@ -281,10 +301,10 @@ export type UnansweredQnaParams = {
 export const getUnansweredQna = async (
   params?: UnansweredQnaParams,
 ): Promise<UnansweredQnaResponse> => {
-  const search = new URLSearchParams();
-  if (params?.limit) search.set('limit', String(params.limit));
+  const searchParams = new URLSearchParams();
+  if (params?.limit) searchParams.set('limit', String(params.limit));
 
-  const qs = search.toString();
+  const qs = searchParams.toString();
   const endpoint = `${QNA_UNANSWERED_ENDPOINT}${qs ? `?${qs}` : ''}`;
 
   return await fetchWithAuth<UnansweredQnaResponse>(endpoint, { method: 'GET' });

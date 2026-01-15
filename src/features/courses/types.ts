@@ -82,40 +82,6 @@ export interface LessonDto {
   resourceUrl: string;
 }
 
-// export type UserRole = 'student' | 'instructor';
-//
-// export interface Author {
-//   name: string;
-//   role: UserRole;
-//   profileImage?: string; // Optional for now
-// }
-//
-// export interface ReplyDto {
-//   id: number;
-//   content: string;
-//   author: Author;
-//   createdAt: string;
-// }
-//
-// export interface ThreadDto {
-//   id: number;
-//   lessonId: number; // Linked Lesson ID
-//   lessonTitle: string; // Denormalized title
-//   title: string;
-//   content: string;
-//   status: QnaStatus;
-//   author: Author;
-//   createdAt: string;
-//   replies: ReplyDto[];
-//   readCount?: number;
-// }
-// export type CourseLearnPageModel = CourseDetailResponse & {
-//   progress?: number;
-//   activeLessonId: number;
-//   activeLesson: LessonDto;
-//   qna: ThreadDto[];
-// };
-
 /** DELETE /api/courses/{courseId}/chapters 요청 바디 */
 export interface DeleteChaptersRequest {
   chapterIds: number[];
@@ -127,12 +93,19 @@ export interface DeleteLessonsRequest {
 }
 
 /** GET /api/courses/{courseId}/reviews 응답 */
-export interface ReviewsResponse {
-  authorName: string;
+export interface ReviewItemDto {
+  reviewId: number;
+  courseId: number;
+  userId: number;
+  userNickname: string;
   comment: string;
   title: string;
-  stars: number;
+  rating: number;
   createdAt: string;
+}
+
+export interface ReviewListResponse {
+  reviews: ReviewItemDto[];
 }
 
 /** POST /api/courses/{courseId}/reviews 요청 바디 */
@@ -140,7 +113,7 @@ export interface ReviewsResponse {
 export interface ReviewRequest {
   title: string;
   comment: string;
-  stars: number;
+  rating: number;
 }
 
 /**
@@ -153,6 +126,7 @@ export type LessonQnaItemDto = {
   lessonId: number;
   title: string;
   authorId: number;
+  authorNickname: string;
   status: QnaStatus;
   replyCount: number;
   lastActivityAt: string; // ISO-8601
@@ -172,6 +146,7 @@ export type QnaThreadQuestionDto = {
   title: string | null; // 답변은 null
   content: string;
   authorId: number;
+  authorNickname: string;
   createdAt: string; // ISO-8601
 };
 

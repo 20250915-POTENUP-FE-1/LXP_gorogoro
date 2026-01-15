@@ -59,7 +59,6 @@ export const loginAction = async (
 ): Promise<ActionState<LoginUserInfo>> => {
   const email = String(formData.get('email') ?? '');
   const password = String(formData.get('password') ?? '');
-
   const validation = validateLoginForm({ email, password });
   if (!validation.success) {
     return { success: false, errors: validation.errors };

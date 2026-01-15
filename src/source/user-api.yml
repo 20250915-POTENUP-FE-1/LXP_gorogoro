@@ -1,0 +1,634 @@
+openapi: 3.0.3
+info:
+  title: Auth Service API
+  description: |
+    Auth 서비스 API 문서입니다.
+    
+    ### Error Codes (Business)
+    | Code | Status | Message |
+    |---|---|---|
+    | TK-0001 | 401 | 요청에 인증 토큰이 포함되지 않았습니다. |
+    | TK-0002 | 401 | 만료된 토큰입니다. |
+    | TK-0003 | 404 | 리프레시 토큰을 찾을수 없습니다. 확인 후 다시 시도해주세요. |
+    | TK-0004 | 404 | 토큰이 존재하지 않습니다. |
+    | TK-0005 | 401 | 올바르지 않은 토큰 형식 입니다. |
+    | US-0001 | 404 | 아이디/비밀번호가 유효하지 않습니다. |
+    | US-0002 | 400 | 아이디/비밀번호가 유효하지 않습니다. |
+    | US-0003 | 400 | 휴면 계졍입니다. 이메일 인증을 통해 활성화 시켜주세요. |
+    | US-0004 | 400 | 닉네임이 유효하지 않습니다. |
+    | US-0005 | 500 | 닉네임 생성에 실패했습니다. 잠시후 다시 시도해주세요. |
+    | US-0006 | 400 | 특수문자는 공백만 사용할 수 있습니다. |
+    | US-0007 | 400 | 문자열이 너무 깁니다. 다시 입력해 주세요. |
+    | US-0008 | 400 | 공백은 입력 될 수 없습니다. |
+    | US-0009 | 400 | 중복된 닉네임 입니다. 다시 입력해 주세요. |
+    | US-0010 | 400 | 이메일 형식이 올바르지 않습니다. |
+    | US-0011 | 400 | 비밀번호는 이전과 같은 비밀번호로 변경할 수 없습니다. |
+    | US-0012 | 400 | 닉네임은 이전과 같습니다. 다시 입력해 주세요 |
+    | US-0013 | 400 | 해당 유저는 휴면 또는 삭제 되었습니다. |
+    | US-0014 | 400 | 이미 가입된 유저 입니다. |
+    | US-0015 | 400 | 이름은 완성된 한글 문자만 입력할 수 있습니다. |
+    | GB-0001 | 500 | 예기치 않은 에러가 발생했습니다. 문의팀에 문의를 남겨주세요. |
+
+    ### Error Codes (Validation)
+    | Code | Status | Message |
+    |---|---|---|
+    | V-0001 | 400 | 이메일은 필수 입력 값입니다. |
+    | V-0002 | 400 | 비밀번호는 필수 입력 값입니다. |
+    | V-0003 | 400 | 이름은 필수 입력 값입니다. |
+    | V-0004 | 400 | 권한은 필수 입력 값입니다. |
+
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: 로컬 서버
+
+paths:
+  /api/v1/auth/register:
+    post:
+      tags:
+        - Auth
+      summary: 회원가입
+      operationId: signup
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignupCommand'
+      responses:
+        '200':
+          description: 회원가입 성공
+        '400':
+          description: 잘못된 요청 (Validation Error 및 Business Error)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                # Validation Errors
+                1_이메일_누락:
+                  summary: 이메일 미입력 (V-0001)
+                  value:
+                    message: "이메일은 필수 입력 값입니다."
+                    code: "V-0001"
+                2_비밀번호_누락:
+                  summary: 비밀번호 미입력 (V-0002)
+                  value:
+                    message: "비밀번호는 필수 입력 값입니다."
+                    code: "V-0002"
+                3_이름_누락:
+                  summary: 이름 미입력 (V-0003)
+                  value:
+                    message: "이름은 필수 입력 값입니다."
+                    code: "V-0003"
+                4_권한_누락:
+                  summary: 권한 미입력 (V-0004)
+                  value:
+                    message: "권한(Role)은 필수 입력 값입니다."
+                    code: "V-0004"
+                # Business Errors
+                5_이메일_형식_오류:
+                  summary: 이메일 형식 오류 (US-0010)
+                  value:
+                    message: "이메일 형식이 올바르지 않습니다."
+                    code: "US-0010"
+                6_공백_포함_오류:
+                  summary: 공백 포함 오류 (US-0008)
+                  value:
+                    message: "공백은 입력 될 수 없습니다."
+                    code: "US-0008"
+                7_문자열_길이_초과:
+                  summary: 문자열 길이 초과 (US-0007)
+                  value:
+                    message: "문자열이 너무 깁니다. 다시 입력해 주세요."
+                    code: "US-0007"
+                8_특수문자_오류:
+                  summary: 특수문자 오류 (US-0006)
+                  value:
+                    message: "특수문자는 공백만 사용할 수 있습니다."
+                    code: "US-0006"
+                9_한글이름_아닐경우_오류:
+                  summary: 이름 오류 (US-0015)
+                  value:
+                    message: "이름은 완성된 한글 문자만 입력할 수 있습니다."
+                    code: "US-0015"
+        '500':
+          description: 서버 에러 (닉네임 생성 실패 등)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                1_닉네임_생성_실패:
+                  summary: 닉네임 생성 실패 (US-0005)
+                  value:
+                    message: "닉네임 생성에 실패했습니다. 잠시후 다시 시도해주세요."
+                    code: "US-0005"
+                2_예기치_않은_에러:
+                  summary: 서버 내부 에러 (GB-0001)
+                  value:
+                    message: "예기치 않은 에러가 발생했습니다. 문의팀에 문의를 남겨주세요."
+                    code: "GB-0001"
+
+  /api/v1/auth/login:
+    post:
+      tags:
+        - Auth
+      summary: 로그인
+      operationId: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginCommand'
+      responses:
+        '200':
+          description: 로그인 성공
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResultResponse'
+        '400':
+          description: 유효성 검사 실패 또는 잘못된 입력
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                1_이메일_누락:
+                  summary: 이메일 미입력 (V-0001)
+                  value:
+                    message: "이메일은 필수 입력 값입니다."
+                    code: "V-0001"
+                2_비밀번호_누락:
+                  summary: 비밀번호 미입력 (V-0002)
+                  value:
+                    message: "비밀번호는 필수 입력 값입니다."
+                    code: "V-0002"
+                3_비밀번호_불일치:
+                  summary: 비밀번호 불일치 (US-0002)
+                  value:
+                    message: "아이디/비밀번호가 유효하지 않습니다."
+                    code: "US-0002"
+                4_휴면_계정:
+                  summary: 휴면 계정 (US-0003)
+                  value:
+                    message: "휴면 계졍입니다. 이메일 인증을 통해 활성화 시켜주세요."
+                    code: "US-0003"
+                5_이메일_형식_오류:
+                  summary: 이메일 형식 오류 (US-0010)
+                  value:
+                    message: "이메일 형식이 올바르지 않습니다."
+                    code: "US-0010"
+        '404':
+          description: 사용자를 찾을 수 없음
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                1_유저_없음:
+                  summary: 유저 찾을 수 없음 (US-0001)
+                  value:
+                    message: "아이디/비밀번호가 유효하지 않습니다."
+                    code: "US-0001"
+        '500':
+          description: 서버 에러
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                1_예기치_않은_에러:
+                  summary: 서버 내부 에러 (GB-0001)
+                  value:
+                    message: "예기치 않은 에러가 발생했습니다. 문의팀에 문의를 남겨주세요."
+                    code: "GB-0001"
+
+  /api/v1/auth/refresh:
+    post:
+      tags:
+        - Auth
+      summary: 액세스 토큰 갱신
+      operationId: refreshAccessToken
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefreshTokenCommand'
+      responses:
+        '200':
+          description: 토큰 갱신 성공
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessTokenResponse'
+        '401':
+          description: 토큰 만료 또는 올바르지 않은 형식
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                1_토큰_만료:
+                  summary: 토큰 만료 (TK-0002)
+                  value:
+                    message: "만료된 토큰입니다."
+                    code: "TK-0002"
+        '404':
+          description: 리프레시 토큰을 찾을 수 없음
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                1_토큰_없음:
+                  summary: 리프레시 토큰 없음 (TK-0003)
+                  value:
+                    message: "리프레시 토큰을 찾을수 없습니다. 확인 후 다시 시도해주세요."
+                    code: "TK-0003"
+        '500':
+          description: 서버 에러
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                1_예기치_않은_에러:
+                  summary: 서버 내부 에러 (GB-0001)
+                  value:
+                    message: "예기치 않은 에러가 발생했습니다. 문의팀에 문의를 남겨주세요."
+                    code: "GB-0001"
+
+  /api/v1/users/modify:
+    patch:
+      tags:
+        - User
+      summary: 회원 정보 수정
+      operationId: updateUser
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+          description: Bearer Access Token (e.g., "Bearer <token>")
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserRequest'
+      responses:
+        '200':
+          description: 수정 성공
+        '400':
+          description: 유효하지 않은 닉네임, 중복된 닉네임 등
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                1_닉네임_중복:
+                  summary: 닉네임 중복 (US-0009)
+                  value:
+                    message: "중복된 닉네임 입니다. 다시 입력해 주세요."
+                    code: "US-0009"
+                2_동일_닉네임:
+                  summary: 이전과 동일한 닉네임 (US-0012)
+                  value:
+                    message: "닉네임은 이전과 같습니다. 다시 입력해 주세요"
+                    code: "US-0012"
+                3_동일_비밀번호:
+                  summary: 이전과 동일한 비밀번호 (US-0011)
+                  value:
+                    message: "비밀번호는 이전과 같은 비밀번호로 변경할 수 없습니다."
+                    code: "US-0011"
+                4_이메일_형식_오류:
+                  summary: 이메일 형식 오류 (US-0010)
+                  value:
+                    message: "이메일 형식이 올바르지 않습니다."
+                    code: "US-0010"
+                5_특수문자_오류:
+                  summary: 특수문자 오류 (US-0006)
+                  value:
+                    message: "특수문자는 공백만 사용할 수 있습니다."
+                    code: "US-0006"
+                6_길이_초과:
+                  summary: 길이 초과 (US-0007)
+                  value:
+                    message: "문자열이 너무 깁니다. 다시 입력해 주세요."
+                    code: "US-0007"
+                7_공백_오류:
+                  summary: 공백 오류 (US-0008)
+                  value:
+                    message: "공백은 입력 될 수 없습니다."
+                    code: "US-0008"
+                8_유저_상태_이상:
+                  summary: 유저 상태 이상 (US-0013)
+                  value:
+                    message: "해당 유저는 휴면 또는 삭제 되었습니다."
+                    code: "US-0013"
+        '401':
+          description: 인증 실패
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                1_토큰_만료:
+                  summary: 토큰 만료 (TK-0002)
+                  value:
+                    message: "만료된 토큰입니다."
+                    code: "TK-0002"
+        '404':
+          description: 사용자를 찾을 수 없음
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                1_유저_없음:
+                  summary: 유저 찾을 수 없음 (US-0001)
+                  value:
+                    message: "아이디/비밀번호가 유효하지 않습니다."
+                    code: "US-0001"
+                2_토큰_없음:
+                  summary: 토큰 찾을 수 없음 (TK-0004)
+                  value:
+                    message: "토큰이 존재하지 않습니다."
+                    code: "TK-0004"
+        '500':
+          description: 서버 에러
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                1_예기치_않은_에러:
+                  summary: 서버 내부 에러 (GB-0001)
+                  value:
+                    message: "예기치 않은 에러가 발생했습니다. 문의팀에 문의를 남겨주세요."
+                    code: "GB-0001"
+
+  /api/v1/users/leave:
+    delete:
+      tags:
+        - User
+      summary: 회원 탈퇴
+      operationId: withdrawUser
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+          description: Bearer Access Token (e.g., "Bearer <token>")
+      responses:
+        '200':
+          description: 탈퇴 성공
+        '400':
+          description: 유저 상태 이상
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                1_유저_상태_이상:
+                  summary: 유저 상태 이상 (US-0013)
+                  value:
+                    message: "해당 유저는 휴면 또는 삭제 되었습니다."
+                    code: "US-0013"
+        '401':
+          description: 인증 실패
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                1_토큰_만료:
+                  summary: 토큰 만료 (TK-0002)
+                  value:
+                    message: "만료된 토큰입니다."
+                    code: "TK-0002"
+        '404':
+          description: 사용자를 찾을 수 없음
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                1_유저_없음:
+                  summary: 유저 찾을 수 없음 (US-0001)
+                  value:
+                    message: "아이디/비밀번호가 유효하지 않습니다."
+                    code: "US-0001"
+                2_토큰_없음:
+                  summary: 토큰 찾을 수 없음 (TK-0004)
+                  value:
+                    message: "토큰이 존재하지 않습니다."
+                    code: "TK-0004"
+        '500':
+          description: 서버 에러
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                1_예기치_않은_에러:
+                  summary: 서버 내부 에러 (GB-0001)
+                  value:
+                    message: "예기치 않은 에러가 발생했습니다. 문의팀에 문의를 남겨주세요."
+                    code: "GB-0001"
+
+  /api/v1/users/info:
+    get:
+      tags:
+        - User
+      summary: 회원 정보 조회
+      operationId: getUserInfo
+      parameters:
+        - name: X-User-Id
+          in: header
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: 조회할 사용자 ID
+      responses:
+        '200':
+          description: 조회 성공
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindUserResponse'
+        '404':
+          description: 사용자를 찾을 수 없음
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                1_유저_없음:
+                  summary: 유저 찾을 수 없음 (US-0001)
+                  value:
+                    message: "아이디/비밀번호가 유효하지 않습니다."
+                    code: "US-0001"
+        '500':
+          description: 서버 에러
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                1_예기치_않은_에러:
+                  summary: 서버 내부 에러 (GB-0001)
+                  value:
+                    message: "예기치 않은 에러가 발생했습니다. 문의팀에 문의를 남겨주세요."
+                    code: "GB-0001"
+
+components:
+  schemas:
+    # --- Common DTOs ---
+    Role:
+      type: string
+      enum:
+        - ADMIN
+        - INSTRUCTOR
+        - STUDENT
+      description: 사용자 권한
+
+    SignupCommand:
+      type: object
+      required:
+        - email
+        - password
+        - name
+        - role
+      properties:
+        email:
+          type: string
+          format: email
+          description: 사용자 이메일
+          example: "user@example.com"
+        password:
+          type: string
+          description: 사용자 비밀번호
+          example: "password1234!"
+        name:
+          type: string
+          description: 사용자 이름
+          example: "홍길동"
+        role:
+          $ref: '#/components/schemas/Role'
+
+    LoginCommand:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          format: email
+          description: 사용자 이메일
+          example: "user@example.com"
+        password:
+          type: string
+          description: 사용자 비밀번호
+          example: "password1234!"
+
+    LoginResultResponse:
+      type: object
+      properties:
+        nickname:
+          type: string
+          description: 사용자 닉네임
+        role:
+          $ref: '#/components/schemas/Role'
+        accessToken:
+          type: string
+          description: JWT 액세스 토큰
+        refreshToken:
+          type: string
+          description: JWT 리프레시 토큰
+
+    RefreshTokenCommand:
+      type: object
+      required:
+        - refreshToken
+      properties:
+        refreshToken:
+          type: string
+          description: 새로운 액세스 토큰 발급을 위한 리프레시 토큰
+
+    AccessTokenResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+          description: 새로운 JWT 액세스 토큰
+
+    UpdateUserRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          description: 새로운 이메일 (선택)
+        passwordEncrypted:
+          type: string
+          description: 새로운 암호화된 비밀번호 (선택)
+        name:
+          type: string
+          description: 새로운 이름 (선택)
+        nickname:
+          type: string
+          description: 새로운 닉네임 (선택)
+
+    # --- Common Error Response Schema ---
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP 상태 코드
+          example: 400
+        error:
+          type: string
+          description: HTTP 상태 메시지
+          example: "Bad Request"
+        message:
+          type: string
+          description: 에러 상세 메시지
+          example: "에러 메시지가 여기에 나옵니다."
+        errorCode:
+          type: string
+          description: 커스텀 에러 코드
+          example: "E-0000"
+
+    FindUserResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: 사용자 ID
+        username:
+          type: string
+          description: 사용자 이름
+        nickname:
+          type: string
+          description: 사용자 닉네임
+        email:
+          type: string
+          format: email
+          description: 사용자 이메일
+        role:
+          $ref: '#/components/schemas/Role'
+        createAt:
+          type: string
+          format: date-time
+          description: 생성 시각
