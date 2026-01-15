@@ -58,7 +58,7 @@ services:
       - msa-net
 
   app-gateway:
-    image: jdonghun/gorogoro-gateway:1.0
+    image: jdonghun/gorogoro-gateway:1.1
     container_name: app-gateway
     depends_on:
       rabbit1:
@@ -71,7 +71,7 @@ services:
       - msa-net
 
   app-user:
-    image: jdonghun/gorogoro-user:1.0
+    image: jdonghun/gorogoro-user:1.1
     container_name: app-user
     depends_on:
       mysql-user:

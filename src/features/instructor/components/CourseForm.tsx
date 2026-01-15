@@ -116,6 +116,7 @@ export default function CourseForm({
           handleFieldChange={handleFieldChange}
           handleThumbnailChange={handleThumbnailChange}
           categories={categories}
+          state={state}
         />
       </div>
 
@@ -127,6 +128,7 @@ export default function CourseForm({
           handleChapterTitleChange={handleChapterTitleChange}
           handleLessonTitleChange={handleLessonTitleChange}
           handleLessonResourceUrlChange={handleLessonResourceUrlChange}
+          state={state}
         />
       </div>
 

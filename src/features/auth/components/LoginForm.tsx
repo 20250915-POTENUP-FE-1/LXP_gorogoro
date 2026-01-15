@@ -47,7 +47,7 @@ export default function LoginForm() {
         label="이메일"
         name="email"
         type="email"
-        defaultValue="1@c.com"
+        defaultValue="12@c.com"
         placeholder="Enter your email"
         errorMessage={state.errors?.email}
       />

@@ -5,7 +5,7 @@ import { cookies } from 'next/headers';
 import { REFRESH_TOKEN } from '@/shared/constants/token';
 import { getMe } from '@/services/user.service';
 import React from 'react';
-import { refreshApi } from '@/shared/lib/refreshApi';
+import { getRefreshApi } from '@/shared/lib/getRefreshApi';
 
 export default async function UserActions() {
   const cookieStore = await cookies();
@@ -18,7 +18,7 @@ export default async function UserActions() {
       </Link>
     );
   }
-  const me = await getMe().catch(async (error) => refreshApi(error));
+  const me = await getMe().catch(async (error) => getRefreshApi(error));
 
   return (
     <div className={styles.actions}>
