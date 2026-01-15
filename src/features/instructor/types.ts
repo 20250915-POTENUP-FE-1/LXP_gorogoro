@@ -37,5 +37,5 @@ export interface CourseFormRequest {
   coverImageUrl: string;
   courseDifficulty: Difficulty;
   contents: CourseChapterRequest[];
-  availableDays: number;
+  accessDays: number;
 }

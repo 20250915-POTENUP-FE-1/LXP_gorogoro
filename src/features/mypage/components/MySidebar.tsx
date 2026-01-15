@@ -4,10 +4,10 @@ import Avatar from '@/shared/components/ui/Avatar';
 import MySidebarSelector from '@/features/mypage/components/MySidebarSelector';
 import { getMe } from '@/services/user.service';
 import LogoutButton from '@/features/mypage/components/LogoutButton';
-import { refreshApi } from '@/shared/lib/refreshApi';
+import { getRefreshApi } from '@/shared/lib/getRefreshApi';
 
 export default async function MySidebar() {
-  const me = await getMe().catch(async (error) => refreshApi(error));
+  const me = await getMe().catch(async (error) => getRefreshApi(error));
 
   return (
     <aside className={styles.sidebar} aria-label="마이페이지 사이드바">

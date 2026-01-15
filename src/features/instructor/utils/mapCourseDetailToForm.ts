@@ -21,7 +21,7 @@ const mapCourseDetailForm = (detail: CourseDetailResponse): CourseFormRequest =>
         resourceUrl: lesson.resourceUrl,
       })),
     })),
-    availableDays: detail.accessDays,
+    accessDays: detail.accessDays,
   };
 };
 export default mapCourseDetailForm;

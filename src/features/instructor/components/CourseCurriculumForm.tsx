@@ -4,6 +4,7 @@ import { ChangeEvent } from 'react';
 import styles from './CourseForm.module.css';
 import { CourseFormRequest } from '../types';
 import CourseCurriculum from '@/features/instructor/components/CourseCurriculumEditor';
+import { CourseFormResponse } from '@/features/instructor/action';
 
 interface CourseCurriculumFormProps {
   formData: CourseFormRequest;
@@ -18,6 +19,7 @@ interface CourseCurriculumFormProps {
     chapterIdx: number,
     lessonIdx: number,
   ) => (e: ChangeEvent<HTMLInputElement>) => void;
+  state: CourseFormResponse;
 }
 
 export default function CourseCurriculumForm({
@@ -27,6 +29,7 @@ export default function CourseCurriculumForm({
   handleChapterTitleChange,
   handleLessonTitleChange,
   handleLessonResourceUrlChange,
+  state,
 }: CourseCurriculumFormProps) {
   return (
     <div className={styles.group}>
@@ -38,6 +41,7 @@ export default function CourseCurriculumForm({
         handleChapterTitleChange={handleChapterTitleChange}
         handleLessonTitleChange={handleLessonTitleChange}
         handleLessonResourceUrlChange={handleLessonResourceUrlChange}
+        state={state}
       />
     </div>
   );

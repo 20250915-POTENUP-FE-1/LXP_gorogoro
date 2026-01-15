@@ -7,7 +7,6 @@ interface InstructorCourseListProps {
 }
 
 export default function InstructorCourseList({ courses }: InstructorCourseListProps) {
-  console.log(courses);
   return (
     <section className={styles.list} aria-label="내가 생성한 강좌">
       <header className={styles.header}>
