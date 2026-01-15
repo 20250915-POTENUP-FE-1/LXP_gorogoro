@@ -169,6 +169,10 @@ export type CreateQnaQuestionRequest = {
   content: string;
 };
 
+export type QuestionFormData = {
+  title: string;
+  content: string;
+};
 /**
  * POST /api/courses/{courseId}/lessons/{lessonId}/qna/{questionId}/replies
  * 답변 추가 요청

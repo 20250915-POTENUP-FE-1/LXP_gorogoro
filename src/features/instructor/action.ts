@@ -3,7 +3,7 @@
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { createCourse, deleteCourse, updateCourse } from '@/services/course.service';
-import { CourseFormRequest } from './types';
+import { CourseChapterRequest, CourseFormRequest } from './types';
 import { Difficulty } from '../courses/types';
 import { BackendError } from '@/shared/types/types';
 import { handleBackendError } from '@/shared/utils/errorHandler';
@@ -25,10 +25,10 @@ const getCourseDataFromFormData = (formData: FormData): CourseFormRequest => {
   const availableDays = formData.get('availableDays') as unknown as number;
 
   // FormData에서 contents 배열 재구성
-  const contents: Chapter[] = [];
+  const contents: CourseChapterRequest[] = [];
   let chapterIndex = 0;
   while (formData.has(`contents[${chapterIndex}][chapterTitle]`)) {
-    const chapterTitle = formData.get(`contents[${chapterIndex}][chapterTitle]`) as string;
+    const title = formData.get(`contents[${chapterIndex}][chapterTitle]`) as string;
 
     const lessons: { title: string; seq: number; resourceUrl: string }[] = [];
     let lessonIndex = 0;

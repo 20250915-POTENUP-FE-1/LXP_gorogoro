@@ -242,3 +242,9 @@
     background-color: #d1d3d8;
     cursor: not-allowed;
 }
+.successMsg{
+    color:blue;
+}
+.failMsg{
+    color:red;
+}

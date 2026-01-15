@@ -1,18 +1,10 @@
 'use server';
 
 import { registerUser } from '@/services/auth.service';
-import { RegistRequest, ROLE } from '../types';
+import { RegistRequest, ROLE, RegistFormData } from '../types';
 import { validateRegistForm } from '../validate';
 import { isBackendError } from '@/shared/types/types';
 import { mapAuthError } from '../utils/authErrorMapper';
-
-export type RegistFormData = {
-  name: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  role: ROLE;
-};
 
 export const registAction = async (
   prevState: ActionState<RegistFormData>,

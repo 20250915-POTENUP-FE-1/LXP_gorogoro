@@ -13,6 +13,11 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'images.unsplash.com' },
     ],
   },
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '5mb', // 원하시는 용량으로 설정 (예: '2mb', '10mb' 등)
+    },
+  },
 };
 
 export default nextConfig;

@@ -21,6 +21,14 @@ export interface RegistResponse {
   message: string;
 }
 
+export type RegistFormData = {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  role: ROLE;
+};
+
 export interface LoginRequest {
   email: string;
   password: string;

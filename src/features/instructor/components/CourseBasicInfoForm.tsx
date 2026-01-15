@@ -66,8 +66,8 @@ export default function CourseBasicInfoForm({
         <label className={styles.field}>
           <span className={styles.label}>난이도</span>
           <select
-            name="difficulty"
-            id="difficulty"
+            name="courseDifficulty"
+            id="courseDifficulty"
             className={styles.select}
             value={formData.courseDifficulty ?? ''}
             onChange={handleFieldChange}

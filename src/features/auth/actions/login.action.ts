@@ -5,12 +5,6 @@ import { validateLoginForm } from '../validate';
 import type { LoginRequest, LoginUserInfo } from '../types';
 import { ACCESS_TOKEN } from '@/shared/constants/token';
 
-type ActionState<T> = {
-  success: boolean;
-  message?: string;
-  errors?: Record<string, string>;
-  data?: T;
-};
 type CookieOptions = {
   path?: string;
   domain?: string;

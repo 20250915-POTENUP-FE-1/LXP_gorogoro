@@ -3,20 +3,23 @@ import React, { useEffect, useState } from 'react';
 import styles from './QnaPanel.module.css';
 import QuestionInputForm from '@/features/courses/components/learn/QuestionInputForm';
 import { LessonQnaItemDto, QnaThreadResponse } from '../../types';
-import { useRouter, useSearchParams } from 'next/navigation';
 import { MOCK_QNA_THREAD } from '@/app/mockData';
+import ReplyInputForm from '@/features/courses/components/learn/ReplyInputForm';
+import { useSearchParams } from 'next/navigation';
 import { getQnaThread } from '@/services/course.service';
 
 interface QnaPanelProps {
   qnaItems: LessonQnaItemDto[];
+  courseId: number;
 }
 
-export default function QnaPanel({ qnaItems }: QnaPanelProps) {
+export default function QnaPanel({ qnaItems, courseId }: QnaPanelProps) {
   const [expendedQuestionId, setExpendedQuestionId] = useState<number | null>(null);
   const [thread, setThread] = useState<QnaThreadResponse | null>(null);
   const hasQna = !!qnaItems && qnaItems.length > 0;
 
-  // useSearchParams / useRouter 로 가능
+  const searchParams = useSearchParams(); //쿼리스트링 읽기 ? 부터
+  const lessonId = Number(searchParams.get('lessonId'));
 
   // 클릭 토글 규칙: 같은 질문이면 닫고, 다른 질문이면 열기
   const handleClickQuestion = (questionId: number) => {
@@ -44,7 +47,7 @@ export default function QnaPanel({ qnaItems }: QnaPanelProps) {
         <h3 className={styles.title}>Q&amp;A</h3>
       </div>
 
-      <QuestionInputForm />
+      <QuestionInputForm courseId={courseId} lessonId={lessonId} />
 
       {!hasQna ? (
         <div className={styles.noQna}>등록된 질문이 없습니다.</div>
@@ -93,6 +96,7 @@ export default function QnaPanel({ qnaItems }: QnaPanelProps) {
                         </div>
                       </div>
                     ))}
+                    <ReplyInputForm />
                   </div>
                 )}
               </div>
