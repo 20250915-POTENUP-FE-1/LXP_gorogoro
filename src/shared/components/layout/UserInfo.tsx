@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 import { REFRESH_TOKEN } from '@/shared/constants/token';
 import { getMe } from '@/services/user.service';
-import { refreshApi } from '@/shared/lib/refreshApi';
+import { getRefreshApi } from '@/shared/lib/getRefreshApi';
 
 export default async function UserInfo() {
   const cookieStore = await cookies();
@@ -15,7 +15,7 @@ export default async function UserInfo() {
     );
   }
 
-  const me = await getMe().catch(async (error) => refreshApi(error));
+  const me = await getMe().catch(async (error) => getRefreshApi(error));
   return (
     <div aria-label="사용자 인사말" role="status">
       {me?.name}님, 안녕하세요!

@@ -6,11 +6,11 @@ type BaseInputProps = React.InputHTMLAttributes<HTMLInputElement> & {
 };
 
 export default function Input({ icon, ...props }: BaseInputProps) {
-  const { className, placeholder, ...rest } = props;
+  const { className, placeholder, style, ...rest } = props;
 
   return (
-    <div style={{ position: 'relative' }}>
-      <input {...rest} placeholder={placeholder} className={`${styles.input} ${className}`} />
+    <div style={{ position: 'relative', width: '100%' }}>
+      <input {...rest} style={style} className={`${styles.input} ${className}`} />
     </div>
   );
 }

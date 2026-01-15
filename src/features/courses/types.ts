@@ -1,4 +1,4 @@
-export type Difficulty = 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED';
+export type Difficulty = 'INTERMEDIATE' | 'BASIC' | 'PROFESSIONAL';
 export type TabKey = 'description' | 'curriculum' | 'review' | 'request';
 export type QnaStatus = 'OPENED' | 'ANSWERED' | 'DELETED';
 

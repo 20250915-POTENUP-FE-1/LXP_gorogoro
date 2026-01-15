@@ -3,7 +3,7 @@
 import { cookies } from 'next/headers';
 import { revalidatePath } from 'next/cache';
 import { getMe } from '@/services/user.service';
-import { refreshApi } from '@/shared/lib/refreshApi';
+import { getRefreshApi } from '@/shared/lib/getRefreshApi';
 import { groupFieldErrors } from '@/shared/utils/groupFieldErrors';
 
 export type UpdateProfileActionState = {
@@ -55,7 +55,7 @@ export async function updateProfileAction(
     },
     body: JSON.stringify(payload),
     cache: 'no-store',
-  }).catch(async (error) => refreshApi(error));
+  }).catch(async (error) => getRefreshApi(error));
 
   if (!res.ok) {
     let msg = '프로필 수정에 실패했습니다.';

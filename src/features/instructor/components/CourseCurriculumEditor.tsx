@@ -4,6 +4,8 @@ import type { ChangeEvent } from 'react';
 import styles from './CourseCurriculumEditor.module.css';
 import { Button } from '@/shared/components/ui/Button';
 import { CourseFormRequest } from '@/features/instructor/types';
+import { CourseFormResponse } from '@/features/instructor/action';
+import ErrorMessage from '@/shared/components/ui/ErrorMessage';
 
 interface CourseCurriculumProps {
   formData: CourseFormRequest;
@@ -18,6 +20,7 @@ interface CourseCurriculumProps {
     chapterIdx: number,
     lessonIdx: number,
   ) => (e: ChangeEvent<HTMLInputElement>) => void;
+  state: CourseFormResponse;
 }
 
 export default function CourseCurriculum({
@@ -27,6 +30,7 @@ export default function CourseCurriculum({
   handleChapterTitleChange,
   handleLessonTitleChange,
   handleLessonResourceUrlChange,
+  state,
 }: CourseCurriculumProps) {
   return (
     <div className={styles.container}>
@@ -39,53 +43,72 @@ export default function CourseCurriculum({
       )}
 
       <div className={styles.chapterList}>
-        {formData.contents?.map((chapter, chapterIdx) => (
-          <div key={chapter.chapterId ?? chapterIdx} className={styles.chapterItem}>
-            <div className={styles.chapterHeader}>
-              <span className={styles.chapterSeq}>Chapter {chapterIdx + 1}</span>
-              <input
-                name={`contents[${chapterIdx}][title]`}
-                value={chapter.title ?? ''}
-                className={styles.input}
-                type="text"
-                placeholder="챕터 제목을 입력하세요"
-                onChange={handleChapterTitleChange?.(chapterIdx)}
-              />
-            </div>
+        {formData.contents?.map((chapter, chapterIdx) => {
+          const chapterName = `contents[${chapterIdx}][title]`;
 
-            <div className={styles.lessonList}>
-              {chapter.lessons.map((lesson, lessonIdx) => (
-                <div key={lesson.lessonId ?? lessonIdx} className={styles.lessonItem}>
-                  <span className={styles.lessonSeq}>{lessonIdx + 1}.</span>
+          return (
+            <div key={chapter.chapterId ?? chapterIdx} className={styles.chapterItem}>
+              <div className={styles.chapterHeader}>
+                <span className={styles.chapterSeq}>Chapter {chapterIdx + 1}</span>
 
+                <div className={styles.inputWrap}>
                   <input
-                    name={`contents[${chapterIdx}][lessons][${lessonIdx}][title]`}
-                    value={lesson.title ?? ''}
+                    name={chapterName}
+                    value={chapter.title ?? ''}
                     className={styles.input}
                     type="text"
-                    placeholder="레슨 제목 (예: 코딩이란?)"
-                    onChange={handleLessonTitleChange?.(chapterIdx, lessonIdx)}
+                    placeholder="챕터 제목을 입력하세요"
+                    onChange={handleChapterTitleChange?.(chapterIdx)}
                   />
-
-                  <input
-                    name={`contents[${chapterIdx}][lessons][${lessonIdx}][resourceUrl]`}
-                    value={lesson.resourceUrl ?? ''}
-                    className={styles.input}
-                    type="text"
-                    placeholder="영상/자료 URL"
-                    onChange={handleLessonResourceUrlChange?.(chapterIdx, lessonIdx)}
-                  />
+                  {state.errors?.[chapterName] && (
+                    <ErrorMessage errorMessage={state.errors[chapterName]} />
+                  )}
                 </div>
-              ))}
+              </div>
 
-              {addLesson && (
-                <Button variant="add" size="sm" type="button" onClick={() => addLesson(chapterIdx)}>
-                  + 강의 추가
-                </Button>
-              )}
+              <div className={styles.lessonList}>
+                {chapter.lessons.map((lesson, lessonIdx) => {
+                  const lessonTitleName = `contents[${chapterIdx}][lessons][${lessonIdx}][title]`;
+                  const lessonUrlName = `contents[${chapterIdx}][lessons][${lessonIdx}][resourceUrl]`;
+
+                  return (
+                    <div key={lesson.lessonId ?? lessonIdx} className={styles.lessonItem}>
+                      <span className={styles.lessonSeq}>{lessonIdx + 1}.</span>
+
+                      <div className={styles.inputWrap}>
+                        <input
+                          name={lessonTitleName}
+                          value={lesson.title ?? ''}
+                          className={styles.input}
+                          type="text"
+                          placeholder="레슨 제목 (예: 코딩이란?)"
+                          onChange={handleLessonTitleChange?.(chapterIdx, lessonIdx)}
+                        />
+                        {state.errors?.[lessonTitleName] && (
+                          <ErrorMessage errorMessage={state.errors[lessonTitleName]} />
+                        )}
+                      </div>
+
+                      <div className={styles.inputWrap}>
+                        <input
+                          name={lessonUrlName}
+                          value={lesson.resourceUrl ?? ''}
+                          className={styles.input}
+                          type="text"
+                          placeholder="영상/자료 URL"
+                          onChange={handleLessonResourceUrlChange?.(chapterIdx, lessonIdx)}
+                        />
+                        {state.errors?.[lessonUrlName] && (
+                          <ErrorMessage errorMessage={state.errors[lessonUrlName]} />
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

@@ -16,7 +16,7 @@ const initialState = {
     email: '',
     password: '',
     confirmPassword: '',
-    role: 'STUDENT',
+    role: 'USER',
   },
   message: '',
   errors: {},
@@ -96,10 +96,10 @@ export default function SignupForm() {
           className={styles.userTypes}
           name="role"
           id="role"
-          defaultValue={state.data?.role ?? 'STUDENT'}
+          defaultValue={state.data?.role ?? 'USER'}
           aria-label="회원 유형 선택"
         >
-          <option className={styles.userType} value="STUDENT">
+          <option className={styles.userType} value="USER">
             학생
           </option>
           <option className={styles.userType} value="INSTRUCTOR">
