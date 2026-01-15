@@ -1,23 +1,32 @@
-import { ChapterDto, LessonDto } from '../../types';
+import { CourseDetailResponse } from '../../types';
 import styles from './CurriculumSidebar.module.css';
-export default function CurriculumSidebar({
-  chapters,
-  activeLessonId,
-  onLessonSelect,
-}: {
-  chapters: ChapterDto[];
-  activeLessonId: number;
-  onLessonSelect: (lesson: LessonDto) => void;
-}) {
-  const totalChapters = chapters.length;
-  const totalLessons = chapters.reduce((acc, ch) => acc + ch.lessons.length, 0);
+import { useRouter, useSearchParams } from 'next/navigation';
+
+interface CurriculumSidebarProps {
+  course: CourseDetailResponse;
+  lessonId: string | null; //현재 URL 의 lessonId
+}
+export default function CurriculumSidebar({ course, lessonId }: CurriculumSidebarProps) {
+  console.log(`course.chapters: `, course.chapters);
+  const chapters = course.chapters;
+  const router = useRouter();
+  const searchParams = useSearchParams(); //쿼리스트링 읽기 ?부터
+
+  const handleLessonSelect = (lessonId: number) => {
+    // 기존 쿼리 파라미터를 유지하면서 lessonId 만 교체
+    const params = new URLSearchParams(searchParams.toString()); //쿼리스트링 조작하기
+    params.set('lessonId', lessonId.toString());
+    // URL 변경(페이지 전체 새로고침 없이 URL 만 업데이트)
+    router.push(`?${params.toString()}`);
+  };
 
   return (
     <aside className={styles.sidebar}>
       <div className={styles.sidebarHeader}>
         <h3 className={styles.sidebarTitle}>Course Curriculum</h3>
         <p className={styles.sidebarSummary}>
-          {totalChapters} Chapters • {totalLessons} Lessons
+          요약
+          {/*{totalChapters} Chapters • {totalLessons} Lessons*/}
         </p>
       </div>
       <div className={styles.chapterList}>
@@ -29,9 +38,9 @@ export default function CurriculumSidebar({
                 <li
                   key={lesson.lessonId}
                   className={`${styles.lessonItem} ${
-                    activeLessonId === lesson.lessonId ? styles.activeLesson : ''
+                    lessonId === String(lesson.lessonId) ? styles.activeLesson : ''
                   }`}
-                  onClick={() => onLessonSelect(lesson)}
+                  onClick={() => handleLessonSelect(lesson.lessonId)}
                 >
                   <span>{lesson.title}</span>
                   <span className={styles.lessonDuration}>05:30</span>

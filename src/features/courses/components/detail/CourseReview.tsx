@@ -1,24 +1,24 @@
 import styles from './CourseReview.module.css';
-import { CourseDetailResponse, Reviews } from '@/features/courses/types';
+import { ReviewListResponse } from '@/features/courses/types';
 
 interface CourseReviewProps {
-  course: CourseDetailResponse & Reviews; // MOCK DATA TYPE: Reviews
+  reviews: ReviewListResponse;
 }
-export default function CourseReview({ course }: CourseReviewProps) {
+export default function CourseReview({ reviews: { reviews: items } }: CourseReviewProps) {
   return (
     <div className={styles.reviewSection}>
       <h2 className={styles.sectionTitle}>리뷰</h2>
-      {course.reviews && course.reviews.length > 0 ? (
+      {items && items.length > 0 ? (
         <div className={styles.reviewList}>
-          {course.reviews.map((review) => (
-            <div key={review.id} className={styles.reviewItem}>
+          {items.map((review) => (
+            <div key={review.reviewId} className={styles.reviewItem}>
               <div className={styles.reviewHeader}>
-                <span className={styles.reviewAuthor}>{review.userName}</span>
+                <span className={styles.reviewAuthor}>{review.userNickname}</span>
                 <span className={styles.reviewRating}>⭐ {review.rating}</span>
                 <br />
                 <span className={styles.reviewDate}>{review.createdAt}</span>
               </div>
-              <p className={styles.reviewContent}>{review.content}</p>
+              <p className={styles.reviewContent}>{review.comment}</p>
             </div>
           ))}
         </div>

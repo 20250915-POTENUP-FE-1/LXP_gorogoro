@@ -1,5 +1,6 @@
 export type Difficulty = 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED';
 export type TabKey = 'description' | 'curriculum' | 'review' | 'request';
+export type QnaStatus = 'OPENED' | 'ANSWERED' | 'DELETED';
 
 export interface Category {
   id: number;
@@ -17,17 +18,29 @@ export interface CategoriesResponse {
   contents: Category[];
 }
 
+/** GET /api/courses (강좌 목록 조회) 응답*/
+export interface CoursesResponse {
+  contents: Course[];
+}
+
+export interface CourseCategoryDto {
+  id: number;
+  name: string;
+  parent: CourseSubCategoryDto;
+}
+
+export interface CourseSubCategoryDto {
+  id: number;
+  name: string;
+}
+
 export interface Course {
   courseId: number;
   title: string;
   price: number;
   name: string;
   coverImageUrl: string;
-}
-
-/** GET /api/courses (강좌 목록 조회) 응답*/
-export interface CoursesResponse {
-  contents: Course[];
+  category: CourseCategoryDto;
 }
 
 /** GET /api/courses/{id} (강좌 상세) 응답 DTO(Data Transfer Object) */
@@ -68,59 +81,6 @@ export interface LessonDto {
   title: string;
   resourceUrl: string;
 }
-//MOCK DATA TYPE
-export interface Reviews {
-  reviews: ReviewDto[];
-}
-
-export interface ReviewDto {
-  id: number;
-  userName: string;
-  rating: number;
-  createdAt: string;
-  content: string;
-}
-
-export interface Qna {
-  qna: ThreadDto[];
-}
-
-export type QnaStatus = 'answered' | 'pending';
-
-export type UserRole = 'student' | 'instructor';
-
-export interface Author {
-  name: string;
-  role: UserRole;
-  profileImage?: string; // Optional for now
-}
-
-export interface ReplyDto {
-  id: number;
-  content: string;
-  author: Author;
-  createdAt: string;
-}
-
-export interface ThreadDto {
-  id: number;
-  lessonId: number; // Linked Lesson ID
-  lessonTitle: string; // Denormalized title
-  title: string;
-  content: string;
-  status: QnaStatus;
-  author: Author;
-  createdAt: string;
-  replies: ReplyDto[];
-  readCount?: number;
-}
-
-export type CourseLearnPageModel = CourseDetailResponse & {
-  progress?: number;
-  activeLessonId: number;
-  activeLesson: LessonDto;
-  qna: ThreadDto[];
-};
 
 /** DELETE /api/courses/{courseId}/chapters 요청 바디 */
 export interface DeleteChaptersRequest {
@@ -132,9 +92,114 @@ export interface DeleteLessonsRequest {
   lessonIds: number[];
 }
 
-// 학습용 상세 조회 (수강자 전용 - resourceUrl 포함) - 성훈님이 미리 만들어 놓은거
-export interface CourseLearn extends Course {
-  progress?: number; // 진행률 (0-100)
-  lastChapterSeq?: number; // 마지막 학습 챕터
-  lastLessonSeq?: number; // 마지막 학습 레슨
+/** GET /api/courses/{courseId}/reviews 응답 */
+export interface ReviewItemDto {
+  reviewId: number;
+  courseId: number;
+  userId: number;
+  userNickname: string;
+  comment: string;
+  title: string;
+  rating: number;
+  createdAt: string;
 }
+
+export interface ReviewListResponse {
+  reviews: ReviewItemDto[];
+}
+
+/** POST /api/courses/{courseId}/reviews 요청 바디 */
+/** PUT /api/courses/{ courseId }/reviews/{ reviewId } 요청 바디 */
+export interface ReviewRequest {
+  title: string;
+  comment: string;
+  rating: number;
+}
+
+/**
+ * GET /api/courses/{courseId}/lessons/{lessonId}/qna
+ * 레슨 단위 root 질문 목록 조회 응답
+ */
+export type LessonQnaItemDto = {
+  questionId: number;
+  courseId: number;
+  lessonId: number;
+  title: string;
+  authorId: number;
+  authorNickname: string;
+  status: QnaStatus;
+  replyCount: number;
+  lastActivityAt: string; // ISO-8601
+};
+
+export type LessonQnaListResponse = {
+  questions: LessonQnaItemDto[];
+};
+
+/**
+ * GET /api/courses/{courseId}/lessons/{lessonId}/qna/{questionId}/thread
+ * 스레드 상세 조회 응답
+ */
+export type QnaThreadQuestionDto = {
+  questionId: number;
+  isRoot: boolean;
+  title: string | null; // 답변은 null
+  content: string;
+  authorId: number;
+  authorNickname: string;
+  createdAt: string; // ISO-8601
+};
+
+export type QnaThreadResponse = {
+  threadId: string; // UUID
+  courseId: number;
+  lessonId: number;
+  instructorId: number;
+  status: QnaStatus;
+  lastActivityAt: string; // ISO-8601
+  questions: QnaThreadQuestionDto[]; // createdAt ASC
+};
+
+/**
+ * POST /api/courses/{courseId}/lessons/{lessonId}/qna
+ * 질문 생성 요청
+ */
+export type CreateQnaQuestionRequest = {
+  title: string;
+  content: string;
+};
+
+/**
+ * POST /api/courses/{courseId}/lessons/{lessonId}/qna/{questionId}/replies
+ * 답변 추가 요청
+ */
+export type CreateQnaReplyRequest = {
+  content: string;
+};
+
+/**
+ * PATCH /api/courses/{courseId}/lessons/{lessonId}/qna/{questionId}
+ * 질문/답변 수정 요청
+ * - 답변인 경우 title은 무시됨(서버)
+ */
+export type UpdateQnaRequest = {
+  title?: string;
+  content?: string;
+};
+
+/**
+ * GET /api/qna/instructors/unanswered
+ * 강사 미답변 질문 조회 응답
+ */
+export type UnansweredQnaItemDto = {
+  questionId: number;
+  courseId: number;
+  lessonId: number;
+  title: string;
+  authorId: number;
+  lastActivityAt: string; // ISO-8601
+};
+
+export type UnansweredQnaResponse = {
+  questions: UnansweredQnaItemDto[];
+};

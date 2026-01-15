@@ -5,21 +5,21 @@ import { useState } from 'react';
 import CourseDescription from '@/features/courses/components/detail/CourseDescription';
 import CourseReview from '@/features/courses/components/detail/CourseReview';
 import CourseCurriculumView from '@/features/courses/components/detail/CourseCurriculumView';
-import { CourseDetailResponse, Qna, Reviews, TabKey } from '@/features/courses/types';
+import { CourseDetailResponse, ReviewListResponse, TabKey } from '@/features/courses/types';
 
 interface CourseTabsSectionProps {
-  course: CourseDetailResponse & Reviews & Qna;
+  course: CourseDetailResponse;
+  reviews: ReviewListResponse;
 }
-export default function CourseTabsSectionClient({ course }: CourseTabsSectionProps) {
+export default function CourseTabsSectionClient({ course, reviews }: CourseTabsSectionProps) {
   const [activeTab, setActiveTab] = useState<TabKey>('description');
-
   return (
     <>
       <CourseTabs activeTab={activeTab} handleChangeTab={setActiveTab} />
       <section className={styles.section}>
         {activeTab === 'description' && <CourseDescription course={course} />}
         {activeTab === 'curriculum' && <CourseCurriculumView course={course} />}
-        {activeTab === 'review' && <CourseReview course={course} />}
+        {activeTab === 'review' && <CourseReview reviews={reviews} />}
       </section>
     </>
   );

@@ -1,9 +1,9 @@
 import {
   CourseDetailResponse,
   CoursesResponse,
-  Qna,
-  Reviews,
-  CourseLearnPageModel,
+  LessonQnaListResponse,
+  QnaThreadResponse,
+  ReviewListResponse,
 } from '@/features/courses/types';
 
 export const MOCK_COURSES: CoursesResponse = {
@@ -14,6 +14,14 @@ export const MOCK_COURSES: CoursesResponse = {
       price: 55000,
       name: '김프론트',
       coverImageUrl: 'https://picsum.photos/seed/course1/400/300',
+      category: {
+        id: 7,
+        name: '프론트엔드',
+        parent: {
+          id: 1,
+          name: '개발·프로그래밍',
+        },
+      },
     },
     {
       courseId: 2,
@@ -21,6 +29,14 @@ export const MOCK_COURSES: CoursesResponse = {
       price: 60000,
       name: '이타입',
       coverImageUrl: 'https://picsum.photos/seed/course2/400/300',
+      category: {
+        id: 7,
+        name: '프론트엔드',
+        parent: {
+          id: 1,
+          name: '개발·프로그래밍',
+        },
+      },
     },
     {
       courseId: 3,
@@ -28,10 +44,19 @@ export const MOCK_COURSES: CoursesResponse = {
       price: 72000,
       name: '박넥스트',
       coverImageUrl: 'https://picsum.photos/seed/course3/400/300',
+      category: {
+        id: 7,
+        name: '프론트엔드',
+        parent: {
+          id: 1,
+          name: '개발·프로그래밍',
+        },
+      },
     },
   ],
 };
-export const MOCK_COURSE_DETAIL: CourseDetailResponse & Reviews & Qna = {
+
+export const MOCK_COURSE_DETAIL: CourseDetailResponse = {
   courseId: 3,
   title: 'React + TypeScript로 만드는 LXP 실전',
   summary: '실무형 React/TS 패턴으로 강의 상세/목록 UI를 빠르게 완성합니다.',
@@ -41,9 +66,9 @@ export const MOCK_COURSE_DETAIL: CourseDetailResponse & Reviews & Qna = {
   accessDays: 30,
   categoryDetail: {
     categoryId: 1,
-    name: '개발・프로그래밍',
+    name: '개발·프로그래밍',
     subCategoryDetailDto: {
-      subCategoryId: 11,
+      subCategoryId: 7,
       name: '프론트엔드',
     },
   },
@@ -57,11 +82,7 @@ export const MOCK_COURSE_DETAIL: CourseDetailResponse & Reviews & Qna = {
       chapterId: 1,
       title: 'OT & 환경 세팅',
       lessons: [
-        {
-          lessonId: 1,
-          title: '강의 소개',
-          resourceUrl: 'https://example.com/lesson/1',
-        },
+        { lessonId: 1232398472, title: '강의 소개', resourceUrl: 'https://example.com/lesson/1' },
         {
           lessonId: 2,
           title: '프로젝트 구조 살펴보기',
@@ -73,16 +94,8 @@ export const MOCK_COURSE_DETAIL: CourseDetailResponse & Reviews & Qna = {
       chapterId: 2,
       title: '강의 상세 페이지 UI 구현',
       lessons: [
-        {
-          lessonId: 1,
-          title: '상세 레이아웃 만들기',
-          resourceUrl: 'https://example.com/lesson/3',
-        },
-        {
-          lessonId: 2,
-          title: '탭 컴포넌트 구성하기',
-          resourceUrl: 'https://example.com/lesson/4',
-        },
+        { lessonId: 3, title: '상세 레이아웃 만들기', resourceUrl: 'https://example.com/lesson/3' },
+        { lessonId: 4, title: '탭 컴포넌트 구성하기', resourceUrl: 'https://example.com/lesson/4' },
       ],
     },
     {
@@ -90,222 +103,191 @@ export const MOCK_COURSE_DETAIL: CourseDetailResponse & Reviews & Qna = {
       title: '커리큘럼 렌더링',
       lessons: [
         {
-          lessonId: 1,
+          lessonId: 5,
           title: '챕터/레슨 리스트 렌더링',
           resourceUrl: 'https://example.com/lesson/5',
         },
       ],
     },
   ],
+};
+export const MOCK_REVIEWS: ReviewListResponse = {
   reviews: [
     {
-      id: 1,
-      userName: '김지민',
+      reviewId: 1,
+      userNickname: '김지민',
+      userId: 1001,
+      courseId: 12314,
+      title: '정말 도움돼요',
+      comment: '설명이 깔끔하고 예제 흐름이 좋아서 따라가기 편했어요!',
       rating: 5,
-      createdAt: '2026-01-06',
-      content: '설명이 깔끔하고 예제 흐름이 좋아서 따라가기 편했어요!',
+      createdAt: '2026-01-06T00:00:00.000Z',
     },
     {
-      id: 2,
-      userName: '이서연',
+      reviewId: 2,
+      userNickname: '이서연',
+      userId: 13,
+      courseId: 12342314,
+      title: '실무에 도움 됨',
+      comment: '커리큘럼 구성도 좋고 UI 구현 팁이 실무에 도움 됐습니다.',
       rating: 4,
-      createdAt: '2026-01-07',
-      content: '커리큘럼 구성도 좋고 UI 구현 팁이 실무에 도움 됐습니다.',
+      createdAt: '2026-01-07T00:00:00.000Z',
     },
     {
-      id: 3,
-      userName: '박도현',
+      reviewId: 3,
+      userNickname: '박도현',
+      userId: 128,
+      courseId: 314,
+      title: '다음 강의도 기대',
+      comment: '탭/사이드바 구성 아이디어 얻었어요. 다음 강의도 기대!',
       rating: 5,
-      createdAt: '2026-01-08',
-      content: '탭/사이드바 구성 아이디어 얻었어요. 다음 강의도 기대!',
-    },
-  ],
-  qna: [
-    {
-      id: 101,
-      lessonId: 1, // OT & 환경 세팅 > 강의 소개
-      lessonTitle: '강의 소개',
-      title: '강의 난이도는 어느 정도인가요?',
-      status: 'answered',
-      author: {
-        name: '박서현',
-        role: 'student',
-      },
-      createdAt: '2026-01-05T02:20:00.000Z',
-      content: 'React는 조금 해봤는데 TypeScript가 처음이에요. 따라갈 수 있을까요?',
-      replies: [
-        {
-          id: 1,
-          content:
-            '네 가능합니다! 초반에 TS 기초 문법부터 차근차근 설명하고, 실습은 단계별로 진행합니다.',
-          author: {
-            name: '고로고로 강사',
-            role: 'instructor',
-          },
-          createdAt: '2026-01-05T05:10:00.000Z',
-        },
-      ],
-      readCount: 15,
-    },
-    {
-      id: 102,
-      lessonId: 1,
-      lessonTitle: '강의 소개',
-      title: '수강 기간 연장도 되나요?',
-      status: 'pending',
-      author: {
-        name: '김도윤',
-        role: 'student',
-      },
-      createdAt: '2026-01-07T11:40:00.000Z',
-      content: 'accessDays 끝나면 자동으로 종료되는지, 연장 구매가 가능한지 궁금해요.',
-      replies: [],
-      readCount: 8,
-    },
-    {
-      id: 103,
-      lessonId: 3, // 강의 상세 페이지 UI 구현 > 상세 레이아웃 만들기
-      lessonTitle: '상세 레이아웃 만들기',
-      title: '커리큘럼에 실습 코드 제공되나요?',
-      status: 'answered',
-      author: {
-        name: '이하린',
-        role: 'student',
-      },
-      createdAt: '2026-01-08T01:05:00.000Z',
-      content: '실습마다 브랜치로 제공되는지, zip 다운로드 형태인지 궁금합니다.',
-      replies: [
-        {
-          id: 2,
-          content: '실습은 챕터별 브랜치로 제공하고, 강의 자료에 GitHub 링크도 함께 안내드려요.',
-          author: {
-            name: '고로고로 강사',
-            role: 'instructor',
-          },
-          createdAt: '2026-01-08T03:15:00.000Z',
-        },
-        {
-          id: 3,
-          content: '감사합니다! 바로 수강신청 할게요.',
-          author: {
-            name: '이하린',
-            role: 'student',
-          },
-          createdAt: '2026-01-08T03:30:00.000Z',
-        },
-      ],
-      readCount: 24,
+      createdAt: '2026-01-08T00:00:00.000Z',
     },
   ],
 };
-export const MOCK_COURSE_LEARN: CourseLearnPageModel = {
-  courseId: 101,
-  title: '마이크로서비스 아키텍처 기초',
-  summary: '모놀리식에서 MSA로 넘어가기 위한 핵심 개념을 학습합니다.',
-  description:
-    '마이크로서비스의 기본 개념부터 통신 패턴, 데이터 일관성까지 실무 관점으로 설명합니다.',
-  price: 99000,
-  accessDays: 30,
-  coverImageUrl:
-    'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600&q=80&auto=format&fit=crop',
-  difficulty: 'BEGINNER',
-  instructorName: '김성훈',
-  instructorId: 7,
-  categoryDetail: {
-    categoryId: 1,
-    name: '개발·프로그래밍',
-    subCategoryDetailDto: {
-      subCategoryId: 11,
-      name: '백엔드',
-    },
-  },
-
-  chapters: [
+//루트 퀘스천(lesson 단위 qna 리스트)
+//GET `/api/courses/{courseId}/lessons/{lessonId}/qna` 응답
+// getLessonQna(courseId, lessonId)
+export const MOCK_LESSON_QNA_LIST: LessonQnaListResponse = {
+  questions: [
     {
-      chapterId: 1,
-      title: 'Foundation of Microservices',
-      lessons: [
-        {
-          lessonId: 1001,
-          title: 'Why Microservices?',
-          resourceUrl: 'https://example.com/video/1001',
-        },
-        {
-          lessonId: 1002,
-          title: 'Bounded Context 이해',
-          resourceUrl: 'https://example.com/video/1002',
-        },
-      ],
+      questionId: 23421234, // 고유값
+      courseId: 101,
+      lessonId: 1232398472, //순서보장 아님
+      title: '강의 난이도는 어느 정도인가요?',
+      authorId: 42, //학생
+      authorNickname: '장권영',
+      status: 'ANSWERED',
+      replyCount: 2,
+      lastActivityAt: '2026-01-05T05:10:00.000Z',
     },
     {
-      chapterId: 2,
-      title: 'Communication Patterns',
-      lessons: [
-        {
-          lessonId: 2001,
-          title: 'Sync vs Async',
-          resourceUrl: 'https://example.com/video/2001',
-        },
-        {
-          lessonId: 2002,
-          title: 'API Gateway 패턴',
-          resourceUrl: 'https://example.com/video/2002',
-        },
-      ],
+      questionId: 79892342, // 고유값
+      courseId: 101,
+      lessonId: 1232398472, //순서보장 아님
+      title: '수강 기간 연장도 되나요?',
+      authorId: 43, //학생
+      authorNickname: '안윤선',
+      status: 'ANSWERED',
+      replyCount: 2,
+      lastActivityAt: '2026-01-07T11:40:00.000Z',
+    },
+    {
+      questionId: 13847250, // 고유값
+      courseId: 101,
+      lessonId: 1232398472, //순서보장 아님
+      title: '커리큘럼에 실습 코드 제공되나요?',
+      authorId: 44, //학생
+      authorNickname: '정승일',
+      status: 'OPENED',
+      replyCount: 0,
+      lastActivityAt: '2026-01-08T03:30:00.000Z',
     },
   ],
-
-  // learn 전용
-  progress: 35,
-  activeLessonId: 1001,
-  activeLesson: {
-    lessonId: 1001,
-    title: 'Why Microservices?',
-    resourceUrl: 'https://example.com/video/1001',
+};
+// export const MOCK_QNA_THREAD: QnaThreadResponse = {
+//   threadId: '550e8400-e29b-41d4-a716-446655440000',
+//   courseId: 101,
+//   lessonId: 1232398472,
+//   instructorId: 1001, // ( 선생님이 답변 안달았으면 : null )
+//   status: 'ANSWERED',
+//   lastActivityAt: '2026-01-05T05:10:00.000Z',
+//   questions: [
+//     {
+//       questionId: 23421234,
+//       isRoot: true,
+//       title: '리액트 난이도 어떤가요?',
+//       content: '리액트 한번 수강해봤어요. 훅 다룰줄 몰라요.',
+//       authorId: 42, //학생(질문): 루트
+//       authorNickname: '장권영',
+//       createdAt: '2026-01-05T02:20:00.000Z',
+//     },
+//     {
+//       questionId: 999999,
+//       isRoot: false,
+//       title: null,
+//       content: '생각보다 안어려워요.',
+//       authorId: 1001, //선생님(답변)
+//       authorNickname: '강보람 강사',
+//       createdAt: '2026-01-05T02:20:00.000Z',
+//     },
+//     {
+//       questionId: 8888888,
+//       isRoot: false,
+//       title: null,
+//       content: '답변 감사합니다.',
+//       authorId: 1003, //학생(답변)
+//       authorNickname: '장권영',
+//       createdAt: '2026-01-05T05:10:00.000Z',
+//     },
+//   ],
+// };
+// 목데이터를 ID별로 매핑
+export const MOCK_QNA_THREAD: Record<number, QnaThreadResponse> = {
+  23421234: {
+    threadId: 'thread-1',
+    courseId: 101,
+    lessonId: 1232398472,
+    instructorId: 1001,
+    status: 'ANSWERED',
+    lastActivityAt: '2026-01-03',
+    questions: [
+      {
+        questionId: 23421234,
+        isRoot: true,
+        title: '난이도 문의',
+        content: '리액트 난이도 어떤가요?',
+        authorId: 42,
+        authorNickname: '장권영',
+        createdAt: '2026-01-02',
+      },
+      {
+        questionId: 999999,
+        isRoot: false,
+        title: null,
+        content: '안 어려워요!',
+        authorId: 1001,
+        authorNickname: '강보람 강사',
+        createdAt: '2026-01-03',
+      },
+    ],
   },
-
-  // lesson QnA: ThreadDto가 lessonId/lessonTitle을 들고 있으니 연결이 쉬움
-  qna: [
-    {
-      id: 1,
-      lessonId: 1001,
-      lessonTitle: 'Why Microservices?',
-      title: '모놀리식과 MSA의 가장 큰 차이는 뭔가요?',
-      content: '개념적으로는 알겠는데 실무에서 어떤 점이 제일 달라요?',
-      status: 'answered',
-      author: {
-        name: '박학생',
-        role: 'student',
+  79892342: {
+    threadId: 'thread-2',
+    courseId: 101,
+    lessonId: 1232398472,
+    instructorId: 1020,
+    status: 'ANSWERED',
+    lastActivityAt: '2026-12-03',
+    questions: [
+      {
+        questionId: 79892342,
+        isRoot: true,
+        title: '연장 문의',
+        content: '수강 기간 연장 되나요?',
+        authorId: 50,
+        authorNickname: '안윤선',
+        createdAt: '2025-12-01',
       },
-      createdAt: '2026-01-10T10:15:00.000Z',
-      replies: [
-        {
-          id: 11,
-          content:
-            '배포 단위와 장애 전파 범위가 가장 크게 달라집니다. 팀/도메인 분리 관점도 함께 보시면 좋아요.',
-          author: {
-            name: '김성훈',
-            role: 'instructor',
-          },
-          createdAt: '2026-01-10T11:00:00.000Z',
-        },
-      ],
-      readCount: 12,
-    },
-    {
-      id: 2,
-      lessonId: 1001,
-      lessonTitle: 'Why Microservices?',
-      title: 'MSA는 무조건 좋은 선택인가요?',
-      content: '규모가 작아도 도입할 가치가 있나요?',
-      status: 'pending',
-      author: {
-        name: '최학습',
-        role: 'student',
+      {
+        questionId: 111111,
+        isRoot: false,
+        title: null,
+        content: '네, 가능합니다.',
+        authorId: 1020,
+        authorNickname: '강보람 강사',
+        createdAt: '2025-12-02',
       },
-      createdAt: '2026-01-11T09:20:00.000Z',
-      replies: [],
-      readCount: 5,
-    },
-  ],
+      {
+        questionId: 33333,
+        isRoot: false,
+        title: '연장 문의',
+        content: '답변감사합니다!!!',
+        authorId: 50,
+        authorNickname: '안윤선',
+        createdAt: '2025-12-03',
+      },
+    ],
+  },
+  // ... 나머지 ID들도 추가
 };

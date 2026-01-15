@@ -24,6 +24,11 @@ export default function CourseItem({ course }: CourseItemProps) {
         </div>
         <div className={styles.body}>
           <h3 className={styles.title}>{course.title}</h3>
+          <p>
+            {course.category.parent.name}
+            {` > `}
+            {course.category.name}
+          </p>
           <p className={styles.price}>{course.price.toLocaleString()}원</p>
           <p className={styles.instructor}>{course.name}</p>
           <div className={styles.BtnBox}>

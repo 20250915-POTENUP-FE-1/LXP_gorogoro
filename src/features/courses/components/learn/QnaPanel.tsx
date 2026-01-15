@@ -1,91 +1,105 @@
-import React, { useState } from 'react';
-import { ThreadDto } from '../../types';
+'use client';
+import React, { useEffect, useState } from 'react';
 import styles from './QnaPanel.module.css';
+import QuestionInputForm from '@/features/courses/components/learn/QuestionInputForm';
+import { LessonQnaItemDto, QnaThreadResponse } from '../../types';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { MOCK_QNA_THREAD } from '@/app/mockData';
+import { getQnaThread } from '@/services/course.service';
 
-export default function QnaPanel({ qnaData }: { qnaData: ThreadDto[] }) {
-  const [expandedId, setExpandedId] = useState<number | null>(null);
-  const [replyContent, setReplyContent] = useState('');
+interface QnaPanelProps {
+  qnaItems: LessonQnaItemDto[];
+}
 
-  if (!qnaData || qnaData.length === 0) {
-    return <div className={styles.noQna}>등록된 질문이 없습니다.</div>;
-  }
+export default function QnaPanel({ qnaItems }: QnaPanelProps) {
+  const [expendedQuestionId, setExpendedQuestionId] = useState<number | null>(null);
+  const [thread, setThread] = useState<QnaThreadResponse | null>(null);
+  const hasQna = !!qnaItems && qnaItems.length > 0;
 
-  const toggleExpand = (id: number) => {
-    setExpandedId((prev) => (prev === id ? null : id));
+  // useSearchParams / useRouter 로 가능
+
+  // 클릭 토글 규칙: 같은 질문이면 닫고, 다른 질문이면 열기
+  const handleClickQuestion = (questionId: number) => {
+    setExpendedQuestionId((prev) => (prev === questionId ? null : questionId));
   };
 
-  const handleReplySubmit = () => {
-    if (!replyContent.trim()) return;
-    // api 호출 로직
-    console.log('Submitting reply:', replyContent);
-    alert('답변이 등록되었습니다 (Mock Action)');
-    setReplyContent('');
-  };
-
+  useEffect(() => {
+    if (expendedQuestionId === null) {
+      setThread(null);
+      return;
+    }
+    // api
+    // const fetchThread = async () => {
+    //   const data = await getQnaThread(courseId, lessonId, expendedQuestionId);
+    //   setThread(data);
+    // };
+    // fetchThread();
+    // MOCK DATA
+    const data = MOCK_QNA_THREAD[expendedQuestionId];
+    setThread(data);
+  }, [expendedQuestionId]);
   return (
-    <div className={styles.qnaList}>
-      {qnaData.map((item) => (
-        <div key={item.id} className={styles.qnaItem}>
-          <div className={styles.qnaHeader} onClick={() => toggleExpand(item.id)}>
-            <div className={styles.qnaTitleRow}>
-              <span className={styles.qnaTitle}>{item.title}</span>
-              <span
-                className={`${styles.statusBadge} ${
-                  item.status === 'answered' ? styles.statusAnswered : styles.statusPending
-                }`}
-              >
-                {item.status === 'answered' ? '답변완료' : '대기중'}
-              </span>
-            </div>
-            <div className={styles.qnaMeta}>
-              <span style={{ fontWeight: 500 }}>{item.author.name}</span>
-              {item.author.role === 'instructor' && (
-                <span className={styles.instructorBadge}>Instructor</span>
-              )}
-              <span>• {item.createdAt}</span>
-              <span>• 댓글 {item.replies.length}개</span>
-            </div>
-          </div>
+    <div className={styles.panel}>
+      <div className={styles.header}>
+        <h3 className={styles.title}>Q&amp;A</h3>
+      </div>
 
-          {/* Expanded Replies */}
-          {expandedId === item.id && (
-            <div className={styles.repliesSection}>
-              <div>
-                {item.replies.map((reply) => (
-                  <div key={reply.id} className={styles.replyCard}>
-                    <div className={styles.replyHeader}>
-                      <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <strong style={{ color: '#111827' }}>{reply.author.name}</strong>
-                        {reply.author.role === 'instructor' && (
-                          <span className={styles.instructorBadge}>Instructor</span>
-                        )}
+      <QuestionInputForm />
+
+      {!hasQna ? (
+        <div className={styles.noQna}>등록된 질문이 없습니다.</div>
+      ) : (
+        <div className={styles.qnaList}>
+          {qnaItems.map((item) => {
+            const isOpen = expendedQuestionId === item.questionId;
+            return (
+              <div key={item.questionId} className={styles.qnaItem}>
+                <button
+                  type="button"
+                  className={styles.qnaHeader}
+                  onClick={() => handleClickQuestion(item.questionId)}
+                >
+                  <div className={styles.qnaTitleRow}>
+                    <span className={styles.qnaTitle}>{item.title}</span>
+                    <span
+                      className={`${styles.statusBadge} ${
+                        item.status === 'ANSWERED' ? styles.statusAnswered : styles.statusPending
+                      }`}
+                    >
+                      {item.status === 'ANSWERED' ? '답변완료' : '대기중'}
+                    </span>
+                  </div>
+                  <div className={styles.qnaMeta}>
+                    <span className={styles.author}>{item.authorNickname}</span>
+                    <span>• 댓글 {item.replyCount}개</span>
+                    <span className={styles.date}>{item.lastActivityAt}</span>
+                  </div>
+                </button>
+
+                {isOpen && thread && (
+                  <div className={styles.threadContent}>
+                    {thread.questions?.map((q) => (
+                      <div
+                        key={q.questionId}
+                        className={`${styles.threadItem} ${
+                          q.isRoot ? styles.threadRoot : styles.threadReply
+                        }`}
+                      >
+                        <div className={styles.threadMeta}>
+                          <span className={styles.threadTitle}> {q.title}</span>
+                          <span className={styles.threadBody}>{q.content}</span>
+                          <span className={styles.threadAuthor}>{q.authorNickname}</span>
+                          <span className={styles.threadDate}>{q.createdAt}</span>
+                        </div>
                       </div>
-                      <span>{reply.createdAt}</span>
-                    </div>
-                    <div className={styles.replyContent}>{reply.content}</div>
+                    ))}
                   </div>
-                ))}
-                <div className={styles.replyForm}>
-                  <textarea
-                    className={styles.replyInput}
-                    placeholder="입력하세요."
-                    value={replyContent}
-                    onChange={(e) => setReplyContent(e.target.value)}
-                  />
-                  <div className={styles.replyActions}>
-                    <button className={styles.replyButton} onClick={handleReplySubmit}>
-                      Post Reply
-                    </button>
-                  </div>
-                </div>
+                )}
               </div>
-              {item.replies.length === 0 && (
-                <p style={{ color: '#9ca3af', fontSize: '0.9rem' }}>아직 댓글이 없습니다.</p>
-              )}
-            </div>
-          )}
+            );
+          })}
         </div>
-      ))}
+      )}
     </div>
   );
 }

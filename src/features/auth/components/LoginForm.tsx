@@ -47,7 +47,6 @@ export default function LoginForm() {
         label="이메일"
         name="email"
         type="email"
-        defaultValue="newuser@example.com"
         placeholder="Enter your email"
         errorMessage={state.errors?.email}
       />
@@ -55,7 +54,6 @@ export default function LoginForm() {
         label="비밀번호"
         name="password"
         type="password"
-        defaultValue="password1234"
         placeholder="Enter your password"
         errorMessage={state.errors?.password}
       />

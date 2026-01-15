@@ -30,6 +30,22 @@
     color: #111827;
 }
 
+.qnaContentRow {
+    display: flex;
+    margin-top: 18px;
+    margin-bottom: 8px;
+    padding:10px;
+    height:100px;
+    border-radius: 10px;
+    background-color: #f9fafb;
+}
+
+.qnaContent{
+    font-size: 1rem;
+    font-weight: 400;
+    color: #111827;
+}
+
 .qnaMeta {
     display: flex;
     align-items: center;
@@ -153,4 +169,76 @@
     background-color: #f9fafb;
     border-radius: 12px;
     border: 1px dashed #d1d5db;
+}
+
+.inputSection {
+    background-color: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.questionTitleInput{
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d1d3d8;
+    border-radius: 8px;
+    resize: vertical;
+    min-height: 20px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: #212124;
+    background-color: #f7f8fa;
+}
+.questionTitleInput:focus{
+    outline: none;
+    border-color: #d70466;
+    box-shadow: 0 0 0 2px rgba(215, 4, 102, 0.1);
+}
+.questionTextInput {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d1d3d8;
+    border-radius: 8px;
+    resize: vertical;
+    min-height: 80px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: #212124;
+    background-color: #f7f8fa;
+}
+
+.questionTextInput:focus {
+    outline: none;
+    border-color: #d70466;
+    box-shadow: 0 0 0 2px rgba(215, 4, 102, 0.1);
+}
+
+.buttonWrapper {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.submitButton {
+    background-color: #d70466;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.submitButton:hover:not(:disabled) {
+    background-color: #bd1e59;
+}
+
+.submitButton:disabled {
+    background-color: #d1d3d8;
+    cursor: not-allowed;
 }

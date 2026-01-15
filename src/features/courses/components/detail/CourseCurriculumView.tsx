@@ -1,7 +1,13 @@
 'use client';
 import styles from './CourseCurriculumView.module.css';
+import { CourseDetailResponse } from '@/features/courses/types';
+import Link from 'next/link';
 
-export default function CourseCurriculumView({ course }) {
+interface CurriculumViewProps {
+  course: CourseDetailResponse;
+}
+export default function CourseCurriculumView({ course }: CurriculumViewProps) {
+  const courseId = course.courseId;
   return (
     <div className={styles.curriculumSection}>
       <h1 className={styles.sectionTitle}>커리큘럼</h1>
@@ -15,20 +21,18 @@ export default function CourseCurriculumView({ course }) {
 
             <div className={styles.lessonList}>
               {chapter.lessons.map((lesson, lessonIdx) => (
-                <div key={lesson.lessonId ?? lessonIdx} className={styles.lessonItem}>
+                <div key={lesson.lessonId} className={styles.lessonItem}>
                   <span className={styles.lessonSeq}>{lessonIdx + 1}.</span>
                   <div className={styles.lessonInfo}>
                     <span className={styles.lessonTitle}>{lesson.title}</span>
-                    {lesson.resourceUrl && (
-                      <a
-                        href={lesson.resourceUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={styles.lessonLink}
-                      >
-                        강의 보기
-                      </a>
-                    )}
+                    <Link
+                      href={`/courses/${courseId}/learn`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.lessonLink}
+                    >
+                      강의 보기
+                    </Link>
                   </div>
                 </div>
               ))}
