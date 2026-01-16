@@ -57,9 +57,9 @@ paths:
                         reason: ""   # @NotBlank(message = "")
                       - field: "courseDifficulty"
                         reason: "강좌의 난이도를 선택해주세요"
-                      - field: "availableDays"
+                      - field: "accessDays"
                         reason: "이용가능한 날을 선택해주세요"
-                      - field: "availableDays"
+                      - field: "accessDays"
                         reason: "이용 가능한 날은 0이상 설정해주세요."
                 duplicatedSeq:
                   summary: "비즈니스 오류 - 중복 시퀀스"
@@ -168,7 +168,7 @@ paths:
                         reason: "강좌 설명은 1000자까지만 가능합니다."
                       - field: "price"
                         reason: "금액은 0보다 크게 작성해주세요."
-                      - field: "availableDays"
+                      - field: "accessDays"
                         reason: "이용 가능한 날은 0이상 설정해주세요."
                       - field: "contents[0].chapterId"
                         reason: "변경하려는 챕터의 id가 꼭 포함되어야 합니다."
@@ -522,7 +522,7 @@ components:
         - price
         - coverImageUrl
         - courseDifficulty
-        - availableDays
+        - accessDays
       properties:
         title:
           type: string
@@ -555,7 +555,7 @@ components:
           description: "강좌의 챕터 및 레슨 구성"
           items:
             $ref: '#/components/schemas/CreateChapterRequest'
-        availableDays:
+        accessDays:
           type: integer
           format: int32
           minimum: 0
@@ -687,7 +687,7 @@ components:
           description: "챕터 및 레슨 수정 정보"
           items:
             $ref: '#/components/schemas/UpdateChapterRequest'
-        availableDays:
+        accessDays:
           type: integer
           format: int32
           minimum: 0
