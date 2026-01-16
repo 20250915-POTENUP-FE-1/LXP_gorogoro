@@ -1,22 +1,27 @@
-export const resolveCoverSrc = (url?: string | null) => {
-  console.log(url);
-  if (!url || url.trim() === '') {
-    return '/assets/placeholder.png';
-  }
+'use client';
+import { useEffect, useState } from 'react';
 
-  if (url.startsWith('ls://')) {
-    const key = url.replace('ls://', '');
+const PLACEHOLDER = '/assets/placeholder.png';
 
-    // 1. 서버 사이드 환경(Node.js)인지 체크
-    if (typeof window === 'undefined') {
-      // 서버에서는 localStorage에 접근할 수 없으므로 기본 이미지 반환
-      return '/assets/placeholder.png';
+export function useResolveCoverSrc(url?: string | null) {
+  const [src, setSrc] = useState(() => {
+    if (!url) return PLACEHOLDER;
+    if (url.startsWith('ls://')) return PLACEHOLDER;
+    return url;
+  });
+
+  useEffect(() => {
+    if (!url) return setSrc(PLACEHOLDER);
+
+    if (!url.startsWith('ls://')) {
+      setSrc(url);
+      return;
     }
 
-    // 2. 브라우저 환경일 때만 localStorage 호출
+    const key = url.replace('ls://', '');
     const saved = localStorage.getItem(key);
-    return saved ?? '/assets/placeholder.png';
-  }
+    setSrc(saved ?? PLACEHOLDER);
+  }, [url]);
 
-  return url;
-};
+  return src;
+}

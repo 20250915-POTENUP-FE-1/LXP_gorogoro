@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { InstructorCourse } from '../types';
 import Image from 'next/image';
 import { Button } from '@/shared/components/ui/Button';
-import { resolveCoverSrc } from '@/shared/utils/resolveCoverSrc';
+import { useResolveCoverSrc } from '@/shared/utils/resolveCoverSrc';
 
 interface InstructorCourseItemProps {
   course: InstructorCourse;
@@ -27,7 +27,7 @@ export default function InstructorCourseItem({ course }: InstructorCourseItemPro
       <div className={styles.thumbnail}>
         <Image
           className={styles.image}
-          src={resolveCoverSrc(course.coverImageUrl)}
+          src={useResolveCoverSrc(course.coverImageUrl)}
           alt={course.title}
           width={500}
           height={300}
