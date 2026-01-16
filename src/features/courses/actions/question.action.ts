@@ -6,21 +6,21 @@ import { isBackendError } from '@/shared/types/types';
 import { mapQuestionError } from '@/features/courses/utils/questionErrorMapper';
 
 export const questionAction = async (
-  courseId,
-  lessonId,
-  prevState,
+  courseId: number,
+  lessonId: number,
+  prevState: ActionState<QuestionFormData>,
   formData: FormData,
 ): Promise<ActionState<QuestionFormData>> => {
   const title = formData.get('questionTitle') as string;
   const content = formData.get('questionContent') as string;
 
-  if (!title || !content) {
+  if (!title.trim() || !content.trim()) {
     return {
-      success: false,
       data: {
         title,
         content,
       },
+      success: false,
       message: '제목과 내용 모두 입력하세요',
     };
   }

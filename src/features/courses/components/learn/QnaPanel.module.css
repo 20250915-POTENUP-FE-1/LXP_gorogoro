@@ -122,10 +122,9 @@
     display: flex;
     justify-content:space-between;
     align-items: center;
-
+    gap: 16px;
 }
 .replyInput {
-    width: 80%;
     padding: 10px;
     border: 1px solid #d1d5db;
     border-radius: 8px;
@@ -142,12 +141,8 @@
     box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
-.replyActions {
-
-}
-
 .replyButton {
-    padding: 10px 24px;
+    padding: 10px 20px;
     background-color: #4f46e5;
     color: white;
     border: none;
@@ -156,6 +151,8 @@
     font-size: 0.95rem;
     cursor: pointer;
     transition: background-color 0.2s;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .replyButton:hover {

@@ -12,6 +12,11 @@ export default function CurriculumSidebar({ course, lessonId }: CurriculumSideba
   const router = useRouter();
   const searchParams = useSearchParams(); //쿼리스트링 읽기 ?부터
 
+  console.log(course.chapters);
+  const totalChapters = course.chapters.length;
+  const lessonArray = course.chapters.map((ch) => ch.lessons.length);
+  const lessonArraySum = lessonArray.reduce((a, r) => a + r);
+
   const handleLessonSelect = (lessonId: number) => {
     // 기존 쿼리 파라미터를 유지하면서 lessonId 만 교체
     const params = new URLSearchParams(searchParams.toString()); //쿼리스트링 조작하기
@@ -25,8 +30,7 @@ export default function CurriculumSidebar({ course, lessonId }: CurriculumSideba
       <div className={styles.sidebarHeader}>
         <h3 className={styles.sidebarTitle}>Course Curriculum</h3>
         <p className={styles.sidebarSummary}>
-          요약
-          {/*{totalChapters} Chapters • {totalLessons} Lessons*/}
+          {totalChapters} Chapters • {lessonArraySum} Lessons
         </p>
       </div>
       <div className={styles.chapterList}>

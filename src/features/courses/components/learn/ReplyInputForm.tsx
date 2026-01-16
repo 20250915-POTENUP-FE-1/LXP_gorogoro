@@ -1,21 +1,20 @@
 'use client';
 import styles from '@/features/courses/components/learn/QnaPanel.module.css';
 import React, { useState } from 'react';
+import Textarea from '@/shared/components/ui/Textarea';
+import { Button } from '@/shared/components/ui/Button';
 
 export default function ReplyInputForm() {
-  const [replyContent, setReplyContent] = useState('');
-  const handleReplySubmit = () => {};
   return (
     <form className={styles.replyForm}>
-      <textarea
+      <Textarea
         className={styles.replyInput}
-        placeholder="입력하세요."
-        value={replyContent}
-        onChange={(e) => setReplyContent(e.target.value)}
+        placeholder="답변을 입력하세요."
+        name="replyContent"
       />
       <div className={styles.replyActions}>
-        <button type="submit" className={styles.replyButton} onClick={handleReplySubmit}>
-          Post Reply
+        <button type="submit" className={styles.replyButton}>
+          답변 등록
         </button>
       </div>
     </form>
