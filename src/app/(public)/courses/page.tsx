@@ -20,9 +20,9 @@ export const metadata: Metadata = {
 
 export default async function CoursePage() {
   // api 연동
-  // const { contents: courses } = getCourses();
+  const { contents: courses } = await getCourses();
   // MOCK DATA
-  const { contents: courses } = MOCK_COURSES;
+  // const { contents: courses } = MOCK_COURSES;
   return (
     <main className={styles.page}>
       <div className={`page-wrapper ${styles.container}`}>

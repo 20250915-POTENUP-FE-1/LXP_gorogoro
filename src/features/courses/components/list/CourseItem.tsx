@@ -4,6 +4,7 @@ import styles from './CourseItem.module.css';
 import { Course } from '../../types';
 import Image from 'next/image';
 import { Button } from '@/shared/components/ui/Button';
+import { resolveCoverSrc } from '@/shared/utils/resolveCoverSrc';
 
 interface CourseItemProps {
   course: Course;
@@ -16,7 +17,7 @@ export default function CourseItem({ course }: CourseItemProps) {
         <div className={styles.imageWrapper}>
           <Image
             className={styles.image}
-            src={course.coverImageUrl}
+            src={resolveCoverSrc(course.coverImageUrl)}
             alt=""
             width={200}
             height={200}

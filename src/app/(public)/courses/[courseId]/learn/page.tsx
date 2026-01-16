@@ -14,9 +14,13 @@ export default async function CourseLearnPage({
   const { courseId: courseIdStr } = await params;
   const { lessonId: lessonIdStr } = await searchParams;
   const courseId = Number(courseIdStr);
-  const lessonId = Number(lessonIdStr);
+
+  const firstLessonId = MOCK_COURSE_DETAIL.chapters[0].lessons[0].lessonId;
+  const effectiveLessonId = lessonIdStr ?? String(firstLessonId);
+  const lessonId = effectiveLessonId ? Number(effectiveLessonId) : null;
+
   // api 연동
-  //const course: CourseDetailResponse = await getCourseById(courseId);
+  // const course: CourseDetailResponse = await getCourseById(courseId);
   // 레슨 단위 qna 리스트 조회 api - getLessonQna()
   // 응답에 questionId,courseId,lessonId,title,authorId,status,replyCount,lastActivityAt
   // const qnaList: LessonQnaListResponse = lessonId
@@ -27,7 +31,9 @@ export default async function CourseLearnPage({
   const course = MOCK_COURSE_DETAIL;
   let qnaList: LessonQnaListResponse;
   qnaList = {
-    questions: MOCK_LESSON_QNA_LIST.questions.filter((q) => String(q.lessonId) === lessonIdStr),
+    questions: MOCK_LESSON_QNA_LIST.questions.filter(
+      (q) => String(q.lessonId) === effectiveLessonId,
+    ),
   };
 
   return (

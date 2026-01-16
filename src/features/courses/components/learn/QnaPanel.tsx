@@ -28,19 +28,19 @@ export default function QnaPanel({ qnaItems }: QnaPanelProps) {
     setExpendedQuestionId((prev) => (prev === questionId ? null : questionId));
   };
 
-  useEffect(() => {
-    // api 연결1
-    // const fetchThread = async () => {
-    //   const data = await getQnaThread(courseId, lessonId, expendedQuestionId);
-    //   setThreads(data);
-    // };
-    // fetchThread();
-    // api 연결2
-    // (async () => {
-    //   const data = await getQnaThread(courseId, lessonId, expendedQuestionId);
-    //   setThreads(data);
-    // })();
-  }, [expendedQuestionId]);
+  // useEffect(() => {
+  // api 연결1
+  // const fetchThread = async () => {
+  //   const data = await getQnaThread(courseId, lessonId, expendedQuestionId);
+  //   setThreads(data);
+  // };
+  // fetchThread();
+  // api 연결2
+  // (async () => {
+  //   const data = await getQnaThread(courseId, lessonId, expendedQuestionId);
+  //   setThreads(data);
+  // })();
+  // }, [expendedQuestionId]);
 
   // MOCK DATA
   const threads = useMemo(() => {

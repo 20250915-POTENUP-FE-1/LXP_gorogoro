@@ -39,10 +39,10 @@ export default function QuestionInputForm({ courseId, lessonId }: QuestionInputF
 
   // 질문 생성 실패시
   useEffect(() => {
-    if (!state.success) {
+    if (!state.success && state.message) {
       openModal({
         title: '질문 등록 실패',
-        message: state.message,
+        message: state.message || '질문이 등록되지 않았습니다.',
         onConfirm: () => {},
       });
     }

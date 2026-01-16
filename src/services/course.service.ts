@@ -36,7 +36,7 @@ type CourseRequest = {
 };
 export const getCourses = async (params?: CourseRequest): Promise<CoursesResponse> => {
   const searchParams = new URLSearchParams();
-  if (params.categoryId) searchParams?.set('categoryId', String(params.categoryId));
+  if (params?.categoryId) searchParams?.set('categoryId', String(params.categoryId));
 
   const qs = searchParams.toString();
   const endpoint = `${COURSES_ENDPOINT}${qs ? `?${qs}` : ''}`;

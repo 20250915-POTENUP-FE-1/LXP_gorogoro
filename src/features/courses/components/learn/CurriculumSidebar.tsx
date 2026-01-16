@@ -12,10 +12,13 @@ export default function CurriculumSidebar({ course, lessonId }: CurriculumSideba
   const router = useRouter();
   const searchParams = useSearchParams(); //쿼리스트링 읽기 ?부터
 
-  console.log(course.chapters);
-  const totalChapters = course.chapters.length;
-  const lessonArray = course.chapters.map((ch) => ch.lessons.length);
-  const lessonArraySum = lessonArray.reduce((a, r) => a + r);
+  const lessonIdFromUrl = searchParams.get('lessonId');
+  const firstLessonId = String(course.chapters[0].lessons[0].lessonId);
+  const activeLessonId = lessonIdFromUrl || firstLessonId;
+
+  const totalChapters = course.chapters.length ?? 0;
+  const lessonArray = course.chapters.map((ch) => ch.lessons.length) ?? [];
+  const lessonArraySum = lessonArray.reduce((a, r) => a + r, 0);
 
   const handleLessonSelect = (lessonId: number) => {
     // 기존 쿼리 파라미터를 유지하면서 lessonId 만 교체
@@ -42,7 +45,7 @@ export default function CurriculumSidebar({ course, lessonId }: CurriculumSideba
                 <li
                   key={lesson.lessonId}
                   className={`${styles.lessonItem} ${
-                    lessonId === String(lesson.lessonId) ? styles.activeLesson : ''
+                    activeLessonId === String(lesson.lessonId) ? styles.activeLesson : ''
                   }`}
                   onClick={() => handleLessonSelect(lesson.lessonId)}
                 >
