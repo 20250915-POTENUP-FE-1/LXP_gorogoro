@@ -15,6 +15,11 @@
 
 .qnaHeader {
     cursor: pointer;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    padding: 0;
 }
 
 .qnaTitleRow {
@@ -122,10 +127,9 @@
     display: flex;
     justify-content:space-between;
     align-items: center;
-
+    gap: 16px;
 }
 .replyInput {
-    width: 80%;
     padding: 10px;
     border: 1px solid #d1d5db;
     border-radius: 8px;
@@ -140,26 +144,6 @@
     outline: none;
     border-color: #6366f1;
     box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-}
-
-.replyActions {
-
-}
-
-.replyButton {
-    padding: 10px 24px;
-    background-color: #4f46e5;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 0.95rem;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.replyButton:hover {
-    background-color: #4338ca;
 }
 
 .placeholder {
@@ -241,4 +225,80 @@
 .submitButton:disabled {
     background-color: #d1d3d8;
     cursor: not-allowed;
+}
+.successMsg{
+    color:blue;
+}
+.failMsg{
+    color:red;
+}
+
+/* Thread / Comment Style Implementation */
+
+.threadContent {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.threadItem {
+    padding: 16px;
+    border-radius: 12px;
+    position: relative;
+    transition: background-color 0.2s;
+}
+
+/* Root Question - styled to stand out slightly or just clean */
+.threadRoot {
+    background-color: #fff;
+    border: 1px solid #e5e7eb;
+}
+
+/* Replies - indented and slightly different background */
+.threadReply {
+    margin-left: 32px;
+    background-color: #f9fafb;
+    border: 1px solid #f3f4f6;
+    /* optional: add a connector line logic if structure allowed, but here just indentation */
+}
+
+.threadMeta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.threadTitle {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #111827;
+}
+
+.threadBody {
+    font-size: 0.95rem;
+    color: #374151;
+    line-height: 1.6;
+    white-space: pre-wrap; /* preserve line breaks from data */
+    margin: 8px 0;
+}
+
+.threadAuthor {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.threadDate {
+    font-size: 0.75rem;
+    color: #9ca3af;
+}
+
+/* Hide br tags inside threadMeta if we want to control spacing with flex gap */
+/* Note: The TSX uses <br/>, if we flex-column, <br/> might add empty vertical space.
+   We can hide them to use gap instead for cleaner layout */
+.threadMeta br {
+    display: none;
 }

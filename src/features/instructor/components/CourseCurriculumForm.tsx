@@ -4,7 +4,7 @@ import { ChangeEvent } from 'react';
 import styles from './CourseForm.module.css';
 import { CourseFormRequest } from '../types';
 import CourseCurriculum from '@/features/instructor/components/CourseCurriculumEditor';
-import { CourseFormResponse } from '@/features/instructor/action';
+import { CourseFormResponse } from '@/features/instructor/actions/course.action';
 
 interface CourseCurriculumFormProps {
   formData: CourseFormRequest;

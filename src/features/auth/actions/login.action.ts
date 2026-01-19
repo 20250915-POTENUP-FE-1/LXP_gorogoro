@@ -2,15 +2,9 @@
 
 import { cookies } from 'next/headers';
 import { validateLoginForm } from '../validate';
-import type { LoginRequest, LoginUserInfo } from '../types';
+import { LoginRequest, LoginResponse } from '../types';
 import { ACCESS_TOKEN } from '@/shared/constants/token';
 
-type ActionState<T> = {
-  success: boolean;
-  message?: string;
-  errors?: Record<string, string>;
-  data?: T;
-};
 type CookieOptions = {
   path?: string;
   domain?: string;
@@ -54,9 +48,9 @@ function parseSetCookie(setCookie: string) {
 }
 
 export const loginAction = async (
-  prevState: ActionState<LoginUserInfo>,
+  prevState: ActionState<LoginResponse>,
   formData: FormData,
-): Promise<ActionState<LoginUserInfo>> => {
+): Promise<ActionState<LoginResponse>> => {
   const email = String(formData.get('email') ?? '');
   const password = String(formData.get('password') ?? '');
   const validation = validateLoginForm({ email, password });
@@ -81,7 +75,7 @@ export const loginAction = async (
   const data = await res.json();
   const cookieStore = await cookies();
 
-  // 1) 자바 서버가 내려준 refresh_token(Set-Cookie)을 브라우저 응답 쿠키로 "재설정"
+  // 자바 서버가 내려준 refresh_token(Set-Cookie)을 브라우저 응답 쿠키로 "재설정"
   const upstreamSetCookies = res.headers.getSetCookie?.() ?? [];
   for (const sc of upstreamSetCookies) {
     const parsed = parseSetCookie(sc);
@@ -102,9 +96,10 @@ export const loginAction = async (
   return {
     success: true,
     data: {
-      nickname: data.nickname,
-      role: data.role,
-      email,
+      userId: data.userId,
+      name: data.name,
+      email: data.email,
+      accessToken: data.accessToken,
     },
   };
 };

@@ -10,7 +10,12 @@ export default function Input({ icon, ...props }: BaseInputProps) {
 
   return (
     <div style={{ position: 'relative', width: '100%' }}>
-      <input {...rest} style={style} className={`${styles.input} ${className}`} />
+      <input
+        {...rest}
+        style={style}
+        className={`${styles.input} ${className}`}
+        placeholder={placeholder}
+      />
     </div>
   );
 }

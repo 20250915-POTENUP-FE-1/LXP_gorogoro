@@ -8,6 +8,7 @@ volumes:
   mysql-course-data:
   mysql-cart-data:
   mysql-user-data:
+  mysql-interaction-data:
   rabbit1-data:
   rabbit2-data:
   rabbit3-data:
@@ -33,7 +34,7 @@ services:
   # 1) Application Servers
   ################################
   app-course:
-    image: tkstjd565/gorogoro-course:1.4
+    image: tkstjd565/gorogoro-course:1.4.2
     container_name: app-course
     depends_on:
       mysql-course:
@@ -51,7 +52,7 @@ services:
       - RABBIT_MQ_USERNAME=appuser
       - RABBIT_MQ_PASSWORD=apppass
       - RABBITMQ_VIRTUAL_HOST=app-vhost
-      - USER_SERVER_URL=http://app-user:8080/server/users/nickname
+      - FEIGN_CLIENT_CONFIG_USER_SERVICE_URL=http://app-user:8080/server/users/nickname
     ports:
       - "8082:8080"
     networks:
@@ -119,8 +120,36 @@ services:
     networks:
       - msa-net
 
+  app-interaction:
+    image: richardcho/gorogoro-interaction:0.0.6
+    container_name: app-interaction
+    depends_on:
+      mysql-interaction:
+        condition: service_healthy
+      rabbit1:
+        condition: service_healthy
+    environment:
+      - SERVER_PORT=8080
+      - DATASOURCE_URL=jdbc:mysql://mysql-interaction:3306/interaction_db?serverTimezone=UTC&characterEncoding=UTF-8
+      - DATASOURCE_USERNAME=interaction
+      - DATASOURCE_PASSWORD=interaction_pw
+      - COURSE_API_URL=http://app-course:8080
+      - ENROLLMENT_API_URL=http://app-course:8080
+      - USER_API_URL=http://app-user:8080
+      - RABBIT_HOST=rabbit1
+      - RABBIT_ID=appuser
+      - RABBIT_PASSWORD=apppass
+      - VHOST=app-vhost
+      - COURSE_EXCHANGE=course.event.v1
+      - COURSE_DELETED_RK=course.deleted
+      - USER_EXCHANGE=user.event
+    ports:
+      - "8085:8080"
+    networks:
+      - msa-net
+
   ################################
-  # 2) MySQL (3개)
+  # 2) MySQL (4개)
   ################################
   mysql-course:
     image: mysql:8.0
@@ -182,6 +211,27 @@ services:
       - "3308:3306"
     volumes:
       - mysql-cart-data:/var/lib/mysql
+    networks:
+      - msa-net
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-proot_pw" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  mysql-interaction:
+    image: mysql:8.0
+    container_name: mysql-interaction
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_ROOT_PASSWORD=root_pw
+      - MYSQL_DATABASE=interaction_db
+      - MYSQL_USER=interaction
+      - MYSQL_PASSWORD=interaction_pw
+    ports:
+      - "3310:3306"
+    volumes:
+      - mysql-interaction-data:/var/lib/mysql
     networks:
       - msa-net
     healthcheck:

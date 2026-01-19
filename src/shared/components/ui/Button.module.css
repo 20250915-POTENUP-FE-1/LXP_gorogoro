@@ -228,6 +228,51 @@
   color: var(--gray-800);
 }
 
+.saveButton {
+  background-color: #0f172a;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 7px;
+  padding: 16px 18px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 150ms ease, transform 150ms ease, opacity 150ms ease;
+}
+
+.saveButton:hover {
+  background-color: #1e293b;
+}
+
+.saveButton:active {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+.saveButton:disabled {
+  background-color: #94a3b8;
+  cursor: not-allowed;
+}
+
+.replyButton {
+  padding: 10px 20px;
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.replyButton:hover {
+  background-color: #4338ca;
+}
+
 @media (max-width: 768px) {
   .sizeFull {
     grid-column: span 1;

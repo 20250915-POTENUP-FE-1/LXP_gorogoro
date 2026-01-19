@@ -3,16 +3,44 @@
 import styles from './ProfileEditForm.module.css';
 import { Button } from '@/shared/components/ui/Button';
 import FieldInput from '@/shared/components/ui/FieldInput';
-import React, { useActionState } from 'react';
-import {
-  updateProfileAction,
-  UpdateProfileActionState,
-} from '@/features/mypage/actions/UpdateProfileAction';
+import React, { useActionState, useEffect } from 'react';
+import { updateProfileAction } from '@/features/mypage/actions/UpdateProfileAction';
+import { useModalStore } from '@/stores/useModalStore';
+import { useRouter } from 'next/navigation';
 
-const initialState: UpdateProfileActionState = { success: true };
+const initialState = {
+  success: false,
+  message: '',
+  error: {},
+};
 
 export default function ProfileEditForm({ email, name }: { email: string; name: string }) {
   const [state, formAction, isPending] = useActionState(updateProfileAction, initialState);
+  const { openModal } = useModalStore();
+  const router = useRouter();
+
+  // 프로필 수정 성공시
+  useEffect(() => {
+    if (state.success === true) {
+      openModal({
+        title: '프로필 수정 성공',
+        message: state.message,
+        onConfirm: () => {
+          router.push('/mypage');
+        },
+      });
+    }
+  }, [state, openModal, router]);
+
+  // 프로필 수정 실패시
+  useEffect(() => {
+    if (!state.success && state.message) {
+      openModal({
+        title: '프로필 수정 실패',
+        message: '프로필 수정에 실패했습니다.',
+      });
+    }
+  }, [state.success, state.message, openModal]);
 
   return (
     <form className={styles.form} action={formAction}>
@@ -39,7 +67,6 @@ export default function ProfileEditForm({ email, name }: { email: string; name: 
             cursor: 'default',
             borderColor: 'transparent',
           }}
-          errorMessage={state.errors?.email?.[0] ?? ''}
         />
 
         <FieldInput
@@ -48,7 +75,6 @@ export default function ProfileEditForm({ email, name }: { email: string; name: 
           name="name"
           defaultValue={name}
           placeholder="이름을 입력하세요"
-          errorMessage={(state.message || state.errors?.name?.[0]) ?? ''}
         />
 
         <FieldInput
@@ -57,7 +83,6 @@ export default function ProfileEditForm({ email, name }: { email: string; name: 
           name="newPassword"
           type="password"
           placeholder="변경할 비밀번호를 입력하세요"
-          errorMessage={state.errors?.newPassword?.[0] ?? ''}
         />
 
         <FieldInput
@@ -70,29 +95,10 @@ export default function ProfileEditForm({ email, name }: { email: string; name: 
         />
       </div>
       <div style={{ display: 'flex', justifyContent: 'end' }}>
-        <button
-          type="submit"
-          style={{
-            ...saveButtonStyle,
-          }}
-          disabled={isPending}
-        >
+        <Button type="submit" variant="save" disabled={isPending}>
           저장하기
-        </button>
+        </Button>
       </div>
     </form>
   );
 }
-
-export const saveButtonStyle: React.CSSProperties = {
-  backgroundColor: '#0f172a', // 거의 검정(슬레이트900 느낌)
-  color: '#ffffff',
-  border: '1px solid rgba(255, 255, 255, 0.08)',
-  borderRadius: '7px',
-  padding: '16px 18px',
-  fontSize: '14px',
-  fontWeight: 700,
-  lineHeight: 1,
-  cursor: 'pointer',
-  transition: 'background-color 150ms ease, transform 150ms ease, opacity 150ms ease',
-};

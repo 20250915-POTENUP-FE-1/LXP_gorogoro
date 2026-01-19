@@ -3,8 +3,8 @@
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { createCourse, deleteCourse, updateCourse } from '@/services/course.service';
-import { CourseChapterRequest, CourseFormRequest, CourseLessonRequest } from './types';
-import { Difficulty } from '../courses/types';
+import { CourseChapterRequest, CourseFormRequest, CourseLessonRequest } from '../types';
+import { Difficulty } from '../../courses/types';
 import { BackendError } from '@/shared/types/types';
 import { handleBackendError } from '@/shared/utils/errorHandler';
 import { getRefreshApi } from '@/shared/lib/getRefreshApi';
@@ -29,17 +29,21 @@ const getCourseDataFromFormData = (formData: FormData): CourseFormRequest => {
   // FormData에서 contents 배열 재구성
   const contents: CourseChapterRequest[] = [];
   for (let chapterIdx = 0; ; chapterIdx++) {
+    const chapterId = formData.get(`contents[${chapterIdx}][chapterId]`) ?? undefined;
     const chapterTitle = formData.get(`contents[${chapterIdx}][title]`);
     if (chapterTitle === null) break; // 더 이상 챕터 input이 없으면 종료
 
     const lessons: CourseLessonRequest[] = [];
     for (let lessonIdx = 0; ; lessonIdx++) {
+      const lessonId =
+        formData.get(`contents[${chapterIdx}][lessons][${lessonIdx}][lessonId]`) ?? undefined;
       const lessonTitle = formData.get(`contents[${chapterIdx}][lessons][${lessonIdx}][title]`);
       if (lessonTitle === null) break;
 
       lessons.push({
+        lessonId: lessonId ? Number(lessonId) : undefined,
         title: String(lessonTitle),
-        seq: lessonIdx + 1,
+        seq: lessonIdx,
         resourceUrl: String(
           formData.get(`contents[${chapterIdx}][lessons][${lessonIdx}][resourceUrl]`) ?? '',
         ),
@@ -47,8 +51,9 @@ const getCourseDataFromFormData = (formData: FormData): CourseFormRequest => {
     }
 
     contents.push({
+      chapterId: chapterId ? Number(chapterId) : undefined,
       title: String(chapterTitle),
-      seq: chapterIdx + 1,
+      seq: chapterIdx,
       lessons,
     });
   }

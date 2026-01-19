@@ -27,8 +27,8 @@ export default function LoginForm() {
   useEffect(() => {
     if (state.success && state.data) {
       setUser({
-        nickname: state.data.nickname,
-        role: state.data.role,
+        userId: state.data.userId,
+        name: state.data.name,
         email: state.data.email ?? '',
       });
       router.push('courses');
@@ -47,7 +47,6 @@ export default function LoginForm() {
         label="이메일"
         name="email"
         type="email"
-        defaultValue="12@c.com"
         placeholder="Enter your email"
         errorMessage={state.errors?.email}
       />
@@ -55,7 +54,6 @@ export default function LoginForm() {
         label="비밀번호"
         name="password"
         type="password"
-        defaultValue="1qaz2wsx!"
         placeholder="Enter your password"
         errorMessage={state.errors?.password}
       />

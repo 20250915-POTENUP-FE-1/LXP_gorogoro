@@ -2,11 +2,12 @@
 
 import { useActionState, useEffect } from 'react';
 import styles from './SignupForm.module.css';
-import { registAction, RegistFormData } from '../actions/regist.action';
+import { registAction } from '../actions/regist.action';
 import { useRouter } from 'next/navigation';
 import { useModalStore } from '@/stores/useModalStore';
 import { Button } from '@/shared/components/ui/Button';
 import FieldInput from '@/shared/components/ui/FieldInput';
+import { RegistFormData } from '@/features/auth/types';
 
 const initialState = {
   success: false,

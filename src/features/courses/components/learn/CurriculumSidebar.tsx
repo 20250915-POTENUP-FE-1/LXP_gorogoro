@@ -4,13 +4,19 @@ import { useRouter, useSearchParams } from 'next/navigation';
 
 interface CurriculumSidebarProps {
   course: CourseDetailResponse;
-  lessonId: string | null; //현재 URL 의 lessonId
 }
-export default function CurriculumSidebar({ course, lessonId }: CurriculumSidebarProps) {
-  console.log(`course.chapters: `, course.chapters);
+export default function CurriculumSidebar({ course }: CurriculumSidebarProps) {
   const chapters = course.chapters;
   const router = useRouter();
   const searchParams = useSearchParams(); //쿼리스트링 읽기 ?부터
+
+  const lessonIdFromUrl = searchParams.get('lessonId');
+  const firstLessonId = String(course.chapters[0].lessons[0].lessonId);
+  const activeLessonId = lessonIdFromUrl || firstLessonId;
+
+  const totalChapters = course.chapters.length ?? 0;
+  const lessonArray = course.chapters.map((ch) => ch.lessons.length) ?? [];
+  const lessonArraySum = lessonArray.reduce((a, r) => a + r, 0);
 
   const handleLessonSelect = (lessonId: number) => {
     // 기존 쿼리 파라미터를 유지하면서 lessonId 만 교체
@@ -25,8 +31,7 @@ export default function CurriculumSidebar({ course, lessonId }: CurriculumSideba
       <div className={styles.sidebarHeader}>
         <h3 className={styles.sidebarTitle}>Course Curriculum</h3>
         <p className={styles.sidebarSummary}>
-          요약
-          {/*{totalChapters} Chapters • {totalLessons} Lessons*/}
+          {totalChapters} Chapters • {lessonArraySum} Lessons
         </p>
       </div>
       <div className={styles.chapterList}>
@@ -38,7 +43,7 @@ export default function CurriculumSidebar({ course, lessonId }: CurriculumSideba
                 <li
                   key={lesson.lessonId}
                   className={`${styles.lessonItem} ${
-                    lessonId === String(lesson.lessonId) ? styles.activeLesson : ''
+                    activeLessonId === String(lesson.lessonId) ? styles.activeLesson : ''
                   }`}
                   onClick={() => handleLessonSelect(lesson.lessonId)}
                 >

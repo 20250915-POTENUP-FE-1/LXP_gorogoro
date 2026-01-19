@@ -1,38 +1,82 @@
+'use client';
 import styles from '@/features/courses/components/learn/QnaPanel.module.css';
-import React, { useState } from 'react';
+import React, { useActionState, useEffect } from 'react';
+import Input from '@/shared/components/ui/Input';
+import Textarea from '@/shared/components/ui/Textarea';
+import { questionAction } from '@/features/courses/actions/question.action';
+import { QuestionFormData } from '@/features/courses/types';
+import { useModalStore } from '@/stores/useModalStore';
 
-export default function QuestionInputForm() {
-  const [questionTitle, setQuestionTitle] = useState('');
-  const [questionText, setQuestionText] = useState('');
-  const handleQuestionSubmit = () => {
-    if (!questionText.trim()) return;
-    setQuestionText('');
-    setQuestionTitle('');
-  };
+interface QuestionInputFormProps {
+  courseId: number;
+  lessonId: number;
+}
+const initialState: ActionState<QuestionFormData> = {
+  success: false,
+  message: '',
+  errors: {},
+  data: {
+    title: '',
+    content: '',
+  },
+};
+
+import { useRouter } from 'next/navigation';
+
+export default function QuestionInputForm({ courseId, lessonId }: QuestionInputFormProps) {
+  const router = useRouter();
+  const questionWithIds = questionAction.bind(null, courseId, lessonId);
+  const [state, formAction, isPending] = useActionState(questionWithIds, initialState);
+  const { openModal } = useModalStore();
+
+  // 질문 생성 성공시
+  useEffect(() => {
+    if (state.success === true) {
+      openModal({
+        title: '질문 등록 성공',
+        message: state.message || '질문이 등록되었습니다.',
+        onConfirm: () => {},
+      });
+      router.refresh();
+    }
+  }, [state, openModal, router]);
+
+  // 질문 생성 실패시
+  useEffect(() => {
+    if (!state.success && state.message) {
+      openModal({
+        title: '질문 등록 실패',
+        message: state.message || '질문이 등록되지 않았습니다.',
+        onConfirm: () => {},
+      });
+    }
+  }, [state, openModal]);
+
   return (
-    <div className={styles.inputSection}>
-      <input
-        className={styles.questionTitleInput}
-        placeholder="제목을 입력하세요"
-        value={questionTitle}
-        onChange={(e) => setQuestionTitle(e.target.value)}
-      />
-      <textarea
-        className={styles.questionTextInput}
-        placeholder="질문 내용을 입력하세요"
-        value={questionText}
-        onChange={(e) => setQuestionText(e.target.value)}
-        rows={3}
-      />
-      <div className={styles.buttonWrapper}>
-        <button
-          className={styles.submitButton}
-          onClick={handleQuestionSubmit}
-          disabled={!questionText.trim()}
-        >
-          Submit
-        </button>
+    <form action={formAction}>
+      <div className={styles.inputSection}>
+        <Input
+          type="text"
+          className={styles.questionTitleInput}
+          placeholder="제목을 입력하세요."
+          name="questionTitle"
+        />
+        {state.errors?.title && <p>{state.errors.title}</p>}
+        <Textarea
+          className={styles.questionTextInput}
+          placeholder="질문 내용을 입력하세요."
+          rows={3}
+          name="questionContent"
+        />
+        {state.errors?.content && <p>{state.errors.content}</p>}
+        {state.message && <p>{state.message}</p>}
+
+        <div className={styles.buttonWrapper}>
+          <button type="submit" className={styles.submitButton} disabled={isPending}>
+            {isPending ? '저장 중...' : '게시글 등록'}
+          </button>
+        </div>
       </div>
-    </div>
+    </form>
   );
 }

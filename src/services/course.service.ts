@@ -11,6 +11,8 @@ import {
   ReviewRequest,
   ReviewListResponse,
   UpdateQnaRequest,
+  AddEnrollRequest,
+  EnrollResponse,
 } from '@/features/courses/types';
 import { CourseFormRequest, InstructorCoursesResponse } from '@/features/instructor/types';
 import { fetchWithAuth } from '@/shared/lib/authApi';
@@ -24,7 +26,7 @@ const QNA_ENDPOINT = 'qna';
 const REPLIES_ENDPOINT = 'replies';
 const THREAD_ENDPOINT = 'thread';
 const QNA_UNANSWERED_ENDPOINT = 'qna/instructors/unanswered';
-// const ENROLLMENTS_ENDPOINT = 'enrollments';
+const ENROLLMENTS_ENDPOINT = 'enrollments';
 
 /**
  * 강좌 목록 조회
@@ -36,7 +38,7 @@ type CourseRequest = {
 };
 export const getCourses = async (params?: CourseRequest): Promise<CoursesResponse> => {
   const searchParams = new URLSearchParams();
-  if (params.categoryId) searchParams?.set('categoryId', String(params.categoryId));
+  if (params?.categoryId) searchParams?.set('categoryId', String(params.categoryId));
 
   const qs = searchParams.toString();
   const endpoint = `${COURSES_ENDPOINT}${qs ? `?${qs}` : ''}`;
@@ -62,7 +64,7 @@ export const getCourseById = async (courseId: number): Promise<CourseDetailRespo
  * @throws {BackendError}
  */
 export const getInstructorCourses = async (): Promise<InstructorCoursesResponse> => {
-  return await fetchWithAuth<InstructorCoursesResponse>(INSTRUCTOR_COURSES_ENDPOINT, {
+  return await fetchWithAuth<InstructorCoursesResponse>(`${INSTRUCTOR_COURSES_ENDPOINT}`, {
     method: 'GET',
   });
 };
@@ -73,7 +75,7 @@ export const getInstructorCourses = async (): Promise<InstructorCoursesResponse>
  * @throws {BackendError}
  */
 export const createCourse = async (body: CourseFormRequest): Promise<void> => {
-  await fetchWithAuth<void>(COURSES_ENDPOINT, {
+  await fetchWithAuth<void>(`${COURSES_ENDPOINT}`, {
     method: 'POST',
     body: JSON.stringify(body),
   });
@@ -310,23 +312,29 @@ export const getUnansweredQna = async (
   return await fetchWithAuth<UnansweredQnaResponse>(endpoint, { method: 'GET' });
 };
 
-// 미개발 api
 /**
- * 학습용 강좌 상세 조회 (수강자 전용)
+ * 수강 신청
+ * POST /api/enrollments
  * @throws {BackendError}
  */
-// export const getCourseLearn = async (courseId: number): Promise<> => {
-//   return await fetchWithAuth(`${COURSES_ENDPOINT}/${courseId}/learn`, {
-//     method: 'GET',
-//   });
-// };
+export const addMyEnrollments = async (body: AddEnrollRequest): Promise<void> => {
+  return await fetchWithAuth(`${ENROLLMENTS_ENDPOINT}`, {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+};
 
 /**
  * 내 수강 목록 조회
+ * GET /api/enrollments
  * @throws {BackendError}
+ * @param userId - 헤더에 담을 사용자 ID
  */
-// export const getMyEnrollments = async (): Promise<> => {
-//   return await fetchWithAuth(`${ENROLLMENTS_ENDPOINT}/my`, {
-//     method: 'GET',
-//   });
-// };
+export const getMyEnrollments = async (userId: number): Promise<EnrollResponse> => {
+  return await fetchWithAuth(`${ENROLLMENTS_ENDPOINT}`, {
+    method: 'GET',
+    headers: {
+      'X-User-Id': String(userId),
+    },
+  });
+};

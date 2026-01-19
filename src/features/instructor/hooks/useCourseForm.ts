@@ -59,7 +59,6 @@ export function useCourseForm(initialFormData: CourseFormRequest) {
     };
 
   const addChapter = () => {
-    console.log('click Add Chapter');
     setFormData((prev) => {
       const _oldContent = prev.contents;
       const _newContent = {

@@ -1,21 +1,22 @@
 'use client';
 
 import { useModalStore } from '@/stores/useModalStore';
-import CartItem from './CartItem';
 import styles from './CartList.module.css';
-import { CartCourse } from '../types';
-import { ActionState } from '@/shared/types/types';
 import { Button } from '@/shared/components/ui/Button';
+import { Cart } from '@/features/cart/types';
+import CartItem from '@/features/cart/components/CartItem';
 
 interface CartListProps {
-  cartItems: CartCourse[];
-  deleteCartItemAction: (courseId: number) => Promise<ActionState>;
-  deleteCartAllAction: () => Promise<ActionState>;
+  cartItems: Cart[];
+  deleteCartItemAction: (courseId: number) => Promise<ActionState<null>>;
+  deleteCartAllAction: () => Promise<ActionState<null>>;
+  addEnrollAction: (courseId: number) => Promise<ActionState<null>>;
 }
 export default function CartList({
   cartItems,
   deleteCartItemAction,
   deleteCartAllAction,
+  addEnrollAction,
 }: CartListProps) {
   const { openModal } = useModalStore();
   const handleDeleteAll = () => {
@@ -43,11 +44,12 @@ export default function CartList({
         </Button>
       </div>
       <div className={styles.items}>
-        {cartItems.map((course: CartCourse) => (
+        {cartItems.map((cart) => (
           <CartItem
-            key={course.courseId}
-            course={course}
+            key={cart.courseId}
+            cart={cart}
             deleteCartItemAction={deleteCartItemAction}
+            addEnrollAction={addEnrollAction}
           />
         ))}
       </div>

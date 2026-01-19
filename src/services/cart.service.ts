@@ -1,5 +1,5 @@
 import { fetchWithAuth } from '@/shared/lib/authApi';
-import { GetCartResponse } from '@/features/cart/types';
+import { CartRequest, CartResponse } from '@/features/cart/types';
 
 const CARTS_ENDPOINT = 'carts';
 
@@ -8,8 +8,8 @@ const CARTS_ENDPOINT = 'carts';
  * GET /api/carts
  * @throws {BackendError}
  */
-export const getCart = async (): Promise<GetCartResponse> => {
-  return await fetchWithAuth(CARTS_ENDPOINT, {
+export const getCart = async (): Promise<CartResponse> => {
+  return await fetchWithAuth(`${CARTS_ENDPOINT}`, {
     method: 'GET',
   });
 };
@@ -19,10 +19,10 @@ export const getCart = async (): Promise<GetCartResponse> => {
  * POST /api/carts
  * @throws {BackendError}
  */
-export const addToCart = async (courseId: number): Promise<void> => {
-  return await fetchWithAuth(CARTS_ENDPOINT, {
+export const addToCart = async (body: CartRequest): Promise<void> => {
+  return await fetchWithAuth(`${CARTS_ENDPOINT}`, {
     method: 'POST',
-    body: JSON.stringify({ courseId }),
+    body: JSON.stringify(body),
   });
 };
 
@@ -32,7 +32,7 @@ export const addToCart = async (courseId: number): Promise<void> => {
  * @throws {BackendError}
  */
 export const deleteAllCart = async (): Promise<void> => {
-  return await fetchWithAuth(CARTS_ENDPOINT, {
+  return await fetchWithAuth(`${CARTS_ENDPOINT}`, {
     method: 'DELETE',
   });
 };
@@ -42,9 +42,9 @@ export const deleteAllCart = async (): Promise<void> => {
  * DELETE /api/carts/items
  * @throws {BackendError}
  */
-export const deleteCartItem = async (courseId: number): Promise<void> => {
+export const deleteCartItem = async (body: CartRequest): Promise<void> => {
   return await fetchWithAuth(`${CARTS_ENDPOINT}/items`, {
     method: 'DELETE',
-    body: JSON.stringify({ courseId }),
+    body: JSON.stringify(body),
   });
 };

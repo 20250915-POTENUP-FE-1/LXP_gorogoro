@@ -76,7 +76,7 @@ export const MOCK_COURSE_DETAIL: CourseDetailResponse = {
   instructorId: 1001,
   coverImageUrl:
     'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80',
-  difficulty: 'BEGINNER',
+  difficulty: 'INTERMEDIATE',
   chapters: [
     {
       chapterId: 1,

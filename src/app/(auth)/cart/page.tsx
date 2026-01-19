@@ -2,8 +2,13 @@ import CartList from '@/features/cart/components/CartList';
 import CartSummary from '@/features/cart/components/CartSummary';
 import styles from './page.module.css';
 import { getCart } from '@/services/cart.service';
-import { deleteCartAllAction, deleteCartItemAction } from '@/features/cart/action';
+import {
+  deleteCartAllAction,
+  deleteCartItemAction,
+  addEnrollAction,
+} from '@/features/cart/cart.action';
 import { Metadata } from 'next';
+import { Cart, CartResponse } from '@/features/cart/types';
 
 export const metadata: Metadata = {
   title: '장바구니',
@@ -11,10 +16,11 @@ export const metadata: Metadata = {
 };
 
 export default async function CartPage() {
-  const courses = await getCart();
+  const courses: CartResponse = await getCart();
   const { items, summary } = courses;
-  const cartItems = items;
+  const cartItems: Cart[] = items;
   const cartSummary = summary;
+
   return (
     <main className={styles.page}>
       <div className={`page-wrapper ${styles.container}`}>
@@ -22,6 +28,7 @@ export default async function CartPage() {
           cartItems={cartItems}
           deleteCartItemAction={deleteCartItemAction}
           deleteCartAllAction={deleteCartAllAction}
+          addEnrollAction={addEnrollAction}
         />
         <CartSummary cartSummary={cartSummary} />
       </div>

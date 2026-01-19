@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { Button } from '@/shared/components/ui/Button';
 import { CourseDetailResponse } from '@/features/courses/types';
 import useCourseCartActions from '@/features/courses/hooks/useCourseCartActions';
+import { useResolveCoverSrc } from '@/shared/utils/resolveCoverSrc';
 
 interface CourseSidebarProps {
   course: CourseDetailResponse;
@@ -16,7 +17,7 @@ export default function CourseSidebarClient({ course }: CourseSidebarProps) {
       <aside className={styles.sidebar}>
         <Image
           className={styles.thumbnail}
-          src={course.coverImageUrl}
+          src={useResolveCoverSrc(course.coverImageUrl)}
           alt={course.title}
           width={200}
           height={200}

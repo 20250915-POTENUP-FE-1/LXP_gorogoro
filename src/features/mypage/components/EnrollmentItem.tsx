@@ -3,30 +3,28 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from './EnrollmentItem.module.css';
-import { EnrolledCourse } from '../types';
-import { Button } from '@/shared/components/ui/Button';
+import { EnrollCourse } from '@/features/courses/types';
+import { useResolveCoverSrc } from '@/shared/utils/resolveCoverSrc';
 
 interface EnrollmentItemProps {
-  course: EnrolledCourse;
+  enroll: EnrollCourse;
 }
 
-export default function EnrollmentItem() {
-  const handleCancel = async (enrollmentId?: string) => {
-    if (confirm('정말로 수강을 취소하시겠습니까?')) {
-      alert('수강 취소 기능은 준비중입니다.');
-    }
-  };
-  const courseId = 1;
-
+export default function EnrollmentItem({ enroll }: EnrollmentItemProps) {
   return (
     <article className={styles.item}>
       <div className={styles.thumbnail}>
-        {/*<Image className={styles.image} src={} alt={course.courseTitle} />*/}
+        <Image
+          width={200}
+          height={200}
+          className={styles.image}
+          src={useResolveCoverSrc(enroll.coverImage)}
+          alt={enroll.courseTitle}
+        />
       </div>
       <div className={styles.body}>
-        <div className={styles.category}>강좌 이름</div>
-        <h3 className={styles.title}>강좌 타이틀</h3>
-        <p className={styles.instructor}>강의자이름</p>
+        <h3 className={styles.title}>{enroll.courseTitle}</h3>
+        <p className={styles.instructor}>{enroll.instructorName}</p>
         <div className={styles.progressContainer}>
           <div className={styles.progressLabel}>
             <span>진도율</span>
@@ -38,12 +36,9 @@ export default function EnrollmentItem() {
         </div>
       </div>
       <div className={styles.meta}>
-        <Link href={`/courses/${courseId}/learn`} className={styles.action}>
+        <Link href={`/courses/${enroll.courseId}/learn`} className={styles.action}>
           이어 학습하기
         </Link>
-        <Button variant="cancel" size="sm" type="button" onClick={() => handleCancel()}>
-          수강 취소
-        </Button>
       </div>
     </article>
   );

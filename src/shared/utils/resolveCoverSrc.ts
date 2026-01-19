@@ -1,11 +1,27 @@
-export function resolveCoverSrc(url: string) {
-  if (!url) return '/assets/placeholder.png';
+'use client';
+import { useEffect, useState } from 'react';
 
-  if (url.startsWith('ls://')) {
-    const key = url.replace('ls://', ''); // courseCover:uuid
-    const saved = localStorage.getItem(key); // 보통 dataURL 저장해둔 경우
-    return saved ?? '/assets/placeholder.png';
-  }
+const PLACEHOLDER = '/assets/placeholder.png';
 
-  return url; // http/https or /...
+export function useResolveCoverSrc(url?: string | null) {
+  const [src, setSrc] = useState(() => {
+    if (!url) return PLACEHOLDER;
+    if (url.startsWith('ls://')) return PLACEHOLDER;
+    return url;
+  });
+
+  useEffect(() => {
+    if (!url) return setSrc(PLACEHOLDER);
+
+    if (!url.startsWith('ls://')) {
+      setSrc(url);
+      return;
+    }
+
+    const key = url.replace('ls://', '');
+    const saved = localStorage.getItem(key);
+    setSrc(saved ?? PLACEHOLDER);
+  }, [url]);
+
+  return src;
 }

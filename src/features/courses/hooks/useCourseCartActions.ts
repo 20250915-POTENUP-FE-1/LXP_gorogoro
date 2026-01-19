@@ -12,6 +12,7 @@ export default function useCourseCartActions(courseId: number): UseCourseCartAct
   const router = useRouter();
   const { openModal } = useModalStore();
   const [pending, setPending] = useState(false);
+
   const handleCartError = (error: unknown) => {
     if (error instanceof Error && error.message.includes('409')) {
       openModal({
@@ -25,12 +26,13 @@ export default function useCourseCartActions(courseId: number): UseCourseCartAct
       message: `${msg}\n장바구니 추가에 실패했습니다. 다시 시도해주세요`,
     });
   };
+
   const add = async () => {
     if (pending) return;
     setPending(true);
 
     try {
-      await addToCart(courseId);
+      await addToCart({ courseId });
       openModal({
         title: '장바구니',
         message: '장바구니에 잘 담겼습니다.',
@@ -39,17 +41,19 @@ export default function useCourseCartActions(courseId: number): UseCourseCartAct
       handleCartError(error);
     }
   };
+
   const checkout = async () => {
     if (pending) return;
     setPending(true);
 
     try {
-      await addToCart(courseId);
-      router.push('/cart');
+      await addToCart({ courseId });
+      router.push('/mypage/enrollment');
     } catch (error: unknown) {
       router.push('/cart');
       handleCartError(error);
     }
   };
+
   return { pending, add, checkout };
 }

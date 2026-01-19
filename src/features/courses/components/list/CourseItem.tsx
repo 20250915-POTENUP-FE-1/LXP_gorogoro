@@ -4,19 +4,22 @@ import styles from './CourseItem.module.css';
 import { Course } from '../../types';
 import Image from 'next/image';
 import { Button } from '@/shared/components/ui/Button';
+import { useResolveCoverSrc } from '@/shared/utils/resolveCoverSrc';
+import useCourseCartActions from '@/features/courses/hooks/useCourseCartActions';
 
 interface CourseItemProps {
   course: Course;
 }
 
 export default function CourseItem({ course }: CourseItemProps) {
+  const { pending, add, checkout } = useCourseCartActions(course.courseId);
   return (
     <Link href={`/courses/${course.courseId}`}>
       <article className={styles.item} key={course.courseId}>
         <div className={styles.imageWrapper}>
           <Image
             className={styles.image}
-            src={course.coverImageUrl}
+            src={useResolveCoverSrc(course.coverImageUrl)}
             alt=""
             width={200}
             height={200}
@@ -32,8 +35,12 @@ export default function CourseItem({ course }: CourseItemProps) {
           <p className={styles.price}>{course.price.toLocaleString()}원</p>
           <p className={styles.instructor}>{course.name}</p>
           <div className={styles.BtnBox}>
-            <Button variant={'primary'}>장바구니 담기</Button>
-            <Button variant={'primary'}>결제하기</Button>
+            <Button variant={'primary'} onClick={add}>
+              장바구니 담기
+            </Button>
+            <Button variant={'primary'} onClick={checkout}>
+              결제하기
+            </Button>
           </div>
         </div>
       </article>

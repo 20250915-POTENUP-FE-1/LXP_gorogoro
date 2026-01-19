@@ -6,7 +6,7 @@ import { CourseFormRequest } from '../types';
 import { Category } from '@/features/courses/types';
 import FieldInput from '@/shared/components/ui/FieldInput';
 import FieldTextarea from '@/shared/components/ui/FieldTextarea';
-import { CourseFormResponse } from '@/features/instructor/action';
+import { CourseFormResponse } from '@/features/instructor/actions/course.action';
 import ErrorMessage from '@/shared/components/ui/ErrorMessage';
 import { useLocalStorageImage } from '@/shared/lib/coverImageField';
 
@@ -68,7 +68,7 @@ export default function CourseBasicInfoForm({
               target: {
                 ...e.target,
                 name: 'accessDays',
-                value: raw === '' ? 0 : String(parseInt(raw, 10)),
+                value: raw === '' ? '0' : String(parseInt(raw, 10)),
               },
             });
           }}
@@ -137,7 +137,7 @@ export default function CourseBasicInfoForm({
               target: {
                 ...e.target,
                 name: 'price',
-                value: raw === '' ? 0 : String(parseInt(raw, 10)),
+                value: raw === '' ? '0' : String(parseInt(raw, 10)),
               },
             });
           }}
