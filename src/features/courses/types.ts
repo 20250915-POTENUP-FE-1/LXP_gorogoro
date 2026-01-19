@@ -181,6 +181,10 @@ export type CreateQnaReplyRequest = {
   content: string;
 };
 
+export type ReplyFormData = {
+  content: string;
+};
+
 /**
  * PATCH /api/courses/{courseId}/lessons/{lessonId}/qna/{questionId}
  * 질문/답변 수정 요청
@@ -206,4 +210,27 @@ export type UnansweredQnaItemDto = {
 
 export type UnansweredQnaResponse = {
   questions: UnansweredQnaItemDto[];
+};
+
+/**
+ * POST /api/enrollments
+ * 수강 신청
+ */
+export type AddEnrollRequest = {
+  courseId: number;
+};
+
+/**
+ * GET /api/enrollments
+ * 내 수강 목록 조회
+ */
+export type EnrollResponse = {
+  contents: EnrollCourse[];
+};
+
+export type EnrollCourse = {
+  courseId: number;
+  courseTitle: string;
+  instructorName: string;
+  coverImage: string;
 };

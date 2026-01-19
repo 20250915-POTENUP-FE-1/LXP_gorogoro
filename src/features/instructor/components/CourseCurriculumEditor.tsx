@@ -4,7 +4,7 @@ import type { ChangeEvent } from 'react';
 import styles from './CourseCurriculumEditor.module.css';
 import { Button } from '@/shared/components/ui/Button';
 import { CourseFormRequest } from '@/features/instructor/types';
-import { CourseFormResponse } from '@/features/instructor/action';
+import { CourseFormResponse } from '@/features/instructor/actions/course.action';
 import ErrorMessage from '@/shared/components/ui/ErrorMessage';
 
 interface CourseCurriculumProps {
@@ -45,9 +45,16 @@ export default function CourseCurriculum({
       <div className={styles.chapterList}>
         {formData.contents?.map((chapter, chapterIdx) => {
           const chapterName = `contents[${chapterIdx}][title]`;
+          const chapterIdName = `contents[${chapterIdx}][chapterId]`; // chapterId용 name
 
           return (
-            <div key={chapter.chapterId ?? chapterIdx} className={styles.chapterItem}>
+            <div
+              key={chapter.chapterId ?? `new-chapter-${chapterIdx}`}
+              className={styles.chapterItem}
+            >
+              {/* 1. 챕터 ID 숨겨서 넣기 */}
+              <input type="hidden" name={chapterIdName} value={chapter.chapterId ?? ''} />
+
               <div className={styles.chapterHeader}>
                 <span className={styles.chapterSeq}>Chapter {chapterIdx + 1}</span>
 
@@ -70,9 +77,13 @@ export default function CourseCurriculum({
                 {chapter.lessons.map((lesson, lessonIdx) => {
                   const lessonTitleName = `contents[${chapterIdx}][lessons][${lessonIdx}][title]`;
                   const lessonUrlName = `contents[${chapterIdx}][lessons][${lessonIdx}][resourceUrl]`;
+                  const lessonIdName = `contents[${chapterIdx}][lessons][${lessonIdx}][lessonId]`; // lessonId용 name
 
                   return (
-                    <div key={lesson.lessonId ?? lessonIdx} className={styles.lessonItem}>
+                    <div key={`lesson-${chapterIdx}-${lessonIdx}`} className={styles.lessonItem}>
+                      {/* 2. 레슨 ID 숨겨서 넣기 */}
+                      <input type="hidden" name={lessonIdName} value={lesson.lessonId ?? ''} />
+
                       <span className={styles.lessonSeq}>{lessonIdx + 1}.</span>
 
                       <div className={styles.inputWrap}>
@@ -98,10 +109,14 @@ export default function CourseCurriculum({
                           placeholder="영상/자료 URL"
                           onChange={handleLessonResourceUrlChange?.(chapterIdx, lessonIdx)}
                         />
+
                         {state.errors?.[lessonUrlName] && (
                           <ErrorMessage errorMessage={state.errors[lessonUrlName]} />
                         )}
                       </div>
+                      <Button variant="add" type="button" onClick={() => addLesson(chapterIdx)}>
+                        + 강의 추가
+                      </Button>
                     </div>
                   );
                 })}

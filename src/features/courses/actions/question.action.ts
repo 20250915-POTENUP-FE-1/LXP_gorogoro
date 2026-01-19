@@ -1,5 +1,6 @@
 'use server';
 
+import { revalidatePath } from 'next/cache';
 import { createQnaQuestion } from '@/services/course.service';
 import { QuestionFormData } from '@/features/courses/types';
 import { isBackendError } from '@/shared/types/types';
@@ -31,6 +32,7 @@ export const questionAction = async (
 
   try {
     await createQnaQuestion(courseId, lessonId, payload);
+    revalidatePath(`/courses/${courseId}/learn`, 'page');
     return {
       success: true,
       message: '등록을 성공했습니다.',

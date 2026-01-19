@@ -14,16 +14,16 @@ export interface InstructorCoursesResponse {
 }
 
 export interface CourseChapterRequest {
-  chapterId?: number; // PUT에서만 필요
+  chapterId?: number;
   title: string;
   seq?: number;
   lessons: CourseLessonRequest[];
 }
 
 export interface CourseLessonRequest {
-  lessonId?: number; // PUT에서만 필요
+  lessonId?: number;
   title: string;
-  seq?: number | null;
+  seq?: number;
   resourceUrl?: string | null;
 }
 

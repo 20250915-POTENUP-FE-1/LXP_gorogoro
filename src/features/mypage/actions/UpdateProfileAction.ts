@@ -1,10 +1,9 @@
 'use server';
 
-import { cookies } from 'next/headers';
 import { revalidatePath } from 'next/cache';
-import { getMe } from '@/services/user.service';
 import { getRefreshApi } from '@/shared/lib/getRefreshApi';
 import { groupFieldErrors } from '@/shared/utils/groupFieldErrors';
+import { updateMe } from '@/services/user.service';
 
 export type UpdateProfileActionState = {
   success: boolean;
@@ -16,7 +15,6 @@ export async function updateProfileAction(
   _prev: UpdateProfileActionState,
   formData: FormData,
 ): Promise<UpdateProfileActionState> {
-  const email = (formData.get('email') ?? '').toString().trim();
   const newPassword = (formData.get('newPassword') ?? '').toString();
   const newPasswordCheck = (formData.get('newPasswordCheck') ?? '').toString();
   const name = (formData.get('name') ?? '').toString().trim();
@@ -35,48 +33,30 @@ export async function updateProfileAction(
 
   if (Object.keys(errors).length) return { success: false, errors };
 
-  const cookieStore = await cookies();
-  const accessToken = cookieStore.get('accessToken')?.value;
-  if (!accessToken) return { success: false, message: '로그인이 필요합니다.' };
-
-  const payload: Record<string, string> = {
-    email,
+  const payload = {
     name,
     newPassword,
     newPasswordCheck,
   };
-  if (newPassword) payload.passwordEncrypted = newPassword;
 
-  const res = await fetch(`${process.env.API_BASE_URL}users/update`, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${accessToken}`,
-    },
-    body: JSON.stringify(payload),
-    cache: 'no-store',
-  }).catch(async (error) => getRefreshApi(error));
-
-  if (!res.ok) {
-    let msg = '프로필 수정에 실패했습니다.';
-    let mapped: Record<string, string[]> | undefined;
-
-    try {
-      const data = (await res.json()) as { message?: string; errors?: FieldError[] };
-      msg = data?.message ?? msg;
-
-      if (Array.isArray(data?.errors) && data.errors.length > 0) {
-        mapped = groupFieldErrors(data.errors);
-      }
-    } catch {}
+  try {
+    await updateMe(payload);
+    revalidatePath('/mypage');
+    return {
+      success: true,
+      message: '프로필이 성공적으로 수정되었습니다.',
+    };
+  } catch (error) {
+    await getRefreshApi(error);
+    let mappedErrors: Record<string, string[]>;
+    if (Array.isArray(error.errors)) {
+      mappedErrors = groupFieldErrors(error.errors);
+    }
 
     return {
       success: false,
-      message: msg,
-      ...(mapped ? { errors: mapped } : {}),
+      message: '프로필 수정에 실패했습니다.',
+      errors: mappedErrors,
     };
   }
-
-  revalidatePath(`/mypage`);
-  return { success: true };
 }

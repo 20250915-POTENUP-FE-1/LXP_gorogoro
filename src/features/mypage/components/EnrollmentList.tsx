@@ -1,22 +1,18 @@
-import EnrollmentItem from "./EnrollmentItem";
-import styles from "./EnrollmentList.module.css";
-import { EnrolledCourse } from "../types";
+import EnrollmentItem from './EnrollmentItem';
+import styles from './EnrollmentList.module.css';
+import { EnrollResponse } from '@/features/courses/types';
 
 interface EnrollmentListProps {
-  courses: EnrolledCourse[];
-  coursesCount: number;
+  enrollments: EnrollResponse;
 }
 
-export default function EnrollmentList({
-  courses,
-  coursesCount,
-}: EnrollmentListProps) {
+export default function EnrollmentList({ enrollments }: EnrollmentListProps) {
+  const enrolls = enrollments.contents;
   return (
     <section className={styles.list}>
-      <h1 className={styles.title}>총 {coursesCount}개의 수강중인 강좌</h1>
       <div className={styles.items}>
-        {courses.map((course) => (
-          <EnrollmentItem key={course.enrollmentId} course={course} />
+        {enrolls?.map((enroll) => (
+          <EnrollmentItem key={enroll.courseId} enroll={enroll} />
         ))}
       </div>
     </section>

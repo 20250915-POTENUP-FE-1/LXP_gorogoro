@@ -1,6 +1,6 @@
 'use client';
 import styles from './InstructorCourseItem.module.css';
-import { DeleteCourseAction } from '../action';
+import { DeleteCourseAction } from '../actions/course.action';
 import { useRouter } from 'next/navigation';
 import { InstructorCourse } from '../types';
 import Image from 'next/image';

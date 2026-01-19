@@ -1,15 +1,15 @@
-// 카테고리 상세 정보
+export interface SubCategoryDetail {
+  subCategoryId: number;
+  name: string;
+}
+
 export interface CategoryDetail {
   categoryId: number;
   name: string;
-  subCategoryDetail: {
-    subCategoryId: number;
-    name: string;
-  };
+  subCategoryDetail: SubCategoryDetail;
 }
 
-// 장바구니 아이템
-export interface CartCourse {
+export interface Cart {
   categoryDetail: CategoryDetail;
   courseId: number;
   courseTitle: string;
@@ -19,14 +19,22 @@ export interface CartCourse {
   addedAt: string;
 }
 
-// 장바구니 요약
+export interface CartSummary {
+  totalCount: number;
+  totalAmount: number;
+}
+
+export interface CartResponse {
+  owner_id: number;
+  items: Cart[];
+  summary: CartSummary;
+}
+
 export interface Summary {
   totalCount: number;
   totalAmount: number;
 }
 
-export interface GetCartResponse {
-  owner_id: number;
-  items: CartCourse[];
-  summary: Summary;
+export interface CartRequest {
+  courseId: number;
 }

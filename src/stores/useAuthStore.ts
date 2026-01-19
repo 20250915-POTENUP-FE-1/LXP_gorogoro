@@ -3,9 +3,10 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 import { ROLE } from '@/features/auth/types';
 
 type UserProfile = {
-  nickname: string;
-  role: ROLE;
-  email?: string;
+  userId: number;
+  name: string;
+  email: string;
+  role?: ROLE;
 };
 interface AuthStore {
   userProfile: UserProfile | null; // 유저 프로필

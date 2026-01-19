@@ -5,7 +5,6 @@ import { CourseDetailResponse, LessonQnaListResponse } from '@/features/courses/
 import CurriculumSidebar from './CurriculumSidebar';
 import styles from './CourseLearn.module.css';
 import React from 'react';
-import { useSearchParams } from 'next/navigation';
 
 interface CourseLearnProps {
   course: CourseDetailResponse;
@@ -13,8 +12,6 @@ interface CourseLearnProps {
 }
 export default function CourseLearn({ course, qnaList }: CourseLearnProps) {
   const qnaItems = qnaList.questions;
-  const searchParams = useSearchParams(); // 쿼리스트링 읽기 ?부터
-  const lessonId = searchParams.get('lessonId');
 
   return (
     <div className={styles.mainLayout}>
@@ -22,7 +19,7 @@ export default function CourseLearn({ course, qnaList }: CourseLearnProps) {
         <VideoCard />
         <QnaPanel qnaItems={qnaItems} />
       </main>
-      <CurriculumSidebar course={course} lessonId={lessonId} />
+      <CurriculumSidebar course={course} />
     </div>
   );
 }

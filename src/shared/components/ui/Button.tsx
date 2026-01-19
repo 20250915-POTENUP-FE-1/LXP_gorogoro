@@ -19,7 +19,9 @@ type ButtonVariant =
   | 'category'
   | 'chip'
   | 'tab'
-  | 'navItem';
+  | 'navItem'
+  | 'save'
+  | 'reply';
 
 type ButtonSize = 'sm' | 'md' | 'lg' | 'full';
 
@@ -37,6 +39,8 @@ const variantClassMap: Record<ButtonVariant, string> = {
   chip: styles.chipButton,
   tab: styles.tabButton,
   navItem: styles.navItem,
+  save: styles.saveButton,
+  reply: styles.replyButton,
 };
 
 const sizeClassMap: Record<ButtonSize, string> = {

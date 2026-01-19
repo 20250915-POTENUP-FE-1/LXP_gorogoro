@@ -3,7 +3,7 @@ import styles from '@/shared/components/layout/Header.module.css';
 import CategoryDropdown from './CategoryDropdown';
 import { getAllCategories } from '@/services/category.service';
 import UserInfo from './UserInfo';
-import UserActions from './UserActions';
+import UserNav from './UserNav';
 
 export default async function Header() {
   const { contents: categories } = await getAllCategories();
@@ -18,7 +18,7 @@ export default async function Header() {
           <CategoryDropdown categories={categories} />
           <UserInfo />
         </div>
-        <UserActions />
+        <UserNav />
       </div>
     </header>
   );

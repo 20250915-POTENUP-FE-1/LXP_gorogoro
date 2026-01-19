@@ -27,8 +27,8 @@ export default function LoginForm() {
   useEffect(() => {
     if (state.success && state.data) {
       setUser({
-        nickname: state.data.nickname,
-        role: state.data.role,
+        userId: state.data.userId,
+        name: state.data.name,
         email: state.data.email ?? '',
       });
       router.push('courses');

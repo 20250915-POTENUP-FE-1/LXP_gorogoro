@@ -1,14 +1,4 @@
-export type ROLE = 'USER' | 'INSTRUCTOR' | 'ADMIN';
-
-export interface User {
-  id: string;
-  uid?: string;
-  email: string;
-  password: string;
-  name: string;
-  role: ROLE;
-  createdAt?: string;
-}
+export type ROLE = 'USER' | 'INSTRUCTOR' | 'ADMIN' | 'STUDENT';
 
 export interface RegistRequest {
   name: string;
@@ -18,7 +8,10 @@ export interface RegistRequest {
 }
 
 export interface RegistResponse {
-  message: string;
+  userId: number;
+  email: string;
+  name: string;
+  role: ROLE;
 }
 
 export type RegistFormData = {
@@ -35,39 +28,32 @@ export interface LoginRequest {
 }
 
 export interface LoginResponse {
+  userId: number;
+  name: string;
+  email: string;
   accessToken: string;
-  refreshToken: string;
-  nickname: string;
-  role: ROLE;
 }
 
-// 클라이언트로 반환되는 사용자 정보 (토큰 제외)
-export interface LoginUserInfo {
-  nickname: string;
-  role: ROLE;
-  email?: string;
-}
-
-export interface RefreshRequest {
-  refreshToken: string;
-}
-
-export interface RefreshResponse {
+export interface ReissueResponse {
   accessToken: string;
 }
 
 export interface GetMeResponse {
-  id: number;
-  name: string;
-  nickname: string;
+  userId: number;
   email: string;
+  name: string;
   role: ROLE;
-  createdAt: string;
 }
 
-export interface ModifyMeRequest {
-  email?: string;
-  passwordEncrypted?: string;
-  name?: string;
-  nickname?: string;
+export interface UpdateUserRequest {
+  name: string;
+  newPassword: string;
+  newPasswordCheck: string;
+}
+
+export interface UpdateUserResponse {
+  userId: number;
+  email: string;
+  name: string;
+  role: ROLE;
 }

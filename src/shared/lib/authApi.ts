@@ -1,6 +1,7 @@
 'use server';
 
 import { cookies } from 'next/headers';
+import { getRefreshApi } from '@/shared/lib/getRefreshApi';
 const BASE_URL = process.env.API_BASE_URL || 'http://localhost:8080/api/';
 
 type ApiError = {
@@ -10,10 +11,6 @@ type ApiError = {
   errors?: unknown;
 };
 
-/**
- * HTTP Response를 처리하고 에러 시 throw
- * @throws {BackendError} HTTP 에러 발생 시
- */
 const handleResponse = async <T>(res: Response): Promise<T | null> => {
   const text = await res.text();
   const contentType = res.headers.get('content-type') ?? '';
@@ -52,25 +49,28 @@ const handleResponse = async <T>(res: Response): Promise<T | null> => {
   return JSON.parse(text) as T;
 };
 
-/**
- * 인증이 필요한 API 요청 (자동 토큰 갱신 포함)
- * @throws {BackendError}
- */
 export const fetchWithAuth = async <T>(endpoint: string, options: RequestInit = {}): Promise<T> => {
-  const cookieStore = await cookies();
-  const accessToken = cookieStore.get('accessToken')?.value;
+  try {
+    const cookieStore = await cookies();
+    const accessToken = cookieStore.get('accessToken')?.value;
 
-  const headers = {
-    ...(options.headers || {}),
-    'Content-Type': 'application/json',
-    ...((accessToken && { Authorization: `Bearer ${accessToken}` }) || {}),
-  };
+    const headers = {
+      ...(options.headers || {}),
+      'Content-Type': 'application/json',
+      ...((accessToken && { Authorization: `Bearer ${accessToken}` }) || {}),
+    };
 
-  const res = await fetch(`${BASE_URL}${endpoint}`, {
-    ...options,
-    headers,
-    cache: 'no-store',
-  });
+    const res = await fetch(`${BASE_URL}${endpoint}`, {
+      ...options,
+      headers,
+      cache: 'no-store',
+    });
 
-  return handleResponse<T>(res);
+    return handleResponse<T>(res);
+  } catch (error) {
+    if (error.digest?.startsWith('NEXT_REDIRECT')) {
+      throw error;
+    }
+    return (await getRefreshApi(error)) as T;
+  }
 };

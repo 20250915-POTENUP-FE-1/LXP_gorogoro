@@ -4,10 +4,8 @@ import { useRouter, useSearchParams } from 'next/navigation';
 
 interface CurriculumSidebarProps {
   course: CourseDetailResponse;
-  lessonId: string | null; //현재 URL 의 lessonId
 }
-export default function CurriculumSidebar({ course, lessonId }: CurriculumSidebarProps) {
-  console.log(`course.chapters: `, course.chapters);
+export default function CurriculumSidebar({ course }: CurriculumSidebarProps) {
   const chapters = course.chapters;
   const router = useRouter();
   const searchParams = useSearchParams(); //쿼리스트링 읽기 ?부터

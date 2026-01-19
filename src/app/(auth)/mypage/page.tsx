@@ -2,7 +2,6 @@ import styles from './page.module.css';
 import ProfileEditForm from '@/features/mypage/components/ProfileEditForm';
 import { Metadata } from 'next';
 import { getMe } from '@/services/user.service';
-import { getRefreshApi } from '@/shared/lib/getRefreshApi';
 
 export const metadata: Metadata = {
   title: '마이페이지',
@@ -10,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default async function ProfilePage() {
-  const me = await getMe().catch(async (error) => getRefreshApi(error));
+  const me = await getMe();
 
   return (
     <div className={styles.container}>

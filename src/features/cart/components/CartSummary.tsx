@@ -1,3 +1,4 @@
+'use client';
 import { Summary } from '../types';
 import styles from './CartSummary.module.css';
 import Link from 'next/link';
@@ -29,7 +30,7 @@ export default function CartSummary({ cartSummary }: CartSummaryProps) {
         <span className={styles.totalValue}>₩{totalAmount.toLocaleString()}</span>
       </div>
       <Link href="/mypage">
-        <Button variant="submit" size="full">
+        <Button type="button" variant="submit" size="full">
           결제하기
         </Button>
       </Link>

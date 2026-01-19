@@ -1,4 +1,3 @@
-'use client';
 import styles from './CourseCurriculumView.module.css';
 import { CourseDetailResponse } from '@/features/courses/types';
 import Link from 'next/link';
@@ -26,8 +25,7 @@ export default function CourseCurriculumView({ course }: CurriculumViewProps) {
                   <div className={styles.lessonInfo}>
                     <span className={styles.lessonTitle}>{lesson.title}</span>
                     <Link
-                      href={`/courses/${courseId}/learn`}
-                      target="_blank"
+                      href={`/courses/${courseId}/learn?lessonId=${lesson.lessonId}`} // 쿼리 스트링 추가
                       rel="noopener noreferrer"
                       className={styles.lessonLink}
                     >

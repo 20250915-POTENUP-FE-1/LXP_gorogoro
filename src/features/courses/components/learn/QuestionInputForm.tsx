@@ -21,9 +21,12 @@ const initialState: ActionState<QuestionFormData> = {
   },
 };
 
+import { useRouter } from 'next/navigation';
+
 export default function QuestionInputForm({ courseId, lessonId }: QuestionInputFormProps) {
-  const postQuestionWithIds = questionAction.bind(null, courseId, lessonId);
-  const [state, formAction, isPending] = useActionState(postQuestionWithIds, initialState);
+  const router = useRouter();
+  const questionWithIds = questionAction.bind(null, courseId, lessonId);
+  const [state, formAction, isPending] = useActionState(questionWithIds, initialState);
   const { openModal } = useModalStore();
 
   // 질문 생성 성공시
@@ -34,8 +37,9 @@ export default function QuestionInputForm({ courseId, lessonId }: QuestionInputF
         message: state.message || '질문이 등록되었습니다.',
         onConfirm: () => {},
       });
+      router.refresh();
     }
-  }, [state, openModal]);
+  }, [state, openModal, router]);
 
   // 질문 생성 실패시
   useEffect(() => {

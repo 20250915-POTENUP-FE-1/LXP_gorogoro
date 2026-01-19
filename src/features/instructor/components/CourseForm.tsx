@@ -6,7 +6,7 @@ import { CourseFormRequest } from '../types';
 import { useCourseForm } from '../hooks/useCourseForm';
 import CourseBasicInfoForm from './CourseBasicInfoForm';
 import CourseCurriculumForm from './CourseCurriculumForm';
-import { CreateCourseAction, UpdateCourseAction } from '../action';
+import { CreateCourseAction, UpdateCourseAction } from '../actions/course.action';
 import { useModalStore } from '@/stores/useModalStore';
 import { Button } from '@/shared/components/ui/Button';
 import { Category } from '@/features/courses/types';
@@ -27,7 +27,7 @@ const defaultFormData: CourseFormRequest = {
   coverImageUrl: '',
   categoryId: 0,
   price: 0,
-  courseDifficulty: 'BEGINNER',
+  courseDifficulty: 'INTERMEDIATE',
   contents: [
     {
       title: '',
@@ -41,7 +41,7 @@ const defaultFormData: CourseFormRequest = {
       ],
     },
   ],
-  availableDays: 9999,
+  accessDays: 9999,
 };
 
 export default function CourseForm({
