@@ -7,7 +7,6 @@ import { CourseChapterRequest, CourseFormRequest, CourseLessonRequest } from '..
 import { Difficulty } from '../../courses/types';
 import { BackendError } from '@/shared/types/types';
 import { handleBackendError } from '@/shared/utils/errorHandler';
-import { getRefreshApi } from '@/shared/lib/getRefreshApi';
 import { withRefreshRetry } from '@/shared/lib/withRefreshRetry';
 
 type ActionState = {

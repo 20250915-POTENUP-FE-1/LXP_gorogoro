@@ -10,7 +10,7 @@ export default function InstructorSidebar() {
 
   return (
     <aside className={styles.sidebar} aria-label="강사 사이드바">
-      <Avatar nickname={userProfile?.nickname} role={userProfile?.role} />
+      <Avatar name={userProfile?.name} role={userProfile?.role} />
       <nav className={styles.nav} aria-label="강사 메뉴">
         <Link className={styles.navItem} href="/instructor/dashboard">
           대시보드
