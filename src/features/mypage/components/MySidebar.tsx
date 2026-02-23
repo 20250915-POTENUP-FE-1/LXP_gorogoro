@@ -11,7 +11,7 @@ export default async function MySidebar() {
 
   return (
     <aside className={styles.sidebar} aria-label="마이페이지 사이드바">
-      <Avatar nickname={me?.name} role={me?.role} email={me?.email} />
+      <Avatar name={me?.name} role={me?.role} email={me?.email} />
 
       <nav className={styles.nav} aria-label="마이페이지 메뉴">
         <Link href="/mypage" className={`${styles.navItem}`}>

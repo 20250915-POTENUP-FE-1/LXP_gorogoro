@@ -12,8 +12,8 @@ export const isBackendError = (error: unknown): error is BackendError => {
   return (
     typeof error === 'object' &&
     error !== null &&
-    'code' in error && // code 필드가 있는지 확인
-    'status' in error && // status 필드가 있는지 확인
-    'message' in error // message 필드가 있는지 확인
+    'code' in error &&
+    'status' in error &&
+    'message' in error
   );
 };

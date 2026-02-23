@@ -34,7 +34,7 @@
 }
 
 .illustrationImage {
-  width: 100%;
+  width: 320px;
   border-radius: 1rem;
   box-shadow: 0 15px 30px rgba(16, 24, 40, 0.12);
   margin-bottom: 2rem;

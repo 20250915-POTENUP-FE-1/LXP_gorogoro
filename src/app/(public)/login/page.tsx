@@ -18,6 +18,8 @@ export default function LoginPage() {
             <div style={{ position: 'relative', width: 320, height: 350 }}>
               <Image
                 fill
+                fetchPriority="high"
+                sizes="320px"
                 className={styles.illustrationImage}
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuCt3Z9MrMi0I99SK_HYjJb0WlT6pzfG3F96hwg4EFBWs4dSaNVaZ8iYnUSt8sDRI3pERhF5Obro2NY3EJT_96K3Ox1J7hB9s-WIVO2yDUsX9teGrCJ8RcW_mpOWAP-yLsQ7xeEU7mRSYBks0ZqkGO4FzJS7BSv9kbXO_pvBM5Eq5lCBM91loCeNFHcrcMLu3bR1Oaq1vmRj-TCvS082VAMOiQ6OTrVI8t0DWkpym0JsG6xRKt0GgOcv2ZBwrTsx8J0HlJ7iYcVtlEY"
                 alt="People collaborating around a laptop, representing online learning."
